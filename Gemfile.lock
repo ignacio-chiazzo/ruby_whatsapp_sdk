@@ -1,0 +1,34 @@
+PATH
+  remote: .
+  specs:
+    ruby-whatsapp-sdk (0.1.0)
+      faraday (~> 2.3.0)
+      oj (~> 3.13.13)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    faraday (2.3.0)
+      faraday-net_http (~> 2.0)
+      ruby2_keywords (>= 0.0.4)
+    faraday-net_http (2.0.3)
+    minitest (5.15.0)
+    mocha (1.14.0)
+    oj (3.13.13)
+    rake (10.5.0)
+    ruby2_keywords (0.0.5)
+
+PLATFORMS
+  x86_64-darwin-21
+
+DEPENDENCIES
+  bundler (~> 2.3)
+  faraday
+  minitest (~> 5.0)
+  mocha
+  oj
+  rake (~> 10.0)
+  ruby-whatsapp-sdk!
+
+BUNDLED WITH
+   2.3.9
