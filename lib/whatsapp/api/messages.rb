@@ -154,14 +154,14 @@ module Whatsapp
         Whatsapp::Api::MessageResponse.new(response)
       end
 
-      def send_contacts(sender_id:, recipient_number:, contacts:)
+      def send_contacts(sender_id:, recipient_number:, contacts: nil, contacts_json: {})
         params = {
           messaging_product: "whatsapp",
           to: recipient_number,
           recepient_type: "individual",
           type: "contacts"
         }
-        params[:contacts] = contacts.map(&:to_h)
+        params[:contacts] = if contacts.present? contacts.map(&:to_h) : contacts_json
 
         response = send_request(
           endpoint: endpoint(sender_id),
