@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-# Version
-module WhatsappSdk
-  VERSION = "0.0.1"
-end
-
 # APIs
 require_relative "whatsapp_sdk/api/phone_numbers"
 require_relative "whatsapp_sdk/api/messages"
