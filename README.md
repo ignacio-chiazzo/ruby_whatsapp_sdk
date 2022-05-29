@@ -29,13 +29,13 @@ To use `Messages` or `PhoneNumbers` you need to create a `Client` instance by pa
 client = Whatsapp::Client.new("<ACCESS TOKEN>") # replace this with a valid 
 ```
 
-Each API operation returns a `Whatsapp::Api::Response` that contains `data` and `error` and a couple of helpful functions such as `ok?`. There are three types of response `Whatsapp::Api::MessageDataResponse`, `Whatsapp::Api::PhoneNumberDataResponse` and `Whatsapp::Api::PhoneNumbersDataResponse`. Each of them contains different attributes.
+Each API operation returns a `Whatsapp::Api::Response` that contains `data` and `error` and a couple of helpful functions such as `ok?` and `error?`. There are three types of response `Whatsapp::Api::MessageDataResponse`, `Whatsapp::Api::PhoneNumberDataResponse` and `Whatsapp::Api::PhoneNumbersDataResponse`. Each of them contains different attributes.
 
 ## Operations
 First, create the client and then create an instance `Whatsapp::Api::Messages` that requires a client as a param like this:
 
 ```ruby
-client = Whatsapp::Client.new("<ACCESS TOKEN>") # replace this with a valid 
+client = Whatsapp::Client.new("<ACCESS TOKEN>") # replace this with a valid access_token
 messages_api = Whatsapp::Api::Messages.new(client)
 phone_numbers_api = Whatsapp::Api::PhoneNumbers.new(client)
 ```
@@ -43,12 +43,12 @@ phone_numbers_api = Whatsapp::Api::PhoneNumbers.new(client)
 ### Phone numbers API
 Get the list of phone numbers registered
 ```ruby
-m.registered_numbers("123456") # accepts a business_id
+phone_numbers_api.registered_numbers("123456") # accepts a business_id
 ```
 
 Get the a phone number by id
 ```ruby
-m.registered_numbers("123456") # accepts a phone_number_id
+phone_numbers_api.registered_numbers("123456") # accepts a phone_number_id
 ```
 
 ### Messages API
@@ -73,7 +73,7 @@ It could use a link or an image_id.
 ```ruby
   # with a link 
   messages_api.send_image(
-    sender_id: 123123, recipient_number: "56789", link: image_link, caption: "Ignacio Chiazzo Profile"
+    sender_id: 123123, recipient_number: "56789", link: "image_link", caption: "Ignacio Chiazzo Profile"
   )
 
   # with an image id 
@@ -97,7 +97,7 @@ It could use a link or a document_id.
 ```ruby
   # with a link 
   messages_api.send_document(
-    sender_id: 123123, recipient_number: "56789", link: document_link, caption: "Ignacio Chiazzo"
+    sender_id: 123123, recipient_number: "56789", link: "document_link", caption: "Ignacio Chiazzo"
   )
   
   # with a document id 
@@ -118,7 +118,7 @@ It could use a link or a sticker_id.
 
 **Send contacts message**
 To send a contact, you need to create a Contact instance object that contain objects embedded like 
-`addresses`, `birthday`, `emails`, `name`, `org`. See this [guide]() to learn how to create contacts objects.
+`addresses`, `birthday`, `emails`, `name`, `org`. See this [guide](/test/contact_helper.rb) to learn how to create contacts objects.
 
 ```ruby
   contacts = [create_contact(params)]

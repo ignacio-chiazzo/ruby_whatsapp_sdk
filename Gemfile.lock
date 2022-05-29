@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ruby-whatsapp-sdk (0.1.0)
+    ruby-whatsapp-sdk (0.0.1)
       faraday (~> 2.3.0)
       oj (~> 3.13.13)
 
