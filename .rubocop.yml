@@ -18,3 +18,7 @@ Metrics/ClassLength:
 
 Metrics/AbcSize:
   Enabled: false
+
+# Wait until https://github.com/rubocop/rubocop/issues/8761 is fixed
+Gemspec/RequiredRubyVersion:
+  Enabled: false
