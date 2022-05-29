@@ -62,58 +62,58 @@ messages_api.send_text(sender_id: 1234, recipient_number: "112345678", message: 
 **Send a location message**
 
 ```ruby
-  messages_api.send_location(
-    sender_id: 123123, recipient_number: "56789", 
-    longitude: 45.4215, latitude: 75.6972, name: "nacho", address: "141 cooper street"
-  )
+messages_api.send_location(
+  sender_id: 123123, recipient_number: "56789", 
+  longitude: 45.4215, latitude: 75.6972, name: "nacho", address: "141 cooper street"
+)
 ```
 
 **Send an image message**
 It could use a link or an image_id.
 ```ruby
-  # with a link 
-  messages_api.send_image(
-    sender_id: 123123, recipient_number: "56789", link: "image_link", caption: "Ignacio Chiazzo Profile"
-  )
+# with a link 
+messages_api.send_image(
+  sender_id: 123123, recipient_number: "56789", link: "image_link", caption: "Ignacio Chiazzo Profile"
+)
 
-  # with an image id 
-  messages_api.send_image(
-    sender_id: 123123, recipient_number: "56789", image_id: "1234", caption: "Ignacio Chiazzo Profile"
-  )
+# with an image id 
+messages_api.send_image(
+  sender_id: 123123, recipient_number: "56789", image_id: "1234", caption: "Ignacio Chiazzo Profile"
+)
 ```
 
 **Send an audio message**
 It could use a link or an audio_id.
 ```ruby
-  # with a link 
-  messages_api.send_audio(sender_id: 123123, recipient_number: "56789", link: "audio_link")
+# with a link 
+messages_api.send_audio(sender_id: 123123, recipient_number: "56789", link: "audio_link")
 
-  # with an audio id 
-  messages_api.send_audio(sender_id: 123123, recipient_number: "56789", audio_id: "1234")
+# with an audio id 
+messages_api.send_audio(sender_id: 123123, recipient_number: "56789", audio_id: "1234")
 ```
 
 **Send a document message**
 It could use a link or a document_id.
 ```ruby
-  # with a link 
-  messages_api.send_document(
-    sender_id: 123123, recipient_number: "56789", link: "document_link", caption: "Ignacio Chiazzo"
-  )
-  
-  # with a document id 
-  messages_api.send_document(
-    sender_id: 123123, recipient_number: "56789", document_id: "1234", caption: "Ignacio Chiazzo"
-  )
+# with a link 
+messages_api.send_document(
+  sender_id: 123123, recipient_number: "56789", link: "document_link", caption: "Ignacio Chiazzo"
+)
+
+# with a document id 
+messages_api.send_document(
+  sender_id: 123123, recipient_number: "56789", document_id: "1234", caption: "Ignacio Chiazzo"
+)
 ```
 
 **Send a sticker message**
 It could use a link or a sticker_id.
 ```ruby
-  # with a link 
-  messages_api.send_sticker(sender_id: 123123, recipient_number: "56789", link: "link")
-  
-  # with a sticker_id
-  messages_api.send_sticker(sender_id: 123123, recipient_number: "56789", sticker_id: "1234")
+# with a link 
+messages_api.send_sticker(sender_id: 123123, recipient_number: "56789", link: "link")
+
+# with a sticker_id
+messages_api.send_sticker(sender_id: 123123, recipient_number: "56789", sticker_id: "1234")
 ```
 
 **Send contacts message**
@@ -121,8 +121,8 @@ To send a contact, you need to create a Contact instance object that contain obj
 `addresses`, `birthday`, `emails`, `name`, `org`. See this [guide](/test/contact_helper.rb) to learn how to create contacts objects.
 
 ```ruby
-  contacts = [create_contact(params)]
-  messages_api.send_contacts(sender_id: 123123, recipient_number: "56789", contacts: contacts)
+contacts = [create_contact(params)]
+messages_api.send_contacts(sender_id: 123123, recipient_number: "56789", contacts: contacts)
 ```
 
 ## Example
