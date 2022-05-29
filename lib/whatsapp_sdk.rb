@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Version
-require_relative "whatsapp/version"
+require_relative "whatsapp"
 
 # APIs
 require_relative "whatsapp/api/phone_numbers"
