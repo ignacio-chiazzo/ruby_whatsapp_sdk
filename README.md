@@ -125,6 +125,89 @@ To send a contact, you need to create a Contact instance object that contain obj
   messages_api.send_contacts(sender_id: 123123, recipient_number: "56789", contacts: contacts)
 ```
 
+## Example
+
+<details><summary>Example in a single file. </summary>
+    
+1) Copy this code into a file and save it `example.rb`
+2) Replace the `ACCESS_TOKEN` constant with a valid `access_token`. 
+3) Run the file with the command `ruby example.rb`
+
+```ruby
+# frozen_string_literal: true
+
+require 'bundler/inline'
+
+gemfile(true) do
+  source 'https://rubygems.org'
+
+  git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+  gem "whatsapp_sdk", path: "/Users/ignaciochiazzo/src/whatsapp_sdk"
+  gem "pry"
+  gem "pry-nav"
+end
+
+require 'whatsapp_sdk'
+require "pry"
+require "pry-nav"
+
+ACCESS_TOKEN = "" # replace this with a valid access_token
+
+client = WhatsappSdk::Api::Client.new(ACCESS_TOKEN) # replace this with a valid access_token
+messages_api = WhatsappSdk::Api::Messages.new(client)
+phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new(client)
+
+phone_numbers_api.registered_number("107878721936019")
+phone_numbers_api.registered_numbers("114503234599312") 
+
+messages_api.send_text(sender_id: 107878721936019, recipient_number: "13437772910", message: "hola")
+messages_api.send_location(
+  sender_id: 123123, recipient_number: "56789", 
+  longitude: 45.4215, latitude: 75.6972, name: "nacho", address: "141 cooper street"
+)
+
+# Send images
+
+## with a link 
+messages_api.send_image(
+  sender_id: 123123, recipient_number: "56789", link: "image_link", caption: "Ignacio Chiazzo Profile"
+)
+
+## with an image id 
+messages_api.send_image(
+  sender_id: 123123, recipient_number: "56789", image_id: "1234", caption: "Ignacio Chiazzo Profile"
+)
+
+# Send audios
+## with a link 
+messages_api.send_audio(sender_id: 123123, recipient_number: "56789", link: "audio_link")
+
+## with an audio id 
+messages_api.send_audio(sender_id: 123123, recipient_number: "56789", audio_id: "1234")
+
+# Send documents
+## with a link 
+messages_api.send_document(
+  sender_id: 123123, recipient_number: "56789", link: "document_link", caption: "Ignacio Chiazzo"
+)
+
+## with a document id 
+messages_api.send_document(
+  sender_id: 123123, recipient_number: "56789", document_id: "1234", caption: "Ignacio Chiazzo"
+)
+
+# send stickers
+## with a link 
+messages_api.send_sticker(sender_id: 123123, recipient_number: "56789", link: "link")
+
+## with a sticker_id
+messages_api.send_sticker(sender_id: 123123, recipient_number: "56789", sticker_id: "1234")
+binding.pry
+
+```
+</details>
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests.
@@ -133,7 +216,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/ruby-whatsapp-sdk. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at [https://github.com/ignacio-chiazzo/whatsapp_sdk](https://github.com/ignacio-chiazzo/whatsapp_sdk) This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
