@@ -9,19 +9,17 @@ Gem::Specification.new do |spec|
   spec.authors       = ["ignacio-chiazzo"]
   spec.email         = ["ignaciochiazzo@gmail.com"]
 
-  spec.summary       = "Whatsapp Ruby SDK" # "TODO"
-  spec.description   = "Whatsapp Ruby SDK" # "TODO"
-  spec.homepage      = "https://github.com/ignacio-chiazzo"
+  spec.summary       = "Use the Whatsapp API through this library"
+  spec.description   = "Ruby Whatsapp SDK. Use the Whatsapp API through this library"
+  spec.homepage      = "https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
-    # spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
-
-    # spec.metadata["homepage_uri"] = spec.homepage
-    # spec.metadata["source_code_uri"] = "https://github.com/ignacio-chiazzo" # FIX ME: "TODO: Put your gem's public repo URL here."
-    # spec.metadata["changelog_uri"] = "https://github.com/ignacio-chiazzo" # "TODO: Put your gem's CHANGELOG.md URL here."
+    spec.metadata["homepage_uri"] = spec.homepage
+    spec.metadata["source_code_uri"] = "https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk"
+    spec.metadata["changelog_uri"] = "https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk//blob/main/CHANGELOG.md" # "TODO: Put your gem's CHANGELOG.md URL here."
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
       "public gem pushes."
