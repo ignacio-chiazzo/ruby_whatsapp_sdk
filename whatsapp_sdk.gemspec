@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = "Use the Whatsapp SDK to comunicate with Whatsapp API"
   spec.description   = "Ruby Whatsapp SDK. Use the Whatsapp API through this library"
-  spec.homepage      = "https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk"
+  spec.homepage      = "https://github.com/ignacio-chiazzo/whatsapp_sdk"
   spec.license       = "MIT"
   spec.required_ruby_version = '>= 1.8.6'
 
@@ -20,8 +20,8 @@ Gem::Specification.new do |spec|
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
     spec.metadata["homepage_uri"] = spec.homepage
-    spec.metadata["source_code_uri"] = "https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk"
-    spec.metadata["changelog_uri"] = "https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/blob/main/CHANGELOG.md"
+    spec.metadata["source_code_uri"] = "https://github.com/ignacio-chiazzo/whatsapp_sdk"
+    spec.metadata["changelog_uri"] = "https://github.com/ignacio-chiazzo/whatsapp_sdk/blob/main/CHANGELOG.md"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
       "public gem pushes."
