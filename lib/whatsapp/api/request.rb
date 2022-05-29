@@ -1,7 +1,6 @@
 module Whatsapp
   module Api
     class Request
-      # TODO Make it a module
       API_VERSION = "v13.0"
       API_CLIENT = "https://graph.facebook.com/#{API_VERSION}/"
 
