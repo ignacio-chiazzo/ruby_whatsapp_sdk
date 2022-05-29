@@ -1,0 +1,4 @@
+- name: Rubocop checks
+  # You may pin to the exact commit or the version.
+  # uses: gimenete/rubocop-action@649c2b18b5726302b6b120dad74c25d2b2f391e9
+  uses: gimenete/rubocop-action@1.0
