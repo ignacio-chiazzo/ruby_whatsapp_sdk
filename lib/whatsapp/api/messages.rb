@@ -169,7 +169,7 @@ module Whatsapp
           recepient_type: "individual",
           type: "contacts"
         }
-        params[:contacts] = contacts.present? ? contacts.map(&:to_h) : contacts_json
+        params[:contacts] = contacts ? contacts.map(&:to_h) : contacts_json
 
         response = send_request(
           endpoint: endpoint(sender_id),

@@ -1,0 +1,22 @@
+version: 2.1
+orbs:
+  ruby: circleci/ruby@1.0.4
+jobs:
+  test:
+    docker:
+      - image: cimg/ruby:2.7
+    steps:
+      - checkout
+      - ruby/install-deps
+      - run:
+          name: Run tests
+          command: bundle exec rake
+      - run:
+          name: Run Styling
+          command: bundle exec rubocop
+      
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - test
