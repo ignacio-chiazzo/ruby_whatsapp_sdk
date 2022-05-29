@@ -5,6 +5,7 @@ require "oj"
 
 require_relative "request"
 require_relative "message_response"
+require_relative "error_response"
 
 module Whatsapp
   module Api
@@ -25,7 +26,7 @@ module Whatsapp
           params: params
         )
 
-        Whatsapp::Api::MessageResponse.new(response)
+        Whatsapp::Api::Response.new(response: response)
       end
 
       def send_location(sender_id:, recipient_number:, longitude:, latitude:, name:, address:)
@@ -48,7 +49,7 @@ module Whatsapp
           params: params
         )
 
-        Whatsapp::Api::MessageResponse.new(response)
+        Whatsapp::Api::Response.new(response: response)
       end
 
       def send_image(sender_id:, recipient_number:, image_id: nil, link: nil, caption: "")
@@ -71,7 +72,7 @@ module Whatsapp
           params: params
         )
         
-        Whatsapp::Api::MessageResponse.new(response)
+        Whatsapp::Api::Response.new(response: response)
       end
 
       def send_audio(sender_id:, recipient_number:, audio_id: nil, link: nil)
@@ -90,7 +91,7 @@ module Whatsapp
           params: params
         )
         
-        Whatsapp::Api::MessageResponse.new(response)
+        Whatsapp::Api::Response.new(response: response)
       end
 
       def send_video(sender_id:, recipient_number:, video_id: nil, link: nil, caption: "")
@@ -113,7 +114,7 @@ module Whatsapp
           params: params
         )
         
-        Whatsapp::Api::MessageResponse.new(response)
+        Whatsapp::Api::Response.new(response: response)
       end
 
       def send_document(sender_id:, recipient_number:, document_id: nil, link: nil, caption: "")
@@ -134,7 +135,7 @@ module Whatsapp
           params: params
         )
         
-        Whatsapp::Api::MessageResponse.new(response)
+        Whatsapp::Api::Response.new(response: response)
       end
 
       def send_sticker(sender_id:, recipient_number:, sticker_id: nil, link: nil)
@@ -151,7 +152,7 @@ module Whatsapp
           params: params
         )
         
-        Whatsapp::Api::MessageResponse.new(response)
+        Whatsapp::Api::Response.new(response: response)
       end
 
       def send_contacts(sender_id:, recipient_number:, contacts: nil, contacts_json: {})
@@ -161,14 +162,14 @@ module Whatsapp
           recepient_type: "individual",
           type: "contacts"
         }
-        params[:contacts] = if contacts.present? contacts.map(&:to_h) : contacts_json
+        params[:contacts] = contacts.present? ? contacts.map(&:to_h) : contacts_json
 
         response = send_request(
           endpoint: endpoint(sender_id),
           params: params
         )
         
-        Whatsapp::Api::MessageResponse.new(response)
+        Whatsapp::Api::Response.new(response: response)
       end
 
       def send_interactive_button

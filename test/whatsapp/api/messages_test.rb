@@ -17,12 +17,21 @@ module Whatsapp
         @messages_api = Whatsapp::Api::Messages.new(client)
       end
 
+      def test_send_text_handles_error_response
+        mocked_error_response = mock_error_response
+        response = @messages_api.send_text(
+          sender_id: 123123, recipient_number: "56789", message: "hola"
+        )
+        assert_mock_error_response(mocked_error_response, response)
+      end
+
       def test_send_text_message_with_success_response
-        mock_response
+        mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_text(
           sender_id: 123123, recipient_number: "56789", message: "hola"
         )
-        assert_mock_response(message_response)
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
       end
 
       def test_send_text_message_with_valid_params
@@ -35,21 +44,24 @@ module Whatsapp
             type: "text",
             text: { body: "hola" }
           }
-        ).returns(valid_response)
+        ).returns(valid_response(valid_contacts, valid_messages))
         
         message_response = @messages_api.send_text(
           sender_id: 123123, recipient_number: "56789", message: "hola"
         )
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
       end
 
       def test_send_location_message_with_success_response
-        mock_response
+        mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_location(
           sender_id: 123123, recipient_number: "56789", 
           longitude: 45.4215, latitude: 75.6972, name: "nacho", address: "141 cooper street"
         )
           
-        assert_mock_response(message_response)
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
       end
 
       def test_send_location_message_with_valid_params
@@ -57,6 +69,7 @@ module Whatsapp
         latitude = 75.6972
         name = "nacho"
         address = "141 cooper street"
+
         @messages_api.expects(:send_request).with(
           endpoint: "123123/messages",
           params: {
@@ -71,21 +84,24 @@ module Whatsapp
               "address": address
             }
           }
-        ).returns(valid_response)
+        ).returns(valid_response(valid_contacts, valid_messages))
         
         message_response = @messages_api.send_location(
           sender_id: 123123, recipient_number: "56789",
           longitude: longitude, latitude: latitude, name: name, address: address
         )
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
       end
 
       def test_send_image_message_with_success_response
-        mock_response
+        mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_image(
           sender_id: 123123, recipient_number: "56789",
           image_id: 123, link: nil, caption: ""
         )
-        assert_mock_response(message_response)
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
       end
 
       def test_send_image_message_with_a_link
@@ -98,12 +114,14 @@ module Whatsapp
             type: "image",
             image: { link: image_link, caption: "Ignacio Chiazzo Profile" }
           }
-        ).returns(valid_response)
+        ).returns(valid_response(valid_contacts, valid_messages))
         
         message_response = @messages_api.send_image(
           sender_id: 123123, recipient_number: "56789",
           link: image_link, caption: "Ignacio Chiazzo Profile"
         )
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
       end
 
       def test_send_image_message_with_an_image_id
@@ -117,20 +135,23 @@ module Whatsapp
             type: "image",
             image: { id: image_id, caption: "Ignacio Chiazzo Profile" }
           }
-        ).returns(valid_response)
+        ).returns(valid_response(valid_contacts, valid_messages))
         
         message_response = @messages_api.send_image(
           sender_id: 123123, recipient_number: "56789",
           image_id: image_id, caption: "Ignacio Chiazzo Profile"
         )
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
       end
 
       def test_send_audio_message_with_success_response
-        mock_response
+        mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_audio(
           sender_id: 123123, recipient_number: "56789", link: "1234"
         )
-        assert_mock_response(message_response)
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
       end
 
       def test_send_audio_message_with_a_link
@@ -144,11 +165,13 @@ module Whatsapp
             type: "audio",
             audio: { link: audio_link }
           }
-        ).returns(valid_response)
+        ).returns(valid_response(valid_contacts, valid_messages))
         
         message_response = @messages_api.send_audio(
           sender_id: 123123, recipient_number: "56789", link: audio_link
         )
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
       end
 
       def test_send_audio_message_with_an_audio_id
@@ -162,20 +185,23 @@ module Whatsapp
             type: "audio",
             audio: { id: audio_id }
           }
-        ).returns(valid_response)
+        ).returns(valid_response(valid_contacts, valid_messages))
         
         message_response = @messages_api.send_audio(
           sender_id: 123123, recipient_number: "56789", audio_id: audio_id
         )
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
       end
 
       def test_send_video_message_with_success_response
-        mock_response
+        mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_video(
           sender_id: 123123, recipient_number: "56789",
           video_id: 123, link: nil, caption: ""
         )
-        assert_mock_response(message_response)
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
       end
 
       def test_send_video_message_with_a_link
@@ -188,12 +214,14 @@ module Whatsapp
             type: "video",
             video: { link: video_link, caption: "Ignacio Chiazzo Profile" }
           }
-        ).returns(valid_response)
+        ).returns(valid_response(valid_contacts, valid_messages))
         
         message_response = @messages_api.send_video(
           sender_id: 123123, recipient_number: "56789",
           link: video_link, caption: "Ignacio Chiazzo Profile"
         )
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
       end
 
       def test_send_video_message_with_an_video_id
@@ -207,21 +235,24 @@ module Whatsapp
             type: "video",
             video: { id: video_id, caption: "Ignacio Chiazzo Profile" }
           }
-        ).returns(valid_response)
+        ).returns(valid_response(valid_contacts, valid_messages))
         
         message_response = @messages_api.send_video(
           sender_id: 123123, recipient_number: "56789",
           video_id: video_id, caption: "Ignacio Chiazzo Profile"
         )
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
       end
 
       def test_send_document_message_with_success_response
-        mock_response
+        mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_document(
           sender_id: 123123, recipient_number: "56789",
           document_id: 123, link: nil, caption: ""
         )
-        assert_mock_response(message_response)
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
       end
 
       def test_send_document_message_with_a_link
@@ -234,12 +265,14 @@ module Whatsapp
             type: "document",
             document: { link: document_link, caption: "Ignacio Chiazzo Profile" }
           }
-        ).returns(valid_response)
+        ).returns(valid_response(valid_contacts, valid_messages))
         
         message_response = @messages_api.send_document(
           sender_id: 123123, recipient_number: "56789",
           link: document_link, caption: "Ignacio Chiazzo Profile"
         )
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
       end
 
       def test_send_document_message_with_an_document_id
@@ -253,21 +286,24 @@ module Whatsapp
             type: "document",
             document: { id: document_id, caption: "Ignacio Chiazzo Profile" }
           }
-        ).returns(valid_response)
+        ).returns(valid_response(valid_contacts, valid_messages))
         
         message_response = @messages_api.send_document(
           sender_id: 123123, recipient_number: "56789",
           document_id: document_id, caption: "Ignacio Chiazzo Profile"
         )
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
       end
 
       def test_send_sticker_message_with_success_response
-        mock_response
+        mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_sticker(
           sender_id: 123123, recipient_number: "56789",
           sticker_id: 123, link: nil
         )
-        assert_mock_response(message_response)
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
       end
 
       def test_send_sticker_message_with_a_link
@@ -280,11 +316,13 @@ module Whatsapp
             type: "sticker",
             sticker: { link: sticker_link }
           }
-        ).returns(valid_response)
+        ).returns(valid_response(valid_contacts, valid_messages))
         
         message_response = @messages_api.send_sticker(
           sender_id: 123123, recipient_number: "56789", link: sticker_link
         )
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
       end
 
       def test_send_sticker_message_with_an_sticker_id
@@ -298,19 +336,22 @@ module Whatsapp
             type: "sticker",
             sticker: { id: sticker_id }
           }
-        ).returns(valid_response)
+        ).returns(valid_response(valid_contacts, valid_messages))
         
         message_response = @messages_api.send_sticker(
           sender_id: 123123, recipient_number: "56789", sticker_id: sticker_id
         )
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
       end
    
       def test_send_contacts_with_success_response
-        mock_response
+        mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_contacts(
           sender_id: 123123, recipient_number: "56789", contacts: [create_contact]
         )
-        assert_mock_response(message_response)
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
       end
 
       def test_send_contacts_with_a_valid_response
@@ -324,14 +365,41 @@ module Whatsapp
             type: "contacts",
             contacts: contacts.map(&:to_h)
           }
-        ).returns(valid_response)
+        ).returns(valid_response(valid_contacts, valid_messages))
         
         message_response = @messages_api.send_contacts(
           sender_id: 123123, recipient_number: "56789", contacts: contacts
         )
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
       end
 
       private
+
+      def mock_error_response
+        error_response = {
+          "error" => {
+            "message"=> "Unsupported post request.",
+            "type"=>"GraphMethodException",
+            "code"=>100,
+            "error_subcode"=>33,
+            "fbtrace_id"=>"Au93W6oW_Np0PyF7v5YwAiU"
+          }
+        }
+        @messages_api.stubs(:send_request).returns(error_response)
+        error_response
+      end
+
+      def assert_mock_error_response(mocked_error, response)
+        assert_equal(false, response.ok?)
+        assert_nil(response.data)
+        error = response.error
+        assert_equal(mocked_error["error"]["code"], error.code)
+        assert_equal(mocked_error["error"]["error_subcode"], error.subcode)
+        assert_equal(mocked_error["error"]["message"], error.message)
+        assert_equal(mocked_error["error"]["error_subcode"], error.subcode)
+        assert_equal(mocked_error["error"]["fbtrace_id"], error.fbtrace_id)
+      end
 
       def create_addresses
         address_1 = Whatsapp::Resource::Address.new(
@@ -429,22 +497,32 @@ module Whatsapp
         @image_link ||= "https://ignaciochiazzo.com/static/4c403819b9750c8ad8b20a75308f2a8a/876d5/profile-pic.avif"
       end
 
-      def mock_response
-        @messages_api.stubs(:send_request).returns(valid_response)
-        valid_response
+      def valid_contacts
+        valid_contacts ||= [{"input"=>"1234", "wa_id"=>"1234"}]
       end
 
-      def valid_response
-        valid_response ||= {"messaging_product"=>"whatsapp", "contacts"=>[{"input"=>"1234", "wa_id"=>"1234"}], "messages"=>[{"id"=>"9876"}]}
+      def valid_messages
+        valid_messages ||= [{"id"=>"9876"}]
+      end
+
+      def mock_response(contacts, messages)
+        @messages_api.stubs(:send_request).returns(valid_response(contacts, messages))
+        valid_response(contacts, messages)
+      end
+
+      def valid_response(contacts, messages)
+        valid_response ||= { "messaging_product"=>"whatsapp", "contacts" => contacts, "messages" => messages }
       end
       
-      def assert_mock_response(message_response)
-        assert_equal(Whatsapp::Api::MessageResponse, message_response.class)
-        assert_equal(1, message_response.contacts.size)
-        assert_contacts([{"input"=>"1234", "wa_id"=>"1234"}], message_response.contacts)
+      def assert_mock_response(expected_contacts, expected_messages, message_response)
+        assert_equal(Whatsapp::Api::Response, message_response.class)
+        assert_nil(message_response.error)
+        assert(message_response.ok?)
+        assert_equal(1, message_response.data.contacts.size)
+        assert_contacts([{"input"=>"1234", "wa_id"=>"1234"}], message_response.data.contacts)
         
-        assert_equal(1, message_response.messages.size)
-        assert_messages([{"id"=>"9876"}], message_response.messages)
+        assert_equal(1, message_response.data.messages.size)
+        assert_messages([{"id"=>"9876"}], message_response.data.messages)
       end
 
       def assert_messages(expected_messages, messages)
