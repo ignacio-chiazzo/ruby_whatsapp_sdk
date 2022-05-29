@@ -152,7 +152,9 @@ require 'whatsapp_sdk'
 require "pry"
 require "pry-nav"
 
-ACCESS_TOKEN = "" # replace this with a valid access_token
+ACCESS_TOKEN = "12345" # replace this with a valid access_token
+SENDER_ID = 107878721936019
+RECEIPIENT_NUMBER = "1234"
 
 client = WhatsappSdk::Api::Client.new(ACCESS_TOKEN) # replace this with a valid access_token
 messages_api = WhatsappSdk::Api::Messages.new(client)
@@ -161,9 +163,9 @@ phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new(client)
 phone_numbers_api.registered_number("107878721936019")
 phone_numbers_api.registered_numbers("114503234599312") 
 
-messages_api.send_text(sender_id: 107878721936019, recipient_number: "13437772910", message: "hola")
+messages_api.send_text(sender_id: SENDER_ID, recipient_number: RECEIPIENT_NUMBER, message: "hola")
 messages_api.send_location(
-  sender_id: 123123, recipient_number: "56789", 
+  sender_id: SENDER_ID, recipient_number: RECEIPIENT_NUMBER, 
   longitude: 45.4215, latitude: 75.6972, name: "nacho", address: "141 cooper street"
 )
 
@@ -171,38 +173,38 @@ messages_api.send_location(
 
 ## with a link 
 messages_api.send_image(
-  sender_id: 123123, recipient_number: "56789", link: "image_link", caption: "Ignacio Chiazzo Profile"
+  sender_id: SENDER_ID, recipient_number: RECEIPIENT_NUMBER, link: "image_link", caption: "Ignacio Chiazzo Profile"
 )
 
 ## with an image id 
 messages_api.send_image(
-  sender_id: 123123, recipient_number: "56789", image_id: "1234", caption: "Ignacio Chiazzo Profile"
+  sender_id: SENDER_ID, recipient_number: RECEIPIENT_NUMBER, image_id: "1234", caption: "Ignacio Chiazzo Profile"
 )
 
 # Send audios
 ## with a link 
-messages_api.send_audio(sender_id: 123123, recipient_number: "56789", link: "audio_link")
+messages_api.send_audio(sender_id: SENDER_ID, recipient_number: RECEIPIENT_NUMBER, link: "audio_link")
 
 ## with an audio id 
-messages_api.send_audio(sender_id: 123123, recipient_number: "56789", audio_id: "1234")
+messages_api.send_audio(sender_id: SENDER_ID, recipient_number: RECEIPIENT_NUMBER, audio_id: "1234")
 
 # Send documents
 ## with a link 
 messages_api.send_document(
-  sender_id: 123123, recipient_number: "56789", link: "document_link", caption: "Ignacio Chiazzo"
+  sender_id: SENDER_ID, recipient_number: RECEIPIENT_NUMBER, link: "document_link", caption: "Ignacio Chiazzo"
 )
 
 ## with a document id 
 messages_api.send_document(
-  sender_id: 123123, recipient_number: "56789", document_id: "1234", caption: "Ignacio Chiazzo"
+  sender_id: SENDER_ID, recipient_number: RECEIPIENT_NUMBER, document_id: "1234", caption: "Ignacio Chiazzo"
 )
 
 # send stickers
 ## with a link 
-messages_api.send_sticker(sender_id: 123123, recipient_number: "56789", link: "link")
+messages_api.send_sticker(sender_id: SENDER_ID, recipient_number: RECEIPIENT_NUMBER, link: "link")
 
 ## with a sticker_id
-messages_api.send_sticker(sender_id: 123123, recipient_number: "56789", sticker_id: "1234")
+messages_api.send_sticker(sender_id: SENDER_ID, recipient_number: RECEIPIENT_NUMBER, sticker_id: "1234")
 binding.pry
 
 ```
