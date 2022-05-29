@@ -1,8 +1,7 @@
-# Ruby::Whatsapp::Sdk
+# Ruby Whatsapp SDK
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ruby/whatsapp`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+The SDK provides a set of operations and classes to use the Whatsapp API.
+Send stickers, messages, audio, videos, locations or just ask for the phone numbers through this library in a few steps!
 
 ## Installation
 
@@ -20,13 +19,115 @@ Or install it yourself as:
 
     $ gem install ruby-whatsapp-sdk
 
-## Usage
+## Quick Start
 
-TODO: Write usage instructions here
+There are two primary resources, `Messages` and `PhoneNumbers`. The first one allows clients to send any kind of message (text, audio, location, video, image, etc.), and the latter will enable clients to query the phone numbers associated.
+
+To use `Messages` or `PhoneNumbers` you need to create a `Client` instance by passing the `access_token` like this:
+
+```ruby
+client = Whatsapp::Client.new("<ACCESS TOKEN>") # replace this with a valid 
+```
+
+Each API operation returns a `Whatsapp::Api::Response` that contains `data` and `error` and a couple of helpful functions such as `ok?`. There are three types of response `Whatsapp::Api::MessageDataResponse`, `Whatsapp::Api::PhoneNumberDataResponse` and `Whatsapp::Api::PhoneNumbersDataResponse`. Each of them contains different attributes.
+
+## Operations
+First, create the client and then create an instance `Whatsapp::Api::Messages` that requires a client as a param like this:
+
+```ruby
+client = Whatsapp::Client.new("<ACCESS TOKEN>") # replace this with a valid 
+messages_api = Whatsapp::Api::Messages.new(client)
+phone_numbers_api = Whatsapp::Api::PhoneNumbers.new(client)
+```
+
+### Phone numbers API
+Get the list of phone numbers registered
+```ruby
+m.registered_numbers("123456") # accepts a business_id
+```
+
+Get the a phone number by id
+```ruby
+m.registered_numbers("123456") # accepts a phone_number_id
+```
+
+### Messages API
+
+**Send a text message**
+
+```ruby
+messages_api.send_text(sender_id: 1234, recipient_number: "112345678", message: "hola")
+```
+
+**Send a location message**
+
+```ruby
+  messages_api.send_location(
+    sender_id: 123123, recipient_number: "56789", 
+    longitude: 45.4215, latitude: 75.6972, name: "nacho", address: "141 cooper street"
+  )
+```
+
+**Send an image message**
+It could use a link or an image_id.
+```ruby
+  # with a link 
+  messages_api.send_image(
+    sender_id: 123123, recipient_number: "56789", link: image_link, caption: "Ignacio Chiazzo Profile"
+  )
+
+  # with an image id 
+  messages_api.send_image(
+    sender_id: 123123, recipient_number: "56789", image_id: "1234", caption: "Ignacio Chiazzo Profile"
+  )
+```
+
+**Send an audio message**
+It could use a link or an audio_id.
+```ruby
+  # with a link 
+  messages_api.send_audio(sender_id: 123123, recipient_number: "56789", link: "audio_link")
+
+  # with an audio id 
+  messages_api.send_audio(sender_id: 123123, recipient_number: "56789", audio_id: "1234")
+```
+
+**Send a document message**
+It could use a link or a document_id.
+```ruby
+  # with a link 
+  messages_api.send_document(
+    sender_id: 123123, recipient_number: "56789", link: document_link, caption: "Ignacio Chiazzo"
+  )
+  
+  # with a document id 
+  messages_api.send_document(
+    sender_id: 123123, recipient_number: "56789", document_id: "1234", caption: "Ignacio Chiazzo"
+  )
+```
+
+**Send a sticker message**
+It could use a link or a sticker_id.
+```ruby
+  # with a link 
+  messages_api.send_sticker(sender_id: 123123, recipient_number: "56789", link: "link")
+  
+  # with a sticker_id
+  messages_api.send_sticker(sender_id: 123123, recipient_number: "56789", sticker_id: "1234")
+```
+
+**Send contacts message**
+To send a contact, you need to create a Contact instance object that contain objects embedded like 
+`addresses`, `birthday`, `emails`, `name`, `org`. See this [guide]() to learn how to create contacts objects.
+
+```ruby
+  contacts = [create_contact(params)]
+  messages_api.send_contacts(sender_id: 123123, recipient_number: "56789", contacts: contacts)
+```
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
@@ -37,7 +138,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the Ruby::Whatsapp::Sdk project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/ruby-whatsapp-sdk/blob/master/CODE_OF_CONDUCT.md).
