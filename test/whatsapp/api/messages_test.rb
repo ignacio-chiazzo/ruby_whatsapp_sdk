@@ -94,6 +94,15 @@ module Whatsapp
         assert(message_response.ok?)
       end
 
+      def test_send_image_raises_an_error_if_link_and_image_are_not_provided
+        assert_raises(Whatsapp::Api::Messages::MissingArgumentError) do
+          @messages_api.send_image(
+            sender_id: 123123, recipient_number: "56789",
+            image_id: nil, link: nil, caption: ""
+          )
+        end
+      end
+
       def test_send_image_message_with_success_response
         mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_image(
@@ -154,6 +163,14 @@ module Whatsapp
         assert(message_response.ok?)
       end
 
+      def test_send_audio_raises_an_error_if_link_and_image_are_not_provided
+        assert_raises(Whatsapp::Api::Messages::MissingArgumentError) do
+          @messages_api.send_audio(
+            sender_id: 123123, recipient_number: "56789", link: nil, audio_id: nil
+          )
+        end
+      end
+
       def test_send_audio_message_with_a_link
         audio_link = "1234"
         @messages_api.expects(:send_request).with(
@@ -192,6 +209,14 @@ module Whatsapp
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert(message_response.ok?)
+      end
+
+      def test_send_video_raises_an_error_if_link_and_image_are_not_provided
+        assert_raises(Whatsapp::Api::Messages::MissingArgumentError) do
+          @messages_api.send_video(
+            sender_id: 123123, recipient_number: "56789", link: nil, video_id: nil
+          )
+        end
       end
 
       def test_send_video_message_with_success_response
@@ -245,6 +270,14 @@ module Whatsapp
         assert(message_response.ok?)
       end
 
+      def test_send_document_raises_an_error_if_link_and_image_are_not_provided
+        assert_raises(Whatsapp::Api::Messages::MissingArgumentError) do
+          @messages_api.send_document(
+            sender_id: 123123, recipient_number: "56789", link: nil, document_id: nil
+          )
+        end
+      end
+
       def test_send_document_message_with_success_response
         mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_document(
@@ -294,6 +327,14 @@ module Whatsapp
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert(message_response.ok?)
+      end
+
+      def test_send_sticker_raises_an_error_if_link_and_image_are_not_provided
+        assert_raises(Whatsapp::Api::Messages::MissingArgumentError) do
+          @messages_api.send_sticker(
+            sender_id: 123123, recipient_number: "56789", link: nil, sticker_id: nil
+          )
+        end
       end
 
       def test_send_sticker_message_with_success_response

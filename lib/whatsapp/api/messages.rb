@@ -10,9 +10,13 @@ require_relative "error_response"
 module Whatsapp
   module Api
     class Messages < Request
+      class MissingArgumentError < StandardError
+        attr_reader :message
+        def initialize(message)
+          @message = message
+        end
+      end
       def send_text(sender_id:, recipient_number:, message:)
-        # TODO handle error
-
         params = {
           messaging_product: "whatsapp",
           to: recipient_number,
@@ -30,7 +34,6 @@ module Whatsapp
       end
 
       def send_location(sender_id:, recipient_number:, longitude:, latitude:, name:, address:)
-        # TODO handle error
         params = {
           messaging_product: "whatsapp",
           to: recipient_number,
@@ -53,8 +56,10 @@ module Whatsapp
       end
 
       def send_image(sender_id:, recipient_number:, image_id: nil, link: nil, caption: "")
-        # TODO validate image_id and link nil
-        # TODO handle error
+        if(!image_id && !link)
+          raise MissingArgumentError.new("image_id or link is required")
+        end
+        
         params = {
           messaging_product: "whatsapp",
           to: recipient_number,
@@ -76,8 +81,10 @@ module Whatsapp
       end
 
       def send_audio(sender_id:, recipient_number:, audio_id: nil, link: nil)
-        # TODO validate image_id and link nil
-        # TODO handle error
+        if(!audio_id && !link)
+          raise MissingArgumentError.new("audio_id or link is required")
+        end
+
         params = {
           messaging_product: "whatsapp",
           to: recipient_number,
@@ -95,8 +102,10 @@ module Whatsapp
       end
 
       def send_video(sender_id:, recipient_number:, video_id: nil, link: nil, caption: "")
-        # TODO validate video_id and link nil
-        # TODO handle error
+        if(!video_id && !link)
+          raise MissingArgumentError.new("video_id or link is required")
+        end
+
         params = {
           messaging_product: "whatsapp",
           to: recipient_number,
@@ -118,6 +127,10 @@ module Whatsapp
       end
 
       def send_document(sender_id:, recipient_number:, document_id: nil, link: nil, caption: "")
+        if(!document_id && !link)
+          raise MissingArgumentError.new("document or link is required")
+        end
+
         params = {
           messaging_product: "whatsapp",
           to: recipient_number,
@@ -139,6 +152,10 @@ module Whatsapp
       end
 
       def send_sticker(sender_id:, recipient_number:, sticker_id: nil, link: nil)
+        if(!sticker_id && !link)
+          raise MissingArgumentError.new("sticker or link is required")
+        end
+
         params = {
           messaging_product: "whatsapp",
           to: recipient_number,
