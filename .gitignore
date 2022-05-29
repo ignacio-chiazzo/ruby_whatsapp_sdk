@@ -9,3 +9,15 @@
 
 DELETE_ME
 REMOVE.rb
+
+*.gem
+*.rbc
+/.config
+/pkg/
+
+.byebug_history
+
+.ruby-version
+.ruby-gemset
+
+.rvmrc
