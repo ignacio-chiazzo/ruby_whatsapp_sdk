@@ -1,3 +1,6 @@
+require "faraday"
+require "oj"
+
 module Whatsapp
   class Client
     API_VERSION = "v13.0"
@@ -11,7 +14,7 @@ module Whatsapp
       @_client ||= ::Faraday.new(API_CLIENT) do |client|
         client.request :url_encoded
         client.adapter ::Faraday.default_adapter
-        client.headers['Authorization'] = "Bearer #{@oauth_token}" unless @oauth_token.nil?
+        client.headers['Authorization'] = "Bearer #{@access_token}" unless @access_token.nil?
       end
     end
 
