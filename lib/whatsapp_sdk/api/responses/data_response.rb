@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Whatsapp
+module WhatsappSdk
   module Api
     module Responses
       class DataResponse

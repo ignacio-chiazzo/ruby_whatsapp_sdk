@@ -26,18 +26,18 @@ There are two primary resources, `Messages` and `PhoneNumbers`. The first one al
 To use `Messages` or `PhoneNumbers` you need to create a `Client` instance by passing the `access_token` like this:
 
 ```ruby
-client = Whatsapp::Client.new("<ACCESS TOKEN>") # replace this with a valid 
+client =WhatsappSdk::Client.new("<ACCESS TOKEN>") # replace this with a valid 
 ```
 
-Each API operation returns a `Whatsapp::Api::Response` that contains `data` and `error` and a couple of helpful functions such as `ok?` and `error?`. There are three types of response `Whatsapp::Api::MessageDataResponse`, `Whatsapp::Api::PhoneNumberDataResponse` and `Whatsapp::Api::PhoneNumbersDataResponse`. Each of them contains different attributes.
+Each API operation returns a `WhatsappSdk::Api::Response` that contains `data` and `error` and a couple of helpful functions such as `ok?` and `error?`. There are three types of response `WhatsappSdk::Api::MessageDataResponse`, `WhatsappSdk::Api::PhoneNumberDataResponse` and `WhatsappSdk::Api::PhoneNumbersDataResponse`. Each of them contains different attributes.
 
 ## Operations
-First, create the client and then create an instance `Whatsapp::Api::Messages` that requires a client as a param like this:
+First, create the client and then create an instance `WhatsappSdk::Api::Messages` that requires a client as a param like this:
 
 ```ruby
-client = Whatsapp::Client.new("<ACCESS TOKEN>") # replace this with a valid access_token
-messages_api = Whatsapp::Api::Messages.new(client)
-phone_numbers_api = Whatsapp::Api::PhoneNumbers.new(client)
+client =WhatsappSdk::Client.new("<ACCESS TOKEN>") # replace this with a valid access_token
+messages_api =WhatsappSdk::Api::Messages.new(client)
+phone_numbers_api =WhatsappSdk::Api::PhoneNumbers.new(client)
 ```
 
 ### Phone numbers API

@@ -1,25 +1,25 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require_relative '../../../lib/whatsapp/api/messages'
-require_relative '../../../lib/whatsapp/resource/address'
-require_relative '../../../lib/whatsapp/resource/contact'
-require_relative '../../../lib/whatsapp/resource/phone_number'
-require_relative '../../../lib/whatsapp/resource/url'
-require_relative '../../../lib/whatsapp/resource/email'
-require_relative '../../../lib/whatsapp/resource/org'
-require_relative '../../../lib/whatsapp/resource/name'
-require_relative '../../../lib/whatsapp/client'
+require_relative '../../../lib/whatsapp_sdk/api/messages'
+require_relative '../../../lib/whatsapp_sdk/resource/address'
+require_relative '../../../lib/whatsapp_sdk/resource/contact'
+require_relative '../../../lib/whatsapp_sdk/resource/phone_number'
+require_relative '../../../lib/whatsapp_sdk/resource/url'
+require_relative '../../../lib/whatsapp_sdk/resource/email'
+require_relative '../../../lib/whatsapp_sdk/resource/org'
+require_relative '../../../lib/whatsapp_sdk/resource/name'
+require_relative '../../../lib/whatsapp_sdk/api/client'
 require_relative '../contact_helper'
 
-module Whatsapp
+module WhatsappSdk
   module Api
     class MessagesTest < Minitest::Test
       include ContactHelper
 
       def setup
-        client = Whatsapp::Client.new("test_token")
-        @messages_api = Whatsapp::Api::Messages.new(client)
+        client = WhatsappSdk::Api::Client.new("test_token")
+        @messages_api = WhatsappSdk::Api::Messages.new(client)
       end
 
       def test_send_text_handles_error_response
@@ -100,7 +100,7 @@ module Whatsapp
       end
 
       def test_send_image_raises_an_error_if_link_and_image_are_not_provided
-        assert_raises(Whatsapp::Api::Messages::MissingArgumentError) do
+        assert_raises(WhatsappSdk::Api::Messages::MissingArgumentError) do
           @messages_api.send_image(
             sender_id: 123_123, recipient_number: "56789",
             image_id: nil, link: nil, caption: ""
@@ -169,7 +169,7 @@ module Whatsapp
       end
 
       def test_send_audio_raises_an_error_if_link_and_image_are_not_provided
-        assert_raises(Whatsapp::Api::Messages::MissingArgumentError) do
+        assert_raises(WhatsappSdk::Api::Messages::MissingArgumentError) do
           @messages_api.send_audio(
             sender_id: 123_123, recipient_number: "56789", link: nil, audio_id: nil
           )
@@ -217,7 +217,7 @@ module Whatsapp
       end
 
       def test_send_video_raises_an_error_if_link_and_image_are_not_provided
-        assert_raises(Whatsapp::Api::Messages::MissingArgumentError) do
+        assert_raises(WhatsappSdk::Api::Messages::MissingArgumentError) do
           @messages_api.send_video(
             sender_id: 123_123, recipient_number: "56789", link: nil, video_id: nil
           )
@@ -276,7 +276,7 @@ module Whatsapp
       end
 
       def test_send_document_raises_an_error_if_link_and_image_are_not_provided
-        assert_raises(Whatsapp::Api::Messages::MissingArgumentError) do
+        assert_raises(WhatsappSdk::Api::Messages::MissingArgumentError) do
           @messages_api.send_document(
             sender_id: 123_123, recipient_number: "56789", link: nil, document_id: nil
           )
@@ -335,7 +335,7 @@ module Whatsapp
       end
 
       def test_send_sticker_raises_an_error_if_link_and_image_are_not_provided
-        assert_raises(Whatsapp::Api::Messages::MissingArgumentError) do
+        assert_raises(WhatsappSdk::Api::Messages::MissingArgumentError) do
           @messages_api.send_sticker(
             sender_id: 123_123, recipient_number: "56789", link: nil, sticker_id: nil
           )
@@ -481,7 +481,7 @@ module Whatsapp
       end
 
       def assert_mock_response(_expected_contacts, _expected_messages, message_response)
-        assert_equal(Whatsapp::Api::Response, message_response.class)
+        assert_equal(WhatsappSdk::Api::Response, message_response.class)
         assert_nil(message_response.error)
         assert(message_response.ok?)
         assert_equal(1, message_response.data.contacts.size)

@@ -5,7 +5,7 @@ require_relative "responses/phone_number_data_response"
 require_relative "responses/phone_numbers_data_response"
 require_relative "responses/error_response"
 
-module Whatsapp
+module WhatsappSdk
   module Api
     class Response
       attr_accessor :error, :data

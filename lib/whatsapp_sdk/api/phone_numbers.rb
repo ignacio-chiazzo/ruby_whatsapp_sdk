@@ -3,7 +3,7 @@
 require_relative "request"
 require_relative "response"
 
-module Whatsapp
+module WhatsappSdk
   module Api
     class PhoneNumbers < Request
       def registered_numbers(business_id)
@@ -12,7 +12,8 @@ module Whatsapp
           endpoint: "#{business_id}/phone_numbers"
         )
 
-        Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::Responses::PhoneNumbersDataResponse)
+        WhatsappSdk::Api::Response.new(response: response,
+                                       class_type: WhatsappSdk::Api::Responses::PhoneNumbersDataResponse)
       end
 
       def registered_number(phone_number_id)
@@ -21,7 +22,8 @@ module Whatsapp
           endpoint: phone_number_id.to_s
         )
 
-        Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::Responses::PhoneNumberDataResponse)
+        WhatsappSdk::Api::Response.new(response: response,
+                                       class_type: WhatsappSdk::Api::Responses::PhoneNumberDataResponse)
       end
     end
   end

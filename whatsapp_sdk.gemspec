@@ -2,15 +2,15 @@
 
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "whatsapp"
+require "whatsapp_sdk"
 
 Gem::Specification.new do |spec|
-  spec.name          = "whatsapp_sdk"
-  spec.version       = Whatsapp::VERSION
+  spec.name = "whatsapp_sdk"
+  spec.version = WhatsappSdk::VERSION
   spec.authors       = ["ignacio-chiazzo"]
   spec.email         = ["ignaciochiazzo@gmail.com"]
 
-  spec.summary       = "Use the Whatsapp API through this library"
+  spec.summary       = "Use the Whatsapp SDK to comunicate with Whatsapp API"
   spec.description   = "Ruby Whatsapp SDK. Use the Whatsapp API through this library"
   spec.homepage      = "https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk"
   spec.license       = "MIT"

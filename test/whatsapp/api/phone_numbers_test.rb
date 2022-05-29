@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require_relative '../../../lib/whatsapp/api/phone_numbers'
-require_relative '../../../lib/whatsapp/resource/contact_response'
-require_relative '../../../lib/whatsapp/client'
+require_relative '../../../lib/whatsapp_sdk/api/phone_numbers'
+require_relative '../../../lib/whatsapp_sdk/resource/contact_response'
+require_relative '../../../lib/whatsapp_sdk/api/client'
 
-module Whatsapp
+module WhatsappSdk
   module Api
     class PhoneNumbersTest < Minitest::Test
       def setup
-        client = Whatsapp::Client.new("test_token")
-        @phone_numbers_api = Whatsapp::Api::PhoneNumbers.new(client)
+        client = WhatsappSdk::Api::Client.new("test_token")
+        @phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new(client)
       end
 
       def test_registered_numbers_handles_error_responser
@@ -127,7 +127,7 @@ module Whatsapp
       end
 
       def assert_phone_numbers_mock_response(expected_phone_number, response)
-        assert_equal(Whatsapp::Api::Response, response.class)
+        assert_equal(WhatsappSdk::Api::Response, response.class)
         assert_nil(response.error)
         assert(response.ok?)
         assert_equal(1, response.data.phone_numbers.size)
@@ -135,7 +135,7 @@ module Whatsapp
       end
 
       def assert_phone_number_mock_response(expected_phone_number, response)
-        assert_equal(Whatsapp::Api::Response, response.class)
+        assert_equal(WhatsappSdk::Api::Response, response.class)
         assert_nil(response.error)
         assert(response.ok?)
         assert_phone_number(expected_phone_number, response.data)

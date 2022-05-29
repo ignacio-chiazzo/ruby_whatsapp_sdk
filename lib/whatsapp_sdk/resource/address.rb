@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Whatsapp
+module WhatsappSdk
   module Resource
     class Address
       attr_accessor :street, :city, :state, :zip, :country, :country_code, :typ

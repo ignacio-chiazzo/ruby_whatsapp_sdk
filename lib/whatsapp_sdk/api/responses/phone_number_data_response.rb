@@ -2,7 +2,7 @@
 
 require_relative "data_response"
 
-module Whatsapp
+module WhatsappSdk
   module Api
     module Responses
       class PhoneNumberDataResponse < DataResponse
