@@ -1,5 +1,3 @@
-require_relative "../api/response"
-
 module Whatsapp
   module Api
     class ErrorResponse
