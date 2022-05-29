@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Whatsapp
   module Api
     class Request
@@ -8,7 +10,7 @@ module Whatsapp
         @client = client
       end
 
-      def send_request(http_method: "post", endpoint:, params: {})
+      def send_request(endpoint:, http_method: "post", params: {})
         @client.send_request(http_method: http_method, endpoint: endpoint, params: params)
       end
     end

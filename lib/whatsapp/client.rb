@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "faraday"
 require "oj"
 
@@ -18,7 +20,7 @@ module Whatsapp
       end
     end
 
-    def send_request(http_method: "post", endpoint:, params: {})
+    def send_request(endpoint:, http_method: "post", params: {})
       response = client.public_send(http_method, endpoint, params)
       Oj.load(response.body)
     end

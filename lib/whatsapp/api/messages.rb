@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "request"
 require_relative "response"
 require_relative "error_response"
@@ -7,10 +9,12 @@ module Whatsapp
     class Messages < Request
       class MissingArgumentError < StandardError
         attr_reader :message
+
         def initialize(message)
           @message = message
         end
       end
+
       def send_text(sender_id:, recipient_number:, message:)
         params = {
           messaging_product: "whatsapp",
@@ -34,7 +38,7 @@ module Whatsapp
           to: recipient_number,
           recepient_type: "individual",
           type: "location",
-          "location": { 
+          "location": {
             "longitude": longitude,
             "latitude": latitude,
             "name": name,
@@ -51,34 +55,30 @@ module Whatsapp
       end
 
       def send_image(sender_id:, recipient_number:, image_id: nil, link: nil, caption: "")
-        if(!image_id && !link)
-          raise MissingArgumentError.new("image_id or link is required")
-        end
-        
+        raise MissingArgumentError, "image_id or link is required" if !image_id && !link
+
         params = {
           messaging_product: "whatsapp",
           to: recipient_number,
           recepient_type: "individual",
           type: "image"
         }
-        params[:image] = if(link)
-           { link: link, caption: caption }
-        else
-          { id: image_id, caption: caption }
-        end
+        params[:image] = if link
+                           { link: link, caption: caption }
+                         else
+                           { id: image_id, caption: caption }
+                         end
 
         response = send_request(
           endpoint: endpoint(sender_id),
           params: params
         )
-        
+
         Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::MessageDataResponse)
       end
 
       def send_audio(sender_id:, recipient_number:, audio_id: nil, link: nil)
-        if(!audio_id && !link)
-          raise MissingArgumentError.new("audio_id or link is required")
-        end
+        raise MissingArgumentError, "audio_id or link is required" if !audio_id && !link
 
         params = {
           messaging_product: "whatsapp",
@@ -92,14 +92,12 @@ module Whatsapp
           endpoint: endpoint(sender_id),
           params: params
         )
-        
+
         Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::MessageDataResponse)
       end
 
       def send_video(sender_id:, recipient_number:, video_id: nil, link: nil, caption: "")
-        if(!video_id && !link)
-          raise MissingArgumentError.new("video_id or link is required")
-        end
+        raise MissingArgumentError, "video_id or link is required" if !video_id && !link
 
         params = {
           messaging_product: "whatsapp",
@@ -107,24 +105,22 @@ module Whatsapp
           recepient_type: "individual",
           type: "video"
         }
-        params[:video] = if(link)
-          { link: link, caption: caption }
-        else
-          { id: video_id, caption: caption }
-        end
+        params[:video] = if link
+                           { link: link, caption: caption }
+                         else
+                           { id: video_id, caption: caption }
+                         end
 
         response = send_request(
           endpoint: endpoint(sender_id),
           params: params
         )
-        
+
         Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::MessageDataResponse)
       end
 
       def send_document(sender_id:, recipient_number:, document_id: nil, link: nil, caption: "")
-        if(!document_id && !link)
-          raise MissingArgumentError.new("document or link is required")
-        end
+        raise MissingArgumentError, "document or link is required" if !document_id && !link
 
         params = {
           messaging_product: "whatsapp",
@@ -132,24 +128,22 @@ module Whatsapp
           recepient_type: "individual",
           type: "document"
         }
-        params[:document] = if(link)
-          { link: link, caption: caption }
-        else
-          { id: document_id, caption: caption }
-        end
+        params[:document] = if link
+                              { link: link, caption: caption }
+                            else
+                              { id: document_id, caption: caption }
+                            end
 
         response = send_request(
           endpoint: endpoint(sender_id),
           params: params
         )
-        
+
         Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::MessageDataResponse)
       end
 
       def send_sticker(sender_id:, recipient_number:, sticker_id: nil, link: nil)
-        if(!sticker_id && !link)
-          raise MissingArgumentError.new("sticker or link is required")
-        end
+        raise MissingArgumentError, "sticker or link is required" if !sticker_id && !link
 
         params = {
           messaging_product: "whatsapp",
@@ -163,7 +157,7 @@ module Whatsapp
           endpoint: endpoint(sender_id),
           params: params
         )
-        
+
         Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::MessageDataResponse)
       end
 
@@ -180,20 +174,20 @@ module Whatsapp
           endpoint: endpoint(sender_id),
           params: params
         )
-        
+
         Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::MessageDataResponse)
       end
 
       def send_interactive_button
-        # TODO https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages#contacts-object
+        # TODO: https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages#contacts-object
       end
-      
-      def send_interactive_reply_buttons;
-      # TODO https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages#contacts-object
+
+      def send_interactive_reply_buttons
+        # TODO: https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages#contacts-object
       end
-      
+
       def send_interactive_section
-        # TODO https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages#contacts-object
+        # TODO: https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages#contacts-object
       end
 
       private

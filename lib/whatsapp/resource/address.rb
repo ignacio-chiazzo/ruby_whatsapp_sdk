@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Whatsapp
   module Resource
     class Address
@@ -17,7 +19,6 @@ module Whatsapp
         @country_code = country_code
         @type = type
       end
-
 
       def to_h
         {

@@ -7,7 +7,11 @@ gem("faraday")
 gem("oj")
 
 group(:test) do
-  gem 'mocha'
+  gem('mocha')
+end
+
+group(:development) do
+  gem('rubocop', require: false)
 end
 
 gemspec

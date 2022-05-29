@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "data_response"
 require_relative "phone_number_data_response"
 
@@ -20,7 +22,7 @@ module Whatsapp
           id: response.dig("id"),
           verified_name: response.dig("verified_name"),
           display_phone_number: response.dig("display_phone_number"),
-          quality_rating: response.dig("quality_rating"),
+          quality_rating: response.dig("quality_rating")
         )
       end
     end

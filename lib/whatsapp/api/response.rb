@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "../api/message_data_response"
 require_relative "../api/phone_number_data_response"
 require_relative "../api/phone_numbers_data_response"
@@ -11,10 +13,10 @@ module Whatsapp
       CLASS_TYPE = {
         message_data_response: Whatsapp::Api::MessageDataResponse,
         phone_number_data_response: Whatsapp::Api::PhoneNumberDataResponse,
-        phone_numbers_data_response: Whatsapp::Api::PhoneNumbersDataResponse,
+        phone_numbers_data_response: Whatsapp::Api::PhoneNumbersDataResponse
       }
 
-      def initialize(response:, class_type: )
+      def initialize(response:, class_type:)
         @data = class_type.build_from_response(response: response)
         @error = ErrorResponse.build_from_response(response: response)
       end
@@ -29,4 +31,3 @@ module Whatsapp
     end
   end
 end
-  

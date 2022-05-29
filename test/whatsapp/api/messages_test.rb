@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 require_relative '../../../lib/whatsapp/api/messages'
 require_relative '../../../lib/whatsapp/resource/address'

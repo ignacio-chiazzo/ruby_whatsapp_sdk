@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "request"
 require_relative "data_response"
 require_relative "../resource/message"
@@ -18,7 +20,7 @@ module Whatsapp
       def self.build_from_response(response:)
         return unless response["messages"]
 
-        self.new(response: response)
+        new(response: response)
       end
 
       def parse_message(message_json)
@@ -31,4 +33,3 @@ module Whatsapp
     end
   end
 end
-
