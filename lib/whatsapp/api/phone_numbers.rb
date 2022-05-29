@@ -12,7 +12,7 @@ module Whatsapp
           endpoint: "#{business_id}/phone_numbers"
         )
 
-        Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::PhoneNumbersDataResponse)
+        Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::Responses::PhoneNumbersDataResponse)
       end
 
       def registered_number(phone_number_id)
@@ -21,7 +21,7 @@ module Whatsapp
           endpoint: phone_number_id.to_s
         )
 
-        Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::PhoneNumberDataResponse)
+        Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::Responses::PhoneNumberDataResponse)
       end
     end
   end
