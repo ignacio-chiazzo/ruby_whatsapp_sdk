@@ -19,12 +19,12 @@ module Whatsapp
         return unless error_response
 
         new(
-          code: error_response.dig("code"),
-          subcode: error_response.dig("error_subcode"),
-          message: error_response.dig("message"),
-          type: error_response.dig("type"),
-          data: error_response.dig("data"),
-          fbtrace_id: error_response.dig("fbtrace_id")
+          code: error_response["code"],
+          subcode: error_response["error_subcode"],
+          message: error_response["message"],
+          type: error_response["type"],
+          data: error_response["data"],
+          fbtrace_id: error_response["fbtrace_id"]
         )
       end
     end

@@ -11,17 +11,18 @@ module Whatsapp
       attr_reader :contacts, :messages
 
       def initialize(response:)
-        @contacts = response.dig("contacts")&.map { |contact_json| parse_contact(contact_json) }
-        @messages = response.dig("messages")&.map { |contact_json| parse_message(contact_json) }
+        @contacts = response["contacts"]&.map { |contact_json| parse_contact(contact_json) }
+        @messages = response["messages"]&.map { |contact_json| parse_message(contact_json) }
+        super(response)
       end
-
-      private
 
       def self.build_from_response(response:)
         return unless response["messages"]
 
         new(response: response)
       end
+
+      private
 
       def parse_message(message_json)
         ::Whatsapp::Resource::Message.new(id: message_json["id"])

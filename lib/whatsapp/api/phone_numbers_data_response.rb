@@ -8,25 +8,21 @@ module Whatsapp
     class PhoneNumbersDataResponse < DataResponse
       attr_reader :phone_numbers
 
-      def initialize(response:)
+      def initialize(response)
         @phone_numbers = response['data']&.map { |phone_number| parse_phone_number(phone_number) }
+        super(response)
       end
 
       def self.build_from_response(response:)
         return unless response["data"]
 
-        new(response: response)
+        new(response)
       end
 
       private
 
       def parse_phone_number(phone_number)
-        Whatsapp::Api::PhoneNumberDataResponse.new(
-          id: phone_number.dig("id"),
-          verified_name: phone_number.dig("verified_name"),
-          display_phone_number: phone_number.dig("display_phone_number"),
-          quality_rating: phone_number.dig("quality_rating")
-        )
+        Whatsapp::Api::PhoneNumberDataResponse.new(phone_number)
       end
     end
   end

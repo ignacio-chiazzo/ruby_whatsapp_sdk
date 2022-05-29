@@ -13,7 +13,7 @@ module Whatsapp
     end
 
     def client
-      @_client ||= ::Faraday.new(API_CLIENT) do |client|
+      @client ||= ::Faraday.new(API_CLIENT) do |client|
         client.request :url_encoded
         client.adapter ::Faraday.default_adapter
         client.headers['Authorization'] = "Bearer #{@access_token}" unless @access_token.nil?

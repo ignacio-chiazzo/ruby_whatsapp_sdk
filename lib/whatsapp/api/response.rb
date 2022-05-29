@@ -14,7 +14,7 @@ module Whatsapp
         message_data_response: Whatsapp::Api::MessageDataResponse,
         phone_number_data_response: Whatsapp::Api::PhoneNumberDataResponse,
         phone_numbers_data_response: Whatsapp::Api::PhoneNumbersDataResponse
-      }
+      }.freeze
 
       def initialize(response:, class_type:)
         @data = class_type.build_from_response(response: response)

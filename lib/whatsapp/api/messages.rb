@@ -12,6 +12,7 @@ module Whatsapp
 
         def initialize(message)
           @message = message
+          super(message)
         end
       end
 
