@@ -556,7 +556,7 @@ module Whatsapp
       end
       
       def assert_mock_response(expected_contacts, expected_messages, message_response)
-        assert_equal(Whatsapp::Api::MessageResponse, message_response.class)
+        assert_equal(Whatsapp::Api::Response, message_response.class)
         assert_nil(message_response.error)
         assert(message_response.ok?)
         assert_equal(1, message_response.data.contacts.size)

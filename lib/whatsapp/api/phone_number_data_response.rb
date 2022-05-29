@@ -1,6 +1,8 @@
+require_relative "data_response"
+
 module Whatsapp
-  module Resource
-    class PhoneNumberResponse
+  module Api
+    class PhoneNumberDataResponse < DataResponse
       attr_accessor :id, :verified_name, :display_phone_number, :quality_rating
 
       def initialize(id:, verified_name:, display_phone_number:, quality_rating:)

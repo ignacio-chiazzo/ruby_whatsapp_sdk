@@ -1,10 +1,11 @@
 require_relative "request"
+require_relative "data_response"
 require_relative "../resource/message"
 require_relative "../resource/contact_response"
 
 module Whatsapp
   module Api
-    class MessageDataResponse
+    class MessageDataResponse < DataResponse
       attr_reader :contacts, :messages
 
       def initialize(response:)
