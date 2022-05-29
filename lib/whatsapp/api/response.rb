@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative "../api/message_data_response"
-require_relative "../api/phone_number_data_response"
-require_relative "../api/phone_numbers_data_response"
-require_relative "../api/error_response"
+require_relative "responses/message_data_response"
+require_relative "responses/phone_number_data_response"
+require_relative "responses/phone_numbers_data_response"
+require_relative "responses/error_response"
 
 module Whatsapp
   module Api
@@ -11,14 +11,14 @@ module Whatsapp
       attr_accessor :error, :data
 
       CLASS_TYPE = {
-        message_data_response: Whatsapp::Api::MessageDataResponse,
-        phone_number_data_response: Whatsapp::Api::PhoneNumberDataResponse,
-        phone_numbers_data_response: Whatsapp::Api::PhoneNumbersDataResponse
+        message_data_response: Responses::MessageDataResponse,
+        phone_number_data_response: Responses::PhoneNumberDataResponse,
+        phone_numbers_data_response: Responses::PhoneNumbersDataResponse
       }.freeze
 
       def initialize(response:, class_type:)
         @data = class_type.build_from_response(response: response)
-        @error = ErrorResponse.build_from_response(response: response)
+        @error = Responses::ErrorResponse.build_from_response(response: response)
       end
 
       def ok?
