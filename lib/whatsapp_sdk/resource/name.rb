@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Whatsapp
+module WhatsappSdk
   module Resource
     class Name
       attr_accessor :formatted_name, :first_name, :last_name, :middle_name, :suffix, :prefix

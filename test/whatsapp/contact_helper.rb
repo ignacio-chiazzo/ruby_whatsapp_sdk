@@ -2,42 +2,42 @@
 
 module ContactHelper
   def create_addresses
-    address1 = Whatsapp::Resource::Address.new(
+    address1 = WhatsappSdk::Resource::Address.new(
       street: "STREET",
       city: "CITY",
       state: "STATE",
       zip: "ZIP",
       country: "COUNTRY",
       country_code: "COUNTRY_CODE",
-      type: Whatsapp::Resource::Address::ADDRESS_TYPE[:home]
+      type: WhatsappSdk::Resource::Address::ADDRESS_TYPE[:home]
     )
-    address2 = Whatsapp::Resource::Address.new(
+    address2 = WhatsappSdk::Resource::Address.new(
       street: "STREET",
       city: "CITY",
       state: "STATE",
       zip: "ZIP",
       country: "COUNTRY",
       country_code: "COUNTRY_CODE",
-      type: Whatsapp::Resource::Address::ADDRESS_TYPE[:work]
+      type: WhatsappSdk::Resource::Address::ADDRESS_TYPE[:work]
     )
 
     [address1, address2]
   end
 
   def create_emails
-    email1 = Whatsapp::Resource::Email.new(
-      email: "ignacio@gmail.com", type: Whatsapp::Resource::Email::EMAIL_TYPE[:work]
+    email1 = WhatsappSdk::Resource::Email.new(
+      email: "ignacio@gmail.com", type: WhatsappSdk::Resource::Email::EMAIL_TYPE[:work]
     )
 
-    email2 = Whatsapp::Resource::Email.new(
-      email: "ignacio2@gmail.com", type: Whatsapp::Resource::Email::EMAIL_TYPE[:home]
+    email2 = WhatsappSdk::Resource::Email.new(
+      email: "ignacio2@gmail.com", type: WhatsappSdk::Resource::Email::EMAIL_TYPE[:home]
     )
 
     [email1, email2]
   end
 
   def create_name
-    Whatsapp::Resource::Name.new(
+    WhatsappSdk::Resource::Name.new(
       formatted_name: "ignacio chiazzo",
       first_name: "ignacio",
       last_name: "chiazo",
@@ -48,29 +48,29 @@ module ContactHelper
   end
 
   def create_org
-    Whatsapp::Resource::Org.new(company: "ignacioCo", department: "Engineering", title: "ignacioOrg")
+    WhatsappSdk::Resource::Org.new(company: "ignacioCo", department: "Engineering", title: "ignacioOrg")
   end
 
   def create_phones
-    phone1 = Whatsapp::Resource::PhoneNumber.new(
-      phone: "1234567", type: Whatsapp::Resource::PhoneNumber::PHONE_NUMBER_TYPE[:home], wa_id: "1234"
+    phone1 = WhatsappSdk::Resource::PhoneNumber.new(
+      phone: "1234567", type: WhatsappSdk::Resource::PhoneNumber::PHONE_NUMBER_TYPE[:home], wa_id: "1234"
     )
-    phone2 = Whatsapp::Resource::PhoneNumber.new(
-      phone: "1234567", type: Whatsapp::Resource::PhoneNumber::PHONE_NUMBER_TYPE[:work], wa_id: "1234"
+    phone2 = WhatsappSdk::Resource::PhoneNumber.new(
+      phone: "1234567", type: WhatsappSdk::Resource::PhoneNumber::PHONE_NUMBER_TYPE[:work], wa_id: "1234"
     )
 
     [phone1, phone2]
   end
 
   def create_urls
-    url1 = Whatsapp::Resource::Url.new(url: "1234567", type: Whatsapp::Resource::Address::ADDRESS_TYPE[:home])
-    url2 = Whatsapp::Resource::Url.new(url: "1234567", type: Whatsapp::Resource::Address::ADDRESS_TYPE[:work])
+    url1 = WhatsappSdk::Resource::Url.new(url: "1234567", type: WhatsappSdk::Resource::Address::ADDRESS_TYPE[:home])
+    url2 = WhatsappSdk::Resource::Url.new(url: "1234567", type: WhatsappSdk::Resource::Address::ADDRESS_TYPE[:work])
 
     [url1, url2]
   end
 
   def create_contact
-    Whatsapp::Resource::Contact.new(
+    WhatsappSdk::Resource::Contact.new(
       addresses: create_addresses,
       birthday: "2019_01_01",
       emails: create_emails,

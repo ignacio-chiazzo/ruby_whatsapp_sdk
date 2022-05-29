@@ -3,7 +3,7 @@
 require_relative "request"
 require_relative "response"
 
-module Whatsapp
+module WhatsappSdk
   module Api
     class Messages < Request
       class MissingArgumentError < StandardError
@@ -29,7 +29,7 @@ module Whatsapp
           params: params
         )
 
-        Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::Responses::MessageDataResponse)
+        WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
       end
 
       def send_location(sender_id:, recipient_number:, longitude:, latitude:, name:, address:)
@@ -51,7 +51,7 @@ module Whatsapp
           params: params
         )
 
-        Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::Responses::MessageDataResponse)
+        WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
       end
 
       def send_image(sender_id:, recipient_number:, image_id: nil, link: nil, caption: "")
@@ -74,7 +74,7 @@ module Whatsapp
           params: params
         )
 
-        Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::Responses::MessageDataResponse)
+        WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
       end
 
       def send_audio(sender_id:, recipient_number:, audio_id: nil, link: nil)
@@ -93,7 +93,7 @@ module Whatsapp
           params: params
         )
 
-        Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::Responses::MessageDataResponse)
+        WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
       end
 
       def send_video(sender_id:, recipient_number:, video_id: nil, link: nil, caption: "")
@@ -116,7 +116,7 @@ module Whatsapp
           params: params
         )
 
-        Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::Responses::MessageDataResponse)
+        WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
       end
 
       def send_document(sender_id:, recipient_number:, document_id: nil, link: nil, caption: "")
@@ -139,7 +139,7 @@ module Whatsapp
           params: params
         )
 
-        Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::Responses::MessageDataResponse)
+        WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
       end
 
       def send_sticker(sender_id:, recipient_number:, sticker_id: nil, link: nil)
@@ -158,7 +158,7 @@ module Whatsapp
           params: params
         )
 
-        Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::Responses::MessageDataResponse)
+        WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
       end
 
       def send_contacts(sender_id:, recipient_number:, contacts: nil, contacts_json: {})
@@ -175,19 +175,19 @@ module Whatsapp
           params: params
         )
 
-        Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::Responses::MessageDataResponse)
+        WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
       end
 
       def send_interactive_button
-        # TODO: https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages#contacts-object
+        # TODO: https://developers.facebook.com/docs/whatsapp_sdk/cloud-api/reference/messages#contacts-object
       end
 
       def send_interactive_reply_buttons
-        # TODO: https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages#contacts-object
+        # TODO: https://developers.facebook.com/docs/whatsapp_sdk/cloud-api/reference/messages#contacts-object
       end
 
       def send_interactive_section
-        # TODO: https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages#contacts-object
+        # TODO: https://developers.facebook.com/docs/whatsapp_sdk/cloud-api/reference/messages#contacts-object
       end
 
       private

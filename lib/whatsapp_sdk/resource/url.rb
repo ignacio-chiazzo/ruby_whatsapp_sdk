@@ -1,23 +1,23 @@
 # frozen_string_literal: true
 
-module Whatsapp
+module WhatsappSdk
   module Resource
-    class Email
-      attr_accessor :email, :type
+    class Url
+      attr_accessor :url, :type
 
-      EMAIL_TYPE = {
+      ADDRESS_TYPE = {
         home: "HOME",
         work: "WORK"
       }.freeze
 
-      def initialize(email:, type:)
-        @email = email
+      def initialize(url:, type:)
+        @url = url
         @type = type
       end
 
       def to_h
         {
-          email: @email,
+          url: @url,
           type: @type
         }
       end

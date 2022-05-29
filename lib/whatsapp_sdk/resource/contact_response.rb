@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Whatsapp
+module WhatsappSdk
   module Resource
     class ContactResponse
       attr_accessor :input, :wa_id

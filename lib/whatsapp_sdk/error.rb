@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "whatsapp/version"
-
-module Whatsapp
+module WhatsappSdk
   class Error < StandardError; end
 end

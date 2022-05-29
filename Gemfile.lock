@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ruby-whatsapp-sdk (0.0.1)
+    whatsapp_sdk (0.0.1)
       faraday (~> 2.3.0)
       oj (~> 3.13.13)
 
@@ -58,7 +58,7 @@ DEPENDENCIES
   pry-nav
   rake (~> 10.0)
   rubocop
-  ruby-whatsapp-sdk!
+  whatsapp_sdk!
 
 BUNDLED WITH
    2.3.9

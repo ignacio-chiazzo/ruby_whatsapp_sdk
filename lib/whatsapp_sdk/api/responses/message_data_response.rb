@@ -5,7 +5,7 @@ require_relative "data_response"
 require_relative "../../resource/message"
 require_relative "../../resource/contact_response"
 
-module Whatsapp
+module WhatsappSdk
   module Api
     module Responses
       class MessageDataResponse < DataResponse
@@ -26,11 +26,11 @@ module Whatsapp
         private
 
         def parse_message(message_json)
-          ::Whatsapp::Resource::Message.new(id: message_json["id"])
+          ::WhatsappSdk::Resource::Message.new(id: message_json["id"])
         end
 
         def parse_contact(contact_json)
-          ::Whatsapp::Resource::ContactResponse.new(input: contact_json["input"], wa_id: contact_json["wa_id"])
+          ::WhatsappSdk::Resource::ContactResponse.new(input: contact_json["input"], wa_id: contact_json["wa_id"])
         end
       end
     end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Whatsapp
+module WhatsappSdk
   module Resource
     class Contact
       attr_accessor :addresses, :birthday, :emails, :name, :org, :phones, :urls
