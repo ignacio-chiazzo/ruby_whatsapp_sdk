@@ -1,5 +1,6 @@
 require_relative "../api/message_data_response"
 require_relative "../api/phone_number_data_response"
+require_relative "../api/phone_numbers_data_response"
 require_relative "../api/error_response"
 
 module Whatsapp
@@ -10,6 +11,7 @@ module Whatsapp
       CLASS_TYPE = {
         message_data_response: Whatsapp::Api::MessageDataResponse,
         phone_number_data_response: Whatsapp::Api::PhoneNumberDataResponse,
+        phone_numbers_data_response: Whatsapp::Api::PhoneNumbersDataResponse,
       }
 
       def initialize(response:, class_type: )

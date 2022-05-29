@@ -10,7 +10,7 @@ module Whatsapp
       end
 
       def send_request(http_method: "post", endpoint:, params: {})
-        @client.send_request(http_method: "post", endpoint: endpoint, params: params)
+        @client.send_request(http_method: http_method, endpoint: endpoint, params: params)
       end
     end
   end

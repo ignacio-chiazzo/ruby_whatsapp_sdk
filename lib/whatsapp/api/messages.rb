@@ -1,8 +1,3 @@
-require "pry"
-require "pry-nav"
-require "faraday"
-require "oj"
-
 require_relative "request"
 require_relative "response"
 require_relative "error_response"

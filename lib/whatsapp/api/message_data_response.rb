@@ -9,7 +9,6 @@ module Whatsapp
       attr_reader :contacts, :messages
 
       def initialize(response:)
-        # TODO validate API response
         @contacts = response.dig("contacts")&.map { |contact_json| parse_contact(contact_json) }
         @messages = response.dig("messages")&.map { |contact_json| parse_message(contact_json) }
       end

@@ -1,6 +1,7 @@
 require_relative "request"
 require_relative "../resource/message"
 require_relative "../resource/contact"
+require_relative "response"
 
 module Whatsapp
   module Api
@@ -11,17 +12,7 @@ module Whatsapp
           endpoint: "#{business_id}/phone_numbers",
         )
 
-        return print_error(response) unless valid?(response)
-        # TODO: RETURN UNLESS VALID
-
-        response.fetch("data").map do |phone_number|
-          Whatsapp::Resource::PhoneNumberResponse.new(
-            id: phone_number.fetch("id"),
-            verified_name: phone_number.fetch("verified_name"),
-            display_phone_number: phone_number.fetch("display_phone_number"),
-            quality_rating: phone_number.fetch("quality_rating"),
-          )
-        end
+        Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::PhoneNumbersDataResponse)
       end
 
       def registered_number(phone_number_id)
@@ -29,28 +20,8 @@ module Whatsapp
           http_method: "get",
           endpoint: phone_number_id.to_s,
         )
-        return print_error(response) unless valid?(response)
-        # TODO: RETURN UNLESS VALID
-        phone_number = parse_phone_number(response)
-      end
 
-      private 
-
-      def parse_phone_number(response)
-        ::Whatsapp::Resource::PhoneNumberResponse.new(
-          id: response.fetch("id"),
-          verified_name: response.fetch("verified_name"),
-          display_phone_number: response.fetch("display_phone_number"),
-          quality_rating: "D"
-        )
-      end
-
-      def valid?(response)
-        !response.key?("error")
-      end
-
-      def print_error(response)
-        puts "ERROR: #{response.fetch("error").fetch("message")}"
+        Whatsapp::Api::Response.new(response: response, class_type: Whatsapp::Api::PhoneNumberDataResponse)
       end
     end
   end
