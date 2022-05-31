@@ -8,7 +8,7 @@ Send stickers, messages, audio, videos, locations or just ask for the phone numb
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'ruby-whatsapp-sdk'
+gem 'whatsapp_sdk'
 ```
 
 And then execute:
@@ -17,7 +17,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install ruby-whatsapp-sdk
+    $ gem install whatsapp_sdk
 
 ## Quick Start
 
