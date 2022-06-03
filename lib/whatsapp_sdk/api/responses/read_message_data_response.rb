@@ -8,7 +8,7 @@ require_relative "../../resource/contact_response"
 module WhatsappSdk
   module Api
     module Responses
-      class MessageDataResponse < DataResponse
+      class ReadMessageDataResponse < DataResponse
         attr_reader :sucess
 
         def initialize(response:)

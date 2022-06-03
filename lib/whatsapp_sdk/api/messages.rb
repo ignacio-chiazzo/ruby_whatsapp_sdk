@@ -267,7 +267,10 @@ module WhatsappSdk
           params: params
         )
 
-        WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
+        WhatsappSdk::Api::Response.new(
+          response: response,
+          class_type: WhatsappSdk::Api::Responses::ReadMessageDataResponse
+        )
       end
 
       private

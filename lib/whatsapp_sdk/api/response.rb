@@ -3,6 +3,7 @@
 require_relative "responses/message_data_response"
 require_relative "responses/phone_number_data_response"
 require_relative "responses/phone_numbers_data_response"
+require_relative "responses/read_message_data_response"
 require_relative "responses/error_response"
 
 module WhatsappSdk
@@ -14,7 +15,7 @@ module WhatsappSdk
         message_data_response: Responses::MessageDataResponse,
         phone_number_data_response: Responses::PhoneNumberDataResponse,
         phone_numbers_data_response: Responses::PhoneNumbersDataResponse,
-        read_message_data_response: ReadMessageDataResponse
+        read_message_data_response: Responses::ReadMessageDataResponse
       }.freeze
 
       def initialize(response:, class_type:)

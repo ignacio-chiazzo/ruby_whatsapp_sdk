@@ -11,6 +11,7 @@ require_relative "whatsapp_sdk/api/responses/phone_number_data_response"
 require_relative "whatsapp_sdk/api/responses/phone_numbers_data_response"
 require_relative "whatsapp_sdk/api/responses/error_response"
 require_relative "whatsapp_sdk/api/responses/data_response"
+require_relative "whatsapp_sdk/api/responses/read_message_data_response"
 
 # Resources
 require_relative "whatsapp_sdk/resource/address"
