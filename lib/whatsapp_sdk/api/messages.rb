@@ -15,6 +15,12 @@ module WhatsappSdk
         end
       end
 
+      # Send a text message.
+      #
+      # @param sender_id [Integer] Sender' phone number.
+      # @param recipient_number [Integer] Recipient' Phone number.
+      # @param message [String] Text to send.
+      # @return [WhatsappSdk::Api::Response] Response object.
       def send_text(sender_id:, recipient_number:, message:)
         params = {
           messaging_product: "whatsapp",
@@ -32,6 +38,15 @@ module WhatsappSdk
         WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
       end
 
+      # Send location.
+      #
+      # @param sender_id [Integer] Sender' phone number.
+      # @param recipient_number [Integer] Recipient' Phone number.
+      # @param longitude [Float] Location longitude.
+      # @param latitude [Float] Location latitude.
+      # @param name [String] Location name.
+      # @param address [String] Location address.
+      # @return [WhatsappSdk::Api::Response] Response object.
       def send_location(sender_id:, recipient_number:, longitude:, latitude:, name:, address:)
         params = {
           messaging_product: "whatsapp",
@@ -54,6 +69,14 @@ module WhatsappSdk
         WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
       end
 
+      # Send an image.
+      #
+      # @param sender_id [Integer] Sender' phone number.
+      # @param recipient_number [Integer] Recipient' Phone number.
+      # @param image_id [Integer] Image ID.
+      # @param link [String] Image link.
+      # @param caption [String] Image caption.
+      # @return [WhatsappSdk::Api::Response] Response object.
       def send_image(sender_id:, recipient_number:, image_id: nil, link: nil, caption: "")
         raise MissingArgumentError, "image_id or link is required" if !image_id && !link
 
@@ -77,6 +100,13 @@ module WhatsappSdk
         WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
       end
 
+      # Send an audio.
+      #
+      # @param sender_id [Integer] Sender' phone number.
+      # @param recipient_number [Integer] Recipient' Phone number.
+      # @param audio_id [Integer] Audio ID.
+      # @param link [String] Audio link.
+      # @return [WhatsappSdk::Api::Response] Response object.
       def send_audio(sender_id:, recipient_number:, audio_id: nil, link: nil)
         raise MissingArgumentError, "audio_id or link is required" if !audio_id && !link
 
@@ -96,6 +126,14 @@ module WhatsappSdk
         WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
       end
 
+      # Send a video.
+      #
+      # @param sender_id [Integer] Sender' phone number.
+      # @param recipient_number [Integer] Recipient' Phone number.
+      # @param video_id [Integer] Video ID.
+      # @param link [String] Image link.
+      # @param caption [String] Image caption.
+      # @return [WhatsappSdk::Api::Response] Response object.
       def send_video(sender_id:, recipient_number:, video_id: nil, link: nil, caption: "")
         raise MissingArgumentError, "video_id or link is required" if !video_id && !link
 
@@ -119,6 +157,14 @@ module WhatsappSdk
         WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
       end
 
+      # Send a document.
+      #
+      # @param sender_id [Integer] Sender' phone number.
+      # @param recipient_number [Integer] Recipient' Phone number.
+      # @param document_id [Integer] document ID.
+      # @param link [String] Image link.
+      # @param caption [String] Image caption.
+      # @return [WhatsappSdk::Api::Response] Response object.
       def send_document(sender_id:, recipient_number:, document_id: nil, link: nil, caption: "")
         raise MissingArgumentError, "document or link is required" if !document_id && !link
 
@@ -142,6 +188,12 @@ module WhatsappSdk
         WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
       end
 
+      # Send a document.
+      #
+      # @param sender_id [Integer] Sender' phone number.
+      # @param recipient_number [Integer] Recipient' Phone number.
+      # @param link [String] Image link.
+      # @return [WhatsappSdk::Api::Response] Response object.
       def send_sticker(sender_id:, recipient_number:, sticker_id: nil, link: nil)
         raise MissingArgumentError, "sticker or link is required" if !sticker_id && !link
 
@@ -161,6 +213,14 @@ module WhatsappSdk
         WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
       end
 
+      # Send contacts.
+      # You can either send contacts objects or contacts as JSON.
+      #
+      # @param sender_id [Integer] Sender' phone number.
+      # @param recipient_number [Integer] Recipient' Phone number.
+      # @param contacts [Array<Contact>] Contacts.
+      # @param contacts_json [Json] Contacts.
+      # @return [WhatsappSdk::Api::Response] Response object.
       def send_contacts(sender_id:, recipient_number:, contacts: nil, contacts_json: {})
         params = {
           messaging_product: "whatsapp",

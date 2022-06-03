@@ -21,10 +21,12 @@ module WhatsappSdk
         @error = Responses::ErrorResponse.build_from_response(response: response)
       end
 
+      # Whether or not the response is successful.
       def ok?
         @error.nil?
       end
 
+      # Whether or not the response has an error.
       def error?
         !!@error
       end
