@@ -13,7 +13,8 @@ module WhatsappSdk
       CLASS_TYPE = {
         message_data_response: Responses::MessageDataResponse,
         phone_number_data_response: Responses::PhoneNumberDataResponse,
-        phone_numbers_data_response: Responses::PhoneNumbersDataResponse
+        phone_numbers_data_response: Responses::PhoneNumbersDataResponse,
+        read_message_data_response: ReadMessageDataResponse
       }.freeze
 
       def initialize(response:, class_type:)

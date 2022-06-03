@@ -250,6 +250,26 @@ module WhatsappSdk
         # TODO: https://developers.facebook.com/docs/whatsapp_sdk/cloud-api/reference/messages#contacts-object
       end
 
+      # Mark a message as read.
+      #
+      # @param sender_id [Integer] Sender' phone number.
+      # @param message_id [Integer] Message ID.
+      # @return [WhatsappSdk::Api::Response] Response object.
+      def read_message(sender_id:, message_id:)
+        params = {
+          messaging_product: "whatsapp",
+          status: "read",
+          message_id: message_id
+        }
+
+        response = send_request(
+          endpoint: endpoint(sender_id),
+          params: params
+        )
+
+        WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
+      end
+
       private
 
       def endpoint(sender_id)
