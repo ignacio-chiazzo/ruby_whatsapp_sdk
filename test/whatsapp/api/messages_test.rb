@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require_relative '../../../lib/whatsapp_sdk/api/responses/read_message_data_response'
 require_relative '../../../lib/whatsapp_sdk/api/messages'
 require_relative '../../../lib/whatsapp_sdk/resource/address'
 require_relative '../../../lib/whatsapp_sdk/resource/contact'
@@ -418,6 +419,36 @@ module WhatsappSdk
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert(message_response.ok?)
+      end
+
+      def test_read_message_with_a_valid_response
+        @messages_api.expects(:send_request).with(
+          endpoint: "123123/messages",
+          params: {
+            messaging_product: "whatsapp",
+            status: "read",
+            message_id: "12345"
+          }
+        ).returns({ "sucess" => true })
+
+        message_response = @messages_api.read_message(
+          sender_id: 123_123, message_id: "12345"
+        )
+
+        assert_equal(WhatsappSdk::Api::Response, message_response.class)
+        assert_nil(message_response.error)
+        assert(message_response.ok?)
+        assert_equal(WhatsappSdk::Api::Responses::ReadMessageDataResponse, message_response.data.class)
+        assert(message_response.data.sucess)
+      end
+
+      def test_read_message_with_an_invalid_response
+        mocked_error_response = mock_error_response
+        response = @messages_api.read_message(
+          sender_id: 123_123, message_id: "12345"
+        )
+        assert_mock_error_response(mocked_error_response, response)
+        assert(response.error?)
       end
 
       private
