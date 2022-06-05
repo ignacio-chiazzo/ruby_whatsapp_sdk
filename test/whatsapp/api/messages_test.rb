@@ -46,7 +46,7 @@ module WhatsappSdk
           params: {
             messaging_product: "whatsapp",
             to: "56789",
-            recepient_type: "individual",
+            recipient_type: "individual",
             type: "text",
             text: { body: "hola" }
           }
@@ -81,7 +81,7 @@ module WhatsappSdk
           params: {
             messaging_product: "whatsapp",
             to: "56789",
-            recepient_type: "individual",
+            recipient_type: "individual",
             type: "location",
             "location": {
               "longitude": longitude,
@@ -125,7 +125,7 @@ module WhatsappSdk
           params: {
             messaging_product: "whatsapp",
             to: "56789",
-            recepient_type: "individual",
+            recipient_type: "individual",
             type: "image",
             image: { link: image_link, caption: "Ignacio Chiazzo Profile" }
           }
@@ -146,7 +146,7 @@ module WhatsappSdk
           params: {
             messaging_product: "whatsapp",
             to: "56789",
-            recepient_type: "individual",
+            recipient_type: "individual",
             type: "image",
             image: { id: image_id, caption: "Ignacio Chiazzo Profile" }
           }
@@ -184,7 +184,7 @@ module WhatsappSdk
           params: {
             messaging_product: "whatsapp",
             to: "56789",
-            recepient_type: "individual",
+            recipient_type: "individual",
             type: "audio",
             audio: { link: audio_link }
           }
@@ -204,7 +204,7 @@ module WhatsappSdk
           params: {
             messaging_product: "whatsapp",
             to: "56789",
-            recepient_type: "individual",
+            recipient_type: "individual",
             type: "audio",
             audio: { id: audio_id }
           }
@@ -241,7 +241,7 @@ module WhatsappSdk
           params: {
             messaging_product: "whatsapp",
             to: "56789",
-            recepient_type: "individual",
+            recipient_type: "individual",
             type: "video",
             video: { link: video_link, caption: "Ignacio Chiazzo Profile" }
           }
@@ -262,7 +262,7 @@ module WhatsappSdk
           params: {
             messaging_product: "whatsapp",
             to: "56789",
-            recepient_type: "individual",
+            recipient_type: "individual",
             type: "video",
             video: { id: video_id, caption: "Ignacio Chiazzo Profile" }
           }
@@ -300,7 +300,7 @@ module WhatsappSdk
           params: {
             messaging_product: "whatsapp",
             to: "56789",
-            recepient_type: "individual",
+            recipient_type: "individual",
             type: "document",
             document: { link: document_link, caption: "Ignacio Chiazzo Profile" }
           }
@@ -321,7 +321,7 @@ module WhatsappSdk
           params: {
             messaging_product: "whatsapp",
             to: "56789",
-            recepient_type: "individual",
+            recipient_type: "individual",
             type: "document",
             document: { id: document_id, caption: "Ignacio Chiazzo Profile" }
           }
@@ -359,7 +359,7 @@ module WhatsappSdk
           params: {
             messaging_product: "whatsapp",
             to: "56789",
-            recepient_type: "individual",
+            recipient_type: "individual",
             type: "sticker",
             sticker: { link: sticker_link }
           }
@@ -379,7 +379,7 @@ module WhatsappSdk
           params: {
             messaging_product: "whatsapp",
             to: "56789",
-            recepient_type: "individual",
+            recipient_type: "individual",
             type: "sticker",
             sticker: { id: sticker_id }
           }
@@ -408,7 +408,7 @@ module WhatsappSdk
           params: {
             messaging_product: "whatsapp",
             to: "56789",
-            recepient_type: "individual",
+            recipient_type: "individual",
             type: "contacts",
             contacts: contacts.map(&:to_h)
           }
@@ -450,6 +450,157 @@ module WhatsappSdk
         assert_mock_error_response(mocked_error_response, response)
         assert(response.error?)
       end
+
+      def test_send_template_raises_an_error_when_component_and_component_json_are_not_provided
+        error = assert_raises(WhatsappSdk::Api::Messages::MissingArgumentError) do
+          @messages_api.send_template(
+            sender_id: 123_123, recipient_number: "56789", name: "template", language: "en_US"
+          )
+        end
+
+        assert_equal("components or components_json is required", error.message)
+      end
+
+      def test_send_template_with_success_response_by_passing_components_json
+        mock_response(valid_contacts, valid_messages)
+        message_response = @messages_api.send_template(
+          sender_id: 12_345, recipient_number: "12345678", name: "hello_world", language: "en_US",
+          components_json: [{
+            "type": "header",
+            "parameters": [
+              {
+                "type": "image",
+                "image": {
+                  "link": "http(s)://URL"
+                }
+              }
+            ]
+          }]
+        )
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
+      end
+
+      # rubocop:disable Metrics/MethodLength
+      def test_send_template_with_success_response_by_passing_components
+        currency = WhatsappSdk::Resource::Currency.new(code: "USD", amount: 1000, fallback_value: "1000")
+        date_time = WhatsappSdk::Resource::DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
+        image = WhatsappSdk::Resource::Media.new(type: "image", link: "http(s)://URL")
+
+        parameter_image = WhatsappSdk::Resource::ParameterObject.new(type: "image", image: image)
+        parameter_text = WhatsappSdk::Resource::ParameterObject.new(type: "text", text: "TEXT_STRING")
+        parameter_currency = WhatsappSdk::Resource::ParameterObject.new(type: "currency", currency: currency)
+        parameter_date_time = WhatsappSdk::Resource::ParameterObject.new(type: "date_time", date_time: date_time)
+
+        header_component = WhatsappSdk::Resource::Component.new(
+          type: WhatsappSdk::Resource::Component::Type::HEADER,
+          parameters: [parameter_image]
+        )
+
+        body_component = WhatsappSdk::Resource::Component.new(
+          type: WhatsappSdk::Resource::Component::Type::BODY,
+          parameters: [parameter_text, parameter_currency, parameter_date_time]
+        )
+
+        button_component1 = WhatsappSdk::Resource::Component.new(
+          type: WhatsappSdk::Resource::Component::Type::BUTTON,
+          index: 0,
+          sub_type: WhatsappSdk::Resource::Component::Subtype::QUICK_REPLY,
+          parameters: [
+            WhatsappSdk::Resource::ButtonParameter.new(type: "payload", payload: "PAYLOAD")
+          ]
+        )
+
+        button_component2 = WhatsappSdk::Resource::Component.new(
+          type: WhatsappSdk::Resource::Component::Type::BUTTON,
+          index: 1,
+          sub_type: WhatsappSdk::Resource::Component::Subtype::QUICK_REPLY,
+          parameters: [
+            WhatsappSdk::Resource::ButtonParameter.new(type: "payload", payload: "PAYLOAD")
+          ]
+        )
+
+        @messages_api.expects(:send_request).with({
+                                                    endpoint: "123123/messages",
+                                                    params: {
+                                                      messaging_product: "whatsapp",
+                                                      to: "12345678",
+                                                      recipient_type: "individual",
+                                                      type: "template",
+                                                      template: {
+                                                        name: "hello_world",
+                                                        language: { code: "en_US" },
+                                                        components: [
+                                                          {
+                                                            "type": "header",
+                                                            "parameters": [
+                                                              {
+                                                                "type": "image",
+                                                                "image": {
+                                                                  "link": "http(s)://URL"
+                                                                }
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "body",
+                                                            "parameters": [
+                                                              {
+                                                                "type": "text",
+                                                                "text": "TEXT_STRING"
+                                                              },
+                                                              {
+                                                                "type": "currency",
+                                                                "currency": {
+                                                                  "fallback_value": "1000",
+                                                                  "code": "USD",
+                                                                  "amount_1000": 1000
+                                                                }
+                                                              },
+                                                              {
+                                                                "type": "date_time",
+                                                                "date_time": {
+                                                                  "fallback_value": "2020-01-01T00:00:00Z"
+                                                                }
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "button",
+                                                            "sub_type": "quick_reply",
+                                                            "index": 0,
+                                                            "parameters": [
+                                                              {
+                                                                "type": "payload",
+                                                                "payload": "PAYLOAD"
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "button",
+                                                            "sub_type": "quick_reply",
+                                                            "index": 1,
+                                                            "parameters": [
+                                                              {
+                                                                "type": "payload",
+                                                                "payload": "PAYLOAD"
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    }
+                                                  }).returns(valid_response(valid_contacts, valid_messages))
+
+        message_response = @messages_api.send_template(
+          sender_id: 123_123, recipient_number: "12345678", name: "hello_world", language: "en_US",
+          components: [header_component, body_component, button_component1, button_component2]
+        )
+
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert(message_response.ok?)
+      end
+      # rubocop:enable Metrics/MethodLength
 
       private
 

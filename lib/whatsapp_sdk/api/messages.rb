@@ -25,7 +25,7 @@ module WhatsappSdk
         params = {
           messaging_product: "whatsapp",
           to: recipient_number,
-          recepient_type: "individual",
+          recipient_type: "individual",
           type: "text",
           "text": { body: message }
         }
@@ -51,7 +51,7 @@ module WhatsappSdk
         params = {
           messaging_product: "whatsapp",
           to: recipient_number,
-          recepient_type: "individual",
+          recipient_type: "individual",
           type: "location",
           "location": {
             "longitude": longitude,
@@ -83,7 +83,7 @@ module WhatsappSdk
         params = {
           messaging_product: "whatsapp",
           to: recipient_number,
-          recepient_type: "individual",
+          recipient_type: "individual",
           type: "image"
         }
         params[:image] = if link
@@ -113,7 +113,7 @@ module WhatsappSdk
         params = {
           messaging_product: "whatsapp",
           to: recipient_number,
-          recepient_type: "individual",
+          recipient_type: "individual",
           type: "audio"
         }
         params[:audio] = link ? { link: link } : { id: audio_id }
@@ -140,7 +140,7 @@ module WhatsappSdk
         params = {
           messaging_product: "whatsapp",
           to: recipient_number,
-          recepient_type: "individual",
+          recipient_type: "individual",
           type: "video"
         }
         params[:video] = if link
@@ -171,7 +171,7 @@ module WhatsappSdk
         params = {
           messaging_product: "whatsapp",
           to: recipient_number,
-          recepient_type: "individual",
+          recipient_type: "individual",
           type: "document"
         }
         params[:document] = if link
@@ -200,7 +200,7 @@ module WhatsappSdk
         params = {
           messaging_product: "whatsapp",
           to: recipient_number,
-          recepient_type: "individual",
+          recipient_type: "individual",
           type: "sticker"
         }
         params[:sticker] = link ? { link: link } : { id: sticker_id }
@@ -225,7 +225,7 @@ module WhatsappSdk
         params = {
           messaging_product: "whatsapp",
           to: recipient_number,
-          recepient_type: "individual",
+          recipient_type: "individual",
           type: "contacts"
         }
         params[:contacts] = contacts ? contacts.map(&:to_h) : contacts_json
@@ -270,6 +270,46 @@ module WhatsappSdk
         WhatsappSdk::Api::Response.new(
           response: response,
           class_type: WhatsappSdk::Api::Responses::ReadMessageDataResponse
+        )
+      end
+
+      # Send template
+      #
+      # @param sender_id [Integer] Sender' phone number.
+      # @param recipient_number [Integer] Recipient' Phone number.
+      # @param name [String] the template's name.
+      # @param language [String] template language.
+      # @param components [Component] Component.
+      # @param components_json [Json] The component as a Json. If you pass components_json, you can't pass components.
+      # @return [WhatsappSdk::Api::Response] Response object.
+      def send_template(sender_id:, recipient_number:, name:, language:, components: nil, components_json: nil)
+        raise MissingArgumentError, "components or components_json is required" if !components && !components_json
+
+        params = {
+          messaging_product: "whatsapp",
+          recipient_type: "individual",
+          to: recipient_number,
+          type: "template",
+          template: {
+            name: name
+          }
+        }
+
+        params[:template][:language] = { code: language } if language
+        params[:template][:components] = if components.nil?
+                                           components_json
+                                         else
+                                           components.map(&:to_json)
+                                         end
+
+        response = send_request(
+          endpoint: endpoint(sender_id),
+          params: params
+        )
+
+        WhatsappSdk::Api::Response.new(
+          response: response,
+          class_type: WhatsappSdk::Api::Responses::MessageDataResponse
         )
       end
 
