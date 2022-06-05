@@ -117,98 +117,76 @@ messages_api.send_sticker(sender_id: 123123, recipient_number: "56789", sticker_
 ```
 
 **Send contacts message**
-To send a contact, you need to create a Contact instance object that contain objects embedded like 
-`addresses`, `birthday`, `emails`, `name`, `org`. See this [guide](/test/contact_helper.rb) to learn how to create contacts objects.
+To send a contact, you need to create a Contact instance object that contain objects embedded like `addresses`, `birthday`, `emails`, `name`, `org`. See this [guide](/test/contact_helper.rb) to learn how to create contacts objects.
 
 ```ruby
 contacts = [create_contact(params)]
 messages_api.send_contacts(sender_id: 123123, recipient_number: "56789", contacts: contacts)
 ```
 
-## Example
+Alernative, you could pass a plain json like this:
+```ruby
+messages_api.send_contacts(sender_id: 123123, recipient_number: "56789", contacts_json: {...})
+```
 
-<details><summary>Example in a single file. </summary>
-    
-1) Copy this code into a file and save it `example.rb`
-2) Replace the `ACCESS_TOKEN` constant with a valid `access_token`. 
-3) Run the file with the command `ruby example.rb`
+**Send a template message**
+WhatsApp message templates are specific message formats that businesses use to send out notifications or customer care messages to people that have opted in to notifications. Messages can include appointment reminders, shipping information, issue resolution or payment updates.
+
+**Before sending a message template, you need to create one.** visit the [Official API Documentation](https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-message-templates)
+
+<details> <summary>Component's example</summary>
 
 ```ruby
-# frozen_string_literal: true
+currency = WhatsappSdk::Resource::Currency.new(code: "USD", amount: 1000, fallback_value: "1000")
+date_time = WhatsappSdk::Resource::DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
+image = WhatsappSdk::Resource::Media.new(type: "image", link: "http(s)://URL")
 
-require 'bundler/inline'
+parameter_image = WhatsappSdk::Resource::ParameterObject.new(type: "image", image: image)
+parameter_text = WhatsappSdk::Resource::ParameterObject.new(type: "text", text: "TEXT_STRING")
+parameter_currency = WhatsappSdk::Resource::ParameterObject.new(type: "currency", currency: currency)
+parameter_date_time = WhatsappSdk::Resource::ParameterObject.new(type: "date_time", date_time: date_time)
 
-gemfile(true) do
-  source 'https://rubygems.org'
-
-  git_source(:github) { |repo| "https://github.com/#{repo}.git" }
-
-  gem "whatsapp_sdk"
-  gem "pry"
-  gem "pry-nav"
-end
-
-require 'whatsapp_sdk'
-require "pry"
-require "pry-nav"
-
-ACCESS_TOKEN = "12345" # replace this with a valid access_token
-SENDER_ID = 107878721936019
-RECEIPIENT_NUMBER = "1234"
-
-client = WhatsappSdk::Api::Client.new(ACCESS_TOKEN) # replace this with a valid access_token
-messages_api = WhatsappSdk::Api::Messages.new(client)
-phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new(client)
-
-phone_numbers_api.registered_number("107878721936019")
-phone_numbers_api.registered_numbers("114503234599312") 
-
-messages_api.send_text(sender_id: SENDER_ID, recipient_number: RECEIPIENT_NUMBER, message: "hola")
-messages_api.send_location(
-  sender_id: SENDER_ID, recipient_number: RECEIPIENT_NUMBER, 
-  longitude: 45.4215, latitude: 75.6972, name: "nacho", address: "141 cooper street"
+header_component = WhatsappSdk::Resource::Component.new(
+  type: WhatsappSdk::Resource::Component::Type::HEADER,
+  parameters: [parameter_image]
 )
 
-# Send images
-
-## with a link 
-messages_api.send_image(
-  sender_id: SENDER_ID, recipient_number: RECEIPIENT_NUMBER, link: "image_link", caption: "Ignacio Chiazzo Profile"
+body_component = WhatsappSdk::Resource::Component.new(
+  type: WhatsappSdk::Resource::Component::Type::BODY,
+  parameters: [parameter_text, parameter_currency, parameter_date_time]
 )
 
-## with an image id 
-messages_api.send_image(
-  sender_id: SENDER_ID, recipient_number: RECEIPIENT_NUMBER, image_id: "1234", caption: "Ignacio Chiazzo Profile"
+button_component1 = WhatsappSdk::Resource::Component.new(
+  type: WhatsappSdk::Resource::Component::Type::BUTTON,
+  index: 0,
+  sub_type: WhatsappSdk::Resource::Component::Subtype::QUICK_REPLY,
+  parameters: [
+    WhatsappSdk::Resource::ButtonParameter.new(type: "payload", payload: "PAYLOAD")
+  ]
 )
 
-# Send audios
-## with a link 
-messages_api.send_audio(sender_id: SENDER_ID, recipient_number: RECEIPIENT_NUMBER, link: "audio_link")
-
-## with an audio id 
-messages_api.send_audio(sender_id: SENDER_ID, recipient_number: RECEIPIENT_NUMBER, audio_id: "1234")
-
-# Send documents
-## with a link 
-messages_api.send_document(
-  sender_id: SENDER_ID, recipient_number: RECEIPIENT_NUMBER, link: "document_link", caption: "Ignacio Chiazzo"
+button_component2 = WhatsappSdk::Resource::Component.new(
+  type: WhatsappSdk::Resource::Component::Type::BUTTON,
+  index: 1,
+  sub_type: WhatsappSdk::Resource::Component::Subtype::QUICK_REPLY,
+  parameters: [
+    WhatsappSdk::Resource::ButtonParameter.new(type: "payload", payload: "PAYLOAD")
+  ]
 )
-
-## with a document id 
-messages_api.send_document(
-  sender_id: SENDER_ID, recipient_number: RECEIPIENT_NUMBER, document_id: "1234", caption: "Ignacio Chiazzo"
-)
-
-# send stickers
-## with a link 
-messages_api.send_sticker(sender_id: SENDER_ID, recipient_number: RECEIPIENT_NUMBER, link: "link")
-
-## with a sticker_id
-messages_api.send_sticker(sender_id: SENDER_ID, recipient_number: RECEIPIENT_NUMBER, sticker_id: "1234")
-binding.pry
-
+@messages_api.send_template(sender_id: 12_345, recipient_number: "12345678", name: "hello_world", language: "en_US", components_json: [component_1])
 ```
+
 </details>
+
+Alernative, you could pass a plain json like this:
+```ruby
+@messages_api.send_template(sender_id: 12_345, recipient_number: "12345678", name: "hello_world", language: "en_US", components_json: [{...}])
+```
+
+## Example
+
+Visit [the example file](/example.rb) with examples to call the API in a single file.
+
 
 ## Whatsapp Cloud API
 

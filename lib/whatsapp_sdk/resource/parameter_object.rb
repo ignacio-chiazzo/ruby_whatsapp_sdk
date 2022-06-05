@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# TODO: Do I need it?
 module WhatsappSdk
   module Resource
     class ParameterObject
