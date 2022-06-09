@@ -20,28 +20,34 @@ require 'whatsapp_sdk'
 require "pry"
 require "pry-nav"
 
-ACCESS_TOKEN = "foo" # replace this with a valid access_token
-SENDER_ID = 123
-RECIPIENT_NUMBER = "456"
+################# UPDATE CONSTANTS #################
+ACCESS_TOKEN = 
+SENDER_ID = 
+RECIPIENT_NUMBER = 
+BUSINESS_ID = 
+IMAGE_LINK = 
+###################################################
 
 client = WhatsappSdk::Api::Client.new(ACCESS_TOKEN) # replace this with a valid access_token
+medias_api = WhatsappSdk::Api::Medias.new(client)
 messages_api = WhatsappSdk::Api::Messages.new(client)
 phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new(client)
 
-phone_numbers_api.registered_number("123")
-phone_numbers_api.registered_numbers("457")
+###### Phone Numbers API
+phone_numbers_api.registered_number(SENDER_ID)
+phone_numbers_api.registered_numbers(BUSINESS_ID)
 
 messages_api.send_text(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message: "hola")
 messages_api.send_location(
   sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
-  longitude: 45.4215, latitude: 75.6972, name: "nacho", address: "141 cooper street"
+  longitude: -75.6898604, latitude: 45.4192206, name: "nacho", address: "My house"
 )
 
-# Send images
+####### Messages API
 
-## with a link
+# ## with a link
 messages_api.send_image(
-  sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: "image_link", caption: "Ignacio Chiazzo Profile"
+  sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: IMAGE_LINK, caption: "Ignacio Chiazzo Profile"
 )
 
 ## with an image id
@@ -158,3 +164,8 @@ response_with_object = messages_api.send_template(
   components: [header_component, body_component, button_component_1, button_component_2]
 )
 puts response_with_object
+
+response_with_object = messages_api.send_template(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, name: "hello_world", language: "en_US", components: [])
+puts response_with_object
+
+### TODO: Media API
