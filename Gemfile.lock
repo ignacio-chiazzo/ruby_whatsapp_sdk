@@ -1,8 +1,9 @@
 PATH
   remote: .
   specs:
-    whatsapp_sdk (0.0.1)
+    whatsapp_sdk (0.0.2)
       faraday (~> 2.3.0)
+      faraday-multipart (~> 1.0.4)
       oj (~> 3.13.13)
 
 GEM
@@ -13,10 +14,13 @@ GEM
     faraday (2.3.0)
       faraday-net_http (~> 2.0)
       ruby2_keywords (>= 0.0.4)
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
     faraday-net_http (2.0.3)
     method_source (1.0.0)
     minitest (5.15.0)
     mocha (1.14.0)
+    multipart-post (2.2.2)
     oj (3.13.13)
     parallel (1.22.1)
     parser (3.1.2.0)
@@ -51,6 +55,7 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 2.3)
   faraday
+  faraday-multipart
   minitest (~> 5.0)
   mocha
   oj
