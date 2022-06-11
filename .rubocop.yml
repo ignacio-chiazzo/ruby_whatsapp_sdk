@@ -25,3 +25,7 @@ Metrics/AbcSize:
 # Wait until https://github.com/rubocop/rubocop/issues/8761 is fixed
 Gemspec/RequiredRubyVersion:
   Enabled: false
+
+AllCops:
+  Exclude:
+    - 'example.rb'
