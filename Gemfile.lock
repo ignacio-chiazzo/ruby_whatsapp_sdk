@@ -31,7 +31,7 @@ GEM
     pry-nav (1.0.0)
       pry (>= 0.9.10, < 0.15)
     rainbow (3.1.1)
-    rake (10.5.0)
+    rake (13.0.6)
     regexp_parser (2.5.0)
     rexml (3.2.5)
     rubocop (1.30.0)
@@ -61,7 +61,7 @@ DEPENDENCIES
   oj
   pry
   pry-nav
-  rake (~> 10.0)
+  rake (>= 12.3.3)
   rubocop
   whatsapp_sdk!
 
