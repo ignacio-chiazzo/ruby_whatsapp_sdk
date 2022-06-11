@@ -1,7 +1,5 @@
 AllCops:
   NewCops: enable
-  Exclude:
-    - example.rb
 
 Style/StringLiterals:
   Enabled: false
