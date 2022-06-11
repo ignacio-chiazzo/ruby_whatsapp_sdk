@@ -622,6 +622,7 @@ module WhatsappSdk
         assert_equal(false, response.ok?)
         assert_nil(response.data)
         error = response.error
+        assert_equal(WhatsappSdk::Api::Responses::MessageErrorResponse, error.class)
         assert_equal(mocked_error["error"]["code"], error.code)
         assert_equal(mocked_error["error"]["error_subcode"], error.subcode)
         assert_equal(mocked_error["error"]["message"], error.message)

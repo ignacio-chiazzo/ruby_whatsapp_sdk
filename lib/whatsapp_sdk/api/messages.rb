@@ -35,7 +35,10 @@ module WhatsappSdk
           params: params
         )
 
-        WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
+        WhatsappSdk::Api::Response.new(
+          response: response,
+          data_class_type: WhatsappSdk::Api::Responses::MessageDataResponse
+        )
       end
 
       # Send location.
@@ -66,7 +69,10 @@ module WhatsappSdk
           params: params
         )
 
-        WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
+        WhatsappSdk::Api::Response.new(
+          response: response,
+          data_class_type: WhatsappSdk::Api::Responses::MessageDataResponse
+        )
       end
 
       # Send an image.
@@ -97,7 +103,10 @@ module WhatsappSdk
           params: params
         )
 
-        WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
+        WhatsappSdk::Api::Response.new(
+          response: response,
+          data_class_type: WhatsappSdk::Api::Responses::MessageDataResponse
+        )
       end
 
       # Send an audio.
@@ -123,7 +132,10 @@ module WhatsappSdk
           params: params
         )
 
-        WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
+        WhatsappSdk::Api::Response.new(
+          response: response,
+          data_class_type: WhatsappSdk::Api::Responses::MessageDataResponse
+        )
       end
 
       # Send a video.
@@ -154,7 +166,10 @@ module WhatsappSdk
           params: params
         )
 
-        WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
+        WhatsappSdk::Api::Response.new(
+          response: response,
+          data_class_type: WhatsappSdk::Api::Responses::MessageDataResponse
+        )
       end
 
       # Send a document.
@@ -185,7 +200,10 @@ module WhatsappSdk
           params: params
         )
 
-        WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
+        WhatsappSdk::Api::Response.new(
+          response: response,
+          data_class_type: WhatsappSdk::Api::Responses::MessageDataResponse
+        )
       end
 
       # Send a document.
@@ -210,7 +228,10 @@ module WhatsappSdk
           params: params
         )
 
-        WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
+        WhatsappSdk::Api::Response.new(
+          response: response,
+          data_class_type: WhatsappSdk::Api::Responses::MessageDataResponse
+        )
       end
 
       # Send contacts.
@@ -235,7 +256,10 @@ module WhatsappSdk
           params: params
         )
 
-        WhatsappSdk::Api::Response.new(response: response, class_type: WhatsappSdk::Api::Responses::MessageDataResponse)
+        WhatsappSdk::Api::Response.new(
+          response: response,
+          data_class_type: WhatsappSdk::Api::Responses::MessageDataResponse
+        )
       end
 
       def send_interactive_button
@@ -269,7 +293,7 @@ module WhatsappSdk
 
         WhatsappSdk::Api::Response.new(
           response: response,
-          class_type: WhatsappSdk::Api::Responses::ReadMessageDataResponse
+          data_class_type: WhatsappSdk::Api::Responses::ReadMessageDataResponse
         )
       end
 
@@ -309,7 +333,7 @@ module WhatsappSdk
 
         WhatsappSdk::Api::Response.new(
           response: response,
-          class_type: WhatsappSdk::Api::Responses::MessageDataResponse
+          data_class_type: WhatsappSdk::Api::Responses::MessageDataResponse
         )
       end
 
