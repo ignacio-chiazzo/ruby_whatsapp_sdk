@@ -1,4 +1,6 @@
 # Unreleased
+
+# v 0.2.0
 - Added Media API
 - Update Facebook API to v14
 - Added error and sucess responses
