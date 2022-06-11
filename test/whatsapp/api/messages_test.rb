@@ -37,7 +37,7 @@ module WhatsappSdk
           sender_id: 123_123, recipient_number: "56789", message: "hola"
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       def test_send_text_message_with_valid_params
@@ -56,7 +56,7 @@ module WhatsappSdk
           sender_id: 123_123, recipient_number: "56789", message: "hola"
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       def test_send_location_message_with_success_response
@@ -67,7 +67,7 @@ module WhatsappSdk
         )
 
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       def test_send_location_message_with_valid_params
@@ -97,7 +97,7 @@ module WhatsappSdk
           longitude: longitude, latitude: latitude, name: name, address: address
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       def test_send_image_raises_an_error_if_link_and_image_are_not_provided
@@ -116,7 +116,7 @@ module WhatsappSdk
           image_id: 123, link: nil, caption: ""
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       def test_send_image_message_with_a_link
@@ -136,7 +136,7 @@ module WhatsappSdk
           link: image_link, caption: "Ignacio Chiazzo Profile"
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       def test_send_image_message_with_an_image_id
@@ -157,7 +157,7 @@ module WhatsappSdk
           image_id: image_id, caption: "Ignacio Chiazzo Profile"
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       def test_send_audio_message_with_success_response
@@ -166,7 +166,7 @@ module WhatsappSdk
           sender_id: 123_123, recipient_number: "56789", link: "1234"
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       def test_send_audio_raises_an_error_if_link_and_image_are_not_provided
@@ -194,7 +194,7 @@ module WhatsappSdk
           sender_id: 123_123, recipient_number: "56789", link: audio_link
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       def test_send_audio_message_with_an_audio_id
@@ -214,7 +214,7 @@ module WhatsappSdk
           sender_id: 123_123, recipient_number: "56789", audio_id: audio_id
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       def test_send_video_raises_an_error_if_link_and_image_are_not_provided
@@ -232,7 +232,7 @@ module WhatsappSdk
           video_id: 123, link: nil, caption: ""
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       def test_send_video_message_with_a_link
@@ -252,7 +252,7 @@ module WhatsappSdk
           link: video_link, caption: "Ignacio Chiazzo Profile"
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       def test_send_video_message_with_an_video_id
@@ -273,7 +273,7 @@ module WhatsappSdk
           video_id: video_id, caption: "Ignacio Chiazzo Profile"
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       def test_send_document_raises_an_error_if_link_and_image_are_not_provided
@@ -291,7 +291,7 @@ module WhatsappSdk
           document_id: 123, link: nil, caption: ""
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       def test_send_document_message_with_a_link
@@ -311,7 +311,7 @@ module WhatsappSdk
           link: document_link, caption: "Ignacio Chiazzo Profile"
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       def test_send_document_message_with_an_document_id
@@ -332,7 +332,7 @@ module WhatsappSdk
           document_id: document_id, caption: "Ignacio Chiazzo Profile"
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       def test_send_sticker_raises_an_error_if_link_and_image_are_not_provided
@@ -350,7 +350,7 @@ module WhatsappSdk
           sticker_id: 123, link: nil
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       def test_send_sticker_message_with_a_link
@@ -369,7 +369,7 @@ module WhatsappSdk
           sender_id: 123_123, recipient_number: "56789", link: sticker_link
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       def test_send_sticker_message_with_an_sticker_id
@@ -389,7 +389,7 @@ module WhatsappSdk
           sender_id: 123_123, recipient_number: "56789", sticker_id: sticker_id
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       def test_send_contacts_with_success_response
@@ -398,7 +398,7 @@ module WhatsappSdk
           sender_id: 123_123, recipient_number: "56789", contacts: [create_contact]
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       def test_send_contacts_with_a_valid_response
@@ -418,7 +418,7 @@ module WhatsappSdk
           sender_id: 123_123, recipient_number: "56789", contacts: contacts
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       def test_read_message_with_a_valid_response
@@ -437,7 +437,7 @@ module WhatsappSdk
 
         assert_equal(WhatsappSdk::Api::Response, message_response.class)
         assert_nil(message_response.error)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
         assert_equal(WhatsappSdk::Api::Responses::ReadMessageDataResponse, message_response.data.class)
         assert(message_response.data.success)
       end
@@ -448,7 +448,7 @@ module WhatsappSdk
           sender_id: 123_123, message_id: "12345"
         )
         assert_mock_error_response(mocked_error_response, response)
-        assert(response.error?)
+        assert_predicate(response, :error?)
       end
 
       def test_send_template_raises_an_error_when_component_and_component_json_are_not_provided
@@ -478,7 +478,7 @@ module WhatsappSdk
           }]
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
 
       # rubocop:disable Metrics/MethodLength
@@ -598,7 +598,7 @@ module WhatsappSdk
         )
 
         assert_mock_response(valid_contacts, valid_messages, message_response)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
       end
       # rubocop:enable Metrics/MethodLength
 
@@ -619,7 +619,7 @@ module WhatsappSdk
       end
 
       def assert_mock_error_response(mocked_error, response)
-        assert_equal(false, response.ok?)
+        refute_predicate(response, :ok?)
         assert_nil(response.data)
         error = response.error
         assert_equal(WhatsappSdk::Api::Responses::MessageErrorResponse, error.class)
@@ -666,7 +666,7 @@ module WhatsappSdk
       def assert_mock_response(_expected_contacts, _expected_messages, message_response)
         assert_equal(WhatsappSdk::Api::Response, message_response.class)
         assert_nil(message_response.error)
-        assert(message_response.ok?)
+        assert_predicate(message_response, :ok?)
         assert_equal(1, message_response.data.contacts.size)
         assert_contacts([{ "input" => "1234", "wa_id" => "1234" }], message_response.data.contacts)
 

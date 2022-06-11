@@ -23,7 +23,7 @@ module WhatsappSdk
         mock_phone_numbers_response(valid_phone_numbers_response)
         response = @phone_numbers_api.registered_numbers(123_123)
         assert_phone_numbers_mock_response(valid_phone_number_response, response)
-        assert(response.ok?)
+        assert_predicate(response, :ok?)
       end
 
       def test_registered_numbers_sends_valid_params
@@ -34,7 +34,7 @@ module WhatsappSdk
 
         response = @phone_numbers_api.registered_numbers(123_123)
         assert_phone_numbers_mock_response(valid_phone_number_response, response)
-        assert(response.ok?)
+        assert_predicate(response, :ok?)
       end
 
       def test_registered_number_handles_error_response
@@ -47,7 +47,7 @@ module WhatsappSdk
         mock_phone_numbers_response(valid_phone_number_response)
         response = @phone_numbers_api.registered_number(123_123)
         assert_phone_number_mock_response(valid_phone_number_response, response)
-        assert(response.ok?)
+        assert_predicate(response, :ok?)
       end
 
       def test_registered_number_sends_valid_params
@@ -58,7 +58,7 @@ module WhatsappSdk
 
         response = @phone_numbers_api.registered_number(123_123)
         assert_phone_number_mock_response(valid_phone_number_response, response)
-        assert(response.ok?)
+        assert_predicate(response, :ok?)
       end
 
       private
@@ -116,7 +116,7 @@ module WhatsappSdk
       end
 
       def assert_mock_error_response(mocked_error, response)
-        assert_equal(false, response.ok?)
+        refute_predicate(response, :ok?)
         assert_nil(response.data)
         error = response.error
         assert_equal(WhatsappSdk::Api::Responses::MessageErrorResponse, error.class)
@@ -130,7 +130,7 @@ module WhatsappSdk
       def assert_phone_numbers_mock_response(expected_phone_number, response)
         assert_equal(WhatsappSdk::Api::Response, response.class)
         assert_nil(response.error)
-        assert(response.ok?)
+        assert_predicate(response, :ok?)
         assert_equal(1, response.data.phone_numbers.size)
         assert_phone_number(expected_phone_number, response.data.phone_numbers.first)
       end
@@ -138,7 +138,7 @@ module WhatsappSdk
       def assert_phone_number_mock_response(expected_phone_number, response)
         assert_equal(WhatsappSdk::Api::Response, response.class)
         assert_nil(response.error)
-        assert(response.ok?)
+        assert_predicate(response, :ok?)
         assert_phone_number(expected_phone_number, response.data)
       end
 
