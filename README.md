@@ -84,6 +84,14 @@ medias_api.delete(media_id: MEDIA_ID)
 messages_api.send_text(sender_id: 1234, recipient_number: "112345678", message: "hola")
 ```
 
+**Read a message**
+```ruby
+messages_api.read_message(sender_id: 1234, message_id: "wamid.HBgLMTM0M12345678910=")
+```
+
+Note: To get the `message_id` you can set up [Webhooks](https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/components) that will listen and fire an event when a message is received.
+
+
 **Send a location message**
 
 ```ruby
