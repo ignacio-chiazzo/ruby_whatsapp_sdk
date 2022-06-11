@@ -1,3 +1,5 @@
+require: rubocop-minitest
+
 AllCops:
   NewCops: enable
 
@@ -27,4 +29,7 @@ Metrics/AbcSize:
 
 # Wait until https://github.com/rubocop/rubocop/issues/8761 is fixed
 Gemspec/RequiredRubyVersion:
+  Enabled: false
+
+Minitest/MultipleAssertions:
   Enabled: false
