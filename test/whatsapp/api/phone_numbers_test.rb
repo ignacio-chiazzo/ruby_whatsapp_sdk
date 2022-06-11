@@ -13,7 +13,7 @@ module WhatsappSdk
         @phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new(client)
       end
 
-      def test_registered_numbers_handles_error_responser
+      def test_registered_numbers_handles_error_response
         mocked_error_response = mock_error_response
         response = @phone_numbers_api.registered_numbers(123_123)
         assert_mock_error_response(mocked_error_response, response)
@@ -37,7 +37,7 @@ module WhatsappSdk
         assert(response.ok?)
       end
 
-      def test_registered_number_handles_error_responser
+      def test_registered_number_handles_error_response
         mocked_error_response = mock_error_response
         response = @phone_numbers_api.registered_number(123_123)
         assert_mock_error_response(mocked_error_response, response)

@@ -429,7 +429,7 @@ module WhatsappSdk
             status: "read",
             message_id: "12345"
           }
-        ).returns({ "sucess" => true })
+        ).returns({ "success" => true })
 
         message_response = @messages_api.read_message(
           sender_id: 123_123, message_id: "12345"
@@ -439,7 +439,7 @@ module WhatsappSdk
         assert_nil(message_response.error)
         assert(message_response.ok?)
         assert_equal(WhatsappSdk::Api::Responses::ReadMessageDataResponse, message_response.data.class)
-        assert(message_response.data.sucess)
+        assert(message_response.data.success)
       end
 
       def test_read_message_with_an_invalid_response

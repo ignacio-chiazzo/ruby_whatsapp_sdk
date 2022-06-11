@@ -11,16 +11,9 @@ module WhatsappSdk
     class Response
       attr_accessor :error, :data
 
-      CLASS_TYPE = {
-        message_data_response: Responses::MessageDataResponse,
-        phone_number_data_response: Responses::PhoneNumberDataResponse,
-        phone_numbers_data_response: Responses::PhoneNumbersDataResponse,
-        read_message_data_response: Responses::ReadMessageDataResponse
-      }.freeze
-
-      def initialize(response:, class_type:)
-        @data = class_type.build_from_response(response: response)
-        @error = Responses::ErrorResponse.build_from_response(response: response)
+      def initialize(response:, data_class_type:, error_class_type: Responses::ErrorResponse)
+        @data = data_class_type.build_from_response(response: response)
+        @error = error_class_type.build_from_response(response: response)
       end
 
       # Whether or not the response is successful.
