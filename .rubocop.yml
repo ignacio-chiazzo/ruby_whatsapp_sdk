@@ -1,3 +1,8 @@
+AllCops:
+  NewCops: enable
+  Exclude:
+    - example.rb
+
 Style/StringLiterals:
   Enabled: false
 
@@ -25,7 +30,3 @@ Metrics/AbcSize:
 # Wait until https://github.com/rubocop/rubocop/issues/8761 is fixed
 Gemspec/RequiredRubyVersion:
   Enabled: false
-
-AllCops:
-  Exclude:
-    - 'example.rb'
