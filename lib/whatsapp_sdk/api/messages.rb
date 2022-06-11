@@ -27,7 +27,7 @@ module WhatsappSdk
           to: recipient_number,
           recipient_type: "individual",
           type: "text",
-          "text": { body: message }
+          text: { body: message }
         }
 
         response = send_request(
@@ -56,11 +56,11 @@ module WhatsappSdk
           to: recipient_number,
           recipient_type: "individual",
           type: "location",
-          "location": {
-            "longitude": longitude,
-            "latitude": latitude,
-            "name": name,
-            "address": address
+          location: {
+            longitude: longitude,
+            latitude: latitude,
+            name: name,
+            address: address
           }
         }
 

@@ -22,15 +22,15 @@ require "pry-nav"
 
 ################# UPDATE CONSTANTS #################
 
-ACCESS_TOKEN = <TODO replace>
-SENDER_ID = <TODO replace>
-RECIPIENT_NUMBER = <TODO replace>
-BUSINESS_ID = <TODO replace>
-IMAGE_LINK = <TODO replace>
+ACCESS_TOKEN = "<TODO replace>"
+SENDER_ID = "<TODO replace>"
+RECIPIENT_NUMBER = "<TODO replace>"
+BUSINESS_ID = "<TODO replace>"
+IMAGE_LINK = "<TODO replace>"
 
 ################# HELPERS ########################
 def print_message_sent(message_response)
-  if(message_response.ok?)
+  if message_response.ok?
     puts "Message sent to: #{message_response.data.contacts.first.input}"
   else
     puts "Error: #{message_response.error&.to_s}"
@@ -44,10 +44,8 @@ messages_api = WhatsappSdk::Api::Messages.new(client)
 phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new(client)
 
 ############################## Phone Numbers API ##############################
-binding.pry
 phone_numbers_api.registered_number(SENDER_ID)
 phone_numbers_api.registered_numbers(BUSINESS_ID)
-
 ############################## Media API ##############################
 
 # upload a media
@@ -56,7 +54,7 @@ puts "Uploaded media id: #{uploaded_media.data&.id}"
 
 # get a media
 media = medias_api.media(media_id: uploaded_media.data&.id).data
-puts "Media info: #{media.raw_data_response.to_s}"
+puts "Media info: #{media.raw_data_response}"
 
 # download media
 download_image = medias_api.download(url: media&.url, file_path: 'tmp/downloaded_whatsapp.png')
@@ -70,19 +68,21 @@ puts "Deleted: #{deleted_media.data.success?}"
 
 ######### SEND A TEXT MESSAGE
 message_sent = messages_api.send_text(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
-                       message: "Hey there! it's Whatsapp Ruby SDK")
+                                      message: "Hey there! it's Whatsapp Ruby SDK")
 print_message_sent(message_sent)
 
-messages_api.send_location(
+location_sent = messages_api.send_location(
   sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
   longitude: -75.6898604, latitude: 45.4192206, name: "Ignacio", address: "My house"
 )
+print_message_sent(location_sent)
 
 ######### SEND AN IMAGE
 # Send an image with a link
-messages_api.send_image(
+image_sent = messages_api.send_image(
   sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: media.url, caption: "Ignacio Chiazzo Profile"
 )
+print_message_sent(image_sent)
 
 # Send an image with an id
 messages_api.send_image(

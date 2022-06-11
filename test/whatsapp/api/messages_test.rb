@@ -83,11 +83,11 @@ module WhatsappSdk
             to: "56789",
             recipient_type: "individual",
             type: "location",
-            "location": {
-              "longitude": longitude,
-              "latitude": latitude,
-              "name": name,
-              "address": address
+            location: {
+              longitude: longitude,
+              latitude: latitude,
+              name: name,
+              address: address
             }
           }
         ).returns(valid_response(valid_contacts, valid_messages))
@@ -466,12 +466,12 @@ module WhatsappSdk
         message_response = @messages_api.send_template(
           sender_id: 12_345, recipient_number: "12345678", name: "hello_world", language: "en_US",
           components_json: [{
-            "type": "header",
-            "parameters": [
+            type: "header",
+            parameters: [
               {
-                "type": "image",
-                "image": {
-                  "link": "http(s)://URL"
+                type: "image",
+                image: {
+                  link: "http(s)://URL"
                 }
               }
             ]
@@ -532,58 +532,58 @@ module WhatsappSdk
                                                         language: { code: "en_US" },
                                                         components: [
                                                           {
-                                                            "type": "header",
-                                                            "parameters": [
+                                                            type: "header",
+                                                            parameters: [
                                                               {
-                                                                "type": "image",
-                                                                "image": {
-                                                                  "link": "http(s)://URL"
+                                                                type: "image",
+                                                                image: {
+                                                                  link: "http(s)://URL"
                                                                 }
                                                               }
                                                             ]
                                                           },
                                                           {
-                                                            "type": "body",
-                                                            "parameters": [
+                                                            type: "body",
+                                                            parameters: [
                                                               {
-                                                                "type": "text",
-                                                                "text": "TEXT_STRING"
+                                                                type: "text",
+                                                                text: "TEXT_STRING"
                                                               },
                                                               {
-                                                                "type": "currency",
-                                                                "currency": {
-                                                                  "fallback_value": "1000",
-                                                                  "code": "USD",
-                                                                  "amount_1000": 1000
+                                                                type: "currency",
+                                                                currency: {
+                                                                  fallback_value: "1000",
+                                                                  code: "USD",
+                                                                  amount_1000: 1000
                                                                 }
                                                               },
                                                               {
-                                                                "type": "date_time",
-                                                                "date_time": {
-                                                                  "fallback_value": "2020-01-01T00:00:00Z"
+                                                                type: "date_time",
+                                                                date_time: {
+                                                                  fallback_value: "2020-01-01T00:00:00Z"
                                                                 }
                                                               }
                                                             ]
                                                           },
                                                           {
-                                                            "type": "button",
-                                                            "sub_type": "quick_reply",
-                                                            "index": 0,
-                                                            "parameters": [
+                                                            type: "button",
+                                                            sub_type: "quick_reply",
+                                                            index: 0,
+                                                            parameters: [
                                                               {
-                                                                "type": "payload",
-                                                                "payload": "PAYLOAD"
+                                                                type: "payload",
+                                                                payload: "PAYLOAD"
                                                               }
                                                             ]
                                                           },
                                                           {
-                                                            "type": "button",
-                                                            "sub_type": "quick_reply",
-                                                            "index": 1,
-                                                            "parameters": [
+                                                            type: "button",
+                                                            sub_type: "quick_reply",
+                                                            index: 1,
+                                                            parameters: [
                                                               {
-                                                                "type": "payload",
-                                                                "payload": "PAYLOAD"
+                                                                type: "payload",
+                                                                payload: "PAYLOAD"
                                                               }
                                                             ]
                                                           }

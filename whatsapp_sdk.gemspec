@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
     spec.metadata["changelog_uri"] = "https://github.com/ignacio-chiazzo/whatsapp_sdk/blob/main/CHANGELOG.md"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
-      "public gem pushes."
+          "public gem pushes."
   end
 
   # Specify which files should be added to the gem when it is released.
@@ -43,4 +43,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency("faraday",  "~> 2.3.0")
   spec.add_dependency("faraday-multipart", "~> 1.0.4")
   spec.add_dependency("oj", "~> 3.13.13")
+  spec.metadata['rubygems_mfa_required'] = 'true'
 end
