@@ -16,8 +16,10 @@ module WhatsappSdk
           endpoint: "#{business_id}/phone_numbers"
         )
 
-        WhatsappSdk::Api::Response.new(response: response,
-                                       class_type: WhatsappSdk::Api::Responses::PhoneNumbersDataResponse)
+        WhatsappSdk::Api::Response.new(
+          response: response,
+          data_class_type: WhatsappSdk::Api::Responses::PhoneNumbersDataResponse
+        )
       end
 
       # Get the registered number id.
@@ -30,8 +32,10 @@ module WhatsappSdk
           endpoint: phone_number_id.to_s
         )
 
-        WhatsappSdk::Api::Response.new(response: response,
-                                       class_type: WhatsappSdk::Api::Responses::PhoneNumberDataResponse)
+        WhatsappSdk::Api::Response.new(
+          response: response,
+          data_class_type: WhatsappSdk::Api::Responses::PhoneNumberDataResponse
+        )
       end
     end
   end

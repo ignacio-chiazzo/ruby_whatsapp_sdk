@@ -38,6 +38,7 @@ First, create the client and then create an instance `WhatsappSdk::Api::Messages
 client = WhatsappSdk::Api::Client.new("<ACCESS TOKEN>") # replace this with a valid access_token
 messages_api = WhatsappSdk::Api::Messages.new(client)
 phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new(client)
+medias_api = WhatsappSdk::Api::Medias.new(client)
 ```
 
 ### Phone numbers API
@@ -49,6 +50,28 @@ phone_numbers_api.registered_numbers("123456") # accepts a business_id
 Get the a phone number by id
 ```ruby
 phone_numbers_api.registered_numbers("123456") # accepts a phone_number_id
+```
+
+### Media API
+
+Upload a media
+```ruby
+medias_api.upload(sender_id: SENDER_ID, file_path: "tmp/whatsapp.png", type: "image/png")
+```
+
+Get a media
+```ruby
+media = medias_api.media(media_id: MEDIA_ID)
+```
+
+Download media
+```ruby
+medias_api.download(url: MEDIA_URL, file_path: 'tmp/downloaded_whatsapp.png')
+```
+
+Delete a media
+```ruby
+medias_api.delete(media_id: MEDIA_ID)
 ```
 
 ### Messages API

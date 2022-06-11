@@ -3,15 +3,19 @@
 # APIs
 require_relative "whatsapp_sdk/api/phone_numbers"
 require_relative "whatsapp_sdk/api/messages"
+require_relative "whatsapp_sdk/api/medias"
 require_relative "whatsapp_sdk/api/client"
 
 # APIs responses
 require_relative "whatsapp_sdk/api/responses/message_data_response"
 require_relative "whatsapp_sdk/api/responses/phone_number_data_response"
 require_relative "whatsapp_sdk/api/responses/phone_numbers_data_response"
-require_relative "whatsapp_sdk/api/responses/error_response"
+require_relative "whatsapp_sdk/api/responses/message_error_response"
 require_relative "whatsapp_sdk/api/responses/data_response"
 require_relative "whatsapp_sdk/api/responses/read_message_data_response"
+require_relative "whatsapp_sdk/api/responses/media_data_response"
+require_relative "whatsapp_sdk/api/responses/success_response"
+require_relative "whatsapp_sdk/api/responses/error_response"
 
 # Resources
 require_relative "whatsapp_sdk/resource/address"

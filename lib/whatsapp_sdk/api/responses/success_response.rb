@@ -5,19 +5,20 @@ require_relative "data_response"
 module WhatsappSdk
   module Api
     module Responses
-      class ErrorResponse < DataResponse
-        attr_accessor :error, :status
-
+      class SuccessResponse < DataResponse
         def initialize(response:)
-          @error = response["error"]
-          @status = response["status"]
+          @success = response["success"]
           super(response)
         end
 
         def self.build_from_response(response:)
-          return unless response["error"]
+          return unless response["success"]
 
           new(response: response)
+        end
+
+        def success?
+          @success
         end
       end
     end

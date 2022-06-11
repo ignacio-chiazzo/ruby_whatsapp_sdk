@@ -1,3 +1,6 @@
+AllCops:
+  NewCops: enable
+
 Style/StringLiterals:
   Enabled: false
 

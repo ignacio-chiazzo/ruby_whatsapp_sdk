@@ -1,4 +1,7 @@
 # Unreleased
+- Added Media API
+- Update Facebook API to v14
+- Added error and sucess responses
 - Added faraday-multiplart as part of the library
  
 # v 0.1.0
