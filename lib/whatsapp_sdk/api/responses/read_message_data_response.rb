@@ -9,10 +9,10 @@ module WhatsappSdk
   module Api
     module Responses
       class ReadMessageDataResponse < DataResponse
-        attr_reader :sucess
+        attr_reader :success
 
         def initialize(response:)
-          @sucess = response["sucess"]
+          @success = response["success"]
           super(response)
         end
 

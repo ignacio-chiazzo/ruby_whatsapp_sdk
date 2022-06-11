@@ -41,5 +41,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
 
   spec.add_dependency("faraday",  "~> 2.3.0")
+  spec.add_dependency("faraday-multipart", "~> 1.0.4")
   spec.add_dependency("oj", "~> 3.13.13")
 end

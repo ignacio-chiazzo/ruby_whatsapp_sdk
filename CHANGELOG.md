@@ -1,4 +1,6 @@
 # Unreleased
+- Added faraday-multiplart as part of the library
+ 
 # v 0.1.0
 - Added Message Template API.
 - Added Currency and Datetime resources.
