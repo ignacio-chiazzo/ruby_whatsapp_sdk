@@ -31,7 +31,9 @@ client = WhatsappSdk::Api::Client.new("<ACCESS TOKEN>") # replace this with a va
 
 Each API operation returns a `WhatsappSdk::Api::Response` that contains `data` and `error` and a couple of helpful functions such as `ok?` and `error?`. There are three types of response `WhatsappSdk::Api::MessageDataResponse`, `WhatsappSdk::Api::PhoneNumberDataResponse` and `WhatsappSdk::Api::PhoneNumbersDataResponse`. Each of them contains different attributes.
 
-https://user-images.githubusercontent.com/11672878/173196546-53a1ae69-5884-44a2-b57d-4343411f22be.mp4
+
+https://user-images.githubusercontent.com/11672878/173238826-6fc0a6f8-d0ee-4eae-8947-7dfd3b8b3446.mov
+
 
 ## Operations
 First, create the client and then create an instance `WhatsappSdk::Api::Messages` that requires a client as a param like this:
