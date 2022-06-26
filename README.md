@@ -98,7 +98,7 @@ Note: To get the `message_id` you can set up [Webhooks](https://developers.faceb
 
 ```ruby
 messages_api.send_location(
-  sender_id: 123123, recipient_number: "56789", 
+  sender_id: 123123, recipient_number: "56789",
   longitude: 45.4215, latitude: 75.6972, name: "nacho", address: "141 cooper street"
 )
 ```
@@ -106,12 +106,12 @@ messages_api.send_location(
 **Send an image message**
 It could use a link or an image_id.
 ```ruby
-# with a link 
+# with a link
 messages_api.send_image(
   sender_id: 123123, recipient_number: "56789", link: "image_link", caption: "Ignacio Chiazzo Profile"
 )
 
-# with an image id 
+# with an image id
 messages_api.send_image(
   sender_id: 123123, recipient_number: "56789", image_id: "1234", caption: "Ignacio Chiazzo Profile"
 )
@@ -120,22 +120,22 @@ messages_api.send_image(
 **Send an audio message**
 It could use a link or an audio_id.
 ```ruby
-# with a link 
+# with a link
 messages_api.send_audio(sender_id: 123123, recipient_number: "56789", link: "audio_link")
 
-# with an audio id 
+# with an audio id
 messages_api.send_audio(sender_id: 123123, recipient_number: "56789", audio_id: "1234")
 ```
 
 **Send a document message**
 It could use a link or a document_id.
 ```ruby
-# with a link 
+# with a link
 messages_api.send_document(
   sender_id: 123123, recipient_number: "56789", link: "document_link", caption: "Ignacio Chiazzo"
 )
 
-# with a document id 
+# with a document id
 messages_api.send_document(
   sender_id: 123123, recipient_number: "56789", document_id: "1234", caption: "Ignacio Chiazzo"
 )
@@ -144,7 +144,7 @@ messages_api.send_document(
 **Send a sticker message**
 It could use a link or a sticker_id.
 ```ruby
-# with a link 
+# with a link
 messages_api.send_sticker(sender_id: 123123, recipient_number: "56789", link: "link")
 
 # with a sticker_id
@@ -240,7 +240,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at [https://github.com/ignacio-chiazzo/whatsapp_sdk](https://github.com/ignacio-chiazzo/whatsapp_sdk) This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at [https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk) This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 

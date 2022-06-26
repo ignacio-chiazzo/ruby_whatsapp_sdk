@@ -11,7 +11,7 @@ gemfile(true) do
 
   git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-  gem "whatsapp_sdk", github: "ignacio-chiazzo/whatsapp_sdk", branch: "main"
+  gem "whatsapp_sdk"
   gem "pry"
   gem "pry-nav"
 end
