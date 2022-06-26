@@ -1,7 +1,14 @@
 # Ruby Whatsapp SDK
+[![Gem Version](https://badge.fury.io/rb/whatsapp_sdk.svg)](https://badge.fury.io/rb/whatsapp_sdk)
+[![CircleCI](https://circleci.com/gh/circleci/circleci-docs.svg?style=svg)](https://circleci.com/gh/ignacio-chiazzo/ruby_whatsapp_sdk)
+<a href="https://codeclimate.com/github/ignacio-chiazzo/ruby_whatsapp_sdk/maintainability"><img src="https://api.codeclimate.com/v1/badges/169cce95450272e4ad7d/maintainability" /></a>
 
 The SDK provides a set of operations and classes to use the Whatsapp API.
 Send stickers, messages, audio, videos, locations or just ask for the phone numbers through this library in a few steps!
+
+
+https://user-images.githubusercontent.com/11672878/173238826-6fc0a6f8-d0ee-4eae-8947-7dfd3b8b3446.mov
+
 
 ## Installation
 
@@ -30,10 +37,6 @@ client = WhatsappSdk::Api::Client.new("<ACCESS TOKEN>") # replace this with a va
 ```
 
 Each API operation returns a `WhatsappSdk::Api::Response` that contains `data` and `error` and a couple of helpful functions such as `ok?` and `error?`. There are three types of response `WhatsappSdk::Api::MessageDataResponse`, `WhatsappSdk::Api::PhoneNumberDataResponse` and `WhatsappSdk::Api::PhoneNumbersDataResponse`. Each of them contains different attributes.
-
-
-https://user-images.githubusercontent.com/11672878/173238826-6fc0a6f8-d0ee-4eae-8947-7dfd3b8b3446.mov
-
 
 ## Operations
 First, create the client and then create an instance `WhatsappSdk::Api::Messages` that requires a client as a param like this:

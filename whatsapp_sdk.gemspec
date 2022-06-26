@@ -9,9 +9,11 @@ Gem::Specification.new do |spec|
   spec.version = WhatsappSdk::VERSION
   spec.authors       = ["ignacio-chiazzo"]
   spec.email         = ["ignaciochiazzo@gmail.com"]
-
-  spec.summary       = "Use the Whatsapp SDK to comunicate with Whatsapp API"
-  spec.description   = "Ruby Whatsapp SDK. Use the Whatsapp API through this library"
+  spec.summary       = "Use the Ruby Whatsapp SDK to comunicate with Whatsapp API using the Cloud API"
+  spec.description   = <<-DESCRIPTION
+    Use the Ruby Whatsapp SDK to comunicate with Whatsapp API using the Cloud API.
+    Create bots to send and receive messages using the Whatsapp SDK in a few minutes.
+  DESCRIPTION
   spec.homepage      = "https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk"
   spec.license       = "MIT"
   spec.required_ruby_version = '>= 1.8.6'
