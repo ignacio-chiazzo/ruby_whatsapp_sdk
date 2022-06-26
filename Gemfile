@@ -13,6 +13,7 @@ group(:test) do
   gem('mocha')
   gem('rubocop', require: false)
   gem('rubocop-minitest', require: false)
+  gem('rubocop-performance', require: false)
 end
 
 group(:development) do
