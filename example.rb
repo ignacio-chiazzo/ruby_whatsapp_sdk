@@ -82,7 +82,7 @@ location_sent = messages_api.send_location(
 print_message_sent(location_sent)
 
 ######### READ A MESSAGE
-messages_api.read_message(sender_id: phone_number_id, message_id: msg_id)
+# messages_api.read_message(sender_id: SENDER_ID, message_id: msg_id)
 
 ######### SEND AN IMAGE
 # Send an image with a link
@@ -129,7 +129,7 @@ response_with_object = messages_api.send_template(sender_id: SENDER_ID, recipien
                                                   name: "hello_world", language: "en_US", components: [])
 puts response_with_object
 
-Send a template with components. Remember to create the template first.
+# Send a template with components.Remember to create the template first.
 header_component = WhatsappSdk::Resource::Component.new(
   type: WhatsappSdk::Resource::Component::Type::HEADER
 )
@@ -173,19 +173,19 @@ body_component.add_parameter(parameter_video)
 body_component.add_parameter(parameter_document)
 body_component.to_json
 
-button_component_1 = WhatsappSdk::Resource::Component.new(
-  type: WhatsappSdk::Resource::Component::Type::BUTTON,
-  index: 0,
-  sub_type: WhatsappSdk::Resource::Component::Subtype::QUICK_REPLY,
-  parameters: [WhatsappSdk::Resource::ButtonParameter.new(type: "payload", payload: "payload")]
-)
+# button_component_1 = WhatsappSdk::Resource::Component.new(
+#   type: WhatsappSdk::Resource::Component::Type::BUTTON,
+#   index: 0,
+#   sub_type: WhatsappSdk::Resource::Component::Subtype::QUICK_REPLY,
+#   parameters: [WhatsappSdk::Resource::ButtonParameter.new(type: "payload", payload: "payload")]
+# )
 
-button_component_2 = WhatsappSdk::Resource::Component.new(
-  type: WhatsappSdk::Resource::Component::Type::BUTTON,
-  index: 1,
-  sub_type: WhatsappSdk::Resource::Component::Subtype::QUICK_REPLY,
-  parameters: [WhatsappSdk::Resource::ButtonParameter.new(type: "payload", payload: "payload")]
-)
+# button_component_2 = WhatsappSdk::Resource::Component.new(
+#   type: WhatsappSdk::Resource::Component::Type::BUTTON,
+#   index: 1,
+#   sub_type: WhatsappSdk::Resource::Component::Subtype::QUICK_REPLY,
+#   parameters: [WhatsappSdk::Resource::ButtonParameter.new(type: "payload", payload: "payload")]
+# )
 
 # Send a template with component_json
 response_with_json = messages_api.send_template(
@@ -204,3 +204,4 @@ response_with_json = messages_api.send_template(
     }
   ]
 )
+puts response_with_json

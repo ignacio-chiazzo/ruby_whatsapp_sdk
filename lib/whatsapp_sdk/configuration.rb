@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module WhatsappSdk
   # This module allows client instantiating the client as a singleton like the following example:
   # WhatsappSdk.configure do |config|
@@ -6,7 +8,7 @@ module WhatsappSdk
   #
   # The gem have access to the client through WhatsappSdk.configuration.client
 
-  class << self 
+  class << self
     def configuration
       @configuration ||= Configuration.new
     end
