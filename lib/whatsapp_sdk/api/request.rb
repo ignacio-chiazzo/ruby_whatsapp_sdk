@@ -6,7 +6,7 @@ module WhatsappSdk
       API_VERSION = "v13.0"
       API_CLIENT = "https://graph.facebook.com/#{API_VERSION}/"
 
-      def initialize(client)
+      def initialize(client = WhatsappSdk.configuration.client)
         @client = client
       end
 

@@ -28,12 +28,22 @@ Or install it yourself as:
 
 ## Quick Start
 
-There are two primary resources, `Messages` and `PhoneNumbers`. The first one allows clients to send any kind of message (text, audio, location, video, image, etc.), and the latter will enable clients to query the phone numbers associated.
+There are three primary resources, `Messages`, `Media` and `PhoneNumbers`. The first one allows clients to send any kind of message (text, audio, location, video, image, etc.), and the latter will enable clients to query the phone numbers associated.
 
-To use `Messages` or `PhoneNumbers` you need to create a `Client` instance by passing the `access_token` like this:
+To use `Messages`, `Media` or `PhoneNumbers` you need to initialize the `Client` that contain auth information. There are two ways to do it
+
+1) Using an initializer
+  
+```ruby
+WhatsappSdk.configure do |config|
+  config.access_token = ACCESS_TOKEN
+end
+```
+OR creating an instance and pass it to the Messages or PhoneNumbers instance like this:
 
 ```ruby
 client = WhatsappSdk::Api::Client.new("<ACCESS TOKEN>") # replace this with a valid access token
+messages_api = WhatsappSdk::Api::Messages.new(client)
 ```
 
 Each API operation returns a `WhatsappSdk::Api::Response` that contains `data` and `error` and a couple of helpful functions such as `ok?` and `error?`. There are three types of response `WhatsappSdk::Api::MessageDataResponse`, `WhatsappSdk::Api::PhoneNumberDataResponse` and `WhatsappSdk::Api::PhoneNumbersDataResponse`. Each of them contains different attributes.
@@ -42,11 +52,12 @@ Each API operation returns a `WhatsappSdk::Api::Response` that contains `data` a
 First, create the client and then create an instance `WhatsappSdk::Api::Messages` that requires a client as a param like this:
 
 ```ruby
-client = WhatsappSdk::Api::Client.new("<ACCESS TOKEN>") # replace this with a valid access_token
-messages_api = WhatsappSdk::Api::Messages.new(client)
-phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new(client)
-medias_api = WhatsappSdk::Api::Medias.new(client)
+messages_api = WhatsappSdk::Api::Messages.new
+phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new
+medias_api = WhatsappSdk::Api::Medias.new
 ```
+
+Note: Remember to initialize the client first!
 
 ### Phone numbers API
 Get the list of phone numbers registered
