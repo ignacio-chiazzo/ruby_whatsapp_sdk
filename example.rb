@@ -28,6 +28,11 @@ RECIPIENT_NUMBER = "<TODO replace>"
 BUSINESS_ID = "<TODO replace>"
 IMAGE_LINK = "<TODO replace>"
 
+################# Initialize Client #################
+WhatsappSdk.configure do |config|
+  config.access_token = ACCESS_TOKEN
+end
+
 ################# HELPERS ########################
 def print_message_sent(message_response)
   if message_response.ok?
@@ -38,10 +43,9 @@ def print_message_sent(message_response)
 end
 ##################################################
 
-client = WhatsappSdk::Api::Client.new(ACCESS_TOKEN)
-medias_api = WhatsappSdk::Api::Medias.new(client)
-messages_api = WhatsappSdk::Api::Messages.new(client)
-phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new(client)
+medias_api = WhatsappSdk::Api::Medias.new
+messages_api = WhatsappSdk::Api::Messages.new
+phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new
 
 ############################## Phone Numbers API ##############################
 phone_numbers_api.registered_number(SENDER_ID)
@@ -77,6 +81,9 @@ location_sent = messages_api.send_location(
 )
 print_message_sent(location_sent)
 
+######### READ A MESSAGE
+# messages_api.read_message(sender_id: SENDER_ID, message_id: msg_id)
+
 ######### SEND AN IMAGE
 # Send an image with a link
 image_sent = messages_api.send_image(
@@ -91,28 +98,28 @@ messages_api.send_image(
 
 ######### SEND AUDIOS
 ## with a link
-# messages_api.send_audio(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: "audio_link")
+messages_api.send_audio(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: "audio_link")
 
 ## with an audio id
-# messages_api.send_audio(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, audio_id: "1234")
+messages_api.send_audio(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, audio_id: "1234")
 
 ######### SEND DOCUMENTS
 ## with a link
-# messages_api.send_document(
-#   sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: "document_link", caption: "Ignacio Chiazzo"
-# )
+messages_api.send_document(
+  sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: "document_link", caption: "Ignacio Chiazzo"
+)
 
 ## with a document id
-# messages_api.send_document(
-#   sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, document_id: "1234", caption: "Ignacio Chiazzo"
-# )
+messages_api.send_document(
+  sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, document_id: "1234", caption: "Ignacio Chiazzo"
+)
 
 ######### SEND STICKERS
 ## with a link
-# messages_api.send_sticker(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: "link")
+messages_api.send_sticker(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: "link")
 
 ## with a sticker_id
-# messages_api.send_sticker(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, sticker_id: "1234")
+messages_api.send_sticker(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, sticker_id: "1234")
 
 ######### SEND A TEMPLATE
 # Note: The template must have been created previously.
@@ -122,49 +129,49 @@ response_with_object = messages_api.send_template(sender_id: SENDER_ID, recipien
                                                   name: "hello_world", language: "en_US", components: [])
 puts response_with_object
 
-# Send a template with components. Remember to create the template first.
-# header_component = WhatsappSdk::Resource::Component.new(
-#   type: WhatsappSdk::Resource::Component::Type::HEADER
-# )
+# Send a template with components.Remember to create the template first.
+header_component = WhatsappSdk::Resource::Component.new(
+  type: WhatsappSdk::Resource::Component::Type::HEADER
+)
 
-# image = WhatsappSdk::Resource::Media.new(type: "image", link: "http(s)://URL", caption: "caption")
-# document = WhatsappSdk::Resource::Media.new(type: "document", link: "http(s)://URL", filename: "txt.rb")
-# video = WhatsappSdk::Resource::Media.new(type: "video", id: 123)
+image = WhatsappSdk::Resource::Media.new(type: "image", link: "http(s)://URL", caption: "caption")
+document = WhatsappSdk::Resource::Media.new(type: "document", link: "http(s)://URL", filename: "txt.rb")
+video = WhatsappSdk::Resource::Media.new(type: "video", id: 123)
 
-# parameter_image = WhatsappSdk::Resource::ParameterObject.new(
-#   type: "image",
-#   image: image
-# )
+parameter_image = WhatsappSdk::Resource::ParameterObject.new(
+  type: "image",
+  image: image
+)
 
-# parameter_document = WhatsappSdk::Resource::ParameterObject.new(
-#   type: "document",
-#   document: document
-# )
+parameter_document = WhatsappSdk::Resource::ParameterObject.new(
+  type: "document",
+  document: document
+)
 
-# parameter_video = WhatsappSdk::Resource::ParameterObject.new(
-#   type: "video",
-#   video: video
-# )
+parameter_video = WhatsappSdk::Resource::ParameterObject.new(
+  type: "video",
+  video: video
+)
 
-# parameter_text = WhatsappSdk::Resource::ParameterObject.new(
-#   type: "text",
-#   text: "I am a text"
-# )
+parameter_text = WhatsappSdk::Resource::ParameterObject.new(
+  type: "text",
+  text: "I am a text"
+)
 
-# header_component.add_parameter(parameter_text)
-# header_component.add_parameter(parameter_image)
-# header_component.add_parameter(parameter_video)
-# header_component.add_parameter(parameter_document)
-# header_component.to_json
+header_component.add_parameter(parameter_text)
+header_component.add_parameter(parameter_image)
+header_component.add_parameter(parameter_video)
+header_component.add_parameter(parameter_document)
+header_component.to_json
 
-# body_component = WhatsappSdk::Resource::Component.new(
-#   type: WhatsappSdk::Resource::Component::Type::BODY
-# )
-# body_component.add_parameter(parameter_text)
-# body_component.add_parameter(parameter_image)
-# body_component.add_parameter(parameter_video)
-# body_component.add_parameter(parameter_document)
-# body_component.to_json
+body_component = WhatsappSdk::Resource::Component.new(
+  type: WhatsappSdk::Resource::Component::Type::BODY
+)
+body_component.add_parameter(parameter_text)
+body_component.add_parameter(parameter_image)
+body_component.add_parameter(parameter_video)
+body_component.add_parameter(parameter_document)
+body_component.to_json
 
 # button_component_1 = WhatsappSdk::Resource::Component.new(
 #   type: WhatsappSdk::Resource::Component::Type::BUTTON,
@@ -180,21 +187,21 @@ puts response_with_object
 #   parameters: [WhatsappSdk::Resource::ButtonParameter.new(type: "payload", payload: "payload")]
 # )
 
-# # Send a template with component_json
-# response_with_json = messages_api.send_template(
-#   sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, name: "hello_world", language: "en_US",
-#   components_json: [
-#     {
-#       "type" => "header",
-#       "parameters" => [
-#         {
-#           "type" => "image",
-#           "image" => {
-#             "link" => "https://www.google.com/imgres?imgurl=https%3A%2F%2Fqph.cf2.quoracdn.net%2Fmain-qimg-6d977408fdd90a09a1fee7ba9e2f777c-lq&imgrefurl=https%3A%2F%2Fwww.quora.com%2FHow-can-I-find-my-WhatsApp-ID&tbnid=lDAx1vzXwqCakM&vet=12ahUKEwjKupLviJX4AhVrrHIEHQpGD9MQMygAegUIARC9AQ..i&docid=s-DNQVCrZmhJYM&w=602&h=339&q=example%20whatsapp%20image%20id&ved=2ahUKEwjKupLviJX4AhVrrHIEHQpGD9MQMygAegUIARC9AQ"
-#           }
-#         }
-#       ]
-#     }
-#   ]
-# )
-# puts response_with_json
+# Send a template with component_json
+response_with_json = messages_api.send_template(
+  sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, name: "hello_world", language: "en_US",
+  components_json: [
+    {
+      "type" => "header",
+      "parameters" => [
+        {
+          "type" => "image",
+          "image" => {
+            "link" => "https://www.google.com/imgres?imgurl=https%3A%2F%2Fqph.cf2.quoracdn.net%2Fmain-qimg-6d977408fdd90a09a1fee7ba9e2f777c-lq&imgrefurl=https%3A%2F%2Fwww.quora.com%2FHow-can-I-find-my-WhatsApp-ID&tbnid=lDAx1vzXwqCakM&vet=12ahUKEwjKupLviJX4AhVrrHIEHQpGD9MQMygAegUIARC9AQ..i&docid=s-DNQVCrZmhJYM&w=602&h=339&q=example%20whatsapp%20image%20id&ved=2ahUKEwjKupLviJX4AhVrrHIEHQpGD9MQMygAegUIARC9AQ"
+          }
+        }
+      ]
+    }
+  ]
+)
+puts response_with_json

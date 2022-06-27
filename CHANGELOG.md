@@ -1,5 +1,8 @@
 # Unreleased
 
+# v 0.3.0
+- Allow Apps to have a singleton global authentication client.
+
 # v 0.2.0
 - Added Media API
 - Update Facebook API to v14

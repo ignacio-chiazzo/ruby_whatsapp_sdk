@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Configuration
+require_relative "whatsapp_sdk/configuration"
+
 # APIs
 require_relative "whatsapp_sdk/api/phone_numbers"
 require_relative "whatsapp_sdk/api/messages"
