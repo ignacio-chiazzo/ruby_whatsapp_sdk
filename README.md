@@ -4,7 +4,7 @@
 <a href="https://codeclimate.com/github/ignacio-chiazzo/ruby_whatsapp_sdk/maintainability"><img src="https://api.codeclimate.com/v1/badges/169cce95450272e4ad7d/maintainability" /></a>
 
 The SDK provides a set of operations and classes to use the Whatsapp API.
-Send stickers, messages, audio, videos, locations or just ask for the phone numbers through this library in a few steps!
+Send stickers, messages, audio, videos, and locations or just ask for the phone numbers through this library in a few steps!
 
 
 https://user-images.githubusercontent.com/11672878/173238826-6fc0a6f8-d0ee-4eae-8947-7dfd3b8b3446.mov
@@ -28,9 +28,9 @@ Or install it yourself as:
 
 ## Quick Start
 
-There are three primary resources, `Messages`, `Media` and `PhoneNumbers`. The first one allows clients to send any kind of message (text, audio, location, video, image, etc.), and the latter will enable clients to query the phone numbers associated.
+There are three primary resources, `Messages`, `Media` and `PhoneNumbers`. `Messages` allows users to send any kind of message (text, audio, location, video, image, etc.). `Media` allows users to manage media, and `Phone Numbers` enable clients to query the associated phone numbers.
 
-To use `Messages`, `Media` or `PhoneNumbers` you need to initialize the `Client` that contain auth information. There are two ways to do it
+To use `Messages`, `Media` or `PhoneNumbers`, you need to initialize the `Client` that contains auth information. There are two ways to do it
 
 1) Using an initializer
   
@@ -39,7 +39,7 @@ WhatsappSdk.configure do |config|
   config.access_token = ACCESS_TOKEN
 end
 ```
-OR creating an instance and pass it to the Messages or PhoneNumbers instance like this:
+OR 2) creating a `Client` instance and pass it to the `Messages`, `Medias` or `PhoneNumbers` instance like this:
 
 ```ruby
 client = WhatsappSdk::Api::Client.new("<ACCESS TOKEN>") # replace this with a valid access token
@@ -244,7 +244,7 @@ Visit [the example file](/example.rb) with examples to call the API in a single 
 
 ## Troubleshooting
 
-- If the API response is success but the message is not delivered, make sure the device you're sending the message to is using a supported Whatsapp version. [Check documentation](https://developers.facebook.com/docs/whatsapp/cloud-api/support/troubleshooting#message-not-delivered)
+- If the API response is `success` but the message is not delivered, make sure the device you're sending the message to is using a supported Whatsapp version. [Check documentation](https://developers.facebook.com/docs/whatsapp/cloud-api/support/troubleshooting#message-not-delivered)
 
 ## Development
 
