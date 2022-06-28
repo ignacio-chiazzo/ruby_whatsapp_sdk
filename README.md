@@ -39,7 +39,7 @@ WhatsappSdk.configure do |config|
   config.access_token = ACCESS_TOKEN
 end
 ```
-OR 2) creating an instance and pass it to the Messages or PhoneNumbers instance like this:
+OR 2) creating a `Client` instance and pass it to the `Messages`, `Medias` or `PhoneNumbers` instance like this:
 
 ```ruby
 client = WhatsappSdk::Api::Client.new("<ACCESS TOKEN>") # replace this with a valid access token
