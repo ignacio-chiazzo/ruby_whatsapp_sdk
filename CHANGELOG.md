@@ -1,11 +1,13 @@
 # Unreleased
 
+# v 0.3.1
+- Update Meta API to v14
+
 # v 0.3.0
 - Allow Apps to have a singleton global authentication client.
 
 # v 0.2.0
 - Added Media API
-- Update Facebook API to v14
 - Added error and sucess responses
 - Added faraday-multiplart as part of the library
  
