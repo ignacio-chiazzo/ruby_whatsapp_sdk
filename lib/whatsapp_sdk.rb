@@ -2,7 +2,7 @@
 
 require "zeitwerk"
 loader = Zeitwerk::Loader.for_gem
-loader.setup # ready!
+loader.setup
 
 module WhatsappSdk
   class << self
