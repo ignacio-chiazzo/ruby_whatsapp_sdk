@@ -7,17 +7,6 @@ module WhatsappSdk
   # end
   #
   # The gem have access to the client through WhatsappSdk.configuration.client
-
-  class << self
-    def configuration
-      @configuration ||= Configuration.new
-    end
-
-    def configure
-      yield(configuration)
-    end
-  end
-
   class Configuration
     attr_accessor :access_token
 
