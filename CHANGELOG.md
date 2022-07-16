@@ -1,5 +1,8 @@
 # Unreleased
 
+# v 0.3.2
+- Include Zeitwerk
+
 # v 0.3.1
 - Update Meta API to v14
 
