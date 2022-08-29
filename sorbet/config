@@ -1,0 +1,6 @@
+--dir
+.
+--ignore=vendor/
+--ignore=testing.rb
+--ignore=example.rb
+--enable-experimental-requires-ancestor
