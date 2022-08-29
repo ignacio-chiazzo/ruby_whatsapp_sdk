@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# typed: true
 
 source "https://rubygems.org"
 
@@ -9,6 +10,7 @@ gem("faraday-multipart")
 gem("oj")
 gem("rake", ">= 12.3.3")
 gem("zeitwerk", ">= 2.6.0")
+gem('sorbet-runtime')
 
 group(:test) do
   gem('mocha')
@@ -18,6 +20,9 @@ group(:test) do
 end
 
 group(:development) do
+  gem('spoom')
+  gem('sorbet')
+  gem('tapioca', require: false)
   gem('pry')
   gem('pry-nav')
 end
