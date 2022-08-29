@@ -10,8 +10,6 @@ module RuboCop; end
 # source://rubocop-performance-1.14.2/lib/rubocop/cop/mixin/regexp_metacharacter.rb:4
 module RuboCop::Cop; end
 
-# @deprecated IgnoredPattern class has been replaced with AllowedPattern.
-#
 # source://rubocop-1.30.1/lib/rubocop/cop/mixin/allowed_pattern.rb:38
 RuboCop::Cop::IgnoredPattern = RuboCop::Cop::AllowedPattern
 

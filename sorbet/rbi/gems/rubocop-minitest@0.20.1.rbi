@@ -28,8 +28,6 @@ module RuboCop::Cop::ArgumentRangeHelper
   def first_argument_range(node); end
 end
 
-# @deprecated IgnoredPattern class has been replaced with AllowedPattern.
-#
 # source://rubocop-1.30.1/lib/rubocop/cop/mixin/allowed_pattern.rb:38
 RuboCop::Cop::IgnoredPattern = RuboCop::Cop::AllowedPattern
 

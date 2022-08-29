@@ -8180,7 +8180,6 @@ RuboCop::Cop::Layout::EmptyLineAfterGuardClause::MSG = T.let(T.unsafe(nil), Stri
 # @example
 #   # good
 #   # frozen_string_literal: true
-# typed: true
 #
 #   # Some documentation for Person
 #   class Person
@@ -8189,7 +8188,6 @@ RuboCop::Cop::Layout::EmptyLineAfterGuardClause::MSG = T.let(T.unsafe(nil), Stri
 #
 #   # bad
 #   # frozen_string_literal: true
-# typed: true
 #   # Some documentation for Person
 #   class Person
 #   # Some code
@@ -19198,7 +19196,6 @@ RuboCop::Cop::Lint::OrAssignmentToConstant::MSG = T.let(T.unsafe(nil), String)
 #   # bad
 #
 #   # frozen_string_literal: true
-# typed: true
 #   # encoding: ascii
 #   p [''.frozen?, ''.encoding] #=> [true, #<Encoding:UTF-8>]
 #
@@ -19206,7 +19203,6 @@ RuboCop::Cop::Lint::OrAssignmentToConstant::MSG = T.let(T.unsafe(nil), String)
 #
 #   # encoding: ascii
 #   # frozen_string_literal: true
-# typed: true
 #   p [''.frozen?, ''.encoding] #=> [true, #<Encoding:US-ASCII>]
 #
 #   # good
@@ -19214,7 +19210,6 @@ RuboCop::Cop::Lint::OrAssignmentToConstant::MSG = T.let(T.unsafe(nil), String)
 #   #!/usr/bin/env ruby
 #   # encoding: ascii
 #   # frozen_string_literal: true
-# typed: true
 #   p [''.frozen?, ''.encoding] #=> [true, #<Encoding:US-ASCII>]
 #
 # source://rubocop-1.30.1/lib/rubocop/cop/lint/ordered_magic_comments.rb:30
@@ -33052,7 +33047,6 @@ end
 #
 #   # good
 #   # frozen_string_literal: true
-# typed: true
 #
 #   module Bar
 #   # ...
@@ -33069,7 +33063,6 @@ end
 #   # not exist in a file.
 #   # bad
 #   # frozen_string_literal: true
-# typed: true
 #
 #   module Baz
 #   # ...
@@ -33097,7 +33090,6 @@ end
 #
 #   # good
 #   # frozen_string_literal: true
-# typed: true
 #
 #   module Bar
 #   # ...
@@ -48929,8 +48921,7 @@ RuboCop::MagicComment::KEYWORDS = T.let(T.unsafe(nil), Hash)
 # Simple comments can only specify one setting per comment.
 #
 # @example frozen string literal comments
-#   comment1 = RuboCop::MagicComment.parse('# frozen_string_literal: true
-# typed: true')
+#   comment1 = RuboCop::MagicComment.parse('# frozen_string_literal: true')
 #   comment1.frozen_string_literal # => true
 #   comment1.encoding              # => nil
 # @example encoding comments

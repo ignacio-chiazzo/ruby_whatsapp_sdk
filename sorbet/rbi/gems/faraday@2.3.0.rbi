@@ -1019,6 +1019,8 @@ class Faraday::Error < ::StandardError
   def exc_msg_and_response!(exc, response = T.unsafe(nil)); end
 end
 
+# Aliases for Faraday v1, these are all deprecated and will be removed in v2 of this middleware
+#
 # source://faraday-multipart-1.0.4/lib/faraday/multipart.rb:15
 Faraday::FilePart = Multipart::Post::UploadIO
 
@@ -2172,6 +2174,9 @@ class Faraday::UnauthorizedError < ::Faraday::ClientError; end
 # source://faraday-2.3.0/lib/faraday/error.rb:114
 class Faraday::UnprocessableEntityError < ::Faraday::ClientError; end
 
+# multipart-post v2.2.0 introduces a new class hierarchy for classes like Parts and UploadIO
+# For backwards compatibility, detect the gem version and use the right class
+#
 # source://faraday-multipart-1.0.4/lib/faraday/multipart.rb:21
 Faraday::UploadIO = Multipart::Post::UploadIO
 
