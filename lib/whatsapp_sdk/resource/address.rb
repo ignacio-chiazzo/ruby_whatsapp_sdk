@@ -5,10 +5,10 @@ module WhatsappSdk
     class Address
       attr_accessor :street, :city, :state, :zip, :country, :country_code, :typ
 
-      ADDRESS_TYPE = {
-        home: "HOME",
-        work: "WORK"
-      }.freeze
+      module ADDRESS_TYPE
+        HOME = "HOME",
+        WORK = "WORK"
+      end
 
       def initialize(street:, city:, state:, zip:, country:, country_code:, type: ADDRESS_TYPE::HOME)
         @street = street

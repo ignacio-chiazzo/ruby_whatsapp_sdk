@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# typed: true
 
 require "test_helper"
 require_relative '../../../lib/whatsapp_sdk/api/responses/read_message_data_response'
