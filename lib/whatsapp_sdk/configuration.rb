@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# typed: true
 
 module WhatsappSdk
   # This module allows client instantiating the client as a singleton like the following example:

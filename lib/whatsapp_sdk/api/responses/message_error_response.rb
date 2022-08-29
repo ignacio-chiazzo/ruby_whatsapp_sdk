@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# typed: true
 
 require_relative "error_response"
 
@@ -18,6 +19,7 @@ module WhatsappSdk
           super(response: response)
         end
 
+        sig { override.params(response: Hash).returns(T.nilable(DataResponse))}
         def self.build_from_response(response:)
           error_response = response["error"]
           return unless error_response

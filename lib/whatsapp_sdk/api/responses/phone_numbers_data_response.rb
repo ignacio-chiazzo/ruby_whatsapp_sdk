@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# typed: true
 
 require_relative "data_response"
 require_relative "phone_number_data_response"
@@ -14,6 +15,7 @@ module WhatsappSdk
           super(response)
         end
 
+        sig { override.params(response: Hash).returns(T.nilable(DataResponse))}
         def self.build_from_response(response:)
           return unless response["data"]
 
