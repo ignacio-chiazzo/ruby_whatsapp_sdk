@@ -8,7 +8,7 @@ require_relative '../../../lib/whatsapp_sdk/api/client'
 module WhatsappSdk
   module Api
     class MediasTest < Minitest::Test
-      extend T::Helpers
+      extend ::T::Helpers
       include ::Mocha::Mock
 
       def setup

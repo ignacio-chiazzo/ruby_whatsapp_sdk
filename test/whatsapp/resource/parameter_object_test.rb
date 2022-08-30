@@ -11,7 +11,7 @@ module WhatsappSdk
   module Resource
     module Resource
       class ParameterObjectTest < Minitest::Test
-        extend T::Helpers
+        extend ::T::Helpers
         
         include Minitest::Assertions
         include Kernel

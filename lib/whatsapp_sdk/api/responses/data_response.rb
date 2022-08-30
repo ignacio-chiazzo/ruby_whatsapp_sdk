@@ -5,8 +5,8 @@ module WhatsappSdk
   module Api
     module Responses
       class DataResponse
-        extend T::Sig
-        extend T::Helpers
+        extend ::T::Sig
+        extend ::T::Helpers
       
         abstract!
 
