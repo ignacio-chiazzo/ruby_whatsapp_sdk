@@ -9,7 +9,6 @@ module WhatsappSdk
   module Api
     class MediasTest < Minitest::Test
       extend ::T::Helpers
-      include ::Mocha::Mock
 
       def setup
         client = WhatsappSdk::Api::Client.new("test_token")
