@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# typed: false
 
 require "test_helper"
 require_relative '../../../lib/whatsapp_sdk/api/medias'
@@ -7,6 +8,8 @@ require_relative '../../../lib/whatsapp_sdk/api/client'
 module WhatsappSdk
   module Api
     class MediasTest < Minitest::Test
+      extend ::T::Helpers
+
       def setup
         client = WhatsappSdk::Api::Client.new("test_token")
         @medias_api = WhatsappSdk::Api::Medias.new(client)
@@ -87,7 +90,7 @@ module WhatsappSdk
         type = "image/png"
 
         file_part = mock
-        Faraday::FilePart.stubs(:new).returns(file_part)
+        T.unsafe(Faraday::FilePart).stubs(:new).returns(file_part)
 
         @medias_api.expects(:send_request).with(
           http_method: "post",

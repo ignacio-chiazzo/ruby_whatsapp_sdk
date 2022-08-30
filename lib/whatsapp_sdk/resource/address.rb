@@ -1,16 +1,17 @@
 # frozen_string_literal: true
+# typed: true
 
 module WhatsappSdk
   module Resource
     class Address
       attr_accessor :street, :city, :state, :zip, :country, :country_code, :typ
 
-      ADDRESS_TYPE = {
-        home: "HOME",
-        work: "WORK"
-      }.freeze
+      module AddressType
+        HOME = "HOME"
+        WORK = "WORK"
+      end
 
-      def initialize(street:, city:, state:, zip:, country:, country_code:, type: ADDRESS_TYPE::HOME)
+      def initialize(street:, city:, state:, zip:, country:, country_code:, type: AddressType::HOME)
         @street = street
         @city = city
         @state = state

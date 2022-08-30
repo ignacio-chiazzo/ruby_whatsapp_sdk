@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# typed: false
 
 require "test_helper"
 require_relative '../../../lib/whatsapp_sdk/resource/parameter_object'
@@ -10,6 +11,11 @@ module WhatsappSdk
   module Resource
     module Resource
       class ParameterObjectTest < Minitest::Test
+        extend ::T::Helpers
+
+        include Minitest::Assertions
+        include Kernel
+
         def setup
           @image_media = WhatsappSdk::Resource::Media.new(type: "image", link: "http(s)://URL", caption: "caption")
           @document_media = WhatsappSdk::Resource::Media.new(type: "document", link: "http://URL", filename: "txt.rb")
@@ -39,7 +45,7 @@ module WhatsappSdk
             end
 
             error = assert_raises(WhatsappSdk::Resource::ParameterObject::MissingValue) do
-              WhatsappSdk::Resource::ParameterObject.new(type: type, attr_name => object)
+              T.unsafe(WhatsappSdk::Resource::ParameterObject).new(type: type, attr_name => object)
             end
 
             assert_equal(type, error.field)
