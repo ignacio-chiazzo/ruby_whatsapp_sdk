@@ -10,9 +10,9 @@ module ContactHelper
       zip: "ZIP",
       country: "COUNTRY",
       country_code: "COUNTRY_CODE",
-      type: WhatsappSdk::Resource::Address::ADDRESS_TYPE::WORK
+      type: WhatsappSdk::Resource::Address::AddressType::WORK
     )
-    
+
     address2 = WhatsappSdk::Resource::Address.new(
       street: "STREET",
       city: "CITY",
@@ -20,7 +20,7 @@ module ContactHelper
       zip: "ZIP",
       country: "COUNTRY",
       country_code: "COUNTRY_CODE",
-      type: WhatsappSdk::Resource::Address::ADDRESS_TYPE::WORK
+      type: WhatsappSdk::Resource::Address::AddressType::WORK
     )
 
     [address1, address2]
@@ -65,8 +65,8 @@ module ContactHelper
   end
 
   def create_urls
-    url1 = WhatsappSdk::Resource::Url.new(url: "1234567", type: WhatsappSdk::Resource::Address::ADDRESS_TYPE::HOME)
-    url2 = WhatsappSdk::Resource::Url.new(url: "1234567", type: WhatsappSdk::Resource::Address::ADDRESS_TYPE::WORK)
+    url1 = WhatsappSdk::Resource::Url.new(url: "1234567", type: WhatsappSdk::Resource::Address::AddressType::HOME)
+    url2 = WhatsappSdk::Resource::Url.new(url: "1234567", type: WhatsappSdk::Resource::Address::AddressType::WORK)
 
     [url1, url2]
   end

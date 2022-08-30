@@ -9,8 +9,8 @@ gem("faraday")
 gem("faraday-multipart")
 gem("oj")
 gem("rake", ">= 12.3.3")
-gem("zeitwerk", ">= 2.6.0")
 gem('sorbet-runtime')
+gem("zeitwerk", ">= 2.6.0")
 
 group(:test) do
   gem('mocha')
@@ -20,11 +20,11 @@ group(:test) do
 end
 
 group(:development) do
-  gem('spoom')
-  gem('sorbet')
-  gem('tapioca', require: false)
   gem('pry')
   gem('pry-nav')
+  gem('sorbet')
+  gem('spoom')
+  gem('tapioca', require: false)
 end
 
 gemspec

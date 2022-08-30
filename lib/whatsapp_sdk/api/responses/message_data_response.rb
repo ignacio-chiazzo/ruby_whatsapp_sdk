@@ -18,7 +18,7 @@ module WhatsappSdk
           super(response)
         end
 
-        sig { override.params(response: Hash).returns(T.nilable(DataResponse))}
+        sig { override.params(response: Hash).returns(T.nilable(DataResponse)) }
         def self.build_from_response(response:)
           return unless response["messages"]
 

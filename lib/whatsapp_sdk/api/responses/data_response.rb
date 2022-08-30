@@ -7,7 +7,7 @@ module WhatsappSdk
       class DataResponse
         extend ::T::Sig
         extend ::T::Helpers
-      
+
         abstract!
 
         attr_reader :raw_data_response
@@ -16,9 +16,8 @@ module WhatsappSdk
           @raw_data_response = response
         end
 
-        sig { abstract.params(response: Hash).returns(T.nilable(DataResponse))}
-        def self.build_from_response(response:) # rubocop:disable Lint/UnusedMethodArgument:
-        end
+        sig { abstract.params(response: Hash).returns(T.nilable(DataResponse)) }
+        def self.build_from_response(response:); end
       end
     end
   end
