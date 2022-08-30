@@ -258,8 +258,8 @@ Bug reports and pull requests are welcome on GitHub at [https://github.com/ignac
 
 ### Run all the tests
 - **Unit tests:** Run `srb tc`
-- **Sorbet Typecheck:** run `rake test`
-- **Linters:** `bundle exec rubocop`
+- **Sorbet Typecheck:** Run `rake test`
+- **Linters:** Run `bundle exec rubocop`
 
 ## License
 
