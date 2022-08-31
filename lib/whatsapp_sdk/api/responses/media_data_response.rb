@@ -9,6 +9,7 @@ module WhatsappSdk
       class MediaDataResponse < DataResponse
         attr_accessor :id, :url, :mime_type, :sha256, :file_size, :messaging_product
 
+        sig { params(response: Hash).void }
         def initialize(response)
           @id = response["id"]
           @messaging_product = response["messaging_product"]

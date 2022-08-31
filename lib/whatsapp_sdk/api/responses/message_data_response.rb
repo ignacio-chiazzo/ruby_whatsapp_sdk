@@ -12,6 +12,7 @@ module WhatsappSdk
       class MessageDataResponse < DataResponse
         attr_reader :contacts, :messages
 
+        sig { params(response: Hash).void }
         def initialize(response:)
           @contacts = response["contacts"]&.map { |contact_json| parse_contact(contact_json) }
           @messages = response["messages"]&.map { |contact_json| parse_message(contact_json) }

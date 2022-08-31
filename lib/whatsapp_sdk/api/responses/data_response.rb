@@ -12,6 +12,7 @@ module WhatsappSdk
 
         attr_reader :raw_data_response
 
+        sig { params(response: Hash).void }
         def initialize(response)
           @raw_data_response = response
         end

@@ -11,11 +11,6 @@ module WhatsappSdk
   module Resource
     module Resource
       class ParameterObjectTest < Minitest::Test
-        extend ::T::Helpers
-
-        include Minitest::Assertions
-        include Kernel
-
         def setup
           @image_media = WhatsappSdk::Resource::Media.new(type: "image", link: "http(s)://URL", caption: "caption")
           @document_media = WhatsappSdk::Resource::Media.new(type: "document", link: "http://URL", filename: "txt.rb")

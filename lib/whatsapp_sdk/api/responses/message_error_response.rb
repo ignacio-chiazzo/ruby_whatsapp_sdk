@@ -9,6 +9,7 @@ module WhatsappSdk
       class MessageErrorResponse < ErrorResponse
         attr_reader :code, :subcode, :message, :type, :data, :fbtrace_id
 
+        sig { params(response: Hash).void }
         def initialize(response:)
           @code = response["code"]
           @subcode = response["error_subcode"]

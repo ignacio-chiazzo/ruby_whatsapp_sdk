@@ -12,6 +12,7 @@ module WhatsappSdk
       class ReadMessageDataResponse < DataResponse
         attr_reader :success
 
+        sig { params(response: Hash).void }
         def initialize(response:)
           @success = response["success"]
           super(response)

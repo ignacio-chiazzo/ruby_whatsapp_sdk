@@ -1,7 +1,10 @@
 # frozen_string_literal: true
-# typed: true
+# typed: strict
 
 module ContactHelper
+  extend T::Sig
+
+  sig { returns(T::Array[WhatsappSdk::Resource::Address]) }
   def create_addresses
     address1 = WhatsappSdk::Resource::Address.new(
       street: "STREET",
@@ -26,6 +29,7 @@ module ContactHelper
     [address1, address2]
   end
 
+  sig { returns(T::Array[WhatsappSdk::Resource::Email]) }
   def create_emails
     email1 = WhatsappSdk::Resource::Email.new(
       email: "ignacio@gmail.com", type: WhatsappSdk::Resource::Email::EMAIL_TYPE[:work]
@@ -38,6 +42,7 @@ module ContactHelper
     [email1, email2]
   end
 
+  sig { returns(WhatsappSdk::Resource::Name) }
   def create_name
     WhatsappSdk::Resource::Name.new(
       formatted_name: "ignacio chiazzo",
@@ -49,11 +54,13 @@ module ContactHelper
     )
   end
 
+  sig { returns(WhatsappSdk::Resource::Org) }
   def create_org
     WhatsappSdk::Resource::Org.new(company: "ignacioCo", department: "Engineering", title: "ignacioOrg")
   end
 
-  def create_phones
+  sig { returns(T::Array[WhatsappSdk::Resource::PhoneNumber]) }
+  def create_phone_numbers
     phone1 = WhatsappSdk::Resource::PhoneNumber.new(
       phone: "1234567", type: WhatsappSdk::Resource::PhoneNumber::PHONE_NUMBER_TYPE[:home], wa_id: "1234"
     )
@@ -64,6 +71,7 @@ module ContactHelper
     [phone1, phone2]
   end
 
+  sig { returns(T::Array[WhatsappSdk::Resource::Url]) }
   def create_urls
     url1 = WhatsappSdk::Resource::Url.new(url: "1234567", type: WhatsappSdk::Resource::Address::AddressType::HOME)
     url2 = WhatsappSdk::Resource::Url.new(url: "1234567", type: WhatsappSdk::Resource::Address::AddressType::WORK)
@@ -71,6 +79,7 @@ module ContactHelper
     [url1, url2]
   end
 
+  sig { returns(WhatsappSdk::Resource::Contact) }
   def create_contact
     WhatsappSdk::Resource::Contact.new(
       addresses: create_addresses,
@@ -78,7 +87,7 @@ module ContactHelper
       emails: create_emails,
       name: create_name,
       org: create_org,
-      phones: create_phones,
+      phones: create_phone_numbers,
       urls: create_urls
     )
   end
