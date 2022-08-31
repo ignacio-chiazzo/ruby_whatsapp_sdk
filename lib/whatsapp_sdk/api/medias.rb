@@ -25,6 +25,7 @@ module WhatsappSdk
       #
       # @param media_id [Integer] Media Id.
       # @return [WhatsappSdk::Api::Response] Response object.
+      sig { params(media_id: Integer).returns(WhatsappSdk::Api::Response) }
       def media(media_id:)
         response = send_request(
           http_method: "get",
@@ -39,9 +40,10 @@ module WhatsappSdk
 
       # Download Media by URL.
       #
-      # @param media_id [Integer] Media Id.
+      # @param url URL.
       # @param file_path [String] The file_path to download the media e.g. "tmp/downloaded_image.png".
       # @return [WhatsappSdk::Api::Response] Response object.
+      sig { params(url: String, file_path: String).returns(WhatsappSdk::Api::Response) }
       def download(url:, file_path:)
         response = download_file(url, file_path)
 
@@ -65,6 +67,7 @@ module WhatsappSdk
       # see the official documentation https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media#supported-media-types.
       #
       # @return [WhatsappSdk::Api::Response] Response object.
+      sig { params(sender_id: Integer, file_path: String, type: String).returns(WhatsappSdk::Api::Response) }
       def upload(sender_id:, file_path:, type:)
         raise FileNotFoundError, file_path unless File.file?(file_path)
 
@@ -86,6 +89,7 @@ module WhatsappSdk
       #
       # @param media_id [Integer] Media Id.
       # @return [WhatsappSdk::Api::Response] Response object.
+      sig { params(media_id: Integer).returns(WhatsappSdk::Api::Response) }
       def delete(media_id:)
         response = send_request(
           http_method: "delete",

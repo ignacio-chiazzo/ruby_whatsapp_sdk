@@ -10,7 +10,13 @@ module WhatsappSdk
   module Api
     module Responses
       class MessageDataResponse < DataResponse
-        attr_reader :contacts, :messages
+        extend T::Sig
+
+        sig { returns(T::Array[::WhatsappSdk::Resource::ContactResponse]) }
+        attr_reader :contacts
+
+        sig { returns(T::Array[::WhatsappSdk::Resource::Message]) }
+        attr_reader :messages
 
         sig { params(response: Hash).void }
         def initialize(response:)
@@ -28,10 +34,12 @@ module WhatsappSdk
 
         private
 
+        sig { params(message_json: Hash).returns(::WhatsappSdk::Resource::Message) }
         def parse_message(message_json)
           ::WhatsappSdk::Resource::Message.new(id: message_json["id"])
         end
 
+        sig { params(contact_json: Hash).returns(::WhatsappSdk::Resource::ContactResponse) }
         def parse_contact(contact_json)
           ::WhatsappSdk::Resource::ContactResponse.new(input: contact_json["input"], wa_id: contact_json["wa_id"])
         end

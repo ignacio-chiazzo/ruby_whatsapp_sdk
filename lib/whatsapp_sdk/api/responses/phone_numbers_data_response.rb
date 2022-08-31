@@ -25,6 +25,7 @@ module WhatsappSdk
 
         private
 
+        sig { params(phone_number: Hash).returns(PhoneNumberDataResponse) }
         def parse_phone_number(phone_number)
           PhoneNumberDataResponse.new(phone_number)
         end

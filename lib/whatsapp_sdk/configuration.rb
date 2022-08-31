@@ -23,7 +23,7 @@ module WhatsappSdk
     def client
       return unless access_token
 
-      WhatsappSdk::Api::Client.new(access_token)
+      WhatsappSdk::Api::Client.new(T.must(access_token))
     end
   end
 end
