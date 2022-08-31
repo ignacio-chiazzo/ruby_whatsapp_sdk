@@ -35,3 +35,7 @@ Gemspec/RequiredRubyVersion:
 
 Minitest/MultipleAssertions:
   Enabled: false
+
+Style/AccessorGrouping: # disabled so that we can use sorbet signatures for each attr
+  Enabled: false 
+
