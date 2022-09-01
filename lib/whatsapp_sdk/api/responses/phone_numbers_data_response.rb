@@ -10,6 +10,7 @@ module WhatsappSdk
       class PhoneNumbersDataResponse < DataResponse
         attr_reader :phone_numbers
 
+        sig { params(response: Hash).void }
         def initialize(response)
           @phone_numbers = response['data']&.map { |phone_number| parse_phone_number(phone_number) }
           super(response)
@@ -24,6 +25,7 @@ module WhatsappSdk
 
         private
 
+        sig { params(phone_number: Hash).returns(PhoneNumberDataResponse) }
         def parse_phone_number(phone_number)
           PhoneNumberDataResponse.new(phone_number)
         end

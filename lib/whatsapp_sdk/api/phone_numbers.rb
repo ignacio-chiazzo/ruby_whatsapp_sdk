@@ -11,6 +11,7 @@ module WhatsappSdk
       #
       # @param business_id [Integer] Business Id.
       # @return [WhatsappSdk::Api::Response] Response object.
+      sig { params(business_id: Integer).returns(WhatsappSdk::Api::Response) }
       def registered_numbers(business_id)
         response = send_request(
           http_method: "get",
@@ -27,6 +28,7 @@ module WhatsappSdk
       #
       # @param phone_number_id [Integer] The registered number we want to retrieve.
       # @return [WhatsappSdk::Api::Response] Response object.
+      sig { params(phone_number_id: Integer).returns(WhatsappSdk::Api::Response) }
       def registered_number(phone_number_id)
         response = send_request(
           http_method: "get",

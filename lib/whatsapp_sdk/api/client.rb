@@ -7,9 +7,11 @@ require "oj"
 module WhatsappSdk
   module Api
     class Client
+      extend T::Sig
       API_VERSION = "v14.0"
       API_CLIENT = "https://graph.facebook.com/#{API_VERSION}/"
 
+      sig { params(access_token: String).void }
       def initialize(access_token)
         @access_token = access_token
       end

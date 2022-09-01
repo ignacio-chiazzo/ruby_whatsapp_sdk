@@ -9,6 +9,7 @@ module WhatsappSdk
       class ErrorResponse < DataResponse
         attr_accessor :error, :status
 
+        sig { params(response: Hash).void }
         def initialize(response:)
           @error = response["error"]
           @status = response["status"]

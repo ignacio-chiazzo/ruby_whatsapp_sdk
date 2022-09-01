@@ -8,8 +8,6 @@ require_relative '../../../lib/whatsapp_sdk/api/client'
 module WhatsappSdk
   module Api
     class MediasTest < Minitest::Test
-      extend ::T::Helpers
-
       def setup
         client = WhatsappSdk::Api::Client.new("test_token")
         @medias_api = WhatsappSdk::Api::Medias.new(client)

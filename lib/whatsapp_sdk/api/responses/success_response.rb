@@ -7,6 +7,7 @@ module WhatsappSdk
   module Api
     module Responses
       class SuccessResponse < DataResponse
+        sig { params(response: Hash).void }
         def initialize(response:)
           @success = response["success"]
           super(response)
@@ -19,6 +20,7 @@ module WhatsappSdk
           new(response: response)
         end
 
+        sig { returns(T::Boolean) }
         def success?
           @success
         end

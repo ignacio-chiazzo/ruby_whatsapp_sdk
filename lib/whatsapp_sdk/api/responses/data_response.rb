@@ -10,8 +10,10 @@ module WhatsappSdk
 
         abstract!
 
+        sig { returns(Hash) }
         attr_reader :raw_data_response
 
+        sig { params(response: Hash).void }
         def initialize(response)
           @raw_data_response = response
         end

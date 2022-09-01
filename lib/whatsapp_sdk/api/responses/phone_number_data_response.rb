@@ -9,6 +9,7 @@ module WhatsappSdk
       class PhoneNumberDataResponse < DataResponse
         attr_accessor :id, :verified_name, :display_phone_number, :quality_rating
 
+        sig { params(response: Hash).void }
         def initialize(response)
           @id = response["id"]
           @verified_name = response["verified_name"]
