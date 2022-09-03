@@ -63,7 +63,7 @@ module WhatsappSdk
         validate_fields
       end
 
-      def to_json
+      def to_json(*_args)
         json = {
           type: type,
           parameters: parameters.map(&:to_json)

@@ -18,7 +18,7 @@ module WhatsappSdk
       end
 
       sig { returns(Hash) }
-      def to_json
+      def to_json(*_args)
         {
           fallback_value: fallback_value
         }

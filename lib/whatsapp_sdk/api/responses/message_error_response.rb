@@ -7,7 +7,23 @@ module WhatsappSdk
   module Api
     module Responses
       class MessageErrorResponse < ErrorResponse
-        attr_reader :code, :subcode, :message, :type, :data, :fbtrace_id
+        sig { returns(Integer) }
+        attr_reader :code
+
+        sig { returns(Integer) }
+        attr_reader :subcode
+
+        sig { returns(String) }
+        attr_reader :message
+
+        sig { returns(String) }
+        attr_reader :type
+
+        sig { returns(String) }
+        attr_reader :data
+
+        sig { returns(String) }
+        attr_reader :fbtrace_id
 
         sig { params(response: Hash).void }
         def initialize(response:)

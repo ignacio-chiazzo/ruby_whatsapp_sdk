@@ -8,6 +8,7 @@ module WhatsappSdk
   module Api
     module Responses
       class PhoneNumbersDataResponse < DataResponse
+        sig { returns(T::Array[PhoneNumberDataResponse]) }
         attr_reader :phone_numbers
 
         sig { params(response: Hash).void }

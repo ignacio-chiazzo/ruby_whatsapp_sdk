@@ -45,7 +45,7 @@ module WhatsappSdk
         validate
       end
 
-      def to_json
+      def to_json(*_args)
         json = {
           type: type
         }

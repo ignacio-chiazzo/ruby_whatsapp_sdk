@@ -82,7 +82,7 @@ module WhatsappSdk
         validate
       end
 
-      def to_json
+      def to_json(*_args)
         json = { type: type }
         json[type.to_sym] = case type
                             when "text"

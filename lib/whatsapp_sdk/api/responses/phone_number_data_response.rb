@@ -7,7 +7,17 @@ module WhatsappSdk
   module Api
     module Responses
       class PhoneNumberDataResponse < DataResponse
-        attr_accessor :id, :verified_name, :display_phone_number, :quality_rating
+        sig { returns(String) }
+        attr_accessor :id
+
+        sig { returns(String) }
+        attr_accessor :verified_name
+
+        sig { returns(String) }
+        attr_accessor :display_phone_number
+
+        sig { returns(String) }
+        attr_accessor :quality_rating
 
         sig { params(response: Hash).void }
         def initialize(response)
