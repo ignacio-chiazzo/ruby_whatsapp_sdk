@@ -4,6 +4,7 @@
 require "test_helper"
 require_relative '../../../lib/whatsapp_sdk/api/responses/read_message_data_response'
 require_relative '../../../lib/whatsapp_sdk/api/messages'
+require_relative '../../../lib/whatsapp_sdk/resource/address_type'
 require_relative '../../../lib/whatsapp_sdk/resource/address'
 require_relative '../../../lib/whatsapp_sdk/resource/contact'
 require_relative '../../../lib/whatsapp_sdk/resource/phone_number'
