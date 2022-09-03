@@ -57,7 +57,7 @@ module WhatsappSdk
         validate_media
       end
 
-      def to_json(*_args)
+      def to_json
         json = {}
         json[:id] = id unless id.nil?
         json[:link] = link unless link.nil?

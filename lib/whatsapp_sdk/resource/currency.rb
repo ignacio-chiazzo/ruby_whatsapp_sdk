@@ -25,7 +25,7 @@ module WhatsappSdk
         @amount = amount
       end
 
-      def to_json(*_args)
+      def to_json
         {
           fallback_value: fallback_value,
           code: code,
