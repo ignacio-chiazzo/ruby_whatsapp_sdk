@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# typed: true
+# typed: strict
 
 require_relative "request"
 require_relative "response"
@@ -7,9 +7,15 @@ require_relative "response"
 module WhatsappSdk
   module Api
     class Messages < Request
+      extend T::Sig
+
       class MissingArgumentError < StandardError
+        extend T::Sig
+
+        sig { returns(String) }
         attr_reader :message
 
+        sig { params(message: String).void }
         def initialize(message)
           @message = message
           super(message)
@@ -22,6 +28,7 @@ module WhatsappSdk
       # @param recipient_number [Integer] Recipient' Phone number.
       # @param message [String] Text to send.
       # @return [WhatsappSdk::Api::Response] Response object.
+      sig { params(sender_id: Integer, recipient_number: Integer, message: String).returns(WhatsappSdk::Api::Response) }
       def send_text(sender_id:, recipient_number:, message:)
         params = {
           messaging_product: "whatsapp",
@@ -51,6 +58,12 @@ module WhatsappSdk
       # @param name [String] Location name.
       # @param address [String] Location address.
       # @return [WhatsappSdk::Api::Response] Response object.
+      sig do
+        params(
+          sender_id: Integer, recipient_number: Integer,
+          longitude: Float, latitude: Float, name: String, address: String
+        ).returns(WhatsappSdk::Api::Response)
+      end
       def send_location(sender_id:, recipient_number:, longitude:, latitude:, name:, address:)
         params = {
           messaging_product: "whatsapp",
@@ -84,6 +97,12 @@ module WhatsappSdk
       # @param link [String] Image link.
       # @param caption [String] Image caption.
       # @return [WhatsappSdk::Api::Response] Response object.
+      sig do
+        params(
+          sender_id: Integer, recipient_number: Integer, image_id: T.nilable(Integer),
+          link: T.nilable(String), caption: T.nilable(String)
+        ).returns(WhatsappSdk::Api::Response)
+      end
       def send_image(sender_id:, recipient_number:, image_id: nil, link: nil, caption: "")
         raise MissingArgumentError, "image_id or link is required" if !image_id && !link
 
@@ -117,6 +136,11 @@ module WhatsappSdk
       # @param audio_id [Integer] Audio ID.
       # @param link [String] Audio link.
       # @return [WhatsappSdk::Api::Response] Response object.
+      sig do
+        params(
+          sender_id: Integer, recipient_number: Integer, audio_id: T.nilable(Integer), link: T.nilable(String)
+        ).returns(WhatsappSdk::Api::Response)
+      end
       def send_audio(sender_id:, recipient_number:, audio_id: nil, link: nil)
         raise MissingArgumentError, "audio_id or link is required" if !audio_id && !link
 
@@ -147,6 +171,12 @@ module WhatsappSdk
       # @param link [String] Image link.
       # @param caption [String] Image caption.
       # @return [WhatsappSdk::Api::Response] Response object.
+      sig do
+        params(
+          sender_id: Integer, recipient_number: Integer,
+          video_id: T.nilable(Integer), link: T.nilable(String), caption: String
+        ).returns(WhatsappSdk::Api::Response)
+      end
       def send_video(sender_id:, recipient_number:, video_id: nil, link: nil, caption: "")
         raise MissingArgumentError, "video_id or link is required" if !video_id && !link
 
@@ -181,6 +211,12 @@ module WhatsappSdk
       # @param link [String] Image link.
       # @param caption [String] Image caption.
       # @return [WhatsappSdk::Api::Response] Response object.
+      sig do
+        params(
+          sender_id: Integer, recipient_number: Integer,
+          document_id: T.nilable(Integer), link: T.nilable(String), caption: String
+        ).returns(WhatsappSdk::Api::Response)
+      end
       def send_document(sender_id:, recipient_number:, document_id: nil, link: nil, caption: "")
         raise MissingArgumentError, "document or link is required" if !document_id && !link
 
@@ -213,6 +249,11 @@ module WhatsappSdk
       # @param recipient_number [Integer] Recipient' Phone number.
       # @param link [String] Image link.
       # @return [WhatsappSdk::Api::Response] Response object.
+      sig do
+        params(
+          sender_id: Integer, recipient_number: Integer, sticker_id: T.nilable(Integer), link: T.nilable(String)
+        ).returns(WhatsappSdk::Api::Response)
+      end
       def send_sticker(sender_id:, recipient_number:, sticker_id: nil, link: nil)
         raise MissingArgumentError, "sticker or link is required" if !sticker_id && !link
 
@@ -243,6 +284,12 @@ module WhatsappSdk
       # @param contacts [Array<Contact>] Contacts.
       # @param contacts_json [Json] Contacts.
       # @return [WhatsappSdk::Api::Response] Response object.
+      sig do
+        params(
+          sender_id: Integer, recipient_number: Integer,
+          contacts: T.nilable(T::Array[WhatsappSdk::Resource::Contact]), contacts_json: T::Hash[T.untyped, T.untyped]
+        ).returns(WhatsappSdk::Api::Response)
+      end
       def send_contacts(sender_id:, recipient_number:, contacts: nil, contacts_json: {})
         params = {
           messaging_product: "whatsapp",
@@ -263,23 +310,24 @@ module WhatsappSdk
         )
       end
 
-      def send_interactive_button
-        # TODO: https://developers.facebook.com/docs/whatsapp_sdk/cloud-api/reference/messages#contacts-object
-      end
+      # def send_interactive_button
+      #   # TODO: https://developers.facebook.com/docs/whatsapp_sdk/cloud-api/reference/messages#contacts-object
+      # end
 
-      def send_interactive_reply_buttons
-        # TODO: https://developers.facebook.com/docs/whatsapp_sdk/cloud-api/reference/messages#contacts-object
-      end
+      # def send_interactive_reply_buttons
+      #   # TODO: https://developers.facebook.com/docs/whatsapp_sdk/cloud-api/reference/messages#contacts-object
+      # end
 
-      def send_interactive_section
-        # TODO: https://developers.facebook.com/docs/whatsapp_sdk/cloud-api/reference/messages#contacts-object
-      end
+      # def send_interactive_section
+      #   # TODO: https://developers.facebook.com/docs/whatsapp_sdk/cloud-api/reference/messages#contacts-object
+      # end
 
       # Mark a message as read.
       #
       # @param sender_id [Integer] Sender' phone number.
       # @param message_id [Integer] Message ID.
       # @return [WhatsappSdk::Api::Response] Response object.
+      sig { params(sender_id: Integer, message_id: Integer).returns(WhatsappSdk::Api::Response) }
       def read_message(sender_id:, message_id:)
         params = {
           messaging_product: "whatsapp",
@@ -307,6 +355,13 @@ module WhatsappSdk
       # @param components [Component] Component.
       # @param components_json [Json] The component as a Json. If you pass components_json, you can't pass components.
       # @return [WhatsappSdk::Api::Response] Response object.
+      sig do
+        params(
+          sender_id: Integer, recipient_number: Integer, name: String, language: String,
+          components: T.nilable(T::Array[WhatsappSdk::Resource::Component]),
+          components_json: T.nilable(T::Array[T::Hash[T.untyped, T.untyped]])
+        ).returns(WhatsappSdk::Api::Response)
+      end
       def send_template(sender_id:, recipient_number:, name:, language:, components: nil, components_json: nil)
         raise MissingArgumentError, "components or components_json is required" if !components && !components_json
 
@@ -340,6 +395,7 @@ module WhatsappSdk
 
       private
 
+      sig { params(sender_id: Integer).returns(String) }
       def endpoint(sender_id)
         "#{sender_id}/messages"
       end

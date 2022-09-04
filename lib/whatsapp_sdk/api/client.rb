@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# typed: true
+# typed: strict
 
 require "faraday"
 require "oj"
@@ -9,21 +9,27 @@ module WhatsappSdk
     class Client
       extend T::Sig
 
-      API_VERSION = "v14.0"
-      API_CLIENT = "https://graph.facebook.com/#{API_VERSION}/"
+      API_VERSION = T.let("v14.0", String)
+      API_CLIENT = T.let("https://graph.facebook.com/#{API_VERSION}/", String)
 
       sig { params(access_token: String).void }
       def initialize(access_token)
         @access_token = access_token
       end
 
+      sig do
+        params(
+          endpoint: String, full_url: T.nilable(String), http_method: String, params: T::Hash[T.untyped, T.untyped]
+        ).returns(T::Hash[T.untyped, T.untyped])
+      end
       def send_request(endpoint: "", full_url: nil, http_method: "post", params: {})
         url = full_url || API_CLIENT
 
-        response = faraday(url).public_send(http_method, endpoint, params)
+        response = T.unsafe(faraday(url)).public_send(http_method, endpoint, params)
         Oj.load(response.body)
       end
 
+      sig { params(url: String, path_to_file_name: T.nilable(String)).returns(Net::HTTPResponse) }
       def download_file(url, path_to_file_name = nil)
         uri = URI.parse(url)
         request = Net::HTTP::Get.new(uri)
@@ -41,6 +47,7 @@ module WhatsappSdk
 
       private
 
+      sig { params(url: String).returns(Faraday::Connection) }
       def faraday(url)
         ::Faraday.new(url) do |client|
           client.request :multipart

@@ -13,7 +13,7 @@ module WhatsappSdk
           super(response)
         end
 
-        sig { override.params(response: T::Hash[T.untyped, T.untyped]).returns(T.nilable(DataResponse)) }
+        sig { override.params(response: T::Hash[T.untyped, T.untyped]).returns(T.nilable(SuccessResponse)) }
         def self.build_from_response(response:)
           return unless response["success"]
 

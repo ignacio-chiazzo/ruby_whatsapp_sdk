@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# typed: true
+# typed: strict
 
 require_relative "data_response"
 
@@ -7,16 +7,20 @@ module WhatsappSdk
   module Api
     module Responses
       class ErrorResponse < DataResponse
-        attr_accessor :error, :status
+        sig { returns(T.nilable(T::Boolean)) }
+        attr_accessor :error
 
-        sig { params(response: Hash).void }
+        sig { returns(T.nilable(Integer)) }
+        attr_accessor :status
+
+        sig { params(response: T::Hash[T.untyped, T.untyped]).void }
         def initialize(response:)
-          @error = response["error"]
-          @status = response["status"]
+          @error = T.let(response["error"], T.nilable(T::Boolean))
+          @status = T.let(response["status"], T.nilable(Integer))
           super(response)
         end
 
-        sig { override.params(response: Hash).returns(T.nilable(DataResponse)) }
+        sig { override.params(response: T::Hash[T.untyped, T.untyped]).returns(T.nilable(ErrorResponse)) }
         def self.build_from_response(response:)
           return unless response["error"]
 

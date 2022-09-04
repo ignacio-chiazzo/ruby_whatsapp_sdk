@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# typed: true
+# typed: strict
 
 require_relative "data_response"
 
@@ -19,16 +19,16 @@ module WhatsappSdk
         sig { returns(String) }
         attr_accessor :quality_rating
 
-        sig { params(response: Hash).void }
+        sig { params(response: T::Hash[T.untyped, T.untyped]).void }
         def initialize(response)
-          @id = response["id"]
-          @verified_name = response["verified_name"]
-          @display_phone_number = response["display_phone_number"]
-          @quality_rating = response["quality_rating"]
+          @id = T.let(response["id"], String)
+          @verified_name = T.let(response["verified_name"], String)
+          @display_phone_number = T.let(response["display_phone_number"], String)
+          @quality_rating = T.let(response["quality_rating"], String)
           super(response)
         end
 
-        sig { override.params(response: Hash).returns(T.nilable(DataResponse)) }
+        sig { override.params(response: T::Hash[T.untyped, T.untyped]).returns(T.nilable(PhoneNumberDataResponse)) }
         def self.build_from_response(response:)
           return unless response["id"]
 
