@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# typed: true
+# typed: strict
 
 module WhatsappSdk
   module Resource
@@ -17,8 +17,8 @@ module WhatsappSdk
         @fallback_value = fallback_value
       end
 
-      sig { returns(Hash) }
-      def to_json(*_args)
+      sig { returns(T::Hash[T.untyped, T.untyped]) }
+      def to_json
         {
           fallback_value: fallback_value
         }

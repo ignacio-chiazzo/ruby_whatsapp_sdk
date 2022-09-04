@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# typed: true
+# typed: strict
 
 module WhatsappSdk
   module Resource
@@ -43,7 +43,7 @@ module WhatsappSdk
         @prefix = prefix
       end
 
-      sig { returns(Hash) }
+      sig { returns(T::Hash[T.untyped, T.untyped]) }
       def to_h
         {
           formatted_name: @formatted_name,

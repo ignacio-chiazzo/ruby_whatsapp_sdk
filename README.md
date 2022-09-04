@@ -190,36 +190,36 @@ currency = WhatsappSdk::Resource::Currency.new(code: "USD", amount: 1000, fallba
 date_time = WhatsappSdk::Resource::DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
 image = WhatsappSdk::Resource::Media.new(type: "image", link: "http(s)://URL")
 
-parameter_image = WhatsappSdk::Resource::ParameterObject.new(type: "image", image: image)
-parameter_text = WhatsappSdk::Resource::ParameterObject.new(type: "text", text: "TEXT_STRING")
-parameter_currency = WhatsappSdk::Resource::ParameterObject.new(type: "currency", currency: currency)
-parameter_date_time = WhatsappSdk::Resource::ParameterObject.new(type: "date_time", date_time: date_time)
+parameter_image = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Image, image: image)
+parameter_text = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Text, text: "TEXT_STRING")
+parameter_currency = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Currency, currency: currency)
+parameter_date_time = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::DateTime, date_time: date_time)
 
 header_component = WhatsappSdk::Resource::Component.new(
-  type: WhatsappSdk::Resource::Component::Type::HEADER,
+  type: WhatsappSdk::Resource::Component::Type::Header,
   parameters: [parameter_image]
 )
 
 body_component = WhatsappSdk::Resource::Component.new(
-  type: WhatsappSdk::Resource::Component::Type::BODY,
+  type: WhatsappSdk::Resource::Component::Type::Body,
   parameters: [parameter_text, parameter_currency, parameter_date_time]
 )
 
 button_component1 = WhatsappSdk::Resource::Component.new(
-  type: WhatsappSdk::Resource::Component::Type::BUTTON,
+  type: WhatsappSdk::Resource::Component::Type::Button,
   index: 0,
-  sub_type: WhatsappSdk::Resource::Component::Subtype::QUICK_REPLY,
+  sub_type: WhatsappSdk::Resource::Component::Subtype::QuickReply,
   parameters: [
-    WhatsappSdk::Resource::ButtonParameter.new(type: "payload", payload: "PAYLOAD")
+    WhatsappSdk::Resource::ButtonParameter.new(type: WhatsappSdk::Resource::ButtonParameter::Type::Payload, payload: "PAYLOAD")
   ]
 )
 
 button_component2 = WhatsappSdk::Resource::Component.new(
-  type: WhatsappSdk::Resource::Component::Type::BUTTON,
+  type: WhatsappSdk::Resource::Component::Type::Button,
   index: 1,
-  sub_type: WhatsappSdk::Resource::Component::Subtype::QUICK_REPLY,
+  sub_type: WhatsappSdk::Resource::Component::Subtype::QuickReply,
   parameters: [
-    WhatsappSdk::Resource::ButtonParameter.new(type: "payload", payload: "PAYLOAD")
+    WhatsappSdk::Resource::ButtonParameter.new(type: WhatsappSdk::Resource::ButtonParameter::Type::Payload, payload: "PAYLOAD")
   ]
 )
 @messages_api.send_template(sender_id: 12_345, recipient_number: "12345678", name: "hello_world", language: "en_US", components_json: [component_1])
@@ -257,9 +257,9 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 Bug reports and pull requests are welcome on GitHub at [https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk) This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ### Run all the tests
-- **Unit tests:** Run `srb tc`
-- **Sorbet Typecheck:** Run `rake test`
-- **Linters:** Run `bundle exec rubocop`
+- **Unit tests:** Run `rake test`
+- **Sorbet Typecheck:** run `srb tc`
+- **Linters:** `bundle exec rubocop`
 
 ## License
 

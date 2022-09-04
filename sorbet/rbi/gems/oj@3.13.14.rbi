@@ -35,7 +35,7 @@ module Oj
   def sc_parse(*_arg0); end
   def strict_load(*_arg0); end
   def to_file(*_arg0); end
-  def to_json(*_arg0); end
+  def to_json; end
   def to_stream(*_arg0); end
   def wab_load(*_arg0); end
 
@@ -69,7 +69,7 @@ module Oj
     def sc_parse(*_arg0); end
     def strict_load(*_arg0); end
     def to_file(*_arg0); end
-    def to_json(*_arg0); end
+    def to_json; end
     def to_stream(*_arg0); end
     def wab_load(*_arg0); end
   end

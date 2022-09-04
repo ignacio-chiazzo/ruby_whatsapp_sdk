@@ -11,7 +11,7 @@ gemfile(true) do
 
   git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-  gem "whatsapp_sdk"
+  gem "whatsapp_sdk", path: "/Users/ignaciochiazzo/src/whatsapp_sdk"
   gem "pry"
   gem "pry-nav"
 end
@@ -131,7 +131,7 @@ puts response_with_object
 
 # Send a template with components.Remember to create the template first.
 header_component = WhatsappSdk::Resource::Component.new(
-  type: WhatsappSdk::Resource::Component::Type::HEADER
+  type: WhatsappSdk::Resource::Component::Type::Header
 )
 
 image = WhatsappSdk::Resource::Media.new(type: "image", link: "http(s)://URL", caption: "caption")
@@ -165,7 +165,7 @@ header_component.add_parameter(parameter_document)
 header_component.to_json
 
 body_component = WhatsappSdk::Resource::Component.new(
-  type: WhatsappSdk::Resource::Component::Type::BODY
+  type: WhatsappSdk::Resource::Component::Type::Body
 )
 body_component.add_parameter(parameter_text)
 body_component.add_parameter(parameter_image)
@@ -174,16 +174,16 @@ body_component.add_parameter(parameter_document)
 body_component.to_json
 
 # button_component_1 = WhatsappSdk::Resource::Component.new(
-#   type: WhatsappSdk::Resource::Component::Type::BUTTON,
+#   type: WhatsappSdk::Resource::Component::Type::Button,
 #   index: 0,
-#   sub_type: WhatsappSdk::Resource::Component::Subtype::QUICK_REPLY,
+#   sub_type: WhatsappSdk::Resource::Component::Subtype::QuickReply,
 #   parameters: [WhatsappSdk::Resource::ButtonParameter.new(type: "payload", payload: "payload")]
 # )
 
 # button_component_2 = WhatsappSdk::Resource::Component.new(
-#   type: WhatsappSdk::Resource::Component::Type::BUTTON,
+#   type: WhatsappSdk::Resource::Component::Type::Button,
 #   index: 1,
-#   sub_type: WhatsappSdk::Resource::Component::Subtype::QUICK_REPLY,
+#   sub_type: WhatsappSdk::Resource::Component::Subtype::QuickReply,
 #   parameters: [WhatsappSdk::Resource::ButtonParameter.new(type: "payload", payload: "payload")]
 # )
 

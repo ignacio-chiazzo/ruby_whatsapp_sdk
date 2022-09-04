@@ -362,7 +362,7 @@ module WhatsappSdk
             messaging_product: "whatsapp",
             to: "56789",
             recipient_type: "individual",
-            type: "sticker",
+            type: Resource::Media::Type::Sticker,
             sticker: { link: sticker_link }
           }
         ).returns(valid_response(valid_contacts, valid_messages))
@@ -382,7 +382,7 @@ module WhatsappSdk
             messaging_product: "whatsapp",
             to: "56789",
             recipient_type: "individual",
-            type: "sticker",
+            type: Resource::Media::Type::Sticker,
             sticker: { id: sticker_id }
           }
         ).returns(valid_response(valid_contacts, valid_messages))
@@ -487,38 +487,48 @@ module WhatsappSdk
       def test_send_template_with_success_response_by_passing_components
         currency = WhatsappSdk::Resource::Currency.new(code: "USD", amount: 1000, fallback_value: "1000")
         date_time = WhatsappSdk::Resource::DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
-        image = WhatsappSdk::Resource::Media.new(type: "image", link: "http(s)://URL")
+        image = WhatsappSdk::Resource::Media.new(type: WhatsappSdk::Resource::Media::Type::Image, link: "http(s)://URL")
 
-        parameter_image = WhatsappSdk::Resource::ParameterObject.new(type: "image", image: image)
-        parameter_text = WhatsappSdk::Resource::ParameterObject.new(type: "text", text: "TEXT_STRING")
-        parameter_currency = WhatsappSdk::Resource::ParameterObject.new(type: "currency", currency: currency)
-        parameter_date_time = WhatsappSdk::Resource::ParameterObject.new(type: "date_time", date_time: date_time)
+        parameter_image = WhatsappSdk::Resource::ParameterObject.new(
+          type: WhatsappSdk::Resource::ParameterObject::Type::Image, image: image
+        )
+        parameter_text = WhatsappSdk::Resource::ParameterObject.new(
+          type: WhatsappSdk::Resource::ParameterObject::Type::Text, text: "TEXT_STRING"
+        )
+        parameter_currency = WhatsappSdk::Resource::ParameterObject.new(
+          type: WhatsappSdk::Resource::ParameterObject::Type::Currency, currency: currency
+        )
+        parameter_date_time = WhatsappSdk::Resource::ParameterObject.new(
+          type: WhatsappSdk::Resource::ParameterObject::Type::DateTime, date_time: date_time
+        )
 
         header_component = WhatsappSdk::Resource::Component.new(
-          type: WhatsappSdk::Resource::Component::Type::HEADER,
+          type: WhatsappSdk::Resource::Component::Type::Header,
           parameters: [parameter_image]
         )
 
         body_component = WhatsappSdk::Resource::Component.new(
-          type: WhatsappSdk::Resource::Component::Type::BODY,
+          type: WhatsappSdk::Resource::Component::Type::Body,
           parameters: [parameter_text, parameter_currency, parameter_date_time]
         )
 
         button_component1 = WhatsappSdk::Resource::Component.new(
-          type: WhatsappSdk::Resource::Component::Type::BUTTON,
+          type: WhatsappSdk::Resource::Component::Type::Button,
           index: 0,
-          sub_type: WhatsappSdk::Resource::Component::Subtype::QUICK_REPLY,
+          sub_type: WhatsappSdk::Resource::Component::Subtype::QuickReply,
           parameters: [
-            WhatsappSdk::Resource::ButtonParameter.new(type: "payload", payload: "PAYLOAD")
+            WhatsappSdk::Resource::ButtonParameter.new(type: WhatsappSdk::Resource::ButtonParameter::Type::Payload,
+                                                       payload: "PAYLOAD")
           ]
         )
 
         button_component2 = WhatsappSdk::Resource::Component.new(
-          type: WhatsappSdk::Resource::Component::Type::BUTTON,
+          type: WhatsappSdk::Resource::Component::Type::Button,
           index: 1,
-          sub_type: WhatsappSdk::Resource::Component::Subtype::QUICK_REPLY,
+          sub_type: WhatsappSdk::Resource::Component::Subtype::QuickReply,
           parameters: [
-            WhatsappSdk::Resource::ButtonParameter.new(type: "payload", payload: "PAYLOAD")
+            WhatsappSdk::Resource::ButtonParameter.new(type: WhatsappSdk::Resource::ButtonParameter::Type::Payload,
+                                                       payload: "PAYLOAD")
           ]
         )
 

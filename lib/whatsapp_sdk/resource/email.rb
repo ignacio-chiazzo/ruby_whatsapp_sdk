@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# typed: true
+# typed: strict
 
 module WhatsappSdk
   module Resource
@@ -18,7 +18,7 @@ module WhatsappSdk
         @type = type
       end
 
-      sig { returns(Hash) }
+      sig { returns(T::Hash[T.untyped, T.untyped]) }
       def to_h
         {
           email: @email,

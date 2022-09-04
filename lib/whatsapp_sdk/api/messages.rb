@@ -220,7 +220,7 @@ module WhatsappSdk
           messaging_product: "whatsapp",
           to: recipient_number,
           recipient_type: "individual",
-          type: "sticker"
+          type: Resource::Media::Type::Sticker
         }
         params[:sticker] = link ? { link: link } : { id: sticker_id }
 

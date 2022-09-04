@@ -1,28 +1,24 @@
 # frozen_string_literal: true
-# typed: true
+# typed: strict
 
 module WhatsappSdk
   module Resource
     class ButtonParameter
-      class InvalidType < StandardError
-        attr_accessor :message
-
-        def initialize(type)
-          @message = "invalid type #{type}. type should be text or payload"
-          super
-        end
-      end
+      extend T::Sig
 
       # Returns the button parameter type.
       #
       # @returns type [String] Valid options are payload and text.
+      sig { returns(Type) }
       attr_accessor :type
 
-      module Type
-        TEXT = "text"
-        PAYLOAD = "payload"
+      class Type < T::Enum
+        extend T::Sig
 
-        VALID_TYPES = [PAYLOAD, TEXT].freeze
+        enums do
+          Text = new("text")
+          Payload = new("payload")
+        end
       end
 
       # Required for quick_reply buttons.
@@ -30,36 +26,35 @@ module WhatsappSdk
       # in addition to the display text on the button.
       #
       # @returns payload [String]
+      sig { returns(T.nilable(String)) }
       attr_accessor :payload
 
       # Required for URL buttons.
       # Developer-provided suffix that is appended to the predefined prefix URL in the template.
       #
       # @returns text [String]
+      sig { returns(T.nilable(String)) }
       attr_accessor :text
 
+      sig do
+        params(
+          type: Type, payload: T.nilable(String), text: T.nilable(String)
+        ).void
+      end
       def initialize(type:, payload: nil, text: nil)
         @type = type
         @payload = payload
         @text = text
-        validate
       end
 
-      def to_json(*_args)
+      sig { returns(T::Hash[T.untyped, T.untyped]) }
+      def to_json
         json = {
-          type: type
+          type: type.serialize
         }
         json[:payload] = payload if payload
         json[:text] = text if text
         json
-      end
-
-      private
-
-      def validate
-        return if Type::VALID_TYPES.include?(type)
-
-        raise InvalidType, type
       end
     end
   end

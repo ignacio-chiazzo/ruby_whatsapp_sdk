@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# typed: true
+# typed: strict
 
 module WhatsappSdk
   module Resource
@@ -22,7 +22,7 @@ module WhatsappSdk
         @title = title
       end
 
-      sig { returns(Hash) }
+      sig { returns(T::Hash[T.untyped, T.untyped]) }
       def to_h
         {
           company: @company,
