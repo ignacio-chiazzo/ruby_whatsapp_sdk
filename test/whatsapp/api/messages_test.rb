@@ -441,7 +441,7 @@ module WhatsappSdk
         assert_nil(message_response.error)
         assert_predicate(message_response, :ok?)
         assert_equal(WhatsappSdk::Api::Responses::ReadMessageDataResponse, message_response.data.class)
-        assert(message_response.data.success)
+        assert_predicate(message_response.data, :success?)
       end
 
       def test_read_message_with_an_invalid_response
