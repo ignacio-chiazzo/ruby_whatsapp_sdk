@@ -28,7 +28,7 @@ module WhatsappSdk
       def test_send_text_handles_error_response
         mocked_error_response = mock_error_response
         response = @messages_api.send_text(
-          sender_id: 123_123, recipient_number: "56789", message: "hola"
+          sender_id: 123_123, recipient_number: 56_789, message: "hola"
         )
         assert_mock_error_response(mocked_error_response, response)
       end
@@ -36,7 +36,7 @@ module WhatsappSdk
       def test_send_text_message_with_success_response
         mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_text(
-          sender_id: 123_123, recipient_number: "56789", message: "hola"
+          sender_id: 123_123, recipient_number: 56_789, message: "hola"
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
@@ -47,7 +47,7 @@ module WhatsappSdk
           endpoint: "123123/messages",
           params: {
             messaging_product: "whatsapp",
-            to: "56789",
+            to: 56_789,
             recipient_type: "individual",
             type: "text",
             text: { body: "hola" }
@@ -55,7 +55,7 @@ module WhatsappSdk
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_text(
-          sender_id: 123_123, recipient_number: "56789", message: "hola"
+          sender_id: 123_123, recipient_number: 56_789, message: "hola"
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
@@ -64,7 +64,7 @@ module WhatsappSdk
       def test_send_location_message_with_success_response
         mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_location(
-          sender_id: 123_123, recipient_number: "56789",
+          sender_id: 123_123, recipient_number: 56_789,
           longitude: 45.4215, latitude: 75.6972, name: "nacho", address: "141 cooper street"
         )
 
@@ -82,7 +82,7 @@ module WhatsappSdk
           endpoint: "123123/messages",
           params: {
             messaging_product: "whatsapp",
-            to: "56789",
+            to: 56_789,
             recipient_type: "individual",
             type: "location",
             location: {
@@ -95,7 +95,7 @@ module WhatsappSdk
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_location(
-          sender_id: 123_123, recipient_number: "56789",
+          sender_id: 123_123, recipient_number: 56_789,
           longitude: longitude, latitude: latitude, name: name, address: address
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
@@ -105,7 +105,7 @@ module WhatsappSdk
       def test_send_image_raises_an_error_if_link_and_image_are_not_provided
         assert_raises(WhatsappSdk::Api::Messages::MissingArgumentError) do
           @messages_api.send_image(
-            sender_id: 123_123, recipient_number: "56789",
+            sender_id: 123_123, recipient_number: 56_789,
             image_id: nil, link: nil, caption: ""
           )
         end
@@ -114,7 +114,7 @@ module WhatsappSdk
       def test_send_image_message_with_success_response
         mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_image(
-          sender_id: 123_123, recipient_number: "56789",
+          sender_id: 123_123, recipient_number: 56_789,
           image_id: 123, link: nil, caption: ""
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
@@ -126,7 +126,7 @@ module WhatsappSdk
           endpoint: "123123/messages",
           params: {
             messaging_product: "whatsapp",
-            to: "56789",
+            to: 56_789,
             recipient_type: "individual",
             type: "image",
             image: { link: image_link, caption: "Ignacio Chiazzo Profile" }
@@ -134,7 +134,7 @@ module WhatsappSdk
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_image(
-          sender_id: 123_123, recipient_number: "56789",
+          sender_id: 123_123, recipient_number: 56_789,
           link: image_link, caption: "Ignacio Chiazzo Profile"
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
@@ -142,12 +142,12 @@ module WhatsappSdk
       end
 
       def test_send_image_message_with_an_image_id
-        image_id = "12345"
+        image_id = 12_345
         @messages_api.expects(:send_request).with(
           endpoint: "123123/messages",
           params: {
             messaging_product: "whatsapp",
-            to: "56789",
+            to: 56_789,
             recipient_type: "individual",
             type: "image",
             image: { id: image_id, caption: "Ignacio Chiazzo Profile" }
@@ -155,7 +155,7 @@ module WhatsappSdk
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_image(
-          sender_id: 123_123, recipient_number: "56789",
+          sender_id: 123_123, recipient_number: 56_789,
           image_id: image_id, caption: "Ignacio Chiazzo Profile"
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
@@ -165,7 +165,7 @@ module WhatsappSdk
       def test_send_audio_message_with_success_response
         mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_audio(
-          sender_id: 123_123, recipient_number: "56789", link: "1234"
+          sender_id: 123_123, recipient_number: 56_789, link: "1234"
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
@@ -174,7 +174,7 @@ module WhatsappSdk
       def test_send_audio_raises_an_error_if_link_and_image_are_not_provided
         assert_raises(WhatsappSdk::Api::Messages::MissingArgumentError) do
           @messages_api.send_audio(
-            sender_id: 123_123, recipient_number: "56789", link: nil, audio_id: nil
+            sender_id: 123_123, recipient_number: 56_789, link: nil, audio_id: nil
           )
         end
       end
@@ -185,7 +185,7 @@ module WhatsappSdk
           endpoint: "123123/messages",
           params: {
             messaging_product: "whatsapp",
-            to: "56789",
+            to: 56_789,
             recipient_type: "individual",
             type: "audio",
             audio: { link: audio_link }
@@ -193,19 +193,19 @@ module WhatsappSdk
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_audio(
-          sender_id: 123_123, recipient_number: "56789", link: audio_link
+          sender_id: 123_123, recipient_number: 56_789, link: audio_link
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
 
       def test_send_audio_message_with_an_audio_id
-        audio_id = "12345"
+        audio_id = 12_345
         @messages_api.expects(:send_request).with(
           endpoint: "123123/messages",
           params: {
             messaging_product: "whatsapp",
-            to: "56789",
+            to: 56_789,
             recipient_type: "individual",
             type: "audio",
             audio: { id: audio_id }
@@ -213,7 +213,7 @@ module WhatsappSdk
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_audio(
-          sender_id: 123_123, recipient_number: "56789", audio_id: audio_id
+          sender_id: 123_123, recipient_number: 56_789, audio_id: audio_id
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
@@ -222,7 +222,7 @@ module WhatsappSdk
       def test_send_video_raises_an_error_if_link_and_image_are_not_provided
         assert_raises(WhatsappSdk::Api::Messages::MissingArgumentError) do
           @messages_api.send_video(
-            sender_id: 123_123, recipient_number: "56789", link: nil, video_id: nil
+            sender_id: 123_123, recipient_number: 56_789, link: nil, video_id: nil
           )
         end
       end
@@ -230,7 +230,7 @@ module WhatsappSdk
       def test_send_video_message_with_success_response
         mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_video(
-          sender_id: 123_123, recipient_number: "56789",
+          sender_id: 123_123, recipient_number: 56_789,
           video_id: 123, link: nil, caption: ""
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
@@ -242,7 +242,7 @@ module WhatsappSdk
           endpoint: "123123/messages",
           params: {
             messaging_product: "whatsapp",
-            to: "56789",
+            to: 56_789,
             recipient_type: "individual",
             type: "video",
             video: { link: video_link, caption: "Ignacio Chiazzo Profile" }
@@ -250,7 +250,7 @@ module WhatsappSdk
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_video(
-          sender_id: 123_123, recipient_number: "56789",
+          sender_id: 123_123, recipient_number: 56_789,
           link: video_link, caption: "Ignacio Chiazzo Profile"
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
@@ -258,12 +258,12 @@ module WhatsappSdk
       end
 
       def test_send_video_message_with_an_video_id
-        video_id = "12345"
+        video_id = 12_345
         @messages_api.expects(:send_request).with(
           endpoint: "123123/messages",
           params: {
             messaging_product: "whatsapp",
-            to: "56789",
+            to: 56_789,
             recipient_type: "individual",
             type: "video",
             video: { id: video_id, caption: "Ignacio Chiazzo Profile" }
@@ -271,7 +271,7 @@ module WhatsappSdk
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_video(
-          sender_id: 123_123, recipient_number: "56789",
+          sender_id: 123_123, recipient_number: 56_789,
           video_id: video_id, caption: "Ignacio Chiazzo Profile"
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
@@ -281,7 +281,7 @@ module WhatsappSdk
       def test_send_document_raises_an_error_if_link_and_image_are_not_provided
         assert_raises(WhatsappSdk::Api::Messages::MissingArgumentError) do
           @messages_api.send_document(
-            sender_id: 123_123, recipient_number: "56789", link: nil, document_id: nil
+            sender_id: 123_123, recipient_number: 56_789, link: nil, document_id: nil
           )
         end
       end
@@ -289,7 +289,7 @@ module WhatsappSdk
       def test_send_document_message_with_success_response
         mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_document(
-          sender_id: 123_123, recipient_number: "56789",
+          sender_id: 123_123, recipient_number: 56_789,
           document_id: 123, link: nil, caption: ""
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
@@ -301,7 +301,7 @@ module WhatsappSdk
           endpoint: "123123/messages",
           params: {
             messaging_product: "whatsapp",
-            to: "56789",
+            to: 56_789,
             recipient_type: "individual",
             type: "document",
             document: { link: document_link, caption: "Ignacio Chiazzo Profile" }
@@ -309,7 +309,7 @@ module WhatsappSdk
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_document(
-          sender_id: 123_123, recipient_number: "56789",
+          sender_id: 123_123, recipient_number: 56_789,
           link: document_link, caption: "Ignacio Chiazzo Profile"
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
@@ -317,12 +317,12 @@ module WhatsappSdk
       end
 
       def test_send_document_message_with_an_document_id
-        document_id = "12345"
+        document_id = 12_345
         @messages_api.expects(:send_request).with(
           endpoint: "123123/messages",
           params: {
             messaging_product: "whatsapp",
-            to: "56789",
+            to: 56_789,
             recipient_type: "individual",
             type: "document",
             document: { id: document_id, caption: "Ignacio Chiazzo Profile" }
@@ -330,7 +330,7 @@ module WhatsappSdk
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_document(
-          sender_id: 123_123, recipient_number: "56789",
+          sender_id: 123_123, recipient_number: 56_789,
           document_id: document_id, caption: "Ignacio Chiazzo Profile"
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
@@ -340,7 +340,7 @@ module WhatsappSdk
       def test_send_sticker_raises_an_error_if_link_and_image_are_not_provided
         assert_raises(WhatsappSdk::Api::Messages::MissingArgumentError) do
           @messages_api.send_sticker(
-            sender_id: 123_123, recipient_number: "56789", link: nil, sticker_id: nil
+            sender_id: 123_123, recipient_number: 56_789, link: nil, sticker_id: nil
           )
         end
       end
@@ -348,7 +348,7 @@ module WhatsappSdk
       def test_send_sticker_message_with_success_response
         mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_sticker(
-          sender_id: 123_123, recipient_number: "56789",
+          sender_id: 123_123, recipient_number: 56_789,
           sticker_id: 123, link: nil
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
@@ -360,7 +360,7 @@ module WhatsappSdk
           endpoint: "123123/messages",
           params: {
             messaging_product: "whatsapp",
-            to: "56789",
+            to: 56_789,
             recipient_type: "individual",
             type: Resource::Media::Type::Sticker,
             sticker: { link: sticker_link }
@@ -368,19 +368,19 @@ module WhatsappSdk
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_sticker(
-          sender_id: 123_123, recipient_number: "56789", link: sticker_link
+          sender_id: 123_123, recipient_number: 56_789, link: sticker_link
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
 
       def test_send_sticker_message_with_an_sticker_id
-        sticker_id = "12345"
+        sticker_id = 12_345
         @messages_api.expects(:send_request).with(
           endpoint: "123123/messages",
           params: {
             messaging_product: "whatsapp",
-            to: "56789",
+            to: 56_789,
             recipient_type: "individual",
             type: Resource::Media::Type::Sticker,
             sticker: { id: sticker_id }
@@ -388,7 +388,7 @@ module WhatsappSdk
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_sticker(
-          sender_id: 123_123, recipient_number: "56789", sticker_id: sticker_id
+          sender_id: 123_123, recipient_number: 56_789, sticker_id: sticker_id
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
@@ -397,7 +397,7 @@ module WhatsappSdk
       def test_send_contacts_with_success_response
         mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_contacts(
-          sender_id: 123_123, recipient_number: "56789", contacts: [create_contact]
+          sender_id: 123_123, recipient_number: 56_789, contacts: [create_contact]
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
@@ -409,7 +409,7 @@ module WhatsappSdk
           endpoint: "123123/messages",
           params: {
             messaging_product: "whatsapp",
-            to: "56789",
+            to: 56_789,
             recipient_type: "individual",
             type: "contacts",
             contacts: contacts.map(&:to_h)
@@ -417,7 +417,7 @@ module WhatsappSdk
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_contacts(
-          sender_id: 123_123, recipient_number: "56789", contacts: contacts
+          sender_id: 123_123, recipient_number: 56_789, contacts: contacts
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
@@ -429,12 +429,12 @@ module WhatsappSdk
           params: {
             messaging_product: "whatsapp",
             status: "read",
-            message_id: "12345"
+            message_id: 12_345
           }
         ).returns({ "success" => true })
 
         message_response = @messages_api.read_message(
-          sender_id: 123_123, message_id: "12345"
+          sender_id: 123_123, message_id: 12_345
         )
 
         assert_equal(WhatsappSdk::Api::Response, message_response.class)
@@ -447,7 +447,7 @@ module WhatsappSdk
       def test_read_message_with_an_invalid_response
         mocked_error_response = mock_error_response
         response = @messages_api.read_message(
-          sender_id: 123_123, message_id: "12345"
+          sender_id: 123_123, message_id: 12_345
         )
         assert_mock_error_response(mocked_error_response, response)
         assert_predicate(response, :error?)
@@ -456,7 +456,7 @@ module WhatsappSdk
       def test_send_template_raises_an_error_when_component_and_component_json_are_not_provided
         error = assert_raises(WhatsappSdk::Api::Messages::MissingArgumentError) do
           @messages_api.send_template(
-            sender_id: 123_123, recipient_number: "56789", name: "template", language: "en_US"
+            sender_id: 123_123, recipient_number: 56_789, name: "template", language: "en_US"
           )
         end
 
@@ -466,7 +466,7 @@ module WhatsappSdk
       def test_send_template_with_success_response_by_passing_components_json
         mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_template(
-          sender_id: 12_345, recipient_number: "12345678", name: "hello_world", language: "en_US",
+          sender_id: 12_345, recipient_number: 12_345_678, name: "hello_world", language: "en_US",
           components_json: [{
             type: "header",
             parameters: [
@@ -536,7 +536,7 @@ module WhatsappSdk
                                                     endpoint: "123123/messages",
                                                     params: {
                                                       messaging_product: "whatsapp",
-                                                      to: "12345678",
+                                                      to: 12_345_678,
                                                       recipient_type: "individual",
                                                       type: "template",
                                                       template: {
@@ -605,7 +605,7 @@ module WhatsappSdk
                                                   }).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_template(
-          sender_id: 123_123, recipient_number: "12345678", name: "hello_world", language: "en_US",
+          sender_id: 123_123, recipient_number: 12_345_678, name: "hello_world", language: "en_US",
           components: [header_component, body_component, button_component1, button_component2]
         )
 
