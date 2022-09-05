@@ -1,4 +1,4 @@
-# Unreleased
+# v 0.4.0
 - Make the gem stricly typed using Sorbet [#34](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/34), [#35](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/35), [#37](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/37)
 - Object IDs are Strings in development [#37](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/37)
 
