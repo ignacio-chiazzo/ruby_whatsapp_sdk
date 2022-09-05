@@ -48,17 +48,6 @@ messages_api = WhatsappSdk::Api::Messages.new(client)
 
 Each API operation returns a `WhatsappSdk::Api::Response` that contains `data` and `error` and a couple of helpful functions such as `ok?` and `error?`. There are three types of response `WhatsappSdk::Api::MessageDataResponse`, `WhatsappSdk::Api::PhoneNumberDataResponse` and `WhatsappSdk::Api::PhoneNumbersDataResponse`. Each of them contains different attributes.
 
-## Operations
-First, create the client and then create an instance `WhatsappSdk::Api::Messages` that requires a client as a param like this:
-
-```ruby
-messages_api = WhatsappSdk::Api::Messages.new
-phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new
-medias_api = WhatsappSdk::Api::Medias.new
-```
-
-Note: Remember to initialize the client first!
-
 ## Set up a Meta app
 
 <details><summary>1) Create a Meta Business app </summary>
@@ -123,10 +112,23 @@ Check the [example.rb file](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk
 
 </details>
 
+## Operations
+First, create the client and then create an instance `WhatsappSdk::Api::Messages` that requires a client as a param like this:
 
+```ruby
+messages_api = WhatsappSdk::Api::Messages.new
+phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new
+medias_api = WhatsappSdk::Api::Medias.new
+```
 
+Note: Remember to initialize the client first!
+
+## APIs
 
 ### Phone numbers API
+
+<details>
+
 Get the list of phone numbers registered
 ```ruby
 phone_numbers_api.registered_numbers(123456) # accepts a business_id
@@ -136,8 +138,10 @@ Get the a phone number by id
 ```ruby
 phone_numbers_api.registered_numbers(123456) # accepts a phone_number_id
 ```
+</details>
 
 ### Media API
+<details>
 
 Upload a media
 ```ruby
@@ -159,7 +163,10 @@ Delete a media
 medias_api.delete(media_id: MEDIA_ID)
 ```
 
+</details>
+
 ### Messages API
+<details>
 
 **Send a text message**
 
@@ -304,7 +311,7 @@ Alernative, you could pass a plain json like this:
 ## Example
 
 Visit [the example file](/example.rb) with examples to call the API in a single file.
-
+</details>
 
 ## Whatsapp Cloud API
 
@@ -313,7 +320,8 @@ Visit [the example file](/example.rb) with examples to call the API in a single 
 
 ## Troubleshooting
 
-- If the API response is `success` but the message is not delivered, make sure the device you're sending the message to is using a supported Whatsapp version. [Check documentation](https://developers.facebook.com/docs/whatsapp/cloud-api/support/troubleshooting#message-not-delivered)
+- If the API response is `success` but the message is not delivered, make sure the device you're sending the message to is using a supported Whatsapp version. [Check documentation](https://developers.facebook.com/docs/whatsapp/cloud-api/support/troubleshooting#message-not-delivered). Try also replying a message to the number your registered in your Whatsapp.
+- Ensure your Meta App is using an API version greater or equals than `v.14`
 
 ## Development
 
