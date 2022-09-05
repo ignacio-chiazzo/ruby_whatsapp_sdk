@@ -21,3 +21,4 @@ REMOVE.rb
 .ruby-gemset
 
 .rvmrc
+.DS_Store
