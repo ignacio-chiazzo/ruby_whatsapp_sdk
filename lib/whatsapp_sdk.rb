@@ -2,8 +2,11 @@
 # typed: true
 
 require "zeitwerk"
+
 loader = Zeitwerk::Loader.for_gem
 loader.setup
+
+require "sorbet-runtime"
 
 module WhatsappSdk
   class << self
@@ -14,7 +17,7 @@ module WhatsappSdk
       @configuration ||= Configuration.new
     end
 
-    sig { returns(T.proc.params(configuration: Configuration).void) }
+    # sig { returns(T.proc.params(configuration: Configuration).void) }
     def configure
       yield(configuration)
     end

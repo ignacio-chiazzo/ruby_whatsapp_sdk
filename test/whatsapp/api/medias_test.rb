@@ -15,13 +15,13 @@ module WhatsappSdk
 
       def test_media_handles_error_response
         mocked_error_response = mock_error_response
-        response = @medias_api.media(media_id: 123_123)
+        response = @medias_api.media(media_id: "123_123")
         assert_mock_error_response(mocked_error_response, response)
       end
 
       def test_media_with_success_response
         mock_get_media_response(valid_media_response)
-        response = @medias_api.media(media_id: 123_123)
+        response = @medias_api.media(media_id: "123_123")
         assert_medias_mock_response(valid_media_response, response)
         assert_predicate(response, :ok?)
       end
@@ -32,21 +32,21 @@ module WhatsappSdk
           endpoint: "/1"
         ).returns(valid_media_response)
 
-        response = @medias_api.media(media_id: 1)
+        response = @medias_api.media(media_id: "1")
         assert_medias_mock_response(valid_media_response, response)
         assert_predicate(response, :ok?)
       end
 
       def test_delete_media_handles_error_response
         mocked_error_response = mock_error_response
-        response = @medias_api.delete(media_id: 1)
+        response = @medias_api.delete(media_id: "1")
         assert_mock_error_response(mocked_error_response, response)
       end
 
       def test_delete_media_with_success_response
         success_response = { "success" => true }
         mock_get_media_response(success_response)
-        response = @medias_api.delete(media_id: 123_123)
+        response = @medias_api.delete(media_id: "123_123")
 
         validate_sucess_data_response(response)
       end
@@ -57,7 +57,7 @@ module WhatsappSdk
           endpoint: "/1"
         ).returns({ "success" => true })
 
-        response = @medias_api.delete(media_id: 1)
+        response = @medias_api.delete(media_id: "1")
         validate_sucess_data_response(response)
       end
 

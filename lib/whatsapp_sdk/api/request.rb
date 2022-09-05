@@ -1,18 +1,23 @@
 # frozen_string_literal: true
-# typed: strict
+# typed: true
 
 module WhatsappSdk
   module Api
     class Request
       extend T::Sig
 
-      extend Forwardable
-
-      def_delegator :@client, :download_file, :send_request
-
-      sig { params(client: WhatsappSdk::Api::Client).void }
       def initialize(client = WhatsappSdk.configuration.client)
-        @client = T.let(client, WhatsappSdk::Api::Client)
+        @client = client
+      end
+
+      def download_file(url, path_to_file_name = nil)
+        @client.download_file(url, path_to_file_name)
+      end
+
+      def send_request(endpoint: nil, full_url: nil, http_method: "post", params: {})
+        @client.send_request(
+          http_method: http_method, full_url: full_url, endpoint: endpoint, params: params
+        )
       end
     end
   end

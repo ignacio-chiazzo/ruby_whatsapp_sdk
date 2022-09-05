@@ -115,7 +115,7 @@ module WhatsappSdk
         mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_image(
           sender_id: 123_123, recipient_number: 56_789,
-          image_id: 123, link: nil, caption: ""
+          image_id: "123", link: nil, caption: ""
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
@@ -142,7 +142,7 @@ module WhatsappSdk
       end
 
       def test_send_image_message_with_an_image_id
-        image_id = 12_345
+        image_id = "12_345"
         @messages_api.expects(:send_request).with(
           endpoint: "123123/messages",
           params: {
@@ -200,7 +200,7 @@ module WhatsappSdk
       end
 
       def test_send_audio_message_with_an_audio_id
-        audio_id = 12_345
+        audio_id = "12_345"
         @messages_api.expects(:send_request).with(
           endpoint: "123123/messages",
           params: {
@@ -231,7 +231,7 @@ module WhatsappSdk
         mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_video(
           sender_id: 123_123, recipient_number: 56_789,
-          video_id: 123, link: nil, caption: ""
+          video_id: "123", link: nil, caption: ""
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
@@ -258,7 +258,7 @@ module WhatsappSdk
       end
 
       def test_send_video_message_with_an_video_id
-        video_id = 12_345
+        video_id = "12_345"
         @messages_api.expects(:send_request).with(
           endpoint: "123123/messages",
           params: {
@@ -290,7 +290,7 @@ module WhatsappSdk
         mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_document(
           sender_id: 123_123, recipient_number: 56_789,
-          document_id: 123, link: nil, caption: ""
+          document_id: "123", link: nil, caption: ""
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
@@ -317,7 +317,7 @@ module WhatsappSdk
       end
 
       def test_send_document_message_with_an_document_id
-        document_id = 12_345
+        document_id = "12_345"
         @messages_api.expects(:send_request).with(
           endpoint: "123123/messages",
           params: {
@@ -349,7 +349,7 @@ module WhatsappSdk
         mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_sticker(
           sender_id: 123_123, recipient_number: 56_789,
-          sticker_id: 123, link: nil
+          sticker_id: "123", link: nil
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
@@ -375,7 +375,7 @@ module WhatsappSdk
       end
 
       def test_send_sticker_message_with_an_sticker_id
-        sticker_id = 12_345
+        sticker_id = "12_345"
         @messages_api.expects(:send_request).with(
           endpoint: "123123/messages",
           params: {

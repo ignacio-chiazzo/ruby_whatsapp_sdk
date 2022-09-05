@@ -98,12 +98,12 @@ module WhatsappSdk
 
       sig do
         params(
-          type: Type, text: T.nilable(String), currency: T.nilable(Currency), date_time: T.nilable(DateTime),
-          image: T.nilable(Media), document: T.nilable(Media), video: T.nilable(Media)
+          type: T.any(Type, String), text: T.nilable(String), currency: T.nilable(Currency),
+          date_time: T.nilable(DateTime), image: T.nilable(Media), document: T.nilable(Media), video: T.nilable(Media)
         ).void
       end
       def initialize(type:, text: nil, currency: nil, date_time: nil, image: nil, document: nil, video: nil)
-        @type = type
+        @type = T.let(deserialize_type(type), Type)
         @text = text
         @currency = currency
         @date_time = date_time
@@ -137,6 +137,13 @@ module WhatsappSdk
       end
 
       private
+
+      sig { params(type: T.any(String, Type)).returns(Type) }
+      def deserialize_type(type)
+        return type if type.is_a?(Type)
+
+        Type.deserialize(type)
+      end
 
       sig { void }
       def validate

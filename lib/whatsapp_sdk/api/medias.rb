@@ -27,9 +27,9 @@ module WhatsappSdk
 
       # Get Media by ID.
       #
-      # @param media_id [Integer] Media Id.
+      # @param media_id [String] Media Id.
       # @return [WhatsappSdk::Api::Response] Response object.
-      sig { params(media_id: Integer).returns(WhatsappSdk::Api::Response) }
+      sig { params(media_id: String).returns(WhatsappSdk::Api::Response) }
       def media(media_id:)
         response = send_request(
           http_method: "get",
@@ -91,9 +91,9 @@ module WhatsappSdk
 
       # Delete a Media by ID.
       #
-      # @param media_id [Integer] Media Id.
+      # @param media_id [String] Media Id.
       # @return [WhatsappSdk::Api::Response] Response object.
-      sig { params(media_id: Integer).returns(WhatsappSdk::Api::Response) }
+      sig { params(media_id: String).returns(WhatsappSdk::Api::Response) }
       def delete(media_id:)
         response = send_request(
           http_method: "delete",

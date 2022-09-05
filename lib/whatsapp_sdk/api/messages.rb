@@ -93,13 +93,13 @@ module WhatsappSdk
       #
       # @param sender_id [Integer] Sender' phone number.
       # @param recipient_number [Integer] Recipient' Phone number.
-      # @param image_id [Integer] Image ID.
+      # @param image_id [String] Image ID.
       # @param link [String] Image link.
       # @param caption [String] Image caption.
       # @return [WhatsappSdk::Api::Response] Response object.
       sig do
         params(
-          sender_id: Integer, recipient_number: Integer, image_id: T.nilable(Integer),
+          sender_id: Integer, recipient_number: Integer, image_id: T.nilable(String),
           link: T.nilable(String), caption: T.nilable(String)
         ).returns(WhatsappSdk::Api::Response)
       end
@@ -133,12 +133,12 @@ module WhatsappSdk
       #
       # @param sender_id [Integer] Sender' phone number.
       # @param recipient_number [Integer] Recipient' Phone number.
-      # @param audio_id [Integer] Audio ID.
+      # @param audio_id [String] Audio ID.
       # @param link [String] Audio link.
       # @return [WhatsappSdk::Api::Response] Response object.
       sig do
         params(
-          sender_id: Integer, recipient_number: Integer, audio_id: T.nilable(Integer), link: T.nilable(String)
+          sender_id: Integer, recipient_number: Integer, audio_id: T.nilable(String), link: T.nilable(String)
         ).returns(WhatsappSdk::Api::Response)
       end
       def send_audio(sender_id:, recipient_number:, audio_id: nil, link: nil)
@@ -167,14 +167,14 @@ module WhatsappSdk
       #
       # @param sender_id [Integer] Sender' phone number.
       # @param recipient_number [Integer] Recipient' Phone number.
-      # @param video_id [Integer] Video ID.
+      # @param video_id [String] Video ID.
       # @param link [String] Image link.
       # @param caption [String] Image caption.
       # @return [WhatsappSdk::Api::Response] Response object.
       sig do
         params(
           sender_id: Integer, recipient_number: Integer,
-          video_id: T.nilable(Integer), link: T.nilable(String), caption: String
+          video_id: T.nilable(String), link: T.nilable(String), caption: String
         ).returns(WhatsappSdk::Api::Response)
       end
       def send_video(sender_id:, recipient_number:, video_id: nil, link: nil, caption: "")
@@ -207,14 +207,14 @@ module WhatsappSdk
       #
       # @param sender_id [Integer] Sender' phone number.
       # @param recipient_number [Integer] Recipient' Phone number.
-      # @param document_id [Integer] document ID.
+      # @param document_id [String] document ID.
       # @param link [String] Image link.
       # @param caption [String] Image caption.
       # @return [WhatsappSdk::Api::Response] Response object.
       sig do
         params(
           sender_id: Integer, recipient_number: Integer,
-          document_id: T.nilable(Integer), link: T.nilable(String), caption: String
+          document_id: T.nilable(String), link: T.nilable(String), caption: String
         ).returns(WhatsappSdk::Api::Response)
       end
       def send_document(sender_id:, recipient_number:, document_id: nil, link: nil, caption: "")
@@ -247,11 +247,12 @@ module WhatsappSdk
       #
       # @param sender_id [Integer] Sender' phone number.
       # @param recipient_number [Integer] Recipient' Phone number.
+      # @param sticker_id [String] The sticker ID.
       # @param link [String] Image link.
       # @return [WhatsappSdk::Api::Response] Response object.
       sig do
         params(
-          sender_id: Integer, recipient_number: Integer, sticker_id: T.nilable(Integer), link: T.nilable(String)
+          sender_id: Integer, recipient_number: Integer, sticker_id: T.nilable(String), link: T.nilable(String)
         ).returns(WhatsappSdk::Api::Response)
       end
       def send_sticker(sender_id:, recipient_number:, sticker_id: nil, link: nil)
@@ -327,7 +328,7 @@ module WhatsappSdk
       # @param sender_id [Integer] Sender' phone number.
       # @param message_id [Integer] Message ID.
       # @return [WhatsappSdk::Api::Response] Response object.
-      sig { params(sender_id: Integer, message_id: Integer).returns(WhatsappSdk::Api::Response) }
+      sig { params(sender_id: Integer, message_id: String).returns(WhatsappSdk::Api::Response) }
       def read_message(sender_id:, message_id:)
         params = {
           messaging_product: "whatsapp",

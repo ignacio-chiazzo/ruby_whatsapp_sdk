@@ -66,12 +66,12 @@ module WhatsappSdk
 
       sig do
         params(
-          type: Type, id: T.nilable(String), link: T.nilable(String),
+          type: T.any(Type, String), id: T.nilable(String), link: T.nilable(String),
           caption: T.nilable(String), filename: T.nilable(String)
         ).void
       end
       def initialize(type:, id: nil, link: nil, caption: nil, filename: nil)
-        @type = type
+        @type = T.let(deserialize_type(type), Type)
         @id = id
         @link = link
         @caption = caption
@@ -90,6 +90,13 @@ module WhatsappSdk
       end
 
       private
+
+      sig { params(type: T.any(String, Type)).returns(Type) }
+      def deserialize_type(type)
+        return type if type.is_a?(Type)
+
+        Type.deserialize(type)
+      end
 
       sig { returns(T::Boolean) }
       def validate_media

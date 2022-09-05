@@ -15,8 +15,8 @@ module WhatsappSdk
 
         sig { params(response: T::Hash[T.untyped, T.untyped]).void }
         def initialize(response:)
-          @error = T.let(response["error"], T.nilable(T::Boolean))
-          @status = T.let(response["status"], T.nilable(Integer))
+          @error = response["error"]
+          @status = response["status"]
           super(response)
         end
 
