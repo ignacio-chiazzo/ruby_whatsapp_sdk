@@ -17,7 +17,7 @@ module WhatsappSdk
       @configuration ||= Configuration.new
     end
 
-    # sig { returns(T.proc.params(configuration: Configuration).void) }
+    sig { returns(T.proc.params(configuration: Configuration).void) }
     def configure
       yield(configuration)
     end

@@ -11,7 +11,7 @@ gemfile(true) do
 
   git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-  gem "whatsapp_sdk", path: "/Users/ignaciochiazzo/src/whatsapp_sdk"
+  gem "whatsapp_sdk"
   gem "pry"
   gem "pry-nav"
 end
@@ -48,16 +48,17 @@ messages_api = WhatsappSdk::Api::Messages.new
 phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new
 
 ############################## Phone Numbers API ##############################
-phone_numbers_api.registered_number(SENDER_ID)
-phone_numbers_api.registered_numbers(BUSINESS_ID)
+registered_number = phone_numbers_api.registered_number(SENDER_ID)
+registered_numbers = phone_numbers_api.registered_numbers(BUSINESS_ID)
 ############################## Media API ##############################
 
 # upload a media
 uploaded_media = medias_api.upload(sender_id: SENDER_ID, file_path: "tmp/whatsapp.png", type: "image/png")
-puts "Uploaded media id: #{uploaded_media.data&.id}"
+media_id = uploaded_media.data&.id
+puts "Uploaded media id: #{media_id}"
 
 # get a media
-media = medias_api.media(media_id: uploaded_media.data&.id).data
+media = medias_api.media(media_id: media_id).data
 puts "Media info: #{media.raw_data_response}"
 
 # download media
@@ -136,7 +137,7 @@ header_component = WhatsappSdk::Resource::Component.new(
 
 image = WhatsappSdk::Resource::Media.new(type: "image", link: "http(s)://URL", caption: "caption")
 document = WhatsappSdk::Resource::Media.new(type: "document", link: "http(s)://URL", filename: "txt.rb")
-video = WhatsappSdk::Resource::Media.new(type: "video", id: 123)
+video = WhatsappSdk::Resource::Media.new(type: "video", id: "123")
 
 parameter_image = WhatsappSdk::Resource::ParameterObject.new(
   type: "image",
@@ -173,19 +174,21 @@ body_component.add_parameter(parameter_video)
 body_component.add_parameter(parameter_document)
 body_component.to_json
 
-# button_component_1 = WhatsappSdk::Resource::Component.new(
-#   type: WhatsappSdk::Resource::Component::Type::Button,
-#   index: 0,
-#   sub_type: WhatsappSdk::Resource::Component::Subtype::QuickReply,
-#   parameters: [WhatsappSdk::Resource::ButtonParameter.new(type: "payload", payload: "payload")]
-# )
+button_component_1 = WhatsappSdk::Resource::Component.new(
+  type: WhatsappSdk::Resource::Component::Type::Button,
+  index: 0,
+  sub_type: WhatsappSdk::Resource::Component::Subtype::QuickReply,
+  parameters: [WhatsappSdk::Resource::ButtonParameter.new(type: WhatsappSdk::Resource::ButtonParameter::Type::Payload,
+                                                          payload: "payload")]
+)
 
-# button_component_2 = WhatsappSdk::Resource::Component.new(
-#   type: WhatsappSdk::Resource::Component::Type::Button,
-#   index: 1,
-#   sub_type: WhatsappSdk::Resource::Component::Subtype::QuickReply,
-#   parameters: [WhatsappSdk::Resource::ButtonParameter.new(type: "payload", payload: "payload")]
-# )
+button_component_2 = WhatsappSdk::Resource::Component.new(
+  type: WhatsappSdk::Resource::Component::Type::Button,
+  index: 1,
+  sub_type: WhatsappSdk::Resource::Component::Subtype::QuickReply,
+  parameters: [WhatsappSdk::Resource::ButtonParameter.new(type: WhatsappSdk::Resource::ButtonParameter::Type::Payload,
+                                                          payload: "payload")]
+)
 
 # Send a template with component_json
 response_with_json = messages_api.send_template(

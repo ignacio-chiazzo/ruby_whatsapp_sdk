@@ -62,12 +62,12 @@ Note: Remember to initialize the client first!
 ### Phone numbers API
 Get the list of phone numbers registered
 ```ruby
-phone_numbers_api.registered_numbers("123456") # accepts a business_id
+phone_numbers_api.registered_numbers(123456) # accepts a business_id
 ```
 
 Get the a phone number by id
 ```ruby
-phone_numbers_api.registered_numbers("123456") # accepts a phone_number_id
+phone_numbers_api.registered_numbers(123456) # accepts a phone_number_id
 ```
 
 ### Media API
@@ -97,7 +97,7 @@ medias_api.delete(media_id: MEDIA_ID)
 **Send a text message**
 
 ```ruby
-messages_api.send_text(sender_id: 1234, recipient_number: "112345678", message: "hola")
+messages_api.send_text(sender_id: 1234, recipient_number: 112345678, message: "hola")
 ```
 
 **Read a message**
@@ -112,7 +112,7 @@ Note: To get the `message_id` you can set up [Webhooks](https://developers.faceb
 
 ```ruby
 messages_api.send_location(
-  sender_id: 123123, recipient_number: "56789",
+  sender_id: 123123, recipient_number: 56789,
   longitude: 45.4215, latitude: 75.6972, name: "nacho", address: "141 cooper street"
 )
 ```
@@ -122,12 +122,12 @@ It could use a link or an image_id.
 ```ruby
 # with a link
 messages_api.send_image(
-  sender_id: 123123, recipient_number: "56789", link: "image_link", caption: "Ignacio Chiazzo Profile"
+  sender_id: 123123, recipient_number: 56789, link: "image_link", caption: "Ignacio Chiazzo Profile"
 )
 
 # with an image id
 messages_api.send_image(
-  sender_id: 123123, recipient_number: "56789", image_id: "1234", caption: "Ignacio Chiazzo Profile"
+  sender_id: 123123, recipient_number: 56789, image_id: "1234", caption: "Ignacio Chiazzo Profile"
 )
 ```
 
@@ -135,10 +135,10 @@ messages_api.send_image(
 It could use a link or an audio_id.
 ```ruby
 # with a link
-messages_api.send_audio(sender_id: 123123, recipient_number: "56789", link: "audio_link")
+messages_api.send_audio(sender_id: 123123, recipient_number: 56789, link: "audio_link")
 
 # with an audio id
-messages_api.send_audio(sender_id: 123123, recipient_number: "56789", audio_id: "1234")
+messages_api.send_audio(sender_id: 123123, recipient_number: 56789, audio_id: "1234")
 ```
 
 **Send a document message**
@@ -146,12 +146,12 @@ It could use a link or a document_id.
 ```ruby
 # with a link
 messages_api.send_document(
-  sender_id: 123123, recipient_number: "56789", link: "document_link", caption: "Ignacio Chiazzo"
+  sender_id: 123123, recipient_number: 56789, link: "document_link", caption: "Ignacio Chiazzo"
 )
 
 # with a document id
 messages_api.send_document(
-  sender_id: 123123, recipient_number: "56789", document_id: "1234", caption: "Ignacio Chiazzo"
+  sender_id: 123123, recipient_number: 56789, document_id: "1234", caption: "Ignacio Chiazzo"
 )
 ```
 
@@ -159,10 +159,10 @@ messages_api.send_document(
 It could use a link or a sticker_id.
 ```ruby
 # with a link
-messages_api.send_sticker(sender_id: 123123, recipient_number: "56789", link: "link")
+messages_api.send_sticker(sender_id: 123123, recipient_number: 56789, link: "link")
 
 # with a sticker_id
-messages_api.send_sticker(sender_id: 123123, recipient_number: "56789", sticker_id: "1234")
+messages_api.send_sticker(sender_id: 123123, recipient_number: 56789, sticker_id: "1234")
 ```
 
 **Send contacts message**
@@ -170,12 +170,12 @@ To send a contact, you need to create a Contact instance object that contain obj
 
 ```ruby
 contacts = [create_contact(params)]
-messages_api.send_contacts(sender_id: 123123, recipient_number: "56789", contacts: contacts)
+messages_api.send_contacts(sender_id: 123123, recipient_number: 56789, contacts: contacts)
 ```
 
 Alernative, you could pass a plain json like this:
 ```ruby
-messages_api.send_contacts(sender_id: 123123, recipient_number: "56789", contacts_json: {...})
+messages_api.send_contacts(sender_id: 123123, recipient_number: 56789, contacts_json: {...})
 ```
 
 **Send a template message**
@@ -190,10 +190,12 @@ currency = WhatsappSdk::Resource::Currency.new(code: "USD", amount: 1000, fallba
 date_time = WhatsappSdk::Resource::DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
 image = WhatsappSdk::Resource::Media.new(type: "image", link: "http(s)://URL")
 
-parameter_image = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Image, image: image)
-parameter_text = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Text, text: "TEXT_STRING")
-parameter_currency = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Currency, currency: currency)
-parameter_date_time = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::DateTime, date_time: date_time)
+parameter_image = WhatsappSdk::Resource::ParameterObject.new(type: WhatsappSdk::Resource::ParameterObject::Type::Image, image: image)
+# You can also use a plain string as type e.g. 
+# parameter_image = WhatsappSdk::Resource::ParameterObject.new(type: "image", image: image)
+parameter_text = WhatsappSdk::Resource::ParameterObject.new(type: WhatsappSdk::Resource::ParameterObject::Type::Text, text: "TEXT_STRING")
+parameter_currency = WhatsappSdk::Resource::ParameterObject.new(type: WhatsappSdk::Resource::ParameterObject::Type::Currency, currency: currency)
+parameter_date_time = WhatsappSdk::Resource::ParameterObject.new(type: WhatsappSdk::Resource::ParameterObject::Type::DateTime, date_time: date_time)
 
 header_component = WhatsappSdk::Resource::Component.new(
   type: WhatsappSdk::Resource::Component::Type::Header,
@@ -222,14 +224,14 @@ button_component2 = WhatsappSdk::Resource::Component.new(
     WhatsappSdk::Resource::ButtonParameter.new(type: WhatsappSdk::Resource::ButtonParameter::Type::Payload, payload: "PAYLOAD")
   ]
 )
-@messages_api.send_template(sender_id: 12_345, recipient_number: "12345678", name: "hello_world", language: "en_US", components_json: [component_1])
+@messages_api.send_template(sender_id: 12_345, recipient_number: 12345678, name: "hello_world", language: "en_US", components_json: [component_1])
 ```
 
 </details>
 
 Alernative, you could pass a plain json like this:
 ```ruby
-@messages_api.send_template(sender_id: 12_345, recipient_number: "12345678", name: "hello_world", language: "en_US", components_json: [{...}])
+@messages_api.send_template(sender_id: 12_345, recipient_number: 12345678, name: "hello_world", language: "en_US", components_json: [{...}])
 ```
 
 ## Example
