@@ -307,11 +307,11 @@ Alernative, you could pass a plain json like this:
 ```ruby
 @messages_api.send_template(sender_id: 12_345, recipient_number: 12345678, name: "hello_world", language: "en_US", components_json: [{...}])
 ```
+</details>
 
-## Example
+## Examples
 
 Visit [the example file](/example.rb) with examples to call the API in a single file.
-</details>
 
 ## Whatsapp Cloud API
 
