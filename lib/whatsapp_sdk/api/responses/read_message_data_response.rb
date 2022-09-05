@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# typed: true
+# typed: strict
 
 require_relative "../request"
 require_relative "data_response"
@@ -10,19 +10,23 @@ module WhatsappSdk
   module Api
     module Responses
       class ReadMessageDataResponse < DataResponse
-        attr_reader :success
-
-        sig { params(response: Hash).void }
+        extend T::Sig
+        sig { params(response: T::Hash[T.untyped, T.untyped]).void }
         def initialize(response:)
-          @success = response["success"]
+          @success = T.let(response["success"], T::Boolean)
           super(response)
         end
 
-        sig { override.params(response: Hash).returns(T.nilable(DataResponse)) }
+        sig { override.params(response: T::Hash[T.untyped, T.untyped]).returns(T.nilable(ReadMessageDataResponse)) }
         def self.build_from_response(response:)
           return if response["error"]
 
           new(response: response)
+        end
+
+        sig { returns(T::Boolean) }
+        def success?
+          @success
         end
       end
     end

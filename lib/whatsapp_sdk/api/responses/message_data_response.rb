@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# typed: true
+# typed: strict
 
 require_relative "../request"
 require_relative "data_response"
@@ -18,14 +18,20 @@ module WhatsappSdk
         sig { returns(T::Array[::WhatsappSdk::Resource::Message]) }
         attr_reader :messages
 
-        sig { params(response: Hash).void }
+        sig { params(response: T::Hash[T.untyped, T.untyped]).void }
         def initialize(response:)
-          @contacts = response["contacts"]&.map { |contact_json| parse_contact(contact_json) }
-          @messages = response["messages"]&.map { |contact_json| parse_message(contact_json) }
+          @contacts = T.let(
+            response["contacts"]&.map { |contact_json| parse_contact(contact_json) },
+            T::Array[::WhatsappSdk::Resource::ContactResponse]
+          )
+          @messages = T.let(
+            response["messages"]&.map { |contact_json| parse_message(contact_json) },
+            T::Array[::WhatsappSdk::Resource::Message]
+          )
           super(response)
         end
 
-        sig { override.params(response: Hash).returns(T.nilable(DataResponse)) }
+        sig { override.params(response: T::Hash[T.untyped, T.untyped]).returns(T.nilable(MessageDataResponse)) }
         def self.build_from_response(response:)
           return unless response["messages"]
 
@@ -34,12 +40,12 @@ module WhatsappSdk
 
         private
 
-        sig { params(message_json: Hash).returns(::WhatsappSdk::Resource::Message) }
+        sig { params(message_json: T::Hash[T.untyped, T.untyped]).returns(::WhatsappSdk::Resource::Message) }
         def parse_message(message_json)
           ::WhatsappSdk::Resource::Message.new(id: message_json["id"])
         end
 
-        sig { params(contact_json: Hash).returns(::WhatsappSdk::Resource::ContactResponse) }
+        sig { params(contact_json: T::Hash[T.untyped, T.untyped]).returns(::WhatsappSdk::Resource::ContactResponse) }
         def parse_contact(contact_json)
           ::WhatsappSdk::Resource::ContactResponse.new(input: contact_json["input"], wa_id: contact_json["wa_id"])
         end

@@ -11,19 +11,17 @@ module WhatsappSdk
   class Configuration
     extend T::Sig
 
-    sig { returns(T.nilable(String)) }
+    sig { returns(String) }
     attr_accessor :access_token
 
-    sig { params(access_token: T.nilable(String)).void }
-    def initialize(access_token = nil)
+    sig { params(access_token: String).void }
+    def initialize(access_token = "")
       @access_token = access_token
     end
 
-    sig { returns(T.nilable(WhatsappSdk::Api::Client)) }
+    sig { returns(WhatsappSdk::Api::Client) }
     def client
-      return unless access_token
-
-      WhatsappSdk::Api::Client.new(T.must(access_token))
+      WhatsappSdk::Api::Client.new(access_token)
     end
   end
 end

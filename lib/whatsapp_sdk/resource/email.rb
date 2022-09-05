@@ -1,21 +1,24 @@
 # frozen_string_literal: true
-# typed: true
+# typed: strict
 
 module WhatsappSdk
   module Resource
     class Email
-      attr_accessor :email, :type
+      extend T::Sig
 
-      EMAIL_TYPE = {
-        home: "HOME",
-        work: "WORK"
-      }.freeze
+      sig { returns(String) }
+      attr_accessor :email
 
+      sig { returns(AddressType) }
+      attr_accessor :type
+
+      sig { params(email: String, type: AddressType).void }
       def initialize(email:, type:)
         @email = email
         @type = type
       end
 
+      sig { returns(T::Hash[T.untyped, T.untyped]) }
       def to_h
         {
           email: @email,

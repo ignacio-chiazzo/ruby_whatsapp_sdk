@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# typed: true
+# typed: strict
 
 require "faraday"
 require "faraday/multipart"
@@ -13,8 +13,12 @@ module WhatsappSdk
   module Api
     class Medias < Request
       class FileNotFoundError < StandardError
+        extend T::Sig
+
+        sig { returns(String) }
         attr_reader :file_path
 
+        sig { params(file_path: String).void }
         def initialize(file_path)
           @file_path = file_path
           super("Couldn't find file_path: #{file_path}")
@@ -23,9 +27,9 @@ module WhatsappSdk
 
       # Get Media by ID.
       #
-      # @param media_id [Integer] Media Id.
+      # @param media_id [String] Media Id.
       # @return [WhatsappSdk::Api::Response] Response object.
-      sig { params(media_id: Integer).returns(WhatsappSdk::Api::Response) }
+      sig { params(media_id: String).returns(WhatsappSdk::Api::Response) }
       def media(media_id:)
         response = send_request(
           http_method: "get",
@@ -87,9 +91,9 @@ module WhatsappSdk
 
       # Delete a Media by ID.
       #
-      # @param media_id [Integer] Media Id.
+      # @param media_id [String] Media Id.
       # @return [WhatsappSdk::Api::Response] Response object.
-      sig { params(media_id: Integer).returns(WhatsappSdk::Api::Response) }
+      sig { params(media_id: String).returns(WhatsappSdk::Api::Response) }
       def delete(media_id:)
         response = send_request(
           http_method: "delete",

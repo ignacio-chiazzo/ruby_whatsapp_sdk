@@ -1,17 +1,39 @@
 # frozen_string_literal: true
-# typed: true
+# typed: strict
 
 module WhatsappSdk
   module Resource
     class Address
-      attr_accessor :street, :city, :state, :zip, :country, :country_code, :typ
+      extend T::Sig
 
-      module AddressType
-        HOME = "HOME"
-        WORK = "WORK"
+      sig { returns(String) }
+      attr_accessor :street
+
+      sig { returns(String) }
+      attr_accessor :city
+
+      sig { returns(String) }
+      attr_accessor :state
+
+      sig { returns(String) }
+      attr_accessor :zip
+
+      sig { returns(String) }
+      attr_accessor :country
+
+      sig { returns(String) }
+      attr_accessor :country_code
+
+      sig { returns(AddressType) }
+      attr_accessor :type
+
+      sig do
+        params(
+          street: String, city: String, state: String, zip: String,
+          country: String, country_code: String, type: AddressType
+        ).void
       end
-
-      def initialize(street:, city:, state:, zip:, country:, country_code:, type: AddressType::HOME)
+      def initialize(street:, city:, state:, zip:, country:, country_code:, type: AddressType::Home)
         @street = street
         @city = city
         @state = state
@@ -21,6 +43,7 @@ module WhatsappSdk
         @type = type
       end
 
+      sig { returns(T::Hash[T.untyped, T.untyped]) }
       def to_h
         {
           street: @street,

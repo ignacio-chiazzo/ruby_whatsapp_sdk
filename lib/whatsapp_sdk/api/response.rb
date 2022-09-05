@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# typed: true
+# typed: strict
 
 require_relative "responses/message_data_response"
 require_relative "responses/phone_number_data_response"
@@ -12,8 +12,19 @@ module WhatsappSdk
     class Response
       extend T::Sig
 
-      attr_accessor :error, :data
+      sig { returns(T.nilable(WhatsappSdk::Api::Responses::ErrorResponse)) }
+      attr_accessor :error
 
+      sig { returns(T.nilable(WhatsappSdk::Api::Responses::DataResponse)) }
+      attr_accessor :data
+
+      sig do
+        params(
+          response: T::Hash[T.untyped, T.untyped],
+          data_class_type: T.class_of(WhatsappSdk::Api::Responses::DataResponse),
+          error_class_type: T.class_of(WhatsappSdk::Api::Responses::ErrorResponse)
+        ).void
+      end
       def initialize(response:, data_class_type:, error_class_type: Responses::MessageErrorResponse)
         @data = data_class_type.build_from_response(response: response)
         @error = error_class_type.build_from_response(response: response)
