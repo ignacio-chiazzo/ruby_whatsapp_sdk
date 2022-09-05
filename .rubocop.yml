@@ -4,6 +4,9 @@ require:
 
 AllCops:
   NewCops: enable
+  Exclude:
+    - 'example.rb'
+    - 'tmp/*'
 
 Lint/ToJSON:
   Enabled: false
