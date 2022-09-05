@@ -2,11 +2,8 @@
 # typed: true
 
 require "zeitwerk"
-
 loader = Zeitwerk::Loader.for_gem
 loader.setup
-
-require "sorbet-runtime"
 
 module WhatsappSdk
   class << self

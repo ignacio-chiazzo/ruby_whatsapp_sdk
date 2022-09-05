@@ -7,6 +7,7 @@ AllCops:
   Exclude:
     - 'example.rb'
     - 'tmp/*'
+    - 'vendor/**/*'
 
 Lint/ToJSON:
   Enabled: false
@@ -33,6 +34,9 @@ Metrics/ClassLength:
   Enabled: false
 
 Metrics/AbcSize:
+  Enabled: false
+
+Lint/MissingSuper:
   Enabled: false
 
 # Wait until https://github.com/rubocop/rubocop/issues/8761 is fixed
