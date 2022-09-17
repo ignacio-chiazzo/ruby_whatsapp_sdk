@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 # typed: true
 
+require_relative 'lib/whatsapp_sdk/version'
+
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "version"
 
 Gem::Specification.new do |spec|
   spec.name = "whatsapp_sdk"
-  spec.version = WhatsappSdk::VERSION
+  spec.version = WhatsappSdk::Version::VERSION
   spec.authors       = ["ignacio-chiazzo"]
   spec.email         = ["ignaciochiazzo@gmail.com"]
   spec.summary       = "Use the Ruby Whatsapp SDK to comunicate with Whatsapp API using the Cloud API"

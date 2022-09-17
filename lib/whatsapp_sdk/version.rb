@@ -2,5 +2,7 @@
 # typed: strict
 
 module WhatsappSdk
-  VERSION = "0.5.0"
+  class Version
+    VERSION = "0.5.0"
+  end
 end
