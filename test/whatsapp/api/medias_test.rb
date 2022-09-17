@@ -76,10 +76,14 @@ module WhatsappSdk
       end
 
       def test_upload_media_with_success_response
-        valid_response = { "id" => "123456" }
+        media_id = "123456"
+        valid_response = { "id" => media_id }
         @medias_api.expects(:send_request).returns(valid_response)
         response = @medias_api.upload(sender_id: 123, file_path: "tmp/whatsapp.png", type: "image/png")
-        assert_medias_mock_response(valid_response, response)
+
+        assert_ok_response(response)
+        assert_equal(WhatsappSdk::Api::Responses::MediaDataResponse, response.data.class)
+        assert_equal(media_id, response.data.id)
       end
 
       def test_upload_media_sends_valid_params
@@ -101,7 +105,10 @@ module WhatsappSdk
         ).returns({ "id" => media_id })
 
         response = @medias_api.upload(sender_id: 123, file_path: file_path, type: type)
-        assert_medias_mock_response({ "id" => "987654321" }, response)
+        assert_ok_response(response)
+
+        assert_equal(WhatsappSdk::Api::Responses::MediaDataResponse, response.data.class)
+        assert_equal(media_id, response.data.id)
       end
 
       def test_download_media_handles_error_response
@@ -129,11 +136,15 @@ module WhatsappSdk
       end
 
       def validate_sucess_data_response(response)
+        assert_ok_response(response)
+        assert_equal(WhatsappSdk::Api::Responses::SuccessResponse, response.data.class)
+        assert_predicate(response.data, :success?)
+      end
+
+      def assert_ok_response(response)
         assert_equal(WhatsappSdk::Api::Response, response.class)
         assert_nil(response.error)
         assert_predicate(response, :ok?)
-        assert_equal(WhatsappSdk::Api::Responses::SuccessResponse, response.data.class)
-        assert_predicate(response.data, :success?)
       end
 
       def error_response_example
@@ -181,9 +192,7 @@ module WhatsappSdk
       end
 
       def assert_medias_mock_response(expected_media_response, response)
-        assert_equal(WhatsappSdk::Api::Response, response.class)
-        assert_nil(response.error)
-        assert_predicate(response, :ok?)
+        assert_ok_response(response)
 
         assert_equal(WhatsappSdk::Api::Responses::MediaDataResponse, response.data.class)
         assert_equal(expected_media_response["id"], response.data.id)
