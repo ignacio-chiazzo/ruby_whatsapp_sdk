@@ -324,6 +324,8 @@ Visit [the example file](/example.rb) with examples to call the API in a single 
 - Ensure your Meta App uses an API version greater than or equal to `v.14`.
 - Ensure that the Panel in the Facebook dashboard doesn't display any error.
 
+Note: Sometimes the messages are delayed, see [Meta documentation](https://developers.facebook.com/docs/whatsapp/on-premises/guides/send-message-performance#delays). 
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests.
