@@ -8,7 +8,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name = "whatsapp_sdk"
-  spec.version = WhatsappSdk::Version::VERSION
+  spec.version = WhatsappSdk::VERSION
   spec.authors       = ["ignacio-chiazzo"]
   spec.email         = ["ignaciochiazzo@gmail.com"]
   spec.summary       = "Use the Ruby Whatsapp SDK to comunicate with Whatsapp API using the Cloud API"
