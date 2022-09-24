@@ -1,3 +1,6 @@
+# v 0.6.0
+Fix issue on Linux when files are not sorted [#45](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/45)
+
 # v 0.5.1
 Remove warnings [#41](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/41)
 
