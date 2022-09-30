@@ -11,9 +11,9 @@ Gem::Specification.new do |spec|
   spec.version = WhatsappSdk::VERSION
   spec.authors       = ["ignacio-chiazzo"]
   spec.email         = ["ignaciochiazzo@gmail.com"]
-  spec.summary       = "Use the Ruby Whatsapp SDK to comunicate with Whatsapp API using the Cloud API"
+  spec.summary       = "Use the Ruby Whatsapp SDK to communicate with Whatsapp API using the Cloud API"
   spec.description   = <<-DESCRIPTION
-    Use the Ruby Whatsapp SDK to comunicate with Whatsapp API using the Cloud API.
+    Use the Ruby Whatsapp SDK to communicate with Whatsapp API using the Cloud API.
     Create bots to send and receive messages using the Whatsapp SDK in a few minutes.
   DESCRIPTION
   spec.homepage      = "https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk"
@@ -46,7 +46,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency('sorbet')
   spec.add_dependency('sorbet-runtime')
 
-  spec.add_dependency("faraday", "~> 2.3.0")
+  spec.add_dependency("faraday", ">= 2.3.0")
   spec.add_dependency("faraday-multipart", "~> 1.0.4")
   spec.add_dependency("oj", "~> 3.13.13")
   spec.add_dependency("zeitwerk", "~> 2.6.0")
