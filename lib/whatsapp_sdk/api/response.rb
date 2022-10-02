@@ -18,6 +18,9 @@ module WhatsappSdk
       sig { returns(T.nilable(WhatsappSdk::Api::Responses::DataResponse)) }
       attr_accessor :data
 
+      sig { returns(T::Hash[T.untyped, T.untyped]) }
+      attr_accessor :raw_response
+
       sig do
         params(
           response: T::Hash[T.untyped, T.untyped],
@@ -26,6 +29,7 @@ module WhatsappSdk
         ).void
       end
       def initialize(response:, data_class_type:, error_class_type: Responses::MessageErrorResponse)
+        @raw_response = response
         @data = data_class_type.build_from_response(response: response)
         @error = error_class_type.build_from_response(response: response)
       end

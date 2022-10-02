@@ -1,3 +1,6 @@
+# v 0.6.1
+Add raw_response to response [#47](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/46)
+
 # v 0.6.0
 Fix issue on Linux when files are not sorted [#45](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/45)
 
