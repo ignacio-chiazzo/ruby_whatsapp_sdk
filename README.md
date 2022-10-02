@@ -7,8 +7,11 @@ The SDK provides a set of operations and classes to use the Whatsapp API.
 Send stickers, messages, audio, videos, and locations or just ask for the phone numbers through this library in a few steps!
 
 
+## Demo
+
 https://user-images.githubusercontent.com/11672878/173238826-6fc0a6f8-d0ee-4eae-8947-7dfd3b8b3446.mov
 
+**Check the [Ruby on Rails Whatsapp example repository](https://github.com/ignacio-chiazzo/ruby_on_rails_whatsapp_example)** that uses this library to send messages.
 
 ## Installation
 
