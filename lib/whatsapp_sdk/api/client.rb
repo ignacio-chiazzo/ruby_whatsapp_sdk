@@ -19,7 +19,11 @@ module WhatsappSdk
 
       sig do
         params(
-          endpoint: String, full_url: T.nilable(String), http_method: String, params: T::Hash[T.untyped, T.untyped]
+          endpoint: String,
+          full_url: T.nilable(String),
+          http_method: String,
+          params: T::Hash[T.untyped, T.untyped],
+          headers: T::Hash[T.untyped, T.untyped]
         ).returns(T::Hash[T.untyped, T.untyped])
       end
       def send_request(endpoint: "", full_url: nil, http_method: "post", params: {}, headers: {})
