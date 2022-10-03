@@ -22,10 +22,10 @@ module WhatsappSdk
           endpoint: String, full_url: T.nilable(String), http_method: String, params: T::Hash[T.untyped, T.untyped]
         ).returns(T::Hash[T.untyped, T.untyped])
       end
-      def send_request(endpoint: "", full_url: nil, http_method: "post", params: {})
+      def send_request(endpoint: "", full_url: nil, http_method: "post", params: {}, headers: {})
         url = full_url || API_CLIENT
 
-        response = T.unsafe(faraday(url)).public_send(http_method, endpoint, params)
+        response = T.unsafe(faraday(url)).public_send(http_method, endpoint, params, headers)
         Oj.load(response.body)
       end
 

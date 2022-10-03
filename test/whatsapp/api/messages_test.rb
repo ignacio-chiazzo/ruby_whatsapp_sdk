@@ -51,7 +51,8 @@ module WhatsappSdk
             recipient_type: "individual",
             type: "text",
             text: { body: "hola" }
-          }
+          },
+          headers: { "Content-Type" => "application/json" }
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_text(
@@ -91,7 +92,8 @@ module WhatsappSdk
               name: name,
               address: address
             }
-          }
+          },
+          headers: { "Content-Type" => "application/json" }
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_location(
@@ -130,7 +132,8 @@ module WhatsappSdk
             recipient_type: "individual",
             type: "image",
             image: { link: image_link, caption: "Ignacio Chiazzo Profile" }
-          }
+          },
+          headers: { "Content-Type" => "application/json" }
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_image(
@@ -151,7 +154,8 @@ module WhatsappSdk
             recipient_type: "individual",
             type: "image",
             image: { id: image_id, caption: "Ignacio Chiazzo Profile" }
-          }
+          },
+          headers: { "Content-Type" => "application/json" }
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_image(
@@ -189,7 +193,8 @@ module WhatsappSdk
             recipient_type: "individual",
             type: "audio",
             audio: { link: audio_link }
-          }
+          },
+          headers: { "Content-Type" => "application/json" }
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_audio(
@@ -209,7 +214,8 @@ module WhatsappSdk
             recipient_type: "individual",
             type: "audio",
             audio: { id: audio_id }
-          }
+          },
+          headers: { "Content-Type" => "application/json" }
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_audio(
@@ -246,7 +252,8 @@ module WhatsappSdk
             recipient_type: "individual",
             type: "video",
             video: { link: video_link, caption: "Ignacio Chiazzo Profile" }
-          }
+          },
+          headers: { "Content-Type" => "application/json" }
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_video(
@@ -267,7 +274,8 @@ module WhatsappSdk
             recipient_type: "individual",
             type: "video",
             video: { id: video_id, caption: "Ignacio Chiazzo Profile" }
-          }
+          },
+          headers: { "Content-Type" => "application/json" }
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_video(
@@ -305,7 +313,8 @@ module WhatsappSdk
             recipient_type: "individual",
             type: "document",
             document: { link: document_link, caption: "Ignacio Chiazzo Profile" }
-          }
+          },
+          headers: { "Content-Type" => "application/json" }
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_document(
@@ -326,7 +335,8 @@ module WhatsappSdk
             recipient_type: "individual",
             type: "document",
             document: { id: document_id, caption: "Ignacio Chiazzo Profile" }
-          }
+          },
+          headers: { "Content-Type" => "application/json" }
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_document(
@@ -364,7 +374,8 @@ module WhatsappSdk
             recipient_type: "individual",
             type: Resource::Media::Type::Sticker,
             sticker: { link: sticker_link }
-          }
+          },
+          headers: { "Content-Type" => "application/json" }
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_sticker(
@@ -384,7 +395,8 @@ module WhatsappSdk
             recipient_type: "individual",
             type: Resource::Media::Type::Sticker,
             sticker: { id: sticker_id }
-          }
+          },
+          headers: { "Content-Type" => "application/json" }
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_sticker(
@@ -413,7 +425,8 @@ module WhatsappSdk
             recipient_type: "individual",
             type: "contacts",
             contacts: contacts.map(&:to_h)
-          }
+          },
+          headers: { "Content-Type" => "application/json" }
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_contacts(
@@ -430,7 +443,8 @@ module WhatsappSdk
             messaging_product: "whatsapp",
             status: "read",
             message_id: "12345"
-          }
+          },
+          headers: { "Content-Type" => "application/json" }
         ).returns({ "success" => true })
 
         message_response = @messages_api.read_message(
@@ -601,7 +615,8 @@ module WhatsappSdk
                                                           }
                                                         ]
                                                       }
-                                                    }
+                                                    },
+                                                    headers: { "Content-Type" => "application/json" }
                                                   }).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_template(
