@@ -9,6 +9,8 @@ module WhatsappSdk
     class Messages < Request
       extend T::Sig
 
+      DEFAULT_HEADERS = T.let({ 'Content-Type' => 'application/json' }, Hash)
+
       class MissingArgumentError < StandardError
         extend T::Sig
 
@@ -40,7 +42,8 @@ module WhatsappSdk
 
         response = send_request(
           endpoint: endpoint(sender_id),
-          params: params
+          params: params,
+          headers: DEFAULT_HEADERS
         )
 
         WhatsappSdk::Api::Response.new(
@@ -80,7 +83,8 @@ module WhatsappSdk
 
         response = send_request(
           endpoint: endpoint(sender_id),
-          params: params
+          params: params,
+          headers: DEFAULT_HEADERS
         )
 
         WhatsappSdk::Api::Response.new(
@@ -120,7 +124,8 @@ module WhatsappSdk
 
         response = send_request(
           endpoint: endpoint(sender_id),
-          params: params
+          params: params,
+          headers: DEFAULT_HEADERS
         )
 
         WhatsappSdk::Api::Response.new(
@@ -154,7 +159,8 @@ module WhatsappSdk
 
         response = send_request(
           endpoint: endpoint(sender_id),
-          params: params
+          params: params,
+          headers: DEFAULT_HEADERS
         )
 
         WhatsappSdk::Api::Response.new(
@@ -194,7 +200,8 @@ module WhatsappSdk
 
         response = send_request(
           endpoint: endpoint(sender_id),
-          params: params
+          params: params,
+          headers: DEFAULT_HEADERS
         )
 
         WhatsappSdk::Api::Response.new(
@@ -234,7 +241,8 @@ module WhatsappSdk
 
         response = send_request(
           endpoint: endpoint(sender_id),
-          params: params
+          params: params,
+          headers: DEFAULT_HEADERS
         )
 
         WhatsappSdk::Api::Response.new(
@@ -268,7 +276,8 @@ module WhatsappSdk
 
         response = send_request(
           endpoint: endpoint(sender_id),
-          params: params
+          params: params,
+          headers: DEFAULT_HEADERS
         )
 
         WhatsappSdk::Api::Response.new(
@@ -302,7 +311,8 @@ module WhatsappSdk
 
         response = send_request(
           endpoint: endpoint(sender_id),
-          params: params
+          params: params,
+          headers: DEFAULT_HEADERS
         )
 
         WhatsappSdk::Api::Response.new(
@@ -338,7 +348,8 @@ module WhatsappSdk
 
         response = send_request(
           endpoint: endpoint(sender_id),
-          params: params
+          params: params,
+          headers: DEFAULT_HEADERS
         )
 
         WhatsappSdk::Api::Response.new(
@@ -382,10 +393,13 @@ module WhatsappSdk
                                          else
                                            components.map(&:to_json)
                                          end
+        headers = {}
+        headers['Content-Type'] = 'application/json' if components_json
 
         response = send_request(
           endpoint: endpoint(sender_id),
-          params: params
+          params: params,
+          headers: DEFAULT_HEADERS
         )
 
         WhatsappSdk::Api::Response.new(
