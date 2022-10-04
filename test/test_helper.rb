@@ -9,3 +9,4 @@ require 'mocha/minitest'
 require "pry"
 require "pry-nav"
 require "sorbet-runtime"
+require "webmock/minitest"

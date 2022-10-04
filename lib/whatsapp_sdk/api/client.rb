@@ -2,6 +2,7 @@
 # typed: strict
 
 require "faraday"
+require "faraday/multipart"
 require "oj"
 
 module WhatsappSdk
@@ -24,12 +25,15 @@ module WhatsappSdk
           http_method: String,
           params: T::Hash[T.untyped, T.untyped],
           headers: T::Hash[T.untyped, T.untyped]
-        ).returns(T::Hash[T.untyped, T.untyped])
+        ).returns(T.nilable(T::Hash[T.untyped, T.untyped]))
       end
       def send_request(endpoint: "", full_url: nil, http_method: "post", params: {}, headers: {})
         url = full_url || API_CLIENT
 
-        response = T.unsafe(faraday(url)).public_send(http_method, endpoint, params, headers)
+        faraday_request = T.unsafe(faraday(url))
+
+        response = faraday_request.public_send(http_method, endpoint, request_params(params, headers), headers)
+
         Oj.load(response.body)
       end
 
@@ -50,6 +54,18 @@ module WhatsappSdk
       end
 
       private
+
+      sig do
+        params(
+          params: T::Hash[T.untyped, T.untyped],
+          headers: T::Hash[T.untyped, T.untyped]
+        ).returns(T.any(T::Hash[T.untyped, T.untyped], String))
+      end
+      def request_params(params, headers)
+        return params.to_json if params.is_a?(Hash) && headers['Content-Type'] == 'application/json'
+
+        params
+      end
 
       sig { params(url: String).returns(Faraday::Connection) }
       def faraday(url)
