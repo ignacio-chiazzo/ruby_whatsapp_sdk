@@ -17,6 +17,7 @@ group(:test) do
   gem('rubocop', require: false)
   gem('rubocop-minitest', require: false)
   gem('rubocop-performance', require: false)
+  gem('webmock')
 end
 
 group(:development) do

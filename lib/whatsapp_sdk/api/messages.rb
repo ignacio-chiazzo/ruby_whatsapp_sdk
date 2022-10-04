@@ -393,8 +393,6 @@ module WhatsappSdk
                                          else
                                            components.map(&:to_json)
                                          end
-        headers = {}
-        headers['Content-Type'] = 'application/json' if components_json
 
         response = send_request(
           endpoint: endpoint(sender_id),
