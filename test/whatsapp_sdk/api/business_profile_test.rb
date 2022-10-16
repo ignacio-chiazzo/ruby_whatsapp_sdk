@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 # typed: true
 
-require "test_helper"
 require_relative '../../../lib/whatsapp_sdk/api/business_profile'
-require_relative '../../../lib/whatsapp_sdk/resource/contact_response'
 require_relative '../../../lib/whatsapp_sdk/api/client'
 
 module WhatsappSdk
@@ -83,8 +81,8 @@ module WhatsappSdk
         assert_equal(WhatsappSdk::Api::Response, response.class)
         assert_nil(response.error)
         assert_predicate(response, :ok?)
-        # assert_equal(response.data.about, 'Hey there! I am using WhatsApp.')
-        # assert_equal(response.data.messaging_product, 'whatsapp')
+        assert_equal(response.data.about, 'Hey there! I am using WhatsApp.')
+        assert_equal(response.data.messaging_product, 'whatsapp')
       end
     end
   end
