@@ -6,6 +6,7 @@ require_relative "responses/phone_number_data_response"
 require_relative "responses/phone_numbers_data_response"
 require_relative "responses/read_message_data_response"
 require_relative "responses/message_error_response"
+require_relative "responses/business_profile_data_response"
 
 module WhatsappSdk
   module Api
