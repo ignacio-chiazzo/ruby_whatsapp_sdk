@@ -27,14 +27,12 @@ module WhatsappSdk
 
         sig { params(response: T::Hash[T.untyped, T.untyped]).void }
         def initialize(response)
-          # TODO: Verify the other data
-
-          @about = T.let(response["data"][0]["about"], String)
-          # @address = T.let(response["data"][0]["address"], String)
-          # @description = T.let(response["data"][0]["description"], String)
-          # @email = T.let(respons e["data"][0]["email"], String)
-          @messaging_product = T.let(response["data"][0]["messaging_product"], String)
-          # @profile_picture_url = T.let(response["data"][0]["profile_picture_url"], String)
+          @about = T.let(response["data"][0]["about"], T.nilable(String))
+          @address = T.let(response["data"][0]["address"], T.nilable(String))
+          @description = T.let(response["data"][0]["description"], T.nilable(String))
+          @email = T.let(response["data"][0]["email"], T.nilable(String))
+          @messaging_product = T.let(response["data"][0]["messaging_product"], T.nilable(String))
+          @profile_picture_url = T.let(response["data"][0]["profile_picture_url"], T.nilable(String))
           super(response)
         end
 
