@@ -14,7 +14,7 @@ module WhatsappSdk
       # @param phone_number_id [Integer] Phone Number Id.
       # @return [WhatsappSdk::Api::Response] Response object.
       sig { params(phone_number_id: Integer).returns(WhatsappSdk::Api::Response) }
-      def registered_numbers(phone_number_id)
+      def details(phone_number_id)
         response = send_request(
           http_method: "get",
           endpoint: "#{phone_number_id}/whatsapp_business_profile?fields=#{DEFAULT_FIELDS}"
