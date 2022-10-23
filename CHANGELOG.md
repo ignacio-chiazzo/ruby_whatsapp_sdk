@@ -1,3 +1,6 @@
+# v 0.6.2
+Add Business Profiles API [#53](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/53)
+
 # v 0.6.1
 Add raw_response to response [#47](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/46)
 
