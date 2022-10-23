@@ -7,7 +7,7 @@ require_relative "response"
 module WhatsappSdk
   module Api
     class BusinessProfile < Request
-      DEFAULT_FIELDS = 'about,address,description,email,profile_picture_url,websites,vertical'.freeze
+      DEFAULT_FIELDS = 'about,address,description,email,profile_picture_url,websites,vertical'
 
       # Get the details of business profile.
       #

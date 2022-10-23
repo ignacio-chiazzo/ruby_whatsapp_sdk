@@ -81,8 +81,8 @@ module WhatsappSdk
         assert_equal(WhatsappSdk::Api::Response, response.class)
         assert_nil(response.error)
         assert_predicate(response, :ok?)
-        assert_equal(response.data.about, 'Hey there! I am using WhatsApp.')
-        assert_equal(response.data.messaging_product, 'whatsapp')
+        assert_equal(expected_business_profile["about"], response.data.about)
+        assert_equal(expected_business_profile["messaging_product"], response.data.messaging_product)
       end
     end
   end
