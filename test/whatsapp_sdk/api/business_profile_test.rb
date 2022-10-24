@@ -47,21 +47,32 @@ module WhatsappSdk
       end
 
       def valid_details_response(
-        about: "Hey there! I am using WhatsApp.", messaging_product: "whatsapp"
+        about: "Hey there! I am using WhatsApp.", messaging_product: "whatsapp",
+        address: "123, Main Street, New York, NY, 10001", description: "This is a description",
+        email: "testing@gmail.com", websites: ["https://www.google.com"], vertical: "EDU"
       )
         {
           "data" => [
-            valid_detail_response(about: about, messaging_product: messaging_product)
+            valid_detail_response(about: about, messaging_product: messaging_product,
+                                  address: address, description: description, email: email,
+                                  websites: websites, vertical: vertical)
           ]
         }
       end
 
       def valid_detail_response(
-        about: "Hey there! I am using WhatsApp.", messaging_product: "whatsapp"
+        about: "Hey there! I am using WhatsApp.", messaging_product: "whatsapp",
+        address: "123, Main Street, New York, NY, 10001", description: "This is a description",
+        email: "testing@gmail.com", websites: ["https://www.google.com"], vertical: "EDU"
       )
         {
           "about" => about,
-          "messaging_product" => messaging_product
+          "messaging_product" => messaging_product,
+          "address" => address,
+          "description" => description,
+          "email" => email,
+          "websites" => websites,
+          "vertical" => vertical
         }
       end
 
@@ -83,6 +94,11 @@ module WhatsappSdk
         assert_predicate(response, :ok?)
         assert_equal(expected_business_profile["about"], response.data.about)
         assert_equal(expected_business_profile["messaging_product"], response.data.messaging_product)
+        assert_equal(expected_business_profile["address"], response.data.address)
+        assert_equal(expected_business_profile["description"], response.data.description)
+        assert_equal(expected_business_profile["email"], response.data.email)
+        assert_equal(expected_business_profile["websites"], response.data.websites)
+        assert_equal(expected_business_profile["vertical"], response.data.vertical)
       end
     end
   end
