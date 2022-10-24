@@ -28,6 +28,9 @@ module WhatsappSdk
         sig { returns(T.nilable(String)) }
         attr_accessor :vertical
 
+        sig { returns(T::Array[String]) }
+        attr_accessor :websites
+
         sig { params(response: T::Hash[T.untyped, T.untyped]).void }
         def initialize(response)
           @about = T.let(response["data"][0]["about"], T.nilable(String))
@@ -37,6 +40,7 @@ module WhatsappSdk
           @messaging_product = T.let(response["data"][0]["messaging_product"], T.nilable(String))
           @profile_picture_url = T.let(response["data"][0]["profile_picture_url"], T.nilable(String))
           @vertical = T.let(response["data"][0]["vertical"], T.nilable(String))
+          @websites = T.let(response["data"][0]["websites"], T::Array[String])
           super(response)
         end
 
