@@ -38,7 +38,7 @@ module WhatsappSdk
       end
       def update(phone_number_id:, params:)
         # this is a required field
-        params.merge!({ messaging_product: 'whatsapp' })
+        params[:messaging_product] = 'whatsapp'
 
         response = send_request(
           http_method: "post",
