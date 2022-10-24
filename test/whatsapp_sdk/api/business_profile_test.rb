@@ -25,6 +25,12 @@ module WhatsappSdk
         assert_predicate(response, :ok?)
       end
 
+      def test_update_handles_error_response
+        mocked_error_response = mock_error_response
+        response = @business_profile_api.update(phone_number_id: 123_123, params: valid_detail_response)
+        assert_mock_error_response(mocked_error_response, response)
+      end
+
       private
 
       def mock_error_response
@@ -46,6 +52,7 @@ module WhatsappSdk
         response
       end
 
+      # this is a hash of a valid business profile response from API
       def valid_details_response(
         about: "Hey there! I am using WhatsApp.", messaging_product: "whatsapp",
         address: "123, Main Street, New York, NY, 10001", description: "This is a description",
@@ -60,6 +67,7 @@ module WhatsappSdk
         }
       end
 
+      # this is a hash of a valid business profile
       def valid_detail_response(
         about: "Hey there! I am using WhatsApp.", messaging_product: "whatsapp",
         address: "123, Main Street, New York, NY, 10001", description: "This is a description",
