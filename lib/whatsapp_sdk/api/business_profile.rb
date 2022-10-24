@@ -31,6 +31,11 @@ module WhatsappSdk
       # @param phone_number_id [Integer] Phone Number Id.
       # @param params [Hash] Params to update.
       # @return [WhatsappSdk::Api::Response] Response object.
+      sig do
+        params(
+          phone_number_id: Integer, params: T::Hash[T.untyped, T.untyped]
+        ).returns(WhatsappSdk::Api::Response)
+      end
       def update(phone_number_id:, params:)
         # this is a required field
         params.merge!({ messaging_product: 'whatsapp' })
