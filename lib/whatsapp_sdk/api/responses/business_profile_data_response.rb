@@ -7,25 +7,25 @@ module WhatsappSdk
   module Api
     module Responses
       class BusinessProfileDataResponse < DataResponse
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :about
 
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :address
 
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :description
 
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :email
 
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :messaging_product
 
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :profile_picture_url
 
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         attr_accessor :vertical
 
         sig { params(response: T::Hash[T.untyped, T.untyped]).void }
