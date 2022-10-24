@@ -25,6 +25,27 @@ module WhatsappSdk
           data_class_type: WhatsappSdk::Api::Responses::BusinessProfileDataResponse
         )
       end
+
+      # Update the details of business profile.
+      #
+      # @param phone_number_id [Integer] Phone Number Id.
+      # @param params [Hash] Params to update.
+      # @return [WhatsappSdk::Api::Response] Response object.
+      def update(phone_number_id:, params:)
+        # this is a required field
+        params.merge!({ messaging_product: 'whatsapp' })
+
+        response = send_request(
+          http_method: "post",
+          endpoint: "#{phone_number_id}/whatsapp_business_profile",
+          params: params
+        )
+
+        WhatsappSdk::Api::Response.new(
+          response: response,
+          data_class_type: WhatsappSdk::Api::Responses::SuccessResponse
+        )
+      end
     end
   end
 end
