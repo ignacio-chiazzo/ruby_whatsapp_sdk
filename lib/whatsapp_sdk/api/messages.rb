@@ -406,6 +406,42 @@ module WhatsappSdk
         )
       end
 
+      # Send reaction
+      #
+      # @param sender_id [Integer] Sender' phone number.
+      # @param recipient_number [Integer] Recipient' Phone number.
+      # @param message_id [String] the id of the message to reaction.
+      # @param emoji [String] unicode of the emoji to send.
+      # @return [WhatsappSdk::Api::Response] Response object.
+      sig do
+        params(
+          sender_id: Integer, recipient_number: Integer, message_id: String, emoji: String
+        ).returns(WhatsappSdk::Api::Response)
+      end
+      def send_reaction(sender_id:, recipient_number:, message_id:, emoji:)
+        params = {
+          messaging_product: "whatsapp",
+          recipient_type: "individual",
+          to: recipient_number,
+          type: "reaction",
+          reaction: {
+            message_id: message_id,
+            emoji: emoji
+          }
+        }
+
+        response = send_request(
+          endpoint: endpoint(sender_id),
+          params: params,
+          headers: DEFAULT_HEADERS
+        )
+
+        WhatsappSdk::Api::Response.new(
+          response: response,
+          data_class_type: WhatsappSdk::Api::Responses::MessageDataResponse
+        )
+      end
+
       private
 
       sig { params(sender_id: Integer).returns(String) }
