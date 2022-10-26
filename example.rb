@@ -87,6 +87,11 @@ message_sent = messages_api.send_text(sender_id: SENDER_ID, recipient_number: RE
                                       message: "Hey there! it's Whatsapp Ruby SDK")
 print_message_sent(message_sent)
 
+######### React to a message
+message_id = message_sent.data.messages.first.id
+messages_api.send_reaction(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message_id: message_id, emoji: "\\uD83D\\uDE00")
+
+######### Send location
 location_sent = messages_api.send_location(
   sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
   longitude: -75.6898604, latitude: 45.4192206, name: "Ignacio", address: "My house"
