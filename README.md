@@ -122,11 +122,26 @@ First, create the client and then create an instance `WhatsappSdk::Api::Messages
 messages_api = WhatsappSdk::Api::Messages.new
 phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new
 medias_api = WhatsappSdk::Api::Medias.new
+business_profile_api = WhatsappSdk::Api::BusinessProfile.new
 ```
 
 Note: Remember to initialize the client first!
 
 ## APIs
+
+### Business Profile API
+<details>
+
+Get the details of your business
+```ruby
+business_profile = business_profile_api.details(123456)
+```
+
+Update the details of your business
+```ruby
+business_profile_api.update(phone_number_id: SENDER_ID, params: { about: "A very cool business" } )
+```
+</details>
 
 ### Phone numbers API
 

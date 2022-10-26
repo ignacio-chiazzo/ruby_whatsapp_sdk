@@ -28,6 +28,11 @@ RECIPIENT_NUMBER = "<TODO replace>"
 BUSINESS_ID = "<TODO replace>"
 IMAGE_LINK = "<TODO replace>"
 
+if ACCESS_TOKEN == "<TODO replace>"
+  puts "\n\n**** Please update the ACCESS_TOKEN constant in this file. ****\n\n"
+  exit
+end
+
 ################# Initialize Client #################
 WhatsappSdk.configure do |config|
   config.access_token = ACCESS_TOKEN
@@ -46,10 +51,16 @@ end
 medias_api = WhatsappSdk::Api::Medias.new
 messages_api = WhatsappSdk::Api::Messages.new
 phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new
+business_profile_api = WhatsappSdk::Api::BusinessProfile.new
+
+############################## Business API ##############################
+business_profile = business_profile_api.details(SENDER_ID)
+business_profile_api.update(phone_number_id: SENDER_ID, params: { about: "A very cool business" } )
 
 ############################## Phone Numbers API ##############################
 registered_number = phone_numbers_api.registered_number(SENDER_ID)
 registered_numbers = phone_numbers_api.registered_numbers(BUSINESS_ID)
+
 ############################## Media API ##############################
 
 # upload a media
