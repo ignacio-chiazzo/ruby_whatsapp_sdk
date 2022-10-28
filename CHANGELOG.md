@@ -1,5 +1,9 @@
 # unreleased 
-Add Business update API @sahilbansal17 [#56](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/56) 
+
+# v 0.7.0
+Add message reaction @sanchezpaco [#58](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/58)
+Add Business update API @sahilbansal17 [#56](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/56)
+Fix Sorbet bug BusinessAPI [#60](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/60)
 
 # v 0.6.2
 Add Business Profiles API @sahilbansal17 [#53](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/53)
