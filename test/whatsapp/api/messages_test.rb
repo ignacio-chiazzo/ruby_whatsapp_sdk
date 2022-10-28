@@ -632,7 +632,7 @@ module WhatsappSdk
       def test_send_reaction_with_success_response
         mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_reaction(
-          sender_id: 123_123, recipient_number: 56_789, message_id: "12345", emoji: "\\uD83D\\uDE00" 
+          sender_id: 123_123, recipient_number: 56_789, message_id: "12345", emoji: "\\uD83D\\uDE00"
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
@@ -648,14 +648,14 @@ module WhatsappSdk
             type: "reaction",
             reaction: {
               message_id: "12345",
-              emoji: "\\uD83D\\uDE00" 
+              emoji: "\\uD83D\\uDE00"
             }
           },
           headers: { "Content-Type" => "application/json" }
         ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_reaction(
-          sender_id: 123_123, recipient_number: 56_789, message_id: "12345", emoji: "\\uD83D\\uDE00" 
+          sender_id: 123_123, recipient_number: 56_789, message_id: "12345", emoji: "\\uD83D\\uDE00"
         )
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
