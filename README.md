@@ -199,6 +199,14 @@ messages_api.read_message(sender_id: 1234, message_id: "wamid.HBgLMTM0M123456789
 
 Note: To get the `message_id` you can set up [Webhooks](https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/components) that will listen and fire an event when a message is received.
 
+**Send a reaction to message**
+To send a reaction to a message, you need to obtain the mssage id and look for the emoji's unicode you want to use.
+
+```ruby
+messages_api.send_reaction(sender_id: 123_123, recipient_number: 56_789, message_id: "12345", emoji: "\u{1f550}")
+
+messages_api.send_reaction(sender_id: 123_123, recipient_number: 56_789, message_id: "12345", emoji: "⛄️")
+```
 
 **Send a location message**
 
@@ -326,13 +334,6 @@ Alernative, you could pass a plain json like this:
 @messages_api.send_template(sender_id: 12_345, recipient_number: 12345678, name: "hello_world", language: "en_US", components_json: [{...}])
 ```
 </details>
-
-**Send a reaction to message**
-To send a reaction to a message, you need to obtain the mssage id and look for the emoji's unicode you want to use.
-
-```ruby
-messages_api.send_reaction(sender_id: 123_123, recipient_number: 56_789, message_id: "12345", emoji: "\\uD83D\\uDE00")
-```
 
 ## Examples
 
