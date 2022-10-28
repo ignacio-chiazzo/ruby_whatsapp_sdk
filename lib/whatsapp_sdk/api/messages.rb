@@ -415,7 +415,7 @@ module WhatsappSdk
       # @return [WhatsappSdk::Api::Response] Response object.
       sig do
         params(
-          sender_id: Integer, recipient_number: Integer, message_id: String, emoji: String
+          sender_id: Integer, recipient_number: Integer, message_id: String, emoji: T.any(String, Integer)
         ).returns(WhatsappSdk::Api::Response)
       end
       def send_reaction(sender_id:, recipient_number:, message_id:, emoji:)
