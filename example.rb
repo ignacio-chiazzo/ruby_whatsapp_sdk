@@ -78,7 +78,8 @@ print_message_sent(message_sent)
 
 ######### React to a message
 message_id = message_sent.data.messages.first.id
-messages_api.send_reaction(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message_id: message_id, emoji: "\\uD83D\\uDE00")
+messages_api.send_reaction(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message_id: message_id, emoji: "\u{1f550}")
+messages_api.send_reaction(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message_id: message_id, emoji: "⛄️")
 
 ######### Send location
 location_sent = messages_api.send_location(
