@@ -62,6 +62,64 @@ module WhatsappSdk
         assert_predicate(response, :ok?)
       end
 
+      def test_register_number_handles_error_response
+        mocked_error_response = invalid_register_number_response
+        response = @phone_numbers_api.register_number(123_123, 123)
+        assert_mock_error_response(mocked_error_response, response)
+      end
+
+      def test_register_number_with_success_response
+        mock_phone_numbers_response({ "success" => true })
+        response = @phone_numbers_api.register_number(123_123, 123_456)
+
+        assert_equal(WhatsappSdk::Api::Response, response.class)
+        assert_nil(response.error)
+        assert_predicate(response, :ok?)
+      end
+
+      def test_register_number_sends_valid_params
+        @phone_numbers_api.expects(:send_request).with(
+          http_method: "post",
+          endpoint: "123123/register",
+          params: {
+            messaging_product: 'whatsapp', pin: 123456
+          }
+        ).returns({ "success" => true })
+
+        response = @phone_numbers_api.register_number(123_123, 123_456)
+        assert_equal(WhatsappSdk::Api::Response, response.class)
+        assert_nil(response.error)
+        assert_predicate(response, :ok?)
+      end
+
+      def test_deregister_number_handles_error_response
+        mocked_error_response = invalid_deregister_number_response
+        response = @phone_numbers_api.deregister_number(123_123)
+        assert_mock_error_response(mocked_error_response, response)
+      end
+
+      def test_deregister_number_with_success_response
+        mock_phone_numbers_response({ "success" => true })
+        response = @phone_numbers_api.deregister_number(123_123)
+
+        assert_equal(WhatsappSdk::Api::Response, response.class)
+        assert_nil(response.error)
+        assert_predicate(response, :ok?)
+      end
+
+      def test_deregister_number_sends_valid_params
+        @phone_numbers_api.expects(:send_request).with(
+          http_method: "post",
+          endpoint: "123123/deregister",
+          params: {}
+        ).returns({ "success" => true })
+
+        response = @phone_numbers_api.deregister_number(123_123)
+        assert_equal(WhatsappSdk::Api::Response, response.class)
+        assert_nil(response.error)
+        assert_predicate(response, :ok?)
+      end
+
       private
 
       def mock_error_response
@@ -114,6 +172,38 @@ module WhatsappSdk
             }
           }
         }
+      end
+
+      def invalid_register_number_response
+        error_response = {
+          "error" =>
+            {
+              "message" => "(#100) Param pin must be 6 characters long.",
+              "type" => "OAuthException",
+              "code" => 100,
+              "fbtrace_id" => "AVU2ojfLmjKZSKbkWqjA_Uc"
+            }
+        }
+
+        @phone_numbers_api.stubs(:send_request).returns(error_response)
+        error_response
+      end
+
+      def invalid_deregister_number_response
+        error_response = {
+          "error" =>
+            {
+              "message" => "(#100) Invalid parameter",
+              "type" => "OAuthException",
+              "code" => 100,
+              "error_data" => "Phone number not registered on the Whatsapp Business Platform.",
+              "error_subcode" => 133010,
+              "fbtrace_id" => "A2iaN-Erjaze-0ABvoagZFI"
+            }
+        }
+
+        @phone_numbers_api.stubs(:send_request).returns(error_response)
+        error_response
       end
 
       def assert_mock_error_response(mocked_error, response)
