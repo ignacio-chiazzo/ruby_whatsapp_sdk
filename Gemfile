@@ -1,5 +1,5 @@
-# frozen_string_literal: true
 # typed: true
+# frozen_string_literal: true
 
 source "https://rubygems.org"
 
@@ -17,6 +17,7 @@ group(:test) do
   gem('rubocop', require: false)
   gem('rubocop-minitest', require: false)
   gem('rubocop-performance', require: false)
+  gem('rubocop-sorbet', require: false)
   gem('webmock')
 end
 

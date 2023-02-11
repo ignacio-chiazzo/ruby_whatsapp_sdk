@@ -1,5 +1,5 @@
-# frozen_string_literal: true
 # typed: strict
+# frozen_string_literal: true
 
 require_relative "request"
 require_relative "response"
@@ -9,7 +9,7 @@ module WhatsappSdk
     class Messages < Request
       extend T::Sig
 
-      DEFAULT_HEADERS = T.let({ 'Content-Type' => 'application/json' }, Hash)
+      DEFAULT_HEADERS = T.let({ 'Content-Type' => 'application/json' }.freeze, Hash)
 
       class MissingArgumentError < StandardError
         extend T::Sig

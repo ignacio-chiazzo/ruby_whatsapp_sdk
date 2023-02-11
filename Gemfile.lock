@@ -5,8 +5,6 @@ PATH
       faraday (>= 2.3.0)
       faraday-multipart (~> 1.0.4)
       oj (~> 3.13.13)
-      sorbet
-      sorbet-runtime
       zeitwerk (~> 2.6.0)
 
 GEM
@@ -66,6 +64,8 @@ GEM
     rubocop-performance (1.14.2)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
+    rubocop-sorbet (0.7.0)
+      rubocop (>= 0.90.0)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
     sorbet (0.5.10346)
@@ -125,6 +125,7 @@ DEPENDENCIES
   rubocop
   rubocop-minitest
   rubocop-performance
+  rubocop-sorbet
   sorbet
   sorbet-runtime
   spoom

@@ -1,5 +1,5 @@
-# frozen_string_literal: true
 # typed: true
+# frozen_string_literal: true
 
 require "test_helper"
 require_relative '../../../lib/whatsapp_sdk/api/phone_numbers'
@@ -212,7 +212,7 @@ module WhatsappSdk
         error = response.error
         assert_equal(WhatsappSdk::Api::Responses::MessageErrorResponse, error.class)
         assert_equal(mocked_error["error"]["code"], error.code)
-        assert(mocked_error["error"]["error_subcode"] == error.subcode)
+        assert_equal(mocked_error["error"]["error_subcode"], error.subcode)
         assert_equal(mocked_error["error"]["message"], error.message)
         assert_equal(mocked_error["error"]["fbtrace_id"], error.fbtrace_id)
       end

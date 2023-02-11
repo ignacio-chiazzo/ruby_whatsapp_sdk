@@ -1,5 +1,5 @@
-# frozen_string_literal: true
 # typed: strict
+# frozen_string_literal: true
 
 require_relative "responses/message_data_response"
 require_relative "responses/phone_number_data_response"
