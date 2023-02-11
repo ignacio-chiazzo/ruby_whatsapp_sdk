@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    whatsapp_sdk (0.7.1)
-      faraday (>= 2.3.0)
+    whatsapp_sdk (0.7.2)
+      faraday (~> 2.3.0)
       faraday-multipart (~> 1.0.4)
       oj (~> 3.13.13)
       zeitwerk (~> 2.6.0)
@@ -17,12 +17,12 @@ GEM
     crack (0.4.5)
       rexml
     diff-lcs (1.5.0)
-    faraday (2.5.2)
-      faraday-net_http (>= 2.0, < 3.1)
+    faraday (2.3.0)
+      faraday-net_http (~> 2.0)
       ruby2_keywords (>= 0.0.4)
     faraday-multipart (1.0.4)
       multipart-post (~> 2)
-    faraday-net_http (3.0.0)
+    faraday-net_http (2.1.0)
     hashdiff (1.0.1)
     method_source (1.0.0)
     minitest (5.16.1)
