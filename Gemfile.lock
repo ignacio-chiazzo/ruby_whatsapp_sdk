@@ -5,6 +5,7 @@ PATH
       faraday (~> 2.3.0)
       faraday-multipart (~> 1.0.4)
       oj (~> 3.13.13)
+      sorbet-runtime (~> 0.5.1)
       zeitwerk (~> 2.6.0)
 
 GEM
