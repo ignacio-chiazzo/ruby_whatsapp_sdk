@@ -1,5 +1,5 @@
-# frozen_string_literal: true
 # typed: true
+# frozen_string_literal: true
 
 require "test_helper"
 require_relative '../../../lib/whatsapp_sdk/resource/currency'

@@ -1,5 +1,5 @@
-# frozen_string_literal: true
 # typed: true
+# frozen_string_literal: true
 
 require_relative '../../../lib/whatsapp_sdk/api/business_profile'
 require_relative '../../../lib/whatsapp_sdk/api/client'
