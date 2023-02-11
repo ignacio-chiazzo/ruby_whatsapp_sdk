@@ -82,7 +82,7 @@ module WhatsappSdk
           http_method: "post",
           endpoint: "123123/register",
           params: {
-            messaging_product: 'whatsapp', pin: 123456
+            messaging_product: 'whatsapp', pin: 123_456
           }
         ).returns({ "success" => true })
 
@@ -197,7 +197,7 @@ module WhatsappSdk
               "type" => "OAuthException",
               "code" => 100,
               "error_data" => "Phone number not registered on the Whatsapp Business Platform.",
-              "error_subcode" => 133010,
+              "error_subcode" => 133_010,
               "fbtrace_id" => "A2iaN-Erjaze-0ABvoagZFI"
             }
         }
@@ -212,9 +212,8 @@ module WhatsappSdk
         error = response.error
         assert_equal(WhatsappSdk::Api::Responses::MessageErrorResponse, error.class)
         assert_equal(mocked_error["error"]["code"], error.code)
-        assert_equal(mocked_error["error"]["error_subcode"], error.subcode)
+        assert(mocked_error["error"]["error_subcode"] == error.subcode)
         assert_equal(mocked_error["error"]["message"], error.message)
-        assert_equal(mocked_error["error"]["error_subcode"], error.subcode)
         assert_equal(mocked_error["error"]["fbtrace_id"], error.fbtrace_id)
       end
 

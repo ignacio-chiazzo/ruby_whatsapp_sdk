@@ -1,7 +1,7 @@
 # unreleased 
   
 # v 0.7.1
-Add Register API [#65](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/65)
+Add Register API @andresyebra [#65](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/65)
 
 # v 0.7.0
 Add message reaction @sanchezpaco [#58](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/58)
