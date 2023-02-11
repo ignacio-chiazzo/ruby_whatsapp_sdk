@@ -96,9 +96,9 @@ WhatsappSdk.configure do |config|
 end
 ```
 
-6) Try the Medias or Messages API
+6) Try the Phone Numbers API or Messages API
 
-Medias API
+Phone Numbers API
 ```ruby
 phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new
 registered_number = phone_numbers_api.registered_number(SENDER_ID)
@@ -155,6 +155,16 @@ phone_numbers_api.registered_numbers(123456) # accepts a business_id
 Get the a phone number by id
 ```ruby
 phone_numbers_api.registered_numbers(123456) # accepts a phone_number_id
+```
+
+Register a phone number
+```ruby
+phone_numbers_api.register_number(phone_number_id, pin)
+```
+
+Deregister a phone number
+```ruby
+phone_numbers_api.deregister_number(phone_number_id)
 ```
 </details>
 
