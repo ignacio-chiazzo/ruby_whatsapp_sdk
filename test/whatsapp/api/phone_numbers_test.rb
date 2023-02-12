@@ -161,7 +161,7 @@ module WhatsappSdk
           "name_status" => name_status,
           "new_name_status" => new_name_status,
           "status" => status,
-          "search_visibility" => search_visibility 
+          "search_visibility" => search_visibility
         }
       end
 
@@ -251,7 +251,8 @@ module WhatsappSdk
         assert_equal(expected_phone_number["code_verification_status"], phone_number.code_verification_status)
         assert_equal(expected_phone_number["is_official_business_account"], phone_number.is_official_business_account)
         assert_equal(expected_phone_number["account_mode"], phone_number.account_mode)
-        assert_equal(expected_phone_number["eligibility_for_api_business_global_search"], phone_number.eligibility_for_api_business_global_search)
+        assert_equal(expected_phone_number["eligibility_for_api_business_global_search"],
+                     phone_number.eligibility_for_api_business_global_search)
         assert_equal(expected_phone_number["is_pin_enabled"], phone_number.is_pin_enabled)
         assert_equal(expected_phone_number["name_status"], phone_number.name_status)
         assert_equal(expected_phone_number["new_name_status"], phone_number.new_name_status)

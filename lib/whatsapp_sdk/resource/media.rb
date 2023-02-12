@@ -100,9 +100,7 @@ module WhatsappSdk
 
       sig { returns(T::Boolean) }
       def validate_media
-        if filename && !supports_filename?
-          raise InvalidMedia.new(:filename, "filename can only be used with document")
-        end
+        raise InvalidMedia.new(:filename, "filename can only be used with document") if filename && !supports_filename?
 
         if caption && !supports_caption?
           raise InvalidMedia.new(:caption, "caption can only be used with document or image")

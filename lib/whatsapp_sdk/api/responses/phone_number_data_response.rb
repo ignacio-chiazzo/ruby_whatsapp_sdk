@@ -23,8 +23,8 @@ module WhatsappSdk
         attr_accessor :is_pin_enabled, :is_official_business_account
 
         sig { returns(T.nilable(String)) }
-        attr_accessor :account_mode, :certificate, :code_verification_status, :eligibility_for_api_business_global_search,
-          :name_status, :new_name_status, :status, :search_visibility
+        attr_accessor :account_mode, :code_verification_status, :eligibility_for_api_business_global_search,
+                      :certificate, :name_status, :new_name_status, :status, :search_visibility
 
         sig { params(response: T::Hash[T.untyped, T.untyped]).void }
         def initialize(response)
@@ -37,11 +37,13 @@ module WhatsappSdk
           @account_mode = T.let(response["account_mode"], T.nilable(String))
           @certificate = T.let(response["certificate"], T.nilable(String))
           @code_verification_status = T.let(response["code_verification_status"], T.nilable(String))
-          @eligibility_for_api_business_global_search = T.let(response["eligibility_for_api_business_global_search"], T.nilable(String))
+          @eligibility_for_api_business_global_search = T.let(response["eligibility_for_api_business_global_search"],
+                                                              T.nilable(String))
           @name_status = T.let(response["name_status"], T.nilable(String))
           @new_name_status = T.let(response["new_name_status"], T.nilable(String))
           @status = T.let(response["status"], T.nilable(String))
           @search_visibility = T.let(response["search_visibility"], T.nilable(String))
+          @messaging_limit_tier = T.let(response["messaging_limit_tier"], T.nilable(String))
 
           super(response)
         end
