@@ -1,5 +1,7 @@
 # unreleased 
-  
+
+Make sorbet-runtime a runtime dependency. @ignacio-chiazzo [#70](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/70)
+
 # v 0.7.1
 Add Register API @andresyebra [#65](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/65)
 
