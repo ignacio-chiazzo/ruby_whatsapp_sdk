@@ -7,6 +7,12 @@ require_relative "response"
 module WhatsappSdk
   module Api
     class PhoneNumbers < Request
+      DEFAULT_FIELDS = %i[
+        id is_official_business_account display_phone_number verified_name account_mode quality_rating
+        certificate code_verification_status eligibility_for_api_business_global_search is_pin_enabled
+        name_status new_name_status status search_visibility messaging_limit_tier
+      ].join(",").freeze
+
       # Get list of registered numbers.
       #
       # @param business_id [Integer] Business Id.
@@ -15,7 +21,7 @@ module WhatsappSdk
       def registered_numbers(business_id)
         response = send_request(
           http_method: "get",
-          endpoint: "#{business_id}/phone_numbers"
+          endpoint: "#{business_id}/phone_numbers?fields=#{DEFAULT_FIELDS}"
         )
 
         WhatsappSdk::Api::Response.new(
@@ -32,7 +38,7 @@ module WhatsappSdk
       def registered_number(phone_number_id)
         response = send_request(
           http_method: "get",
-          endpoint: phone_number_id.to_s
+          endpoint: "#{phone_number_id}?fields=#{DEFAULT_FIELDS}"
         )
 
         WhatsappSdk::Api::Response.new(

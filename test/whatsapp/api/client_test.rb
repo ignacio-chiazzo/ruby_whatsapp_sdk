@@ -3,6 +3,7 @@
 
 require 'test_helper'
 require_relative '../../../lib/whatsapp_sdk/api/client'
+require_relative '../../../lib/whatsapp_sdk/api/api_configuration'
 
 module WhatsappSdk
   module Api
@@ -51,7 +52,7 @@ module WhatsappSdk
       private
 
       def stub_test_request(method_name, body: {}, headers: {}, response_status: 200, response_body: { success: true })
-        stub_request(method_name, "#{Client::API_CLIENT}test")
+        stub_request(method_name, "#{::WhatsappSdk::Api::ApiConfiguration::API_URL}test")
           .with(body: body, headers: { 'Accept' => '*/*',
                                        'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
                                        'Authorization' => 'Bearer test_token' }.merge(headers))

@@ -30,7 +30,7 @@ module WhatsappSdk
       def test_registered_numbers_sends_valid_params
         @phone_numbers_api.expects(:send_request).with(
           http_method: "get",
-          endpoint: "123123/phone_numbers"
+          endpoint: "123123/phone_numbers?fields=#{WhatsappSdk::Api::PhoneNumbers::DEFAULT_FIELDS}"
         ).returns(valid_phone_numbers_response)
 
         response = @phone_numbers_api.registered_numbers(123_123)
@@ -54,7 +54,7 @@ module WhatsappSdk
       def test_registered_number_sends_valid_params
         @phone_numbers_api.expects(:send_request).with(
           http_method: "get",
-          endpoint: "123123"
+          endpoint: "123123?fields=#{WhatsappSdk::Api::PhoneNumbers::DEFAULT_FIELDS}"
         ).returns(valid_phone_number_response)
 
         response = @phone_numbers_api.registered_number(123_123)
@@ -143,14 +143,25 @@ module WhatsappSdk
 
       def valid_phone_number_response(
         verified_name: "Test Number", code_verification_status: "NOT_VERIFIED",
-        display_phone_number: "1234", quality_rating: "GREEN", id: "1"
+        display_phone_number: "1234", quality_rating: "GREEN", id: "1", is_official_business_account: false,
+        account_mode: "LIVE", eligibility_for_api_business_global_search: "NON_ELIGIBLE_UNDEFINED_COUNTRY",
+        is_pin_enabled: false, name_status: "APPROVED", new_name_status: "NONE", status: "CONNECTED",
+        search_visibility: "VISIBLE"
       )
         {
           "verified_name" => verified_name,
           "code_verification_status" => code_verification_status,
           "display_phone_number" => display_phone_number,
           "quality_rating" => quality_rating,
-          "id" => id
+          "id" => id,
+          "is_official_business_account" => is_official_business_account,
+          "account_mode" => account_mode,
+          "eligibility_for_api_business_global_search" => eligibility_for_api_business_global_search,
+          "is_pin_enabled" => is_pin_enabled,
+          "name_status" => name_status,
+          "new_name_status" => new_name_status,
+          "status" => status,
+          "search_visibility" => search_visibility
         }
       end
 
@@ -237,6 +248,17 @@ module WhatsappSdk
         assert_equal(expected_phone_number["display_phone_number"], phone_number.display_phone_number)
         assert_equal(expected_phone_number["quality_rating"], phone_number.quality_rating)
         assert_equal(expected_phone_number["verified_name"], phone_number.verified_name)
+        assert_equal(expected_phone_number["code_verification_status"], phone_number.code_verification_status)
+        assert_equal(expected_phone_number["is_official_business_account"], phone_number.is_official_business_account)
+        assert_equal(expected_phone_number["account_mode"], phone_number.account_mode)
+        assert_equal(expected_phone_number["eligibility_for_api_business_global_search"],
+                     phone_number.eligibility_for_api_business_global_search)
+        assert_equal(expected_phone_number["is_pin_enabled"], phone_number.is_pin_enabled)
+        assert_equal(expected_phone_number["name_status"], phone_number.name_status)
+        assert_equal(expected_phone_number["new_name_status"], phone_number.new_name_status)
+        assert_equal(expected_phone_number["status"], phone_number.status)
+        assert_equal(expected_phone_number["search_visibility"], phone_number.search_visibility)
+        assert_equal(expected_phone_number["certificate"], phone_number.certificate)
       end
     end
   end

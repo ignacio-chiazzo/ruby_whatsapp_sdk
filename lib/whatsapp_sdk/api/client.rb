@@ -10,9 +10,6 @@ module WhatsappSdk
     class Client
       extend T::Sig
 
-      API_VERSION = T.let("v14.0", String)
-      API_CLIENT = T.let("https://graph.facebook.com/#{API_VERSION}/", String)
-
       sig { params(access_token: String).void }
       def initialize(access_token)
         @access_token = access_token
@@ -28,7 +25,7 @@ module WhatsappSdk
         ).returns(T.nilable(T::Hash[T.untyped, T.untyped]))
       end
       def send_request(endpoint: "", full_url: nil, http_method: "post", params: {}, headers: {})
-        url = full_url || API_CLIENT
+        url = full_url || ApiConfiguration::API_URL
 
         faraday_request = T.unsafe(faraday(url))
 
