@@ -1,5 +1,6 @@
 # Unreleased 
 
+# v 0.7.2
 - Added new fields to phone numbers API. @ignacio-chiazzo [#73](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/73)
 - Upgraded API version to v16. @ignacio-chiazzo [#73](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/73)
 - Make sorbet-runtime a runtime dependency. @ignacio-chiazzo [#70](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/70)
