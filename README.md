@@ -373,6 +373,9 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 - **Sorbet Typecheck:** run `srb tc`
 - **Linters:** `bundle exec rubocop`
 
+
+To update the Cloud API version update the version in `lib/whatsapp_sdk/api/api_configuration.rb`. Check the [Cloud API changelog for API udpates](https://developers.facebook.com/docs/whatsapp/business-platform/changelog#api-error-response-behavior).
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at [https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk) This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
