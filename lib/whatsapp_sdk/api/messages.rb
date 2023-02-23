@@ -44,7 +44,7 @@ module WhatsappSdk
           type: "text",
           text: { body: message }
         }
-        params[:context] = { message_id: message_id } if !message_id
+        params[:context] = { message_id: message_id } unless !message_id
 
         response = send_request(
           endpoint: endpoint(sender_id),
@@ -89,7 +89,7 @@ module WhatsappSdk
             address: address
           }
         }
-        params[:context] = { message_id: message_id } if !message_id
+        params[:context] = { message_id: message_id } unless !message_id
 
         response = send_request(
           endpoint: endpoint(sender_id),
@@ -134,7 +134,7 @@ module WhatsappSdk
                          else
                            { id: image_id, caption: caption }
                          end
-        params[:context] = { message_id: message_id } if !message_id
+        params[:context] = { message_id: message_id } unless !message_id
 
         response = send_request(
           endpoint: endpoint(sender_id),
@@ -172,7 +172,7 @@ module WhatsappSdk
           type: "audio"
         }
         params[:audio] = link ? { link: link } : { id: audio_id }
-        params[:context] = { message_id: message_id } if !message_id
+        params[:context] = { message_id: message_id } unless !message_id
 
         response = send_request(
           endpoint: endpoint(sender_id),
@@ -217,7 +217,7 @@ module WhatsappSdk
                          else
                            { id: video_id, caption: caption }
                          end
-        params[:context] = { message_id: message_id } if !message_id
+        params[:context] = { message_id: message_id } unless !message_id
 
         response = send_request(
           endpoint: endpoint(sender_id),
@@ -263,7 +263,7 @@ module WhatsappSdk
                             else
                               { id: document_id, caption: caption }
                             end
-        params[:context] = { message_id: message_id } if !message_id
+        params[:context] = { message_id: message_id } unless !message_id
 
         response = send_request(
           endpoint: endpoint(sender_id),
@@ -301,7 +301,7 @@ module WhatsappSdk
           type: Resource::Media::Type::Sticker
         }
         params[:sticker] = link ? { link: link } : { id: sticker_id }
-        params[:context] = { message_id: message_id } if !message_id
+        params[:context] = { message_id: message_id } unless !message_id
 
         response = send_request(
           endpoint: endpoint(sender_id),
@@ -341,7 +341,7 @@ module WhatsappSdk
           type: "contacts"
         }
         params[:contacts] = contacts ? contacts.map(&:to_h) : contacts_json
-        params[:context] = { message_id: message_id } if !message_id
+        params[:context] = { message_id: message_id } unless !message_id
 
         response = send_request(
           endpoint: endpoint(sender_id),
