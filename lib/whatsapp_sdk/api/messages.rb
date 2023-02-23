@@ -33,7 +33,8 @@ module WhatsappSdk
       # @return [WhatsappSdk::Api::Response] Response object.
       sig do
         params(
-          sender_id: Integer, recipient_number: Integer, message: String, message_id: String
+          sender_id: Integer, recipient_number: Integer, message: String,
+          message_id: T.nilable(String)
         ).returns(WhatsappSdk::Api::Response)
       end
       def send_text(sender_id:, recipient_number:, message:, message_id: nil)
@@ -71,7 +72,8 @@ module WhatsappSdk
       sig do
         params(
           sender_id: Integer, recipient_number: Integer,
-          longitude: Float, latitude: Float, name: String, address: String, message_id: String
+          longitude: Float, latitude: Float, name: String, address: String,
+          message_id: T.nilable(String)
         ).returns(WhatsappSdk::Api::Response)
       end
       def send_location(
@@ -115,7 +117,8 @@ module WhatsappSdk
       sig do
         params(
           sender_id: Integer, recipient_number: Integer, image_id: T.nilable(String),
-          link: T.nilable(String), caption: T.nilable(String), message_id: String
+          link: T.nilable(String), caption: T.nilable(String),
+          message_id: T.nilable(String)
         ).returns(WhatsappSdk::Api::Response)
       end
       def send_image(
@@ -159,7 +162,7 @@ module WhatsappSdk
       sig do
         params(
           sender_id: Integer, recipient_number: Integer, audio_id: T.nilable(String),
-          link: T.nilable(String), message_id: String
+          link: T.nilable(String), message_id: T.nilable(String)
         ).returns(WhatsappSdk::Api::Response)
       end
       def send_audio(sender_id:, recipient_number:, audio_id: nil, link: nil, message_id: nil)
@@ -198,7 +201,8 @@ module WhatsappSdk
       sig do
         params(
           sender_id: Integer, recipient_number: Integer,
-          video_id: T.nilable(String), link: T.nilable(String), caption: String, message_id: String
+          video_id: T.nilable(String), link: T.nilable(String), caption: String,
+          message_id: T.nilable(String)
         ).returns(WhatsappSdk::Api::Response)
       end
       def send_video(
@@ -244,7 +248,7 @@ module WhatsappSdk
         params(
           sender_id: Integer, recipient_number: Integer,
           document_id: T.nilable(String), link: T.nilable(String), caption: String,
-          message_id: String
+          message_id: T.nilable(String)
         ).returns(WhatsappSdk::Api::Response)
       end
       def send_document(
@@ -288,7 +292,7 @@ module WhatsappSdk
       sig do
         params(
           sender_id: Integer, recipient_number: Integer, sticker_id: T.nilable(String),
-          link: T.nilable(String), message_id: String
+          link: T.nilable(String), message_id: T.nilable(String)
         ).returns(WhatsappSdk::Api::Response)
       end
       def send_sticker(sender_id:, recipient_number:, sticker_id: nil, link: nil, message_id: nil)
@@ -328,7 +332,7 @@ module WhatsappSdk
         params(
           sender_id: Integer, recipient_number: Integer,
           contacts: T.nilable(T::Array[WhatsappSdk::Resource::Contact]),
-          contacts_json: T::Hash[T.untyped, T.untyped], message_id: String
+          contacts_json: T::Hash[T.untyped, T.untyped], message_id: T.nilable(String)
         ).returns(WhatsappSdk::Api::Response)
       end
       def send_contacts(
