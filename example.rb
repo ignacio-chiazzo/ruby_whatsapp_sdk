@@ -92,6 +92,11 @@ message_id = message_sent.data.messages.first.id
 messages_api.send_reaction(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message_id: message_id, emoji: "\u{1f550}")
 messages_api.send_reaction(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message_id: message_id, emoji: "⛄️")
 
+######### Reply to a message 
+message_to_reply_id = message_sent.data.messages.first.id
+reply = messages_api.send_text(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message: "I'm a reply", message_id: message_to_reply_id)
+print_message_sent(reply)
+
 ######### Send location
 location_sent = messages_api.send_location(
   sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,

@@ -4,7 +4,7 @@
 <a href="https://codeclimate.com/github/ignacio-chiazzo/ruby_whatsapp_sdk/maintainability"><img src="https://api.codeclimate.com/v1/badges/169cce95450272e4ad7d/maintainability" /></a>
 
 The SDK provides a set of operations and classes to use the Whatsapp API.
-Send stickers, messages, audio, videos, locations, react to messages or just ask for the phone numbers through this library in a few steps!
+Send stickers, messages, audio, videos, locations, react and reply to messages or just ask for the phone numbers through this library in a few steps!
 
 
 ## Demo
@@ -216,6 +216,13 @@ To send a reaction to a message, you need to obtain the mssage id and look for t
 messages_api.send_reaction(sender_id: 123_123, recipient_number: 56_789, message_id: "12345", emoji: "\u{1f550}")
 
 messages_api.send_reaction(sender_id: 123_123, recipient_number: 56_789, message_id: "12345", emoji: "⛄️")
+```
+
+**Reply to a message**
+To reply to a message, just include the id of the message in the `messages_api` methods. For example, to reply to a text message include the following:
+
+```ruby
+messages_api.send_text(sender_id: 123_123, recipient_number: 56_789, message: "I'm a reply", message_id: "wamid.1234")
 ```
 
 **Send a location message**
