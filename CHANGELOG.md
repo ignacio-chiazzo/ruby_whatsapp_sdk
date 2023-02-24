@@ -1,5 +1,8 @@
 # Unreleased 
 
+# v 0.7.3
+- Added the ability to reply messages. @alienware [#77](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/77)
+
 # v 0.7.2
 - Added new fields to phone numbers API. @ignacio-chiazzo [#73](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/73)
 - Upgraded API version to v16. @ignacio-chiazzo [#73](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/73)
