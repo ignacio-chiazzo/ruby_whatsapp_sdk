@@ -62,6 +62,27 @@ module WhatsappSdk
         assert_predicate(message_response, :ok?)
       end
 
+      def test_send_message_accept_message_id_to_reply_a_message
+        @messages_api.expects(:send_request).with(
+          endpoint: "123123/messages",
+          params: {
+            messaging_product: "whatsapp",
+            to: 56_789,
+            recipient_type: "individual",
+            type: "text",
+            text: { body: "hola" },
+            context: { message_id: "wamid.987654321" }
+          },
+          headers: { "Content-Type" => "application/json" }
+        ).returns(valid_response(valid_contacts, valid_messages))
+
+        message_response = @messages_api.send_text(
+          sender_id: 123_123, recipient_number: 56_789, message: "hola", message_id: "wamid.987654321"
+        )
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert_predicate(message_response, :ok?)
+      end
+
       def test_send_location_message_with_success_response
         mock_response(valid_contacts, valid_messages)
         message_response = @messages_api.send_location(
