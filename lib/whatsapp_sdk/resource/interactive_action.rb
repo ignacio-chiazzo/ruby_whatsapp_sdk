@@ -19,10 +19,6 @@ module WhatsappSdk
         end
       end
 
-      # button
-      # sections
-      # catalog_id
-      # product_retailer_id
 
       # Returns the buttons of the Action. For reply_button type, it's required.
       #
@@ -31,6 +27,11 @@ module WhatsappSdk
        returns(T::Array[InteractiveActionButton])
       end
       attr_accessor :buttons
+
+      # TODO: attr_accessor :button
+      # TODO: attr_accessor :sections
+      # TODO: attr_accessor :catalog_id
+      # TODO: attr_accessor :product_retailer_id
 
       REPLY_BUTTONS_MAXIMUM = 3
 

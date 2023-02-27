@@ -39,7 +39,7 @@ module WhatsappSdk
         end
       end
 
-      # Returns the parameter type.
+      # Returns the interactive header type.
       #
       # @returns type [String] Valid options are text, image, document, video.
       sig { returns(Type) }
@@ -56,7 +56,7 @@ module WhatsappSdk
         end
       end
 
-      # Returns Text string if the parameter object type is text.
+      # Returns Text string if the interactive header type is text.
       # For the header interactive, the character limit is 60 characters.
       # For the body interactive, the character limit is 1024 characters.
       #
@@ -64,19 +64,19 @@ module WhatsappSdk
       sig { returns(T.nilable(String)) }
       attr_accessor :text
 
-      # Returns image if the parameter object type is image.
+      # Returns image if the interactive header type is image.
       #
       # @returns image [Media]
       sig { returns(T.nilable(Media)) }
       attr_accessor :image
 
-      # Returns document if the parameter object type is document.
+      # Returns document if the interactive header type is document.
       #
       # @returns document [Media]
       sig { returns(T.nilable(Media)) }
       attr_accessor :document
 
-      # Returns video if the parameter object type is video.
+      # Returns video if the interactive header type is video.
       #
       # @returns video [Media]
       sig { returns(T.nilable(Media)) }

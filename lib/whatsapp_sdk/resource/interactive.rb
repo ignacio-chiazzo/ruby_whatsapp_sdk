@@ -76,29 +76,6 @@ module WhatsappSdk
       attr_reader :type
 
       # Returns the interactive header if present. Required for type product_list.
-      # ```
-      # Header content displayed on top of a message. You cannot set a header if your interactive object is of product type.
-
-      # The header object contains the following fields:
-
-      # documentobject – Required if type is set to document. Contains the media object with the document.
-
-      # imageobject – Required if type is set to image. Contains the media object with the image.
-
-      # videoobject – Required if type is set to video. Contains the media object with the video.
-
-      # textstring – Required if type is set to text. Text for the header. Formatting allows emojis, but not markdown. Maximum length: 60 characters.
-
-      # typestring – Required. The header type you would like to use. Supported values are:
-
-      # text – for List Messages, Reply Buttons, and Multi-Product Messages.
-
-      # video – for Reply Buttons.
-
-      # image – for Reply Buttons.
-
-      # document – for Reply Buttons.
-      # ```
       #
       # @returns type [InteractiveHeader] It can be nil.
       sig { returns(T.nilable(InteractiveHeader)) }
