@@ -363,9 +363,52 @@ module WhatsappSdk
       #   # TODO: https://developers.facebook.com/docs/whatsapp_sdk/cloud-api/reference/messages#contacts-object
       # end
 
-      # def send_interactive_reply_buttons
-      #   # TODO: https://developers.facebook.com/docs/whatsapp_sdk/cloud-api/reference/messages#contacts-object
-      # end
+      # Send interactive reply buttons.
+      # https://developers.facebook.com/docs/whatsapp/guides/interactive-messages#reply-buttons
+      # You can either send interactive object or as JSON.
+      #
+      # @param sender_id [Integer] Sender' phone number.
+      # @param recipient_number [Integer] Recipient' Phone number.
+      # @param interactive [Interactive] Interactive.
+      # @param interactive_json [Json] The interactive as a Json. If you pass interactive_json, you can't pass interactive.
+      # @param message_id [String] The id of the message to reply to.
+      # @return [WhatsappSdk::Api::Response] Response object.
+      sig do
+        params(
+          sender_id: Integer, recipient_number: Integer, interactive: T.nilable(T.untyped),
+          interactive_json: T.nilable(String), message_id: T.nilable(String),
+        ).returns(WhatsappSdk::Api::Response)
+      end
+      def send_interactive_reply_buttons(
+        sender_id:, recipient_number:, interactive: nil, interactive_json: nil, message_id: nil
+      )
+        raise MissingArgumentError, "interactive or interactive_json is required" if !interactive && !interactive_json
+
+        params = {
+          messaging_product: "whatsapp",
+          to: recipient_number,
+          recipient_type: "individual",
+          type: "interactive",
+        }
+
+        params[:interactive] = if interactive.nil?
+                                 JSON.load(interactive_json)
+                               else
+                                 interactive.to_json
+                               end
+        params[:context] = { message_id: message_id } if message_id
+
+        response = send_request(
+          endpoint: endpoint(sender_id),
+          params: params,
+          headers: DEFAULT_HEADERS,
+        )
+
+        WhatsappSdk::Api::Response.new(
+          response: response,
+          data_class_type: WhatsappSdk::Api::Responses::MessageDataResponse,
+        )
+      end
 
       # def send_interactive_section
       #   # TODO: https://developers.facebook.com/docs/whatsapp_sdk/cloud-api/reference/messages#contacts-object

@@ -230,3 +230,47 @@ response_with_json = messages_api.send_template(
   ]
 )
 puts response_with_json
+
+######### SEND INTERACTIVE MESSAGES
+## with reply buttons
+interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
+  type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
+  text: "I am the header!",
+)
+
+interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
+  text: "I am the body!"
+)
+
+interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
+  text: "I am the footer!"
+)
+
+interactive_action = WhatsappSdk::Resource::InteractiveAction.new()
+
+interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionButton.new(
+  type: WhatsappSdk::Resource::InteractiveActionButton::Type::Reply,
+  title: "This is button 1",
+  id: "button_1",
+)
+interactive_action.add_button(interactive_reply_button_1)
+
+interactive_reply_button_2 = WhatsappSdk::Resource::InteractiveActionButton.new(
+  type: WhatsappSdk::Resource::InteractiveActionButton::Type::Reply,
+  title: "This is button 2",
+  id: "button_2",
+)
+interactive_action.add_button(interactive_reply_button_2)
+
+interactive_reply_buttons = WhatsappSdk::Resource::Interactive.new(
+  type: WhatsappSdk::Resource::Interactive::Type::ReplyButton,
+  header: interactive_header,
+  body: interactive_body,
+  footer: interactive_footer,
+  action: interactive_action,
+)
+
+messages_api.send_interactive_reply_buttons(
+  sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
+  interactive: interactive_reply_buttons,
+)
