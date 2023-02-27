@@ -57,10 +57,6 @@ module WhatsappSdk
       class Type < T::Enum
         extend T::Sig
 
-        # list: Use it for List Messages.
-        # button: Use it for Reply Buttons.
-        # product: Use it for Single-Product Messages.
-        # product_list: Use it for Multi-Product Messages.
         enums do
           ListMessage = new("list")
           ReplyButton = new("button")
@@ -95,7 +91,7 @@ module WhatsappSdk
 
       # Returns the interactive action.
       #
-      # @returns type [InteractiveBody] Valid condition is of length of 1, 2 or 3.
+      # @returns type [InteractiveBody] Valid condition is buttons of length of 1, 2 or 3 if type is button.
       sig { returns(InteractiveAction) }
       attr_reader :action
 
