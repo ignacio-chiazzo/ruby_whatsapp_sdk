@@ -6,20 +6,6 @@ module WhatsappSdk
     class InteractiveAction
       extend T::Sig
 
-      class InvalidButtons < StandardError
-        extend T::Sig
-
-        sig { returns(String) }
-        attr_reader :message
-
-        sig { params(message: String).void }
-        def initialize(field, message)
-          @message = message
-          super(message)
-        end
-      end
-
-
       # Returns the buttons of the Action. For reply_button type, it's required.
       #
       # @returns buttons [Array<InteractiveActionButton>] .
@@ -33,8 +19,6 @@ module WhatsappSdk
       # TODO: attr_accessor :catalog_id
       # TODO: attr_accessor :product_retailer_id
 
-      REPLY_BUTTONS_MAXIMUM = 3
-
       sig { params(button: InteractiveActionButton).void }
       def add_button(button)
         @buttons << button
@@ -45,29 +29,12 @@ module WhatsappSdk
       end
       def initialize(buttons: [])
         @buttons = buttons
-        validate
       end
 
       sig { returns(T::Hash[T.untyped, T.untyped]) }
       def to_json
         json = { buttons: buttons.map(&:to_json) }
         json
-      end
-
-      private
-
-      sig { void }
-      def validate
-        validate_buttons
-      end
-
-      sig { void }
-      def validate_buttons
-        return if buttons.length <= REPLY_BUTTONS_MAXIMUM
-
-        raise InvalidButtons(
-          "#{buttons.length} is more than maximum length: #{REPLY_BUTTONS_MAXIMUM}."
-        )
       end
     end
   end

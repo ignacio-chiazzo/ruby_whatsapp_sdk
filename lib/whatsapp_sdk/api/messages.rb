@@ -375,8 +375,9 @@ module WhatsappSdk
       # @return [WhatsappSdk::Api::Response] Response object.
       sig do
         params(
-          sender_id: Integer, recipient_number: Integer, interactive: T.nilable(T.untyped),
-          interactive_json: T.nilable(String), message_id: T.nilable(String),
+          sender_id: Integer, recipient_number: Integer,
+          interactive: T.nilable(WhatsappSdk::Resource::Interactive),
+          interactive_json: T.nilable(T::Hash[T.untyped, T.untyped]), message_id: T.nilable(String),
         ).returns(WhatsappSdk::Api::Response)
       end
       def send_interactive_reply_buttons(
@@ -392,7 +393,7 @@ module WhatsappSdk
         }
 
         params[:interactive] = if interactive.nil?
-                                 JSON.load(interactive_json)
+                                 interactive_json
                                else
                                  interactive.to_json
                                end
@@ -442,7 +443,7 @@ module WhatsappSdk
       # Send template
       #
       # @param sender_id [Integer] Sender' phone number.
-      # @param recipient_number [Integer] Recipient' Phone number.
+    # @param recipient_number [Integer] Recipient' Phone number.
       # @param name [String] the template's name.
       # @param language [String] template language.
       # @param components [Component] Component.

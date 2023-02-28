@@ -6,6 +6,6 @@ require_relative '../../lib/whatsapp_sdk/version'
 
 class VersionTest < Minitest::Test
   def test_that_it_has_a_version_number
-    assert_equal("0.7.4", WhatsappSdk::VERSION)
+    assert_equal("0.7.3", WhatsappSdk::VERSION)
   end
 end

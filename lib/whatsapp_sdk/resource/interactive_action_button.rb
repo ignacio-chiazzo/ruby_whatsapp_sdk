@@ -78,10 +78,10 @@ module WhatsappSdk
 
       def to_json
         json = { type: type.serialize }
-        json[type.serialize] = {
+        json[type.serialize.to_sym] = {
           title: title,
         }
-        json[type.serialize][:id] = id if id
+        json[type.serialize.to_sym][:id] = id if id
 
         json
       end

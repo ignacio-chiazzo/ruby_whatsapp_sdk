@@ -7,6 +7,12 @@ require_relative '../../../lib/whatsapp_sdk/api/messages'
 require_relative '../../../lib/whatsapp_sdk/resource/address_type'
 require_relative '../../../lib/whatsapp_sdk/resource/address'
 require_relative '../../../lib/whatsapp_sdk/resource/contact'
+require_relative '../../../lib/whatsapp_sdk/resource/interactive'
+require_relative '../../../lib/whatsapp_sdk/resource/interactive_action'
+require_relative '../../../lib/whatsapp_sdk/resource/interactive_action_button'
+require_relative '../../../lib/whatsapp_sdk/resource/interactive_body'
+require_relative '../../../lib/whatsapp_sdk/resource/interactive_footer'
+require_relative '../../../lib/whatsapp_sdk/resource/interactive_header'
 require_relative '../../../lib/whatsapp_sdk/resource/phone_number'
 require_relative '../../../lib/whatsapp_sdk/resource/url'
 require_relative '../../../lib/whatsapp_sdk/resource/email'
@@ -678,6 +684,133 @@ module WhatsappSdk
         message_response = @messages_api.send_reaction(
           sender_id: 123_123, recipient_number: 56_789, message_id: "12345", emoji: "\\uD83D\\uDE00"
         )
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert_predicate(message_response, :ok?)
+      end
+
+      def test_send_interactive_reply_buttons_with_success_response_by_passing_interactive_json
+        mock_response(valid_contacts, valid_messages)
+
+        message_response = @messages_api.send_interactive_reply_buttons(
+          sender_id: 123_123, recipient_number: 12_345_678,
+          interactive_json: {
+            "type" => "button",
+            "header" => {
+              "type" => "text",
+              "text" => "I am the header!",
+            },
+            "body" => {
+              "text" => "I am the body!",
+            },
+            "footer" => {
+              "text" => "I am the footer!",
+            },
+            "action" => {
+              "buttons" => [{
+                "type" => "reply",
+                "reply" => {
+                  "title": "This is button 1!",
+                  "id": "button_1",
+                },
+              }, {
+                "type" => "reply",
+                "reply" => {
+                  "title": "This is button 2!",
+                  "id": "button_2",
+                },
+              }]
+            },
+          }
+        )
+
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+      end
+
+      def test_send_interactive_reply_buttons_with_success_response_by_passing_interactive
+        interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
+          type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
+          text: "I am the header!",
+        )
+
+        interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
+          text: "I am the body!",
+        )
+
+        interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
+          text: "I am the footer!",
+        )
+
+        interactive_action = WhatsappSdk::Resource::InteractiveAction.new()
+
+        interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionButton.new(
+          type: WhatsappSdk::Resource::InteractiveActionButton::Type::Reply,
+          title: "I am the button 1",
+          id: "button_1",
+        )
+        interactive_action.add_button(interactive_reply_button_1)
+
+        interactive_reply_button_2 = WhatsappSdk::Resource::InteractiveActionButton.new(
+          type: WhatsappSdk::Resource::InteractiveActionButton::Type::Reply,
+          title: "I am the button 2",
+          id: "button_2",
+        )
+        interactive_action.add_button(interactive_reply_button_2)
+
+        interactive_reply_buttons = WhatsappSdk::Resource::Interactive.new(
+          type: WhatsappSdk::Resource::Interactive::Type::ReplyButton,
+          header: interactive_header,
+          body: interactive_body,
+          footer: interactive_footer,
+          action: interactive_action,
+        )
+
+        @messages_api.expects(:send_request).with(
+          endpoint: "123123/messages",
+          params: {
+            messaging_product: "whatsapp",
+            to: 12_345_678,
+            recipient_type: "individual",
+            type: "interactive",
+            interactive: {
+              type: "button",
+              header: {
+                type: "text",
+                text: "I am the header!",
+              },
+              body: {
+                text: "I am the body!",
+              },
+              footer: {
+                text: "I am the footer!",
+              },
+              action: {
+                buttons: [
+                  {
+                    type: "reply",
+                    reply: {
+                      title: "I am the button 1",
+                      id: "button_1",
+                    },
+                  },
+                  {
+                    type: "reply",
+                    reply: {
+                      title: "I am the button 2",
+                      id: "button_2",
+                    },
+                  },
+                ],
+              }
+            }
+          },
+          headers: { "Content-Type" => "application/json" }
+        ).returns(valid_response(valid_contacts, valid_messages))
+
+        message_response = @messages_api.send_interactive_reply_buttons(
+          sender_id: 123_123, recipient_number: 12_345_678,
+          interactive: interactive_reply_buttons,
+        )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end

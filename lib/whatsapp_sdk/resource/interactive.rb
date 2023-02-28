@@ -95,6 +95,9 @@ module WhatsappSdk
       sig { returns(InteractiveAction) }
       attr_reader :action
 
+      REPLY_BUTTONS_MINIMUM = 1
+      REPLY_BUTTONS_MAXIMUM = 3
+
       sig do
         params(
           type: Type, body: InteractiveBody, action: InteractiveAction,
@@ -113,10 +116,10 @@ module WhatsappSdk
       sig { returns(T::Hash[T.untyped, T.untyped]) }
       def to_json
         json = { type: type.serialize }
-        json[:body] = body.to_json
-        json[:action] = action.to_json
         json[:header] = header.to_json if header
+        json[:body] = body.to_json
         json[:footer] = footer.to_json if footer
+        json[:action] = action.to_json
 
         json
       end
@@ -138,7 +141,7 @@ module WhatsappSdk
 
       sig { void }
       def validate_action
-        raise InvalidActionButtonsCount, action.buttons unless (1..3).include?(action.buttons.length)
+        raise InvalidActionButtonsCount, action.buttons unless (REPLY_BUTTONS_MINIMUM..REPLY_BUTTONS_MAXIMUM).include?(action.buttons.length)
 
         action_button_ids = action.buttons.map(&:id)
         raise InvalidActionButtonsId, action.buttons unless action_button_ids.length.eql?(action_button_ids.uniq.length)
