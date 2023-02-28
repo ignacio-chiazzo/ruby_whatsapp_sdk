@@ -67,7 +67,7 @@ module WhatsappSdk
 
       # Returns the Interactive type of message you want to send.
       #
-      # @returns type [String]. Supported Options are list, button, product and product_list.
+      # @returns type [Type]. Supported Options are list, button, product and product_list.
       sig { returns(Type) }
       attr_reader :type
 
