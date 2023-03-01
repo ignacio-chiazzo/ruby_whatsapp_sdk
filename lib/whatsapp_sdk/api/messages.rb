@@ -443,7 +443,7 @@ module WhatsappSdk
       # Send template
       #
       # @param sender_id [Integer] Sender' phone number.
-    # @param recipient_number [Integer] Recipient' Phone number.
+      # @param recipient_number [Integer] Recipient' Phone number.
       # @param name [String] the template's name.
       # @param language [String] template language.
       # @param components [Component] Component.
