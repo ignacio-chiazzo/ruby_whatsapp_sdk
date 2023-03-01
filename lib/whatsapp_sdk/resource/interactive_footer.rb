@@ -6,19 +6,6 @@ module WhatsappSdk
     class InteractiveFooter
       extend T::Sig
 
-      class InvalidTextLength < StandardError
-        extend T::Sig
-
-        sig { returns(String) }
-        attr_reader :message
-
-        sig { params(message: String).void }
-        def initialize(message)
-          @message = message
-          super(message)
-        end
-      end
-
       # Returns Text string if the parameter object type is text.
       # For the body interactive, the character limit is 60 characters.
       #
@@ -51,9 +38,12 @@ module WhatsappSdk
 
       sig { void }
       def validate_text
-        raise InvalidTextLength.new(
-          "#{text.length} is more than maximum length: 1024 characters."
-        ) if text.length > MAXIMUM_LENGTH
+        text_length = text.length
+        return if text_length <= MAXIMUM_LENGTH
+
+        raise WhatsappSdk::Resource::Error::InvalidInteractiveFooter.new(
+          "invalid length #{text_length} for text in footer. Maximum length: #{MAXIMUM_LENGTH} characters."
+        )
       end
     end
   end

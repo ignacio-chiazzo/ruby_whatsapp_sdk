@@ -22,23 +22,6 @@ module WhatsappSdk
         end
       end
 
-      class MissingValue < StandardError
-        extend T::Sig
-
-        sig { returns(String) }
-        attr_reader :field
-
-        sig { returns(String) }
-        attr_reader :message
-
-        sig { params(field: String, message: String).void }
-        def initialize(field, message)
-          @field = field
-          @message = message
-          super(message)
-        end
-      end
-
       # Returns the parameter type.
       #
       # @returns type [String] Valid options are text, currency, date_time, image, document, video.
@@ -169,7 +152,7 @@ module WhatsappSdk
           [Type::Video, video]
         ].each do |type_b, value|
           next unless type == type_b
-          raise MissingValue.new(type.serialize, "#{type_b} is required when the type is #{type_b}") if value.nil?
+          raise WhatsappSdk::Resource::Error::MissingValue.new(type.serialize, "#{type_b} is required when the type is #{type_b}") if value.nil?
         end
       end
     end

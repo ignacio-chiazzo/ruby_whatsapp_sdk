@@ -6,39 +6,6 @@ module WhatsappSdk
     class InteractiveHeader
       extend T::Sig
 
-      class InvalidType < StandardError
-        extend T::Sig
-
-        sig { returns(String) }
-        attr_accessor :message
-
-        sig { params(type: String).void }
-        def initialize(type)
-          @message = T.let(
-            "invalid type #{type}. type should be text, image, document or video",
-            String
-          )
-          super
-        end
-      end
-
-      class MissingValue < StandardError
-        extend T::Sig
-
-        sig { returns(String) }
-        attr_reader :field
-
-        sig { returns(String) }
-        attr_reader :message
-
-        sig { params(field: String, message: String).void }
-        def initialize(field, message)
-          @field = field
-          @message = message
-          super(message)
-        end
-      end
-
       # Returns the interactive header type.
       #
       # @returns type [String] Valid options are text, image, document, video.
@@ -128,14 +95,6 @@ module WhatsappSdk
       sig { void }
       def validate
         validate_attributes
-        validate_type
-      end
-
-      sig { void }
-      def validate_type
-        return if Type.valid?(type)
-
-        raise InvalidType, type
       end
 
       sig { void }
@@ -147,7 +106,7 @@ module WhatsappSdk
           [Type::Video, video]
         ].each do |type_b, value|
           next unless type == type_b
-          raise MissingValue.new(type.serialize, "#{type_b} is required when the type is #{type_b}") if value.nil?
+          raise WhatsappSdk::Resource::Error::MissingValue.new(type.serialize, "#{type.serialize} is required when the type is #{type_b}") if value.nil?
         end
       end
     end

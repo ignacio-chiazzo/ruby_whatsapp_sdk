@@ -6,54 +6,6 @@ module WhatsappSdk
     class Interactive
       extend T::Sig
 
-      class InvalidType < StandardError
-        extend T::Sig
-
-        sig { returns(String) }
-        attr_reader :message
-
-        sig { params(type: String).void }
-        def initialize(type)
-          @message = T.let(
-            "invalid type #{type} for interactive. type should be list, button, product or product_list.",
-            String
-          )
-          super(message)
-        end
-      end
-
-      class InvalidActionButtonsCount < StandardError
-        extend T::Sig
-
-        sig { returns(String) }
-        attr_reader :message
-
-        sig { params(buttons: T::Array[InteractiveActionButton]).void }
-        def initialize(buttons)
-          @message = T.let(
-            "invalid length #{buttons.length} for buttons in action. It should be 1, 2 or 3.",
-            String
-          )
-          super(message)
-        end
-      end
-
-      class InvalidActionButtonsId < StandardError
-        extend T::Sig
-
-        sig { returns(String) }
-        attr_reader :message
-
-        sig { params(buttons: T::Array[InteractiveActionButton]).void }
-        def initialize(buttons)
-          @message = T.let(
-            "duplicate ids #{buttons.map(&:id)} for buttons in action. They should be unique.",
-            String
-          )
-          super(message)
-        end
-      end
-
       class Type < T::Enum
         extend T::Sig
 
@@ -69,31 +21,31 @@ module WhatsappSdk
       #
       # @returns type [Type]. Supported Options are list, button, product and product_list.
       sig { returns(Type) }
-      attr_reader :type
+      attr_accessor :type
 
       # Returns the interactive header if present. Required for type product_list.
       #
       # @returns type [InteractiveHeader] It can be nil.
       sig { returns(T.nilable(InteractiveHeader)) }
-      attr_reader :header
+      attr_accessor :header
 
       # Returns the interactive body.
       #
       # @returns type [InteractiveBody] Valid option is of type text only.
       sig { returns(InteractiveBody) }
-      attr_reader :body
+      attr_accessor :body
 
       # Returns the interactive footer if present.
       #
       # @returns type [InteractiveFooter] Valid option is of type text only. It can be nil.
       sig { returns(T.nilable(InteractiveFooter)) }
-      attr_reader :footer
+      attr_accessor :footer
 
       # Returns the interactive action.
       #
       # @returns type [InteractiveBody] Valid condition is buttons of length of 1, 2 or 3 if type is button.
       sig { returns(InteractiveAction) }
-      attr_reader :action
+      attr_accessor :action
 
       REPLY_BUTTONS_MINIMUM = 1
       REPLY_BUTTONS_MAXIMUM = 3
@@ -128,23 +80,20 @@ module WhatsappSdk
 
       sig { void }
       def validate
-        validate_type
         validate_action
       end
 
       sig { void }
-      def validate_type
-        return if Type.valid?(type)
-
-        raise InvalidType, type
-      end
-
-      sig { void }
       def validate_action
-        raise InvalidActionButtonsCount, action.buttons unless (REPLY_BUTTONS_MINIMUM..REPLY_BUTTONS_MAXIMUM).include?(action.buttons.length)
+        buttons_count = action.buttons.length
+        raise WhatsappSdk::Resource::Error::InvalidInteractiveActionButton.new(
+          "invalid length #{buttons_count} for buttons in action. It should be 1, 2 or 3."
+        ) unless (REPLY_BUTTONS_MINIMUM..REPLY_BUTTONS_MAXIMUM).cover?(buttons_count)
 
-        action_button_ids = action.buttons.map(&:id)
-        raise InvalidActionButtonsId, action.buttons unless action_button_ids.length.eql?(action_button_ids.uniq.length)
+        button_ids = action.buttons.map(&:id)
+        raise WhatsappSdk::Resource::Error::InvalidInteractiveActionButton.new(
+          "duplicate ids #{button_ids} for buttons in action. They should be unique.",
+        ) unless button_ids.length.eql?(button_ids.uniq.length)
       end
     end
   end

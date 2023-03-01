@@ -14,7 +14,7 @@ module WhatsappSdk
     module Resource
       class InteractiveTest < Minitest::Test
         def test_validation
-          error = assert_raises(WhatsappSdk::Resource::Interactive::InvalidActionButtonsCount) do
+          error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionButton) do
             interactive_body = WhatsappSdk::Resource::InteractiveBody.new(text: "This is the body!")
             interactive_action = WhatsappSdk::Resource::InteractiveAction.new()
             interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionButton.new(
@@ -50,7 +50,7 @@ module WhatsappSdk
           end
           assert_equal("invalid length 4 for buttons in action. It should be 1, 2 or 3.", error.message)
 
-          error = assert_raises(WhatsappSdk::Resource::Interactive::InvalidActionButtonsId) do
+          error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionButton) do
             interactive_body = WhatsappSdk::Resource::InteractiveBody.new(text: "This is the body!")
             interactive_action = WhatsappSdk::Resource::InteractiveAction.new()
             interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionButton.new(
