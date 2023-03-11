@@ -62,7 +62,7 @@ module WhatsappSdk
         return if title_length <= ACTION_SECTION_TITLE_MAXIMUM
 
         raise WhatsappSdk::Resource::Error::InvalidInteractiveActionSectionRow.new(
-          "Invalid length #{title_length} for title in section. Maximum length: #{ACTION_SECTION_TITLE_MAXIMUM} characters.",
+          "Invalid length #{title_length} for title in section row. Maximum length: #{ACTION_SECTION_TITLE_MAXIMUM} characters.",
         )
       end
 
@@ -75,7 +75,7 @@ module WhatsappSdk
         return if id_length <= ACTION_SECTION_ID_MAXIMUM
 
         raise WhatsappSdk::Resource::Error::InvalidInteractiveActionSectionRow.new(
-          "Invalid length #{id_length} for id in section. Maximum length: #{ACTION_SECTION_ID_MAXIMUM} characters.",
+          "Invalid length #{id_length} for id in section row. Maximum length: #{ACTION_SECTION_ID_MAXIMUM} characters.",
         )
       end
 
@@ -85,7 +85,7 @@ module WhatsappSdk
         return if description_length <= ACTION_SECTION_DESCRIPTION_MAXIMUM
 
         raise WhatsappSdk::Resource::Error::InvalidInteractiveActionSectionRow.new(
-          "Invalid length #{description_length} for description in section. Maximum length: #{ACTION_SECTION_DESCRIPTION_MAXIMUM} characters.",
+          "Invalid length #{description_length} for description in section row. Maximum length: #{ACTION_SECTION_DESCRIPTION_MAXIMUM} characters.",
         )
       end
     end

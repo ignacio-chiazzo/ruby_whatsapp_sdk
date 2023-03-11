@@ -97,7 +97,7 @@ module WhatsappSdk
           sections_count = sections.length
           unless button_length > 0
             raise WhatsappSdk::Resource::Error::InvalidInteractiveActionButton,
-                  "Invalid button for action. Button label is required."
+                  "Invalid button in action. Button label is required."
           end
 
           unless button_length <= LIST_BUTTON_TITLE_MAXIMUM
