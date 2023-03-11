@@ -10,6 +10,8 @@ require_relative '../../../lib/whatsapp_sdk/resource/contact'
 require_relative '../../../lib/whatsapp_sdk/resource/interactive'
 require_relative '../../../lib/whatsapp_sdk/resource/interactive_action'
 require_relative '../../../lib/whatsapp_sdk/resource/interactive_action_reply_button'
+require_relative '../../../lib/whatsapp_sdk/resource/interactive_action_section'
+require_relative '../../../lib/whatsapp_sdk/resource/interactive_action_section_row'
 require_relative '../../../lib/whatsapp_sdk/resource/interactive_body'
 require_relative '../../../lib/whatsapp_sdk/resource/interactive_footer'
 require_relative '../../../lib/whatsapp_sdk/resource/interactive_header'
@@ -738,19 +740,21 @@ module WhatsappSdk
           text: "I am the footer!"
         )
 
-        interactive_action = WhatsappSdk::Resource::InteractiveAction.new
+        interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
+          type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton
+        )
 
         interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
           title: "I am the button 1",
           id: "button_1"
         )
-        interactive_action.add_button(interactive_reply_button_1)
+        interactive_action.add_reply_button(interactive_reply_button_1)
 
         interactive_reply_button_2 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
           title: "I am the button 2",
           id: "button_2"
         )
-        interactive_action.add_button(interactive_reply_button_2)
+        interactive_action.add_reply_button(interactive_reply_button_2)
 
         interactive_reply_buttons = WhatsappSdk::Resource::Interactive.new(
           type: WhatsappSdk::Resource::Interactive::Type::ReplyButton,
@@ -792,6 +796,146 @@ module WhatsappSdk
         message_response = @messages_api.send_interactive_reply_buttons(
           sender_id: 123_123, recipient_number: 12_345_678,
           interactive: interactive_reply_buttons
+        )
+
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert_predicate(message_response, :ok?)
+      end
+
+      def test_send_interactive_list_messages_with_success_response_by_passing_interactive_json
+        mock_response(valid_contacts, valid_messages)
+
+        message_response = @messages_api.send_interactive_list_messages(
+          sender_id: 123_123, recipient_number: 12_345_678,
+          interactive_json: {
+            "type" => "list",
+            "header" => {
+              "type" => "text",
+              "text" => "I am the header!",
+            },
+            "body" => {
+              "text" => "I am the body!",
+            },
+            "footer" => {
+              "text" => "I am the footer!",
+            },
+            "action" => {
+              "button" => "I am the button CTA",
+              "sections" => [
+                {
+                  "title" => "I am section 1",
+                  "rows" => [
+                    {
+                      "id" => "section_1_row_1",
+                      "title" => "I am row 1",
+                      "description" => "I am the optional section 1 row 1 description",
+                    }
+                  ]
+                },
+                {
+                  "title" => "I am section 2",
+                  "rows" => [
+                    {
+                      "id" => "section_2_row_1",
+                      "title" => "I am row 1",
+                      "description" => "I am the optional section 2 row 1 description",
+                    },
+                    {
+                      "id" => "section_2_row_2",
+                      "title" => "I am row 2",
+                      "description" => "I am the optional section 2 row 2 description",
+                    }
+                  ]
+                },
+              ]
+            },
+          }
+        )
+
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+      end
+
+      def test_send_interactive_list_messages_with_success_response_by_passing_interactive
+        interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
+          type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
+          text: "I am the header!",
+        )
+
+        interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
+          text: "I am the body!",
+        )
+
+        interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
+          text: "I am the footer!",
+        )
+
+        interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
+          type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage,
+        )
+
+        interactive_action.button = "I am the button CTA"
+
+        interactive_section_1 = WhatsappSdk::Resource::InteractiveActionSection.new(
+          title: "I am the section 1",
+        )
+        interactive_section_1_row_1 = WhatsappSdk::Resource::InteractiveActionSectionRow.new(
+          title: "I am the row 1 title",
+          id: "section_1_row_1",
+          description: "I am the optional section 1 row 1 description",
+        )
+        interactive_section_1.add_row(interactive_section_1_row_1)
+        interactive_action.add_section(interactive_section_1)
+
+        interactive_list_messages = WhatsappSdk::Resource::Interactive.new(
+          type: WhatsappSdk::Resource::Interactive::Type::ListMessage,
+          header: interactive_header,
+          body: interactive_body,
+          footer: interactive_footer,
+          action: interactive_action,
+        )
+
+        @messages_api.expects(:send_request).with(
+          endpoint: "123123/messages",
+          params: {
+            messaging_product: "whatsapp",
+            to: 12_345_678,
+            recipient_type: "individual",
+            type: "interactive",
+            interactive: {
+              type: "list",
+              header: {
+                type: "text",
+                text: "I am the header!",
+              },
+              body: {
+                text: "I am the body!",
+              },
+              footer: {
+                text: "I am the footer!",
+              },
+              action: {
+                button: "I am the button CTA",
+                sections: [
+                  {
+                    title: "I am the section 1",
+                    rows: [
+                      {
+                        id: "section_1_row_1",
+                        title: "I am the row 1 title",
+                        description: "I am the optional section 1 row 1 description",
+                      }
+                    ]
+                  }
+                ],
+              }
+            }
+          },
+          headers: { "Content-Type" => "application/json" }
+        ).returns(valid_response(valid_contacts, valid_messages))
+
+        message_response = @messages_api.send_interactive_list_messages(
+          sender_id: 123_123, recipient_number: 12_345_678,
+          interactive: interactive_list_messages,
         )
 
         assert_mock_response(valid_contacts, valid_messages, message_response)

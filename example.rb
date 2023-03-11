@@ -246,19 +246,21 @@ interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
   text: "I am the footer!",
 )
 
-interactive_action = WhatsappSdk::Resource::InteractiveAction.new()
+interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
+  type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton,
+)
 
 interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
   title: "I am the reply button 1",
   id: "button_1",
 )
-interactive_action.add_button(interactive_reply_button_1)
+interactive_action.add_reply_button(interactive_reply_button_1)
 
 interactive_reply_button_2 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
   title: "I am the reply button 2",
   id: "button_2",
 )
-interactive_action.add_button(interactive_reply_button_2)
+interactive_action.add_reply_button(interactive_reply_button_2)
 
 interactive_reply_buttons = WhatsappSdk::Resource::Interactive.new(
   type: WhatsappSdk::Resource::Interactive::Type::ReplyButton,

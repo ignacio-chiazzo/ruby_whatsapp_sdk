@@ -47,9 +47,6 @@ module WhatsappSdk
       sig { returns(InteractiveAction) }
       attr_accessor :action
 
-      REPLY_BUTTONS_MINIMUM = 1
-      REPLY_BUTTONS_MAXIMUM = 3
-
       sig do
         params(
           type: Type, body: InteractiveBody, action: InteractiveAction,
@@ -85,18 +82,7 @@ module WhatsappSdk
 
       sig { void }
       def validate_action
-        buttons_count = action.buttons.length
-        unless (REPLY_BUTTONS_MINIMUM..REPLY_BUTTONS_MAXIMUM).cover?(buttons_count)
-          raise WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton,
-                "invalid length #{buttons_count} for buttons in action. It should be 1, 2 or 3."
-        end
-
-        button_ids = action.buttons.map(&:id)
-
-        return if button_ids.length.eql?(button_ids.uniq.length)
-
-        raise WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton,
-              "duplicate ids #{button_ids} for buttons in action. They should be unique."
+        action.send(:validate)
       end
     end
   end
