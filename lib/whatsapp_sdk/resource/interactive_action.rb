@@ -17,7 +17,7 @@ module WhatsappSdk
 
       # Returns the type of interactive action you want to send.
       #
-      # @returns type [Type]. Supported Options are list_, button, product and product_list.
+      # @returns type [Type]. Supported Options are list_message and reply_button.
       sig { returns(Type) }
       attr_accessor :type
 
