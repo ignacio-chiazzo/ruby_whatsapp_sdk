@@ -381,7 +381,7 @@ module WhatsappSdk
           interactive_json: T.nilable(T::Hash[T.untyped, T.untyped]), message_id: T.nilable(String)
         ).returns(WhatsappSdk::Api::Response)
       end
-      def send_interactive_reply_buttons(
+      def send_interactive_message(
         sender_id:, recipient_number:, interactive: nil, interactive_json: nil, message_id: nil
       )
         raise MissingArgumentError, "interactive or interactive_json is required" if !interactive && !interactive_json
@@ -412,9 +412,8 @@ module WhatsappSdk
         )
       end
 
-      # def send_interactive_section
-      #   # TODO: https://developers.facebook.com/docs/whatsapp_sdk/cloud-api/reference/messages#contacts-object
-      # end
+      alias :send_interactive_reply_buttons :send_interactive_message
+      alias :send_interactive_list_messages :send_interactive_message
 
       # Mark a message as read.
       #

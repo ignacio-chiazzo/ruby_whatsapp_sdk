@@ -8,9 +8,9 @@ module WhatsappSdk
 
       # Returns the buttons of the Action. For reply_button type, it's required.
       #
-      # @returns buttons [Array<InteractiveActionButton>] .
+      # @returns buttons [Array<InteractiveActionReplyButton>] .
       sig do
-        returns(T::Array[InteractiveActionButton])
+        returns(T::Array[InteractiveActionReplyButton])
       end
       attr_accessor :buttons
 
@@ -19,13 +19,13 @@ module WhatsappSdk
       # TODO: attr_accessor :catalog_id
       # TODO: attr_accessor :product_retailer_id
 
-      sig { params(button: InteractiveActionButton).void }
+      sig { params(button: InteractiveActionReplyButton).void }
       def add_button(button)
         @buttons << button
       end
 
       sig do
-        params(buttons: T::Array[InteractiveActionButton]).void
+        params(buttons: T::Array[InteractiveActionReplyButton]).void
       end
       def initialize(buttons: [])
         @buttons = buttons

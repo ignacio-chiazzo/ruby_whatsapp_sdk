@@ -25,6 +25,8 @@ module WhatsappSdk
 
       class InvalidInteractiveActionButton < WhatsappSdk::Error; end
 
+      class InvalidInteractiveActionReplyButton < WhatsappSdk::Error; end
+
       class InvalidInteractiveFooter < WhatsappSdk::Error; end
     end
   end
