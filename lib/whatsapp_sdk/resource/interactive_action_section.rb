@@ -24,12 +24,13 @@ module WhatsappSdk
       end
 
       ACTION_SECTION_TITLE_MAXIMUM = 24
+      ACTION_SECTION_ROWS_MAXIMUM = 10
 
       sig { params(title: String, rows: T::Array[InteractiveActionSectionRow]).void }
       def initialize(title:, rows: [])
         @title = title
         @rows = rows
-        validate
+        validate(skip_rows: true)
       end
 
       def to_json
@@ -43,9 +44,10 @@ module WhatsappSdk
 
       private
 
-      sig { void }
-      def validate
+      sig { params(skip_rows: T.nilable(T::Boolean)).void }
+      def validate(skip_rows: false)
         validate_title
+        validate_rows unless skip_rows
       end
 
       sig { void }
@@ -55,6 +57,16 @@ module WhatsappSdk
 
         raise WhatsappSdk::Resource::Error::InvalidInteractiveActionSection.new(
           "Invalid length #{title_length} for title in section. Maximum length: #{ACTION_SECTION_TITLE_MAXIMUM} characters.",
+        )
+      end
+
+      sig { void }
+      def validate_rows
+        rows_length = rows.length
+        return if rows_length <= ACTION_SECTION_ROWS_MAXIMUM
+
+        raise WhatsappSdk::Resource::Error::InvalidInteractiveActionSection.new(
+          "Invalid number of rows #{rows_length} in section. Maximum count: #{ACTION_SECTION_ROWS_MAXIMUM}.",
         )
       end
     end

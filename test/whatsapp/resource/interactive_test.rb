@@ -259,6 +259,49 @@ module WhatsappSdk
           end
           assert_equal("Invalid length 25 for title in section. Maximum length: 24 characters.", error.message)
 
+          error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionSection) do
+            interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
+              type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
+              text: "I am the header!",
+            )
+
+            interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
+              text: "I am the body!",
+            )
+
+            interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
+              text: "I am the footer!",
+            )
+
+            interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
+              type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage,
+            )
+
+            interactive_action.button = "I am the button CTA"
+
+            interactive_section_1 = WhatsappSdk::Resource::InteractiveActionSection.new(
+              title: "I am the section 1",
+            )
+            11.times do |i|
+              interactive_section_row = WhatsappSdk::Resource::InteractiveActionSectionRow.new(
+                title: "I am the row #{i} title",
+                id: "section_1_row_#{i}",
+                description: "I am the optional section 1 row #{i} description",
+              )
+              interactive_section_1.add_row(interactive_section_row)
+            end
+            interactive_action.add_section(interactive_section_1)
+
+            WhatsappSdk::Resource::Interactive.new(
+              type: WhatsappSdk::Resource::Interactive::Type::ListMessage,
+              header: interactive_header,
+              body: interactive_body,
+              footer: interactive_footer,
+              action: interactive_action,
+            )
+          end
+          assert_equal("Invalid number of rows 11 in section. Maximum count: 10.", error.message)
+
           error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionSectionRow) do
             interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
               type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
