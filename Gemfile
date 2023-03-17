@@ -7,7 +7,6 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem("faraday")
 gem("faraday-multipart")
-gem("oj")
 gem("rake", ">= 12.3.3")
 gem('sorbet-runtime')
 gem("zeitwerk", ">= 2.6.0")

@@ -4,7 +4,6 @@ PATH
     whatsapp_sdk (0.7.3)
       faraday (~> 2.3.0)
       faraday-multipart (~> 1.0.4)
-      oj (~> 3.13.13)
       sorbet-runtime (~> 0.5.1)
       zeitwerk (~> 2.6.0)
 
@@ -30,7 +29,6 @@ GEM
     mocha (1.14.0)
     multipart-post (2.2.3)
     netrc (0.11.0)
-    oj (3.13.14)
     parallel (1.22.1)
     parser (3.1.2.0)
       ast (~> 2.4.1)
@@ -119,7 +117,6 @@ DEPENDENCIES
   faraday-multipart
   minitest (~> 5.0)
   mocha
-  oj
   pry
   pry-nav
   rake (>= 12.3.3)
