@@ -29,7 +29,7 @@ module WhatsappSdk
         faraday_request = T.unsafe(faraday(url))
 
         response = faraday_request.public_send(http_method, endpoint, request_params(params, headers), headers)
-        
+
         return nil if response.body == ""
 
         JSON.parse(response.body)

@@ -1,5 +1,6 @@
 # Unreleased 
-- Send interactive Reply Buttons Message @alienware https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/79
+- Support JRuby @ignacio-chiazzo [#83](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/83)
+- Send interactive Reply Buttons Message @alienware [#79](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/79)
 
 # v 0.7.3
 - Added the ability to reply messages. @alienware [#77](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/77)
