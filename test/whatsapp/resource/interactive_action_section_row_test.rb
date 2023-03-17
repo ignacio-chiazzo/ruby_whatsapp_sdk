@@ -47,13 +47,13 @@ module WhatsappSdk
       def test_to_json
         interactive_section_row_1 = WhatsappSdk::Resource::InteractiveActionSectionRow.new(
           title: "I am the row title",
-          id: "section_row",
+          id: "section_row"
         )
 
         assert_equal(
           {
             id: "section_row",
-            title: "I am the row title",
+            title: "I am the row title"
           },
           interactive_section_row_1.to_json
         )

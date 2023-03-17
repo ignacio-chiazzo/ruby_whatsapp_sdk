@@ -61,7 +61,7 @@ module WhatsappSdk
       sig do
         params(
           type: Type, buttons: T::Array[InteractiveActionReplyButton],
-          button: String, sections: T::Array[InteractiveActionSection],
+          button: String, sections: T::Array[InteractiveActionSection]
         ).void
       end
       def initialize(type:, buttons: [], button: "", sections: [])
@@ -93,40 +93,48 @@ module WhatsappSdk
       def validate_fields
         case type.serialize
         when "list_message"
-          button_length = button.length
-          sections_count = sections.length
-          unless button_length > 0
-            raise WhatsappSdk::Resource::Error::InvalidInteractiveActionButton,
-                  "Invalid button in action. Button label is required."
-          end
-
-          unless button_length <= LIST_BUTTON_TITLE_MAXIMUM
-            raise WhatsappSdk::Resource::Error::InvalidInteractiveActionButton,
-                  "Invalid length #{button_length} for button. Maximum length: " \
-                  "#{LIST_BUTTON_TITLE_MAXIMUM} characters."
-          end
-
-          unless (LIST_SECTIONS_MINIMUM..LIST_SECTIONS_MAXIMUM).cover?(sections_count)
-            raise WhatsappSdk::Resource::Error::InvalidInteractiveActionSection,
-                  "Invalid length #{sections_count} for sections in action. It should be between " \
-                  "#{LIST_SECTIONS_MINIMUM} and #{LIST_SECTIONS_MAXIMUM}."
-          end
-
-          sections.each { |section| section.validate }
+          validate_list_message
         when "reply_button"
-          buttons_count = buttons.length
-          unless (REPLY_BUTTONS_MINIMUM..REPLY_BUTTONS_MAXIMUM).cover?(buttons_count)
-            raise WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton,
-                  "Invalid length #{buttons_count} for buttons in action. It should be between " \
-                  "#{REPLY_BUTTONS_MINIMUM} and #{REPLY_BUTTONS_MAXIMUM}."
-          end
-
-          button_ids = buttons.map(&:id)
-          return if button_ids.length.eql?(button_ids.uniq.length)
-
-          raise WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton,
-                "Duplicate ids #{button_ids} for buttons in action. They should be unique."
+          validate_reply_button
         end
+      end
+
+      def validate_list_message
+        button_length = button.length
+        sections_count = sections.length
+        unless button_length.positive?
+          raise WhatsappSdk::Resource::Error::InvalidInteractiveActionButton,
+                "Invalid button in action. Button label is required."
+        end
+
+        unless button_length <= LIST_BUTTON_TITLE_MAXIMUM
+          raise WhatsappSdk::Resource::Error::InvalidInteractiveActionButton,
+                "Invalid length #{button_length} for button. Maximum length: " \
+                "#{LIST_BUTTON_TITLE_MAXIMUM} characters."
+        end
+
+        unless (LIST_SECTIONS_MINIMUM..LIST_SECTIONS_MAXIMUM).cover?(sections_count)
+          raise WhatsappSdk::Resource::Error::InvalidInteractiveActionSection,
+                "Invalid length #{sections_count} for sections in action. It should be between " \
+                "#{LIST_SECTIONS_MINIMUM} and #{LIST_SECTIONS_MAXIMUM}."
+        end
+
+        sections.each(&:validate)
+      end
+
+      def validate_reply_button
+        buttons_count = buttons.length
+        unless (REPLY_BUTTONS_MINIMUM..REPLY_BUTTONS_MAXIMUM).cover?(buttons_count)
+          raise WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton,
+                "Invalid length #{buttons_count} for buttons in action. It should be between " \
+                "#{REPLY_BUTTONS_MINIMUM} and #{REPLY_BUTTONS_MAXIMUM}."
+        end
+
+        button_ids = buttons.map(&:id)
+        return if button_ids.length.eql?(button_ids.uniq.length)
+
+        raise WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton,
+              "Duplicate ids #{button_ids} for buttons in action. They should be unique."
       end
     end
   end

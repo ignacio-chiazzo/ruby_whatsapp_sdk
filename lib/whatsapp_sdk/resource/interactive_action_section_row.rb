@@ -29,7 +29,7 @@ module WhatsappSdk
       ACTION_SECTION_DESCRIPTION_MAXIMUM = 72
       ACTION_SECTION_ID_MAXIMUM = 256
 
-      sig { params(title: String, id: String, description: T::nilable(String)).void }
+      sig { params(title: String, id: String, description: T.nilable(String)).void }
       def initialize(title:, id:, description: "")
         @title = title
         @id = id
@@ -42,7 +42,7 @@ module WhatsappSdk
           id: id,
           title: title
         }
-        json[:description] = description if description.length > 0
+        json[:description] = description if description.length.positive?
 
         json
       end
@@ -61,9 +61,9 @@ module WhatsappSdk
         title_length = title.length
         return if title_length <= ACTION_SECTION_TITLE_MAXIMUM
 
-        raise WhatsappSdk::Resource::Error::InvalidInteractiveActionSectionRow.new(
-          "Invalid length #{title_length} for title in section row. Maximum length: #{ACTION_SECTION_TITLE_MAXIMUM} characters.",
-        )
+        raise WhatsappSdk::Resource::Error::InvalidInteractiveActionSectionRow,
+              "Invalid length #{title_length} for title in section row. "\
+              "Maximum length: #{ACTION_SECTION_TITLE_MAXIMUM} characters."
       end
 
       sig { void }
@@ -74,9 +74,9 @@ module WhatsappSdk
         id_length = id.length
         return if id_length <= ACTION_SECTION_ID_MAXIMUM
 
-        raise WhatsappSdk::Resource::Error::InvalidInteractiveActionSectionRow.new(
-          "Invalid length #{id_length} for id in section row. Maximum length: #{ACTION_SECTION_ID_MAXIMUM} characters.",
-        )
+        raise WhatsappSdk::Resource::Error::InvalidInteractiveActionSectionRow,
+              "Invalid length #{id_length} for id in section row. Maximum length: "\
+              "#{ACTION_SECTION_ID_MAXIMUM} characters."
       end
 
       sig { void }
@@ -84,11 +84,10 @@ module WhatsappSdk
         description_length = description.length
         return if description_length <= ACTION_SECTION_DESCRIPTION_MAXIMUM
 
-        raise WhatsappSdk::Resource::Error::InvalidInteractiveActionSectionRow.new(
-          "Invalid length #{description_length} for description in section row. Maximum length: #{ACTION_SECTION_DESCRIPTION_MAXIMUM} characters.",
-        )
+        raise WhatsappSdk::Resource::Error::InvalidInteractiveActionSectionRow,
+              "Invalid length #{description_length} for description in section " \
+              "row. Maximum length: #{ACTION_SECTION_DESCRIPTION_MAXIMUM} characters."
       end
     end
   end
 end
-

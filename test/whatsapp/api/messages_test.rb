@@ -811,13 +811,13 @@ module WhatsappSdk
             "type" => "list",
             "header" => {
               "type" => "text",
-              "text" => "I am the header!",
+              "text" => "I am the header!"
             },
             "body" => {
-              "text" => "I am the body!",
+              "text" => "I am the body!"
             },
             "footer" => {
-              "text" => "I am the footer!",
+              "text" => "I am the footer!"
             },
             "action" => {
               "button" => "I am the button CTA",
@@ -828,7 +828,7 @@ module WhatsappSdk
                     {
                       "id" => "section_1_row_1",
                       "title" => "I am row 1",
-                      "description" => "I am the optional section 1 row 1 description",
+                      "description" => "I am the optional section 1 row 1 description"
                     }
                   ]
                 },
@@ -838,17 +838,17 @@ module WhatsappSdk
                     {
                       "id" => "section_2_row_1",
                       "title" => "I am row 1",
-                      "description" => "I am the optional section 2 row 1 description",
+                      "description" => "I am the optional section 2 row 1 description"
                     },
                     {
                       "id" => "section_2_row_2",
                       "title" => "I am row 2",
-                      "description" => "I am the optional section 2 row 2 description",
+                      "description" => "I am the optional section 2 row 2 description"
                     }
                   ]
-                },
+                }
               ]
-            },
+            }
           }
         )
 
@@ -858,30 +858,30 @@ module WhatsappSdk
       def test_send_interactive_list_messages_with_success_response_by_passing_interactive
         interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
           type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
-          text: "I am the header!",
+          text: "I am the header!"
         )
 
         interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
-          text: "I am the body!",
+          text: "I am the body!"
         )
 
         interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
-          text: "I am the footer!",
+          text: "I am the footer!"
         )
 
         interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-          type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage,
+          type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage
         )
 
         interactive_action.button = "I am the button CTA"
 
         interactive_section_1 = WhatsappSdk::Resource::InteractiveActionSection.new(
-          title: "I am the section 1",
+          title: "I am the section 1"
         )
         interactive_section_1_row_1 = WhatsappSdk::Resource::InteractiveActionSectionRow.new(
           title: "I am the row 1 title",
           id: "section_1_row_1",
-          description: "I am the optional section 1 row 1 description",
+          description: "I am the optional section 1 row 1 description"
         )
         interactive_section_1.add_row(interactive_section_1_row_1)
         interactive_action.add_section(interactive_section_1)
@@ -891,7 +891,7 @@ module WhatsappSdk
           header: interactive_header,
           body: interactive_body,
           footer: interactive_footer,
-          action: interactive_action,
+          action: interactive_action
         )
 
         @messages_api.expects(:send_request).with(
@@ -905,13 +905,13 @@ module WhatsappSdk
               type: "list",
               header: {
                 type: "text",
-                text: "I am the header!",
+                text: "I am the header!"
               },
               body: {
-                text: "I am the body!",
+                text: "I am the body!"
               },
               footer: {
-                text: "I am the footer!",
+                text: "I am the footer!"
               },
               action: {
                 button: "I am the button CTA",
@@ -922,11 +922,11 @@ module WhatsappSdk
                       {
                         id: "section_1_row_1",
                         title: "I am the row 1 title",
-                        description: "I am the optional section 1 row 1 description",
+                        description: "I am the optional section 1 row 1 description"
                       }
                     ]
                   }
-                ],
+                ]
               }
             }
           },
@@ -935,7 +935,7 @@ module WhatsappSdk
 
         message_response = @messages_api.send_interactive_list_messages(
           sender_id: 123_123, recipient_number: 12_345_678,
-          interactive: interactive_list_messages,
+          interactive: interactive_list_messages
         )
 
         assert_mock_response(valid_contacts, valid_messages, message_response)

@@ -18,7 +18,7 @@ module WhatsappSdk
         error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton) do
           interactive_body = WhatsappSdk::Resource::InteractiveBody.new(text: "This is the body!")
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-            type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton,
+            type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton
           )
           interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
             title: "I am the button 1",
@@ -52,7 +52,7 @@ module WhatsappSdk
         error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton) do
           interactive_body = WhatsappSdk::Resource::InteractiveBody.new(text: "This is the body!")
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-            type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton,
+            type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton
           )
           interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
             title: "I am the button 1",
@@ -77,18 +77,18 @@ module WhatsappSdk
         error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton) do
           interactive_body = WhatsappSdk::Resource::InteractiveBody.new(text: "This is the body!")
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-            type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton,
+            type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton
           )
           interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
             title: "I am the longer button 1",
-            id: "button_1",
+            id: "button_1"
           )
           interactive_action.add_reply_button(interactive_reply_button_1)
 
           WhatsappSdk::Resource::Interactive.new(
             type: WhatsappSdk::Resource::Interactive::Type::ReplyButton,
             body: interactive_body,
-            action: interactive_action,
+            action: interactive_action
           )
         end
         assert_equal("Invalid length 24 for title in button. Maximum length: 20 characters.", error.message)
@@ -96,18 +96,18 @@ module WhatsappSdk
         error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton) do
           interactive_body = WhatsappSdk::Resource::InteractiveBody.new(text: "This is the body!")
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-            type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton,
+            type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton
           )
           interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
             title: "I am the button 1",
-            id: "button_1 " * 32,
+            id: "button_1 " * 32
           )
           interactive_action.add_reply_button(interactive_reply_button_1)
 
           WhatsappSdk::Resource::Interactive.new(
             type: WhatsappSdk::Resource::Interactive::Type::ReplyButton,
             body: interactive_body,
-            action: interactive_action,
+            action: interactive_action
           )
         end
         assert_equal("Invalid length 287 for id in button. Maximum length: 256 characters.", error.message)
@@ -116,19 +116,19 @@ module WhatsappSdk
           interactive_body = WhatsappSdk::Resource::InteractiveBody.new(text: "This is the body!")
           interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(text: "Footer " * 10)
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-            type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton,
+            type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton
           )
           interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
             title: "I am the button 1",
-            id: "button_1",
+            id: "button_1"
           )
           interactive_reply_button_2 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
             title: "I am the button 2",
-            id: "button_2",
+            id: "button_2"
           )
           interactive_reply_button_3 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
             title: "I am the button 3",
-            id: "button_3",
+            id: "button_3"
           )
           interactive_action.add_reply_button(interactive_reply_button_1)
           interactive_action.add_reply_button(interactive_reply_button_2)
@@ -138,7 +138,7 @@ module WhatsappSdk
             type: WhatsappSdk::Resource::Interactive::Type::ReplyButton,
             body: interactive_body,
             footer: interactive_footer,
-            action: interactive_action,
+            action: interactive_action
           )
         end
         assert_equal("Invalid length 70 for text in footer. Maximum length: 60 characters.", error.message)
@@ -146,19 +146,19 @@ module WhatsappSdk
         error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveBody) do
           interactive_body = WhatsappSdk::Resource::InteractiveBody.new(text: "Body " * 250)
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-            type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton,
+            type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton
           )
           interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
             title: "I am the button 1",
-            id: "button_1",
+            id: "button_1"
           )
           interactive_reply_button_2 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
             title: "I am the button 2",
-            id: "button_2",
+            id: "button_2"
           )
           interactive_reply_button_3 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
             title: "I am the button 3",
-            id: "button_3",
+            id: "button_3"
           )
           interactive_action.add_reply_button(interactive_reply_button_1)
           interactive_action.add_reply_button(interactive_reply_button_2)
@@ -167,7 +167,7 @@ module WhatsappSdk
           WhatsappSdk::Resource::Interactive.new(
             type: WhatsappSdk::Resource::Interactive::Type::ReplyButton,
             body: interactive_body,
-            action: interactive_action,
+            action: interactive_action
           )
         end
         assert_equal("Invalid length 1250 for text in body. Maximum length: 1024 characters.", error.message)
@@ -177,28 +177,28 @@ module WhatsappSdk
         error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionButton) do
           interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
             type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
-            text: "I am the header!",
+            text: "I am the header!"
           )
 
           interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
-            text: "I am the body!",
+            text: "I am the body!"
           )
 
           interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
-            text: "I am the footer!",
+            text: "I am the footer!"
           )
 
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-            type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage,
+            type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage
           )
 
           interactive_section_1 = WhatsappSdk::Resource::InteractiveActionSection.new(
-            title: "I am the section 1",
+            title: "I am the section 1"
           )
           interactive_section_1_row_1 = WhatsappSdk::Resource::InteractiveActionSectionRow.new(
             title: "I am the row 1 title",
             id: "section_1_row_1",
-            description: "I am the optional section 1 row 1 description",
+            description: "I am the optional section 1 row 1 description"
           )
           interactive_section_1.add_row(interactive_section_1_row_1)
           interactive_action.add_section(interactive_section_1)
@@ -208,7 +208,7 @@ module WhatsappSdk
             header: interactive_header,
             body: interactive_body,
             footer: interactive_footer,
-            action: interactive_action,
+            action: interactive_action
           )
         end
         assert_equal("Invalid button in action. Button label is required.", error.message)
@@ -216,30 +216,30 @@ module WhatsappSdk
         error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionSection) do
           interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
             type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
-            text: "I am the header!",
+            text: "I am the header!"
           )
 
           interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
-            text: "I am the body!",
+            text: "I am the body!"
           )
 
           interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
-            text: "I am the footer!",
+            text: "I am the footer!"
           )
 
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-            type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage,
+            type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage
           )
 
           interactive_action.button = "I am the button CTA"
 
           interactive_section_1 = WhatsappSdk::Resource::InteractiveActionSection.new(
-            title: "I am the longer section 1",
+            title: "I am the longer section 1"
           )
           interactive_section_1_row_1 = WhatsappSdk::Resource::InteractiveActionSectionRow.new(
             title: "I am the row 1 title",
             id: "section_1_row_1",
-            description: "I am the optional section 1 row 1 description",
+            description: "I am the optional section 1 row 1 description"
           )
           interactive_section_1.add_row(interactive_section_1_row_1)
           interactive_action.add_section(interactive_section_1)
@@ -249,7 +249,7 @@ module WhatsappSdk
             header: interactive_header,
             body: interactive_body,
             footer: interactive_footer,
-            action: interactive_action,
+            action: interactive_action
           )
         end
         assert_equal("Invalid length 25 for title in section. Maximum length: 24 characters.", error.message)
@@ -257,31 +257,31 @@ module WhatsappSdk
         error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionSection) do
           interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
             type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
-            text: "I am the header!",
+            text: "I am the header!"
           )
 
           interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
-            text: "I am the body!",
+            text: "I am the body!"
           )
 
           interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
-            text: "I am the footer!",
+            text: "I am the footer!"
           )
 
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-            type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage,
+            type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage
           )
 
           interactive_action.button = "I am the button CTA"
 
           interactive_section_1 = WhatsappSdk::Resource::InteractiveActionSection.new(
-            title: "I am the section 1",
+            title: "I am the section 1"
           )
           11.times do |i|
             interactive_section_row = WhatsappSdk::Resource::InteractiveActionSectionRow.new(
               title: "I am the row #{i} title",
               id: "section_1_row_#{i}",
-              description: "I am the optional section 1 row #{i} description",
+              description: "I am the optional section 1 row #{i} description"
             )
             interactive_section_1.add_row(interactive_section_row)
           end
@@ -292,7 +292,7 @@ module WhatsappSdk
             header: interactive_header,
             body: interactive_body,
             footer: interactive_footer,
-            action: interactive_action,
+            action: interactive_action
           )
         end
         assert_equal("Invalid number of rows 11 in section. Maximum count: 10.", error.message)
@@ -300,30 +300,30 @@ module WhatsappSdk
         error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionSectionRow) do
           interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
             type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
-            text: "I am the header!",
+            text: "I am the header!"
           )
 
           interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
-            text: "I am the body!",
+            text: "I am the body!"
           )
 
           interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
-            text: "I am the footer!",
+            text: "I am the footer!"
           )
 
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-            type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage,
+            type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage
           )
 
           interactive_action.button = "I am the button CTA"
 
           interactive_section_1 = WhatsappSdk::Resource::InteractiveActionSection.new(
-            title: "I am the section 1",
+            title: "I am the section 1"
           )
           interactive_section_1_row_1 = WhatsappSdk::Resource::InteractiveActionSectionRow.new(
             title: "I am the longer row 1 title",
             id: "section_1_row_1",
-            description: "I am the optional section 1 row 1 description",
+            description: "I am the optional section 1 row 1 description"
           )
           interactive_section_1.add_row(interactive_section_1_row_1)
           interactive_action.add_section(interactive_section_1)
@@ -333,7 +333,7 @@ module WhatsappSdk
             header: interactive_header,
             body: interactive_body,
             footer: interactive_footer,
-            action: interactive_action,
+            action: interactive_action
           )
         end
         assert_equal("Invalid length 27 for title in section row. Maximum length: 24 characters.", error.message)
@@ -341,30 +341,30 @@ module WhatsappSdk
         error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionSectionRow) do
           interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
             type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
-            text: "I am the header!",
+            text: "I am the header!"
           )
 
           interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
-            text: "I am the body!",
+            text: "I am the body!"
           )
 
           interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
-            text: "I am the footer!",
+            text: "I am the footer!"
           )
 
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-            type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage,
+            type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage
           )
 
           interactive_action.button = "I am the button CTA"
 
           interactive_section_1 = WhatsappSdk::Resource::InteractiveActionSection.new(
-            title: "I am the section 1",
+            title: "I am the section 1"
           )
           interactive_section_1_row_1 = WhatsappSdk::Resource::InteractiveActionSectionRow.new(
             title: "I am the row 1 title",
             id: "section_1_row_1 " * 20,
-            description: "I am the optional section 1 row 1 description",
+            description: "I am the optional section 1 row 1 description"
           )
           interactive_section_1.add_row(interactive_section_1_row_1)
           interactive_action.add_section(interactive_section_1)
@@ -374,7 +374,7 @@ module WhatsappSdk
             header: interactive_header,
             body: interactive_body,
             footer: interactive_footer,
-            action: interactive_action,
+            action: interactive_action
           )
         end
         assert_equal("Invalid length 319 for id in section row. Maximum length: 256 characters.", error.message)
@@ -382,30 +382,30 @@ module WhatsappSdk
         error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionSectionRow) do
           interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
             type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
-            text: "I am the header!",
+            text: "I am the header!"
           )
 
           interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
-            text: "I am the body!",
+            text: "I am the body!"
           )
 
           interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
-            text: "I am the footer!",
+            text: "I am the footer!"
           )
 
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-            type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage,
+            type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage
           )
 
           interactive_action.button = "I am the button CTA"
 
           interactive_section_1 = WhatsappSdk::Resource::InteractiveActionSection.new(
-            title: "I am the section 1",
+            title: "I am the section 1"
           )
           interactive_section_1_row_1 = WhatsappSdk::Resource::InteractiveActionSectionRow.new(
             title: "I am the row 1 title",
             id: "section_1_row_1",
-            description: "I am the optional section 1 row 1 description " * 2,
+            description: "I am the optional section 1 row 1 description " * 2
           )
           interactive_section_1.add_row(interactive_section_1_row_1)
           interactive_action.add_section(interactive_section_1)
@@ -415,7 +415,7 @@ module WhatsappSdk
             header: interactive_header,
             body: interactive_body,
             footer: interactive_footer,
-            action: interactive_action,
+            action: interactive_action
           )
         end
         assert_equal("Invalid length 92 for description in section row. Maximum length: 72 characters.", error.message)
@@ -436,7 +436,7 @@ module WhatsappSdk
         )
 
         interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-          type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton,
+          type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton
         )
 
         interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
@@ -498,30 +498,30 @@ module WhatsappSdk
       def test_to_json_list_messages
         interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
           type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
-          text: "I am the header!",
+          text: "I am the header!"
         )
 
         interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
-          text: "I am the body!",
+          text: "I am the body!"
         )
 
         interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
-          text: "I am the footer!",
+          text: "I am the footer!"
         )
 
         interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-          type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage,
+          type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage
         )
 
         interactive_action.button = "I am the button CTA"
 
         interactive_section_1 = WhatsappSdk::Resource::InteractiveActionSection.new(
-          title: "I am the section 1",
+          title: "I am the section 1"
         )
         interactive_section_1_row_1 = WhatsappSdk::Resource::InteractiveActionSectionRow.new(
           title: "I am the row 1 title",
           id: "section_1_row_1",
-          description: "I am the optional section 1 row 1 description",
+          description: "I am the optional section 1 row 1 description"
         )
         interactive_section_1.add_row(interactive_section_1_row_1)
         interactive_action.add_section(interactive_section_1)
@@ -531,7 +531,7 @@ module WhatsappSdk
           header: interactive_header,
           body: interactive_body,
           footer: interactive_footer,
-          action: interactive_action,
+          action: interactive_action
         )
 
         assert_equal(
@@ -539,13 +539,13 @@ module WhatsappSdk
             type: "list",
             header: {
               type: "text",
-              text: "I am the header!",
+              text: "I am the header!"
             },
             body: {
-              text: "I am the body!",
+              text: "I am the body!"
             },
             footer: {
-              text: "I am the footer!",
+              text: "I am the footer!"
             },
             action: {
               button: "I am the button CTA",
@@ -556,11 +556,11 @@ module WhatsappSdk
                     {
                       id: "section_1_row_1",
                       title: "I am the row 1 title",
-                      description: "I am the optional section 1 row 1 description",
-                    },
-                  ],
-                },
-              ],
+                      description: "I am the optional section 1 row 1 description"
+                    }
+                  ]
+                }
+              ]
             }
           },
           interactive_list_messages.to_json

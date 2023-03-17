@@ -9,7 +9,7 @@ module WhatsappSdk
       def test_validation
         error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionButton) do
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-            type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage,
+            type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage
           )
           interactive_action.validate
         end
@@ -20,7 +20,7 @@ module WhatsappSdk
 
         error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionButton) do
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-            type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage,
+            type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage
           )
           interactive_action.button = "I am the longer CTA button"
           interactive_action.validate
@@ -32,7 +32,7 @@ module WhatsappSdk
 
         error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionSection) do
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-            type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage,
+            type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage
           )
           interactive_action.button = "I am the CTA button"
           interactive_action.validate
@@ -44,7 +44,7 @@ module WhatsappSdk
 
         error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton) do
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-            type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton,
+            type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton
           )
           interactive_action.validate
         end
@@ -55,7 +55,7 @@ module WhatsappSdk
 
         error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton) do
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-            type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton,
+            type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton
           )
           interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
             title: "I am the button 1",
@@ -78,13 +78,13 @@ module WhatsappSdk
 
       def test_to_json_list_message
         interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-          type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage,
+          type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage
         )
 
         interactive_action.button = "I am the CTA button"
 
         interactive_section = WhatsappSdk::Resource::InteractiveActionSection.new(
-          title: "I am the section title",
+          title: "I am the section title"
         )
         interactive_section_row = WhatsappSdk::Resource::InteractiveActionSectionRow.new(
           id: "section_row",
@@ -106,7 +106,7 @@ module WhatsappSdk
                   }
                 ]
               }
-            ],
+            ]
           },
           interactive_action.to_json
         )
@@ -114,7 +114,7 @@ module WhatsappSdk
 
       def test_to_json_reply_button
         interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-          type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton,
+          type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton
         )
 
         interactive_reply_button = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
@@ -133,7 +133,7 @@ module WhatsappSdk
                   title: "I am the button"
                 }
               }
-            ],
+            ]
           },
           interactive_action.to_json
         )

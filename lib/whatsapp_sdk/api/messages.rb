@@ -412,8 +412,8 @@ module WhatsappSdk
         )
       end
 
-      alias :send_interactive_reply_buttons :send_interactive_message
-      alias :send_interactive_list_messages :send_interactive_message
+      alias send_interactive_reply_buttons send_interactive_message
+      alias send_interactive_list_messages send_interactive_message
 
       # Mark a message as read.
       #

@@ -34,12 +34,10 @@ module WhatsappSdk
       end
 
       def to_json
-        json = {
+        {
           title: title,
-          rows: rows.map(&:to_json),
+          rows: rows.map(&:to_json)
         }
-
-        json
       end
 
       sig { params(skip_rows: T.nilable(T::Boolean)).void }
@@ -72,4 +70,3 @@ module WhatsappSdk
     end
   end
 end
-
