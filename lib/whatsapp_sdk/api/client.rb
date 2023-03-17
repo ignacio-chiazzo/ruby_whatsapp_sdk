@@ -3,7 +3,6 @@
 
 require "faraday"
 require "faraday/multipart"
-require "oj"
 
 module WhatsappSdk
   module Api
@@ -30,8 +29,10 @@ module WhatsappSdk
         faraday_request = T.unsafe(faraday(url))
 
         response = faraday_request.public_send(http_method, endpoint, request_params(params, headers), headers)
+        
+        return nil if response.body == ""
 
-        Oj.load(response.body)
+        JSON.parse(response.body)
       end
 
       sig { params(url: String, path_to_file_name: T.nilable(String)).returns(Net::HTTPResponse) }

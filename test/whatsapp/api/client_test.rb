@@ -44,8 +44,7 @@ module WhatsappSdk
       def test_send_request_delete_with_success_response
         stub_test_request(:delete, response_status: 204, response_body: "")
 
-        response_body = @client.send_request(endpoint: 'test',
-                                             http_method: 'delete')
+        response_body = @client.send_request(endpoint: 'test', http_method: 'delete')
         assert_nil(response_body)
       end
 
