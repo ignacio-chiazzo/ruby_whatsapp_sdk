@@ -1,4 +1,5 @@
 # Unreleased 
+- Added Send interactive message @alienware [#82](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/82) 
 - Support JRuby @ignacio-chiazzo [#83](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/83)
 - Send interactive Reply Buttons Message @alienware [#79](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/79)
 
