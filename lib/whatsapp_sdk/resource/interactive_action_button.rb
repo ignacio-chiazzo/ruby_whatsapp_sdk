@@ -48,7 +48,7 @@ module WhatsappSdk
         json = { type: type.serialize }
         json[type.serialize.to_sym] = {
           id: id,
-          title: title,
+          title: title
         }
 
         json
@@ -67,9 +67,9 @@ module WhatsappSdk
         title_length = title.length
         return if title_length <= ACTION_BUTTON_TITLE_MAXIMUM
 
-        raise WhatsappSdk::Resource::Error::InvalidInteractiveActionButton.new(
-          "invalid length #{title_length} for title in button. Maximum length: #{ACTION_BUTTON_TITLE_MAXIMUM} characters.",
-        )
+        raise WhatsappSdk::Resource::Error::InvalidInteractiveActionButton,
+              "invalid length #{title_length} for title in button." \
+              "Maximum length: #{ACTION_BUTTON_TITLE_MAXIMUM} characters."
       end
 
       sig { void }
@@ -80,11 +80,9 @@ module WhatsappSdk
         id_length = id.length
         return if id_length <= ACTION_BUTTON_ID_MAXIMUM
 
-        raise WhatsappSdk::Resource::Error::InvalidInteractiveActionButton.new(
-          "invalid length #{id_length} for id in button. Maximum length: #{ACTION_BUTTON_ID_MAXIMUM} characters.",
-        )
+        raise WhatsappSdk::Resource::Error::InvalidInteractiveActionButton,
+              "invalid length #{id_length} for id in button. Maximum length: #{ACTION_BUTTON_ID_MAXIMUM} characters."
       end
     end
   end
 end
-

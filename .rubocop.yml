@@ -26,7 +26,10 @@ Layout/LineLength:
   Max: 120
 
 Metrics/MethodLength:
-  Max: 40
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
 
 Naming/VariableNumber:
   Enabled: false

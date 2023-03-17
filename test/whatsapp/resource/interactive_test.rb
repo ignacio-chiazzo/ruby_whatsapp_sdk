@@ -16,26 +16,26 @@ module WhatsappSdk
         def test_validation
           error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionButton) do
             interactive_body = WhatsappSdk::Resource::InteractiveBody.new(text: "This is the body!")
-            interactive_action = WhatsappSdk::Resource::InteractiveAction.new()
+            interactive_action = WhatsappSdk::Resource::InteractiveAction.new
             interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionButton.new(
               type: WhatsappSdk::Resource::InteractiveActionButton::Type::Reply,
               title: "I am the button 1",
-              id: "button_1",
+              id: "button_1"
             )
             interactive_reply_button_2 = WhatsappSdk::Resource::InteractiveActionButton.new(
               type: WhatsappSdk::Resource::InteractiveActionButton::Type::Reply,
               title: "I am the button 2",
-              id: "button_2",
+              id: "button_2"
             )
             interactive_reply_button_3 = WhatsappSdk::Resource::InteractiveActionButton.new(
               type: WhatsappSdk::Resource::InteractiveActionButton::Type::Reply,
               title: "I am the button 3",
-              id: "button_3",
+              id: "button_3"
             )
             interactive_reply_button_4 = WhatsappSdk::Resource::InteractiveActionButton.new(
               type: WhatsappSdk::Resource::InteractiveActionButton::Type::Reply,
               title: "I am the button 4",
-              id: "button_4",
+              id: "button_4"
             )
             interactive_action.add_button(interactive_reply_button_1)
             interactive_action.add_button(interactive_reply_button_2)
@@ -45,23 +45,23 @@ module WhatsappSdk
             WhatsappSdk::Resource::Interactive.new(
               type: WhatsappSdk::Resource::Interactive::Type::ReplyButton,
               body: interactive_body,
-              action: interactive_action,
+              action: interactive_action
             )
           end
           assert_equal("invalid length 4 for buttons in action. It should be 1, 2 or 3.", error.message)
 
           error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionButton) do
             interactive_body = WhatsappSdk::Resource::InteractiveBody.new(text: "This is the body!")
-            interactive_action = WhatsappSdk::Resource::InteractiveAction.new()
+            interactive_action = WhatsappSdk::Resource::InteractiveAction.new
             interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionButton.new(
               type: WhatsappSdk::Resource::InteractiveActionButton::Type::Reply,
               title: "I am the button 1",
-              id: "button_1",
+              id: "button_1"
             )
             interactive_reply_button_2 = WhatsappSdk::Resource::InteractiveActionButton.new(
               type: WhatsappSdk::Resource::InteractiveActionButton::Type::Reply,
               title: "I am the button 2",
-              id: "button_1",
+              id: "button_1"
             )
             interactive_action.add_button(interactive_reply_button_1)
             interactive_action.add_button(interactive_reply_button_2)
@@ -69,39 +69,40 @@ module WhatsappSdk
             WhatsappSdk::Resource::Interactive.new(
               type: WhatsappSdk::Resource::Interactive::Type::ReplyButton,
               body: interactive_body,
-              action: interactive_action,
+              action: interactive_action
             )
           end
-          assert_equal("duplicate ids [\"button_1\", \"button_1\"] for buttons in action. They should be unique.", error.message)
+          assert_equal("duplicate ids [\"button_1\", \"button_1\"] for buttons in action. They should be unique.",
+                       error.message)
         end
 
         def test_to_json
           interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
             type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
-            text: "I am the header!",
+            text: "I am the header!"
           )
 
           interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
-            text: "I am the body!",
+            text: "I am the body!"
           )
 
           interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
-            text: "I am the footer!",
+            text: "I am the footer!"
           )
 
-          interactive_action = WhatsappSdk::Resource::InteractiveAction.new()
+          interactive_action = WhatsappSdk::Resource::InteractiveAction.new
 
           interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionButton.new(
             type: WhatsappSdk::Resource::InteractiveActionButton::Type::Reply,
             title: "I am the button 1",
-            id: "button_1",
+            id: "button_1"
           )
           interactive_action.add_button(interactive_reply_button_1)
 
           interactive_reply_button_2 = WhatsappSdk::Resource::InteractiveActionButton.new(
             type: WhatsappSdk::Resource::InteractiveActionButton::Type::Reply,
             title: "I am the button 2",
-            id: "button_2",
+            id: "button_2"
           )
           interactive_action.add_button(interactive_reply_button_2)
 
@@ -110,7 +111,7 @@ module WhatsappSdk
             header: interactive_header,
             body: interactive_body,
             footer: interactive_footer,
-            action: interactive_action,
+            action: interactive_action
           )
 
           assert_equal(
@@ -118,13 +119,13 @@ module WhatsappSdk
               type: "button",
               header: {
                 type: "text",
-                text: "I am the header!",
+                text: "I am the header!"
               },
               body: {
-                text: "I am the body!",
+                text: "I am the body!"
               },
               footer: {
-                text: "I am the footer!",
+                text: "I am the footer!"
               },
               action: {
                 buttons: [
@@ -132,17 +133,17 @@ module WhatsappSdk
                     type: "reply",
                     reply: {
                       title: "I am the button 1",
-                      id: "button_1",
-                    },
+                      id: "button_1"
+                    }
                   },
                   {
                     type: "reply",
                     reply: {
                       title: "I am the button 2",
-                      id: "button_2",
-                    },
-                  },
-                ],
+                      id: "button_2"
+                    }
+                  }
+                ]
               }
             },
             interactive_reply_buttons.to_json

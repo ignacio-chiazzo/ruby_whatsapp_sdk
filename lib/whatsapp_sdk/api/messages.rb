@@ -370,14 +370,15 @@ module WhatsappSdk
       # @param sender_id [Integer] Sender' phone number.
       # @param recipient_number [Integer] Recipient' Phone number.
       # @param interactive [Interactive] Interactive.
-      # @param interactive_json [Json] The interactive as a Json. If you pass interactive_json, you can't pass interactive.
+      # @param interactive_json [Json] The interactive object as a Json.
+      #    If you pass interactive_json, you can't pass interactive.
       # @param message_id [String] The id of the message to reply to.
       # @return [WhatsappSdk::Api::Response] Response object.
       sig do
         params(
           sender_id: Integer, recipient_number: Integer,
           interactive: T.nilable(WhatsappSdk::Resource::Interactive),
-          interactive_json: T.nilable(T::Hash[T.untyped, T.untyped]), message_id: T.nilable(String),
+          interactive_json: T.nilable(T::Hash[T.untyped, T.untyped]), message_id: T.nilable(String)
         ).returns(WhatsappSdk::Api::Response)
       end
       def send_interactive_reply_buttons(
@@ -389,7 +390,7 @@ module WhatsappSdk
           messaging_product: "whatsapp",
           to: recipient_number,
           recipient_type: "individual",
-          type: "interactive",
+          type: "interactive"
         }
 
         params[:interactive] = if interactive.nil?
@@ -402,12 +403,12 @@ module WhatsappSdk
         response = send_request(
           endpoint: endpoint(sender_id),
           params: params,
-          headers: DEFAULT_HEADERS,
+          headers: DEFAULT_HEADERS
         )
 
         WhatsappSdk::Api::Response.new(
           response: response,
-          data_class_type: WhatsappSdk::Api::Responses::MessageDataResponse,
+          data_class_type: WhatsappSdk::Api::Responses::MessageDataResponse
         )
       end
 

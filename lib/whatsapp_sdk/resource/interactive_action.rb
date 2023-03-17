@@ -10,7 +10,7 @@ module WhatsappSdk
       #
       # @returns buttons [Array<InteractiveActionButton>] .
       sig do
-       returns(T::Array[InteractiveActionButton])
+        returns(T::Array[InteractiveActionButton])
       end
       attr_accessor :buttons
 
@@ -33,8 +33,7 @@ module WhatsappSdk
 
       sig { returns(T::Hash[T.untyped, T.untyped]) }
       def to_json
-        json = { buttons: buttons.map(&:to_json) }
-        json
+        { buttons: buttons.map(&:to_json) }
       end
     end
   end

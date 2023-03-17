@@ -106,7 +106,13 @@ module WhatsappSdk
           [Type::Video, video]
         ].each do |type_b, value|
           next unless type == type_b
-          raise WhatsappSdk::Resource::Error::MissingValue.new(type.serialize, "#{type.serialize} is required when the type is #{type_b}") if value.nil?
+
+          next unless value.nil?
+
+          raise WhatsappSdk::Resource::Error::MissingValue.new(
+            type.serialize,
+            "#{type.serialize} is required when the type is #{type_b}"
+          )
         end
       end
     end

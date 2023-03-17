@@ -23,9 +23,7 @@ module WhatsappSdk
 
       sig { returns(T::Hash[T.untyped, T.untyped]) }
       def to_json
-        json = { text: text }
-
-        json
+        { text: text }
       end
 
       MAXIMUM_LENGTH = 1024
@@ -42,9 +40,8 @@ module WhatsappSdk
         text_length = text.length
         return if text_length <= MAXIMUM_LENGTH
 
-        raise WhatsappSdk::Resource::Error::InvalidInteractiveBody.new(
-          "invalid length #{text_length} for text in body. Maximum length: #{MAXIMUM_LENGTH} characters."
-        )
+        raise WhatsappSdk::Resource::Error::InvalidInteractiveBody,
+              "invalid length #{text_length} for text in body. Maximum length: #{MAXIMUM_LENGTH} characters."
       end
     end
   end

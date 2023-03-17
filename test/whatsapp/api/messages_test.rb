@@ -524,7 +524,6 @@ module WhatsappSdk
         assert_predicate(message_response, :ok?)
       end
 
-      # rubocop:disable Metrics/MethodLength
       def test_send_template_with_success_response_by_passing_components
         currency = WhatsappSdk::Resource::Currency.new(code: "USD", amount: 1000, fallback_value: "1000")
         date_time = WhatsappSdk::Resource::DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
@@ -654,7 +653,6 @@ module WhatsappSdk
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
-      # rubocop:enable Metrics/MethodLength
 
       def test_send_reaction_with_success_response
         mock_response(valid_contacts, valid_messages)
@@ -697,29 +695,29 @@ module WhatsappSdk
             "type" => "button",
             "header" => {
               "type" => "text",
-              "text" => "I am the header!",
+              "text" => "I am the header!"
             },
             "body" => {
-              "text" => "I am the body!",
+              "text" => "I am the body!"
             },
             "footer" => {
-              "text" => "I am the footer!",
+              "text" => "I am the footer!"
             },
             "action" => {
               "buttons" => [{
                 "type" => "reply",
                 "reply" => {
-                  "title": "This is button 1!",
-                  "id": "button_1",
-                },
+                  title: "This is button 1!",
+                  id: "button_1"
+                }
               }, {
                 "type" => "reply",
                 "reply" => {
-                  "title": "This is button 2!",
-                  "id": "button_2",
-                },
+                  title: "This is button 2!",
+                  id: "button_2"
+                }
               }]
-            },
+            }
           }
         )
 
@@ -729,30 +727,30 @@ module WhatsappSdk
       def test_send_interactive_reply_buttons_with_success_response_by_passing_interactive
         interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
           type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
-          text: "I am the header!",
+          text: "I am the header!"
         )
 
         interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
-          text: "I am the body!",
+          text: "I am the body!"
         )
 
         interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
-          text: "I am the footer!",
+          text: "I am the footer!"
         )
 
-        interactive_action = WhatsappSdk::Resource::InteractiveAction.new()
+        interactive_action = WhatsappSdk::Resource::InteractiveAction.new
 
         interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionButton.new(
           type: WhatsappSdk::Resource::InteractiveActionButton::Type::Reply,
           title: "I am the button 1",
-          id: "button_1",
+          id: "button_1"
         )
         interactive_action.add_button(interactive_reply_button_1)
 
         interactive_reply_button_2 = WhatsappSdk::Resource::InteractiveActionButton.new(
           type: WhatsappSdk::Resource::InteractiveActionButton::Type::Reply,
           title: "I am the button 2",
-          id: "button_2",
+          id: "button_2"
         )
         interactive_action.add_button(interactive_reply_button_2)
 
@@ -761,7 +759,7 @@ module WhatsappSdk
           header: interactive_header,
           body: interactive_body,
           footer: interactive_footer,
-          action: interactive_action,
+          action: interactive_action
         )
 
         @messages_api.expects(:send_request).with(
@@ -773,33 +771,20 @@ module WhatsappSdk
             type: "interactive",
             interactive: {
               type: "button",
-              header: {
-                type: "text",
-                text: "I am the header!",
-              },
-              body: {
-                text: "I am the body!",
-              },
-              footer: {
-                text: "I am the footer!",
-              },
+              header: { type: "text", text: "I am the header!" },
+              body: { text: "I am the body!" },
+              footer: { text: "I am the footer!" },
               action: {
                 buttons: [
                   {
                     type: "reply",
-                    reply: {
-                      title: "I am the button 1",
-                      id: "button_1",
-                    },
+                    reply: { title: "I am the button 1", id: "button_1" }
                   },
                   {
                     type: "reply",
-                    reply: {
-                      title: "I am the button 2",
-                      id: "button_2",
-                    },
-                  },
-                ],
+                    reply: { title: "I am the button 2", id: "button_2" }
+                  }
+                ]
               }
             }
           },
@@ -808,7 +793,7 @@ module WhatsappSdk
 
         message_response = @messages_api.send_interactive_reply_buttons(
           sender_id: 123_123, recipient_number: 12_345_678,
-          interactive: interactive_reply_buttons,
+          interactive: interactive_reply_buttons
         )
 
         assert_mock_response(valid_contacts, valid_messages, message_response)
