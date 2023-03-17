@@ -2,5 +2,5 @@
 # frozen_string_literal: true
 
 module WhatsappSdk
-  VERSION = "0.7.3"
+  VERSION = "0.8.0"
 end
