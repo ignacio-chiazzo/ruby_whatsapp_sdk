@@ -30,7 +30,7 @@ module WhatsappSdk
       ACTION_SECTION_ID_MAXIMUM = 256
 
       sig { params(title: String, id: String, description: T::nilable(String)).void }
-      def initialize(title:, id:, description:)
+      def initialize(title:, id:, description: "")
         @title = title
         @id = id
         @description = description
@@ -40,9 +40,9 @@ module WhatsappSdk
       def to_json
         json = {
           id: id,
-          title: title,
-          description: description,
+          title: title
         }
+        json[:description] = description if description.length > 0
 
         json
       end

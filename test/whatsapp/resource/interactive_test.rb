@@ -173,7 +173,6 @@ module WhatsappSdk
         assert_equal("Invalid length 1250 for text in body. Maximum length: 1024 characters.", error.message)
       end
 
-      # TODO: Test no row added
       def test_validation_list_messages
         error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionButton) do
           interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
