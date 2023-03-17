@@ -68,9 +68,9 @@ module WhatsappSdk
         return if title_length <= ACTION_BUTTON_TITLE_MAXIMUM
 
         raise WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton,
-              "Invalid length #{title_length} for title in button." \
+              "Invalid length #{title_length} for title in button. " \
               "Maximum length: #{ACTION_BUTTON_TITLE_MAXIMUM} characters."
-     end
+      end
 
       sig { void }
       def validate_id

@@ -112,7 +112,7 @@ module WhatsappSdk
                   "#{LIST_SECTIONS_MINIMUM} and #{LIST_SECTIONS_MAXIMUM}."
           end
 
-          sections.each { |section| sectionvalidate }
+          sections.each { |section| section.validate }
         when "reply_button"
           buttons_count = buttons.length
           unless (REPLY_BUTTONS_MINIMUM..REPLY_BUTTONS_MAXIMUM).cover?(buttons_count)
@@ -124,7 +124,7 @@ module WhatsappSdk
           button_ids = buttons.map(&:id)
           return if button_ids.length.eql?(button_ids.uniq.length)
 
-          raise WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton
+          raise WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton,
                 "Duplicate ids #{button_ids} for buttons in action. They should be unique."
         end
       end
