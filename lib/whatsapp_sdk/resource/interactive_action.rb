@@ -84,11 +84,11 @@ module WhatsappSdk
         json
       end
 
-      private
-
       def validate
         validate_fields
       end
+
+      private
 
       def validate_fields
         case type.serialize
@@ -112,7 +112,7 @@ module WhatsappSdk
                   "#{LIST_SECTIONS_MINIMUM} and #{LIST_SECTIONS_MAXIMUM}."
           end
 
-          sections.each { |section| section.send(:validate) }
+          sections.each { |section| sectionvalidate }
         when "reply_button"
           buttons_count = buttons.length
           unless (REPLY_BUTTONS_MINIMUM..REPLY_BUTTONS_MAXIMUM).cover?(buttons_count)

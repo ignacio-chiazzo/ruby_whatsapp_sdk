@@ -82,7 +82,7 @@ module WhatsappSdk
 
       sig { void }
       def validate_action
-        action.send(:validate)
+        action.validate
       end
     end
   end

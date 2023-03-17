@@ -18,7 +18,6 @@ group(:test) do
   gem('rubocop-performance', require: false)
   gem('rubocop-sorbet', require: false)
   gem('webmock')
-  gem('simplecov', require: false)
 end
 
 group(:development) do
