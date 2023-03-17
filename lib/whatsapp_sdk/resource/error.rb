@@ -21,9 +21,17 @@ module WhatsappSdk
         end
       end
 
+      class InvalidField < MissingValue; end
+
       class InvalidInteractiveBody < WhatsappSdk::Error; end
 
+      class InvalidInteractiveActionReplyButton < WhatsappSdk::Error; end
+
       class InvalidInteractiveActionButton < WhatsappSdk::Error; end
+
+      class InvalidInteractiveActionSection < WhatsappSdk::Error; end
+
+      class InvalidInteractiveActionSectionRow < WhatsappSdk::Error; end
 
       class InvalidInteractiveFooter < WhatsappSdk::Error; end
     end

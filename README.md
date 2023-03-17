@@ -350,7 +350,124 @@ Alernative, you could pass a plain json like this:
 ```ruby
 @messages_api.send_template(sender_id: 12_345, recipient_number: 12345678, name: "hello_world", language: "en_US", components_json: [{...}])
 ```
+
+**Send interactive messages**
+Visit the [Official API Documentation](https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages#interactive-messages)
+
+<details>
+<summary>List Message's example</summary>
+
+```ruby
+interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
+  type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
+  text: "I am the header!"
+)
+
+interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
+  text: "I am the body!"
+)
+
+interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
+  text: "I am the footer!"
+)
+
+interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
+  type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage
+)
+
+interactive_action.button = "I am the button CTA"
+
+interactive_section_1 = WhatsappSdk::Resource::InteractiveActionSection.new(
+  title: "I am the section 1"
+)
+interactive_section_1_row_1 = WhatsappSdk::Resource::InteractiveActionSectionRow.new(
+  title: "I am the row 1 title",
+  id: "section_1_row_1",
+  description: "I am the optional section 1 row 1 description"
+)
+interactive_section_1.add_row(interactive_section_1_row_1)
+interactive_action.add_section(interactive_section_1)
+
+interactive_list_messages = WhatsappSdk::Resource::Interactive.new(
+  type: WhatsappSdk::Resource::Interactive::Type::ListMessage,
+  header: interactive_header,
+  body: interactive_body,
+  footer: interactive_footer,
+  action: interactive_action
+)
+
+messages_api.send_interactive_list_messages(
+  sender_id: 12_345, recipient_number: 1234567890,
+  interactive: interactive_list_messages
+)
+```
 </details>
+
+Alternative, you could pass a plain json like this:
+```ruby
+messages_api.send_interactive_list_messages(
+  sender_id: 12_345, recipient_number: 1234567890
+  interactive_json: {...}
+)
+```
+
+<details>
+<summary>Reply Button's example</summary>
+
+```ruby
+interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
+  type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
+  text: "I am the header!"
+)
+
+interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
+  text: "I am the body!"
+)
+
+interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
+  text: "I am the footer!"
+)
+
+interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
+  type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton
+)
+
+interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
+  title: "I am the reply button 1",
+  id: "button_1"
+)
+interactive_action.add_reply_button(interactive_reply_button_1)
+
+interactive_reply_button_2 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
+  title: "I am the reply button 2",
+  id: "button_2"
+)
+interactive_action.add_reply_button(interactive_reply_button_2)
+
+interactive_reply_buttons = WhatsappSdk::Resource::Interactive.new(
+  type: WhatsappSdk::Resource::Interactive::Type::ReplyButton,
+  header: interactive_header,
+  body: interactive_body,
+  footer: interactive_footer,
+  action: interactive_action
+)
+
+messages_api.send_interactive_reply_buttons(
+  sender_id: 12_345, recipient_number: 1234567890,
+  interactive: interactive_reply_buttons
+)
+```
+</details>
+
+Alternative, you could pass a plain json like this:
+```ruby
+messages_api.send_interactive_reply_buttons(
+  sender_id: 12_345, recipient_number: 1234567890
+  interactive_json: {...}
+)
+```
+</details>
+
 
 ## Examples
 

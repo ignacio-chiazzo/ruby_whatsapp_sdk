@@ -235,42 +235,42 @@ puts response_with_json
 ## with reply buttons
 interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
   type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
-  text: "I am the header!",
+  text: "I am the header!"
 )
 
 interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
-  text: "I am the body!",
+  text: "I am the body!"
 )
 
 interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
-  text: "I am the footer!",
+  text: "I am the footer!"
 )
 
-interactive_action = WhatsappSdk::Resource::InteractiveAction.new()
-
-interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionButton.new(
-  type: WhatsappSdk::Resource::InteractiveActionButton::Type::Reply,
-  title: "I am the button 1",
-  id: "button_1",
+interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
+  type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton,
 )
-interactive_action.add_button(interactive_reply_button_1)
 
-interactive_reply_button_2 = WhatsappSdk::Resource::InteractiveActionButton.new(
-  type: WhatsappSdk::Resource::InteractiveActionButton::Type::Reply,
-  title: "I am the button 2",
-  id: "button_2",
+interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
+  title: "I am the reply button 1",
+  id: "button_1"
 )
-interactive_action.add_button(interactive_reply_button_2)
+interactive_action.add_reply_button(interactive_reply_button_1)
+
+interactive_reply_button_2 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
+  title: "I am the reply button 2",
+  id: "button_2"
+)
+interactive_action.add_reply_button(interactive_reply_button_2)
 
 interactive_reply_buttons = WhatsappSdk::Resource::Interactive.new(
   type: WhatsappSdk::Resource::Interactive::Type::ReplyButton,
   header: interactive_header,
   body: interactive_body,
   footer: interactive_footer,
-  action: interactive_action,
+  action: interactive_action
 )
 
 messages_api.send_interactive_reply_buttons(
   sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
-  interactive: interactive_reply_buttons,
+  interactive: interactive_reply_buttons
 )

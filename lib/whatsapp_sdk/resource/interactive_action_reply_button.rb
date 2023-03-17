@@ -3,7 +3,7 @@
 
 module WhatsappSdk
   module Resource
-    class InteractiveActionButton
+    class InteractiveActionReplyButton
       extend T::Sig
 
       class Type < T::Enum
@@ -36,9 +36,9 @@ module WhatsappSdk
       ACTION_BUTTON_TITLE_MAXIMUM = 20
       ACTION_BUTTON_ID_MAXIMUM = 256
 
-      sig { params(type: Type, title: String, id: String).void }
-      def initialize(type:, title:, id:)
-        @type = type
+      sig { params(title: String, id: String).void }
+      def initialize(title:, id:)
+        @type = Type::Reply
         @title = title
         @id = id
         validate
@@ -67,8 +67,8 @@ module WhatsappSdk
         title_length = title.length
         return if title_length <= ACTION_BUTTON_TITLE_MAXIMUM
 
-        raise WhatsappSdk::Resource::Error::InvalidInteractiveActionButton,
-              "invalid length #{title_length} for title in button." \
+        raise WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton,
+              "Invalid length #{title_length} for title in button. " \
               "Maximum length: #{ACTION_BUTTON_TITLE_MAXIMUM} characters."
       end
 
@@ -80,8 +80,8 @@ module WhatsappSdk
         id_length = id.length
         return if id_length <= ACTION_BUTTON_ID_MAXIMUM
 
-        raise WhatsappSdk::Resource::Error::InvalidInteractiveActionButton,
-              "invalid length #{id_length} for id in button. Maximum length: #{ACTION_BUTTON_ID_MAXIMUM} characters."
+        raise WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton,
+              "Invalid length #{id_length} for id in button. Maximum length: #{ACTION_BUTTON_ID_MAXIMUM} characters."
       end
     end
   end
