@@ -11,7 +11,7 @@ gemfile(true) do
 
   git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-  gem "whatsapp_sdk"
+  gem "whatsapp_sdk", path: "../"
   gem "pry"
   gem "pry-nav"
 end
@@ -235,15 +235,15 @@ puts response_with_json
 ## with reply buttons
 interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
   type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
-  text: "I am the header!"
+  text: "I'm the header!"
 )
 
 interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
-  text: "I am the body!"
+  text: "I'm the body!"
 )
 
 interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
-  text: "I am the footer!"
+  text: "I'm the footer!"
 )
 
 interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
@@ -251,13 +251,13 @@ interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
 )
 
 interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
-  title: "I am the reply button 1",
+  title: "I'm a reply button 1",
   id: "button_1"
 )
 interactive_action.add_reply_button(interactive_reply_button_1)
 
 interactive_reply_button_2 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
-  title: "I am the reply button 2",
+  title: "I'm a reply button 2",
   id: "button_2"
 )
 interactive_action.add_reply_button(interactive_reply_button_2)
