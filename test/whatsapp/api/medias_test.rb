@@ -123,7 +123,7 @@ module WhatsappSdk
 
       def test_download_media_sends_valid_params
         file_path = "tmp/testing.png"
-        @medias_api.expects(:download_file).with(url: url_example, media_type: "image/png", file_path: file_path)
+        @medias_api.expects(:download_file).with(url: url_example, content_header: "image/png", file_path: file_path)
                    .returns(Net::HTTPOK.new(true, 200, "OK"))
         response = @medias_api.download(url: url_example, file_path: "tmp/testing.png", media_type: "image/png")
         validate_sucess_data_response(response)
