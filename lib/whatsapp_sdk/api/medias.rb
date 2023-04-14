@@ -25,6 +25,21 @@ module WhatsappSdk
         end
       end
 
+      class InvalidMediaTypeError < StandardError
+        extend T::Sig
+
+        sig { returns(String) }
+        attr_reader :media_type
+
+        sig { params(media_type: String).void }
+        def initialize(_media_type)
+          @file_path = file_path
+          message =  "Invalid Media Type. See the supported types" \
+                     "see the official documentation https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media#supported-media-types."
+          super(message)
+        end
+      end
+
       # Get Media by ID.
       #
       # @param media_id [String] Media Id.
@@ -46,11 +61,16 @@ module WhatsappSdk
       #
       # @param url URL.
       # @param file_path [String] The file_path to download the media e.g. "tmp/downloaded_image.png".
+      # @param media_type [String] The media type e.g. "audio/mp4". See the supported types in the official
+      #  documentation https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media#supported-media-types.
       # @return [WhatsappSdk::Api::Response] Response object.
-      sig { params(url: String, file_path: String).returns(WhatsappSdk::Api::Response) }
-      def download(url:, file_path:)
-        response = download_file(url, file_path)
+      sig { params(url: String, file_path: String, media_type: String).returns(WhatsappSdk::Api::Response) }
+      def download(url:, file_path:, media_type:)
+        return InvalidMediaTypeError(media_type) if media_type && !valid_content_header?(media_type)
 
+        content_header = media_type
+
+        response = download_file(url: url, file_path: file_path, content_header: content_header)
         response = if response.code.to_i == 200
                      { "success" => true }
                    else
@@ -104,6 +124,14 @@ module WhatsappSdk
           response: response,
           data_class_type: WhatsappSdk::Api::Responses::SuccessResponse
         )
+      end
+
+      private
+
+      def valid_content_header?(_media_type)
+        # TODO: Add validations for media types. See available types in the official documentation
+        # https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media#supported-media-types.
+        true
       end
     end
   end

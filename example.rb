@@ -52,7 +52,6 @@ medias_api = WhatsappSdk::Api::Medias.new
 messages_api = WhatsappSdk::Api::Messages.new
 phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new
 business_profile_api = WhatsappSdk::Api::BusinessProfile.new
-
 ############################## Business API ##############################
 business_profile = business_profile_api.details(SENDER_ID)
 business_profile_api.update(phone_number_id: SENDER_ID, params: { about: "A very cool business" } )
@@ -63,22 +62,38 @@ registered_numbers = phone_numbers_api.registered_numbers(BUSINESS_ID)
 
 ############################## Media API ##############################
 
-# upload a media
+##### Image #####
+# upload a Image
 uploaded_media = medias_api.upload(sender_id: SENDER_ID, file_path: "tmp/whatsapp.png", type: "image/png")
 media_id = uploaded_media.data&.id
 puts "Uploaded media id: #{media_id}"
 
-# get a media
+# get a media Image
 media = medias_api.media(media_id: media_id).data
 puts "Media info: #{media.raw_data_response}"
 
-# download media
-download_image = medias_api.download(url: media&.url, file_path: 'tmp/downloaded_whatsapp.png')
+# download media Image
+download_image = medias_api.download(url: media.url, file_path: 'tmp/downloaded_image.png', media_type: "image/png")
 puts "Downloaded: #{download_image.data.success?}"
 
 # delete a media
 deleted_media = medias_api.delete(media_id: media&.id)
 puts "Deleted: #{deleted_media.data.success?}"
+
+#### Audio ####
+# upload an audio
+uploaded_media = medias_api.upload(sender_id: SENDER_ID, file_path: "tmp/downloaded_audio.ogg", type: "audio/ogg")
+media_id = uploaded_media.data&.id
+puts "Uploaded media id: #{media_id}"
+
+# get a media audio
+media = medias_api.media(media_id: media_id).data
+puts "Media info: #{media.raw_data_response}"
+
+# get a media audio
+audio_link = media.url
+download_image = medias_api.download(url: audio_link, file_path: 'tmp/downloaded_audio2.ogg', media_type: "audio/ogg")
+puts "Downloaded: #{download_image.data.success?}"
 
 ############################## Messages API ##############################
 
