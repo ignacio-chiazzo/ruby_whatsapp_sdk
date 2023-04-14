@@ -10,8 +10,8 @@ module WhatsappSdk
         @client = client
       end
 
-      def download_file(url, path_to_file_name = nil)
-        @client.download_file(url, path_to_file_name)
+      def download_file(url:, content_header:, file_path: nil)
+        @client.download_file(url: url, content_header: content_header, file_path: file_path)
       end
 
       def send_request(endpoint: nil, full_url: nil, http_method: "post", params: {}, headers: {})

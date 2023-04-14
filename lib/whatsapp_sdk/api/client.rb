@@ -35,18 +35,22 @@ module WhatsappSdk
         JSON.parse(response.body)
       end
 
-      sig { params(url: String, path_to_file_name: T.nilable(String)).returns(Net::HTTPResponse) }
-      def download_file(url, path_to_file_name = nil)
+      sig do
+        params(url: String, content_header: String, file_path: T.nilable(String))
+          .returns(Net::HTTPResponse)
+      end
+      def download_file(url:, content_header:, file_path: nil)
         uri = URI.parse(url)
         request = Net::HTTP::Get.new(uri)
         request["Authorization"] = "Bearer #{@access_token}"
+        request.content_type = content_header
         req_options = { use_ssl: uri.scheme == "https" }
 
         response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
           http.request(request)
         end
 
-        File.write(path_to_file_name, response.body) if response.code == "200" && path_to_file_name
+        File.write(file_path, response.body) if response.code == "200" && file_path
 
         response
       end

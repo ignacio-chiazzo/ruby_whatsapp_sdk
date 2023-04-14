@@ -1,4 +1,5 @@
 # Unreleased 
+- Added support for downloading media by specifying the type @ignacio-chiazzo []
 
 # v 0.8.0
 - Added Send interactive message @alienware [#82](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/82) 
