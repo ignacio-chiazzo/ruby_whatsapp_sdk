@@ -183,7 +183,7 @@ media = medias_api.media(media_id: MEDIA_ID)
 
 Download media
 ```ruby
-medias_api.download(url: MEDIA_URL, file_path: 'tmp/downloaded_whatsapp.png')
+medias_api.download(url: MEDIA_URL, file_path: 'tmp/downloaded_whatsapp.png', media_type: "image/png")
 ```
 
 Delete a media

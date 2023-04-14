@@ -62,17 +62,17 @@ registered_numbers = phone_numbers_api.registered_numbers(BUSINESS_ID)
 
 ############################## Media API ##############################
 
-##### Photo #####
-# upload a photo
+##### Image #####
+# upload a Image
 uploaded_media = medias_api.upload(sender_id: SENDER_ID, file_path: "tmp/whatsapp.png", type: "image/png")
 media_id = uploaded_media.data&.id
 puts "Uploaded media id: #{media_id}"
 
-# get a media photo
+# get a media Image
 media = medias_api.media(media_id: media_id).data
 puts "Media info: #{media.raw_data_response}"
 
-# download media photo
+# download media Image
 download_image = medias_api.download(url: media.url, file_path: 'tmp/downloaded_image.png', media_type: "image/png")
 puts "Downloaded: #{download_image.data.success?}"
 

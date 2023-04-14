@@ -61,12 +61,8 @@ module WhatsappSdk
       #
       # @param url URL.
       # @param file_path [String] The file_path to download the media e.g. "tmp/downloaded_image.png".
-      # @param media_type [String] The media type e.g. "audio/mp4".
-      #   The available types are audio/aac, audio/mp4, audio/mpeg, audio/amr, audio/ogg, audio/opus,
-      #   application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation
-      #   application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,
-      #   application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, video/3gpp
-      #   application/pdf, text/plain, application/vnd.ms-excel, image/jpeg, image/png, image/webp, video/mp4,
+      # @param media_type [String] The media type e.g. "audio/mp4". See the supported types in the official
+      #  documentation https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media#supported-media-types.
       # @return [WhatsappSdk::Api::Response] Response object.
       sig { params(url: String, file_path: String, media_type: String).returns(WhatsappSdk::Api::Response) }
       def download(url:, file_path:, media_type:)
@@ -133,7 +129,8 @@ module WhatsappSdk
       private
 
       def valid_content_header?(_media_type)
-        # TODO:
+        # TODO: Add validations for media types. See available types in the official documentation
+        # https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media#supported-media-types.
         true
       end
     end
