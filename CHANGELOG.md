@@ -1,4 +1,7 @@
 # Unreleased 
+
+# v 0.9.0
+- Use binary mode to download files @ignacio-chiazzo [#88](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/87)
 - Added support for downloading media by specifying the type @ignacio-chiazzo [#87](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/87)
 
 # v 0.8.0
