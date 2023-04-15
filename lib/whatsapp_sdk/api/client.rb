@@ -50,7 +50,7 @@ module WhatsappSdk
           http.request(request)
         end
 
-        File.write(file_path, response.body) if response.code == "200" && file_path
+        File.write(file_path, response.body, mode: 'wb') if response.code == "200" && file_path
 
         response
       end
