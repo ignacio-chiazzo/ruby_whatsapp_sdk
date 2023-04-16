@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    whatsapp_sdk (0.9.0)
+    whatsapp_sdk (0.9.1)
       faraday (~> 2.3.0)
       faraday-multipart (~> 1.0.4)
       sorbet-runtime (~> 0.5.1)
