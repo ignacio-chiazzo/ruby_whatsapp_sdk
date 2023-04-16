@@ -36,14 +36,14 @@ module WhatsappSdk
       end
 
       sig do
-        params(url: String, content_header: String, file_path: T.nilable(String))
+        params(url: String, content_type_header: String, file_path: T.nilable(String))
           .returns(Net::HTTPResponse)
       end
-      def download_file(url:, content_header:, file_path: nil)
+      def download_file(url:, content_type_header:, file_path: nil)
         uri = URI.parse(url)
         request = Net::HTTP::Get.new(uri)
         request["Authorization"] = "Bearer #{@access_token}"
-        request.content_type = content_header
+        request.content_type = content_type_header
         req_options = { use_ssl: uri.scheme == "https" }
 
         response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|

@@ -65,6 +65,7 @@ module WhatsappSdk
         error = assert_raises(WhatsappSdk::Api::Medias::FileNotFoundError) do
           @medias_api.upload(sender_id: 123, file_path: "fo.png", type: "image/png")
         end
+
         assert_equal("Couldn't find file_path: fo.png", error.message)
         assert_equal("fo.png", error.file_path)
       end
@@ -123,10 +124,25 @@ module WhatsappSdk
 
       def test_download_media_sends_valid_params
         file_path = "tmp/testing.png"
-        @medias_api.expects(:download_file).with(url: url_example, content_header: "image/png", file_path: file_path)
+        @medias_api.expects(:download_file).with(url: url_example, content_type_header: "image/png",
+                                                 file_path: file_path)
                    .returns(Net::HTTPOK.new(true, 200, "OK"))
         response = @medias_api.download(url: url_example, file_path: "tmp/testing.png", media_type: "image/png")
         validate_sucess_data_response(response)
+      end
+
+      def test_download_raises_an_error_when_media_type_is_invalid
+        unsupported_media_type = "audio/vnd.qcelp" # is Unsupported
+        error = assert_raises(WhatsappSdk::Api::Medias::InvalidMediaTypeError) do
+          @medias_api.download(url: url_example, file_path: "tmp/testing.vnd.qcelp", media_type: unsupported_media_type)
+        end
+
+        assert_equal(
+          "Invalid Media Type audio/vnd.qcelp. See the supported types in the official documentation " \
+          "https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media#supported-media-types.",
+          error.message
+        )
+        assert_equal("audio/vnd.qcelp", error.media_type)
       end
 
       private

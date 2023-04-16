@@ -6,8 +6,9 @@ require "faraday/multipart"
 
 require_relative "request"
 require_relative "response"
-require_relative '../../../lib/whatsapp_sdk/api/responses/media_data_response'
-require_relative '../../../lib/whatsapp_sdk/api/responses/success_response'
+require_relative 'responses/media_data_response'
+require_relative 'responses/success_response'
+require_relative '../resource/media_types'
 
 module WhatsappSdk
   module Api
@@ -19,9 +20,11 @@ module WhatsappSdk
         attr_reader :file_path
 
         sig { params(file_path: String).void }
-        def initialize(file_path)
+        def initialize(file_path:)
           @file_path = file_path
-          super("Couldn't find file_path: #{file_path}")
+
+          message = "Couldn't find file_path: #{file_path}"
+          super(message)
         end
       end
 
@@ -32,10 +35,10 @@ module WhatsappSdk
         attr_reader :media_type
 
         sig { params(media_type: String).void }
-        def initialize(_media_type)
-          @file_path = file_path
-          message =  "Invalid Media Type. See the supported types" \
-                     "see the official documentation https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media#supported-media-types."
+        def initialize(media_type:)
+          @media_type = media_type
+          message =  "Invalid Media Type #{media_type}. See the supported types in the official documentation " \
+                     "https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media#supported-media-types."
           super(message)
         end
       end
@@ -66,11 +69,11 @@ module WhatsappSdk
       # @return [WhatsappSdk::Api::Response] Response object.
       sig { params(url: String, file_path: String, media_type: String).returns(WhatsappSdk::Api::Response) }
       def download(url:, file_path:, media_type:)
-        return InvalidMediaTypeError(media_type) if media_type && !valid_content_header?(media_type)
+        raise InvalidMediaTypeError.new(media_type: media_type) unless valid_media_type?(media_type)
 
-        content_header = media_type
+        content_type_header = map_media_type_to_content_type_header(media_type)
 
-        response = download_file(url: url, file_path: file_path, content_header: content_header)
+        response = download_file(url: url, file_path: file_path, content_type_header: content_type_header)
         response = if response.code.to_i == 200
                      { "success" => true }
                    else
@@ -93,7 +96,7 @@ module WhatsappSdk
       # @return [WhatsappSdk::Api::Response] Response object.
       sig { params(sender_id: Integer, file_path: String, type: String).returns(WhatsappSdk::Api::Response) }
       def upload(sender_id:, file_path:, type:)
-        raise FileNotFoundError, file_path unless File.file?(file_path)
+        raise FileNotFoundError.new(file_path: file_path) unless File.file?(file_path)
 
         params = {
           messaging_product: "whatsapp",
@@ -128,10 +131,16 @@ module WhatsappSdk
 
       private
 
-      def valid_content_header?(_media_type)
-        # TODO: Add validations for media types. See available types in the official documentation
-        # https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media#supported-media-types.
-        true
+      def map_media_type_to_content_type_header(media_type)
+        # Media type maps 1:1 to the content-type header.
+        # The list of supported types are in MediaTypes::SUPPORTED_TYPES.
+        # It uses the media type defined by IANA https://www.iana.org/assignments/media-types
+
+        media_type
+      end
+
+      def valid_media_type?(media_type)
+        WhatsappSdk::Resource::MediaTypes::SUPPORTED_MEDIA_TYPES.include?(media_type)
       end
     end
   end
