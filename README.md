@@ -31,25 +31,26 @@ Or install it yourself as:
 
 ## Quick Start
 
-There are three primary resources, `Messages`, `Media` and `PhoneNumbers`. `Messages` allows users to send any kind of message (text, audio, location, video, image, etc.). `Media` allows users to manage media, and `Phone Numbers` enable clients to query the associated phone numbers.
+There are three primary resources, `Messages`, `Media` and `PhoneNumbers`. `Messages` allows users to send any message (text, audio, location, video, image, etc.). `Media` allows users to manage media, and `Phone Numbers` enable clients to query the associated phone numbers.
 
-To use `Messages`, `Media` or `PhoneNumbers`, you need to initialize the `Client` that contains auth information. There are two ways to do it
+To use `Messages`, `Media` or `PhoneNumbers`, you need to initialize the `Client` that contains auth information. There are two ways to do it.
 
-1) Using an initializer
+1) Use an initializer
   
 ```ruby
+# config/initializers/whatsapp_sdk.rb
 WhatsappSdk.configure do |config|
   config.access_token = ACCESS_TOKEN
 end
 ```
-OR 2) creating a `Client` instance and pass it to the `Messages`, `Medias` or `PhoneNumbers` instance like this:
+OR 2) Create a `Client` instance and pass it to the `Messages`, `Medias` or `PhoneNumbers` instance like this:
 
 ```ruby
 client = WhatsappSdk::Api::Client.new("<ACCESS TOKEN>") # replace this with a valid access token
 messages_api = WhatsappSdk::Api::Messages.new(client)
 ```
 
-Each API operation returns a `WhatsappSdk::Api::Response` that contains `data` and `error` and a couple of helpful functions such as `ok?` and `error?`. There are three types of response `WhatsappSdk::Api::MessageDataResponse`, `WhatsappSdk::Api::PhoneNumberDataResponse` and `WhatsappSdk::Api::PhoneNumbersDataResponse`. Each of them contains different attributes.
+Each API operation returns a `WhatsappSdk::Api::Response` that contains `data` and `error` and a couple of helpful functions such as `ok?` and `error?`. There are three types of responses `WhatsappSdk::Api::MessageDataResponse`, `WhatsappSdk::Api::PhoneNumberDataResponse` and `WhatsappSdk::Api::PhoneNumbersDataResponse`. Each of them contains different attributes.
 
 ## Set up a Meta app
 
@@ -480,17 +481,17 @@ Visit [the example file](/example.rb) with examples to call the API in a single 
 
 ## Troubleshooting
 
-- If the API response is `success`,  but the message is not delivered, ensure the device you're sending the message to is using a supported Whatsapp version. [Check documentation](https://developers.facebook.com/docs/whatsapp/cloud-api/support/troubleshooting#message-not-delivered). Try also replying a message to the number your registered on your Whatsapp.
+- If the API response is `success`,  but the message is not delivered, ensure the device you're sending the message to is using a supported Whatsapp version. [Check documentation](https://developers.facebook.com/docs/whatsapp/cloud-api/support/troubleshooting#message-not-delivered). Try also replying a message to the number you are registered on your Whatsapp.
 - Ensure your Meta App uses an API version greater than or equal to `v.14`.
-- Ensure that the Panel in the Facebook dashboard doesn't display any error.
+- Ensure that the Panel in the Facebook dashboard doesn't display any errors.
 
-Note: Sometimes the messages are delayed, see [Meta documentation](https://developers.facebook.com/docs/whatsapp/on-premises/guides/send-message-performance#delays). 
+Note: Sometimes the messages are delayed; see [Meta documentation](https://developers.facebook.com/docs/whatsapp/on-premises/guides/send-message-performance#delays). 
 
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+Run ' bundle exec rake install ' to install this gem onto your local machine. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ### Run all the tests
 - **Unit tests:** Run `rake test`
@@ -505,6 +506,9 @@ To update the Cloud API version update the version in `lib/whatsapp_sdk/api/api_
 Bug reports and pull requests are welcome on GitHub at [https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk) This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 If you want a feature to be implemented in the gem, please, open an issue and we will take a look as soon as we can. 
+
+
+Do you want to contribute and are unsure where to start? Ping me on Twitter, and I will help you!
 
 ## License
 
