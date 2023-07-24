@@ -22,9 +22,10 @@ module WhatsappSdk
         application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
       ].freeze
       IMAGE_TYPES = %w[image/jpeg image/png].freeze
+      STICKER_TYPES = %w[image/webp].freeze
       VIDEO_TYPES = %w[video/mp4 video/3gp].freeze
 
-      SUPPORTED_MEDIA_TYPES = [AUDIO_TYPES + DOCUMENT_TYPES + IMAGE_TYPES + VIDEO_TYPES].flatten.freeze
+      SUPPORTED_MEDIA_TYPES = [AUDIO_TYPES + DOCUMENT_TYPES + IMAGE_TYPES + STICKER_TYPES + VIDEO_TYPES].flatten.freeze
     end
   end
 end

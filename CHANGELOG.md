@@ -1,5 +1,7 @@
 # Unreleased 
 
+- Add Support to image/webp sticker media. @renatovico [#94](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/issues/94)
+
 # v 0.9.1
 - Invalidate unsupported and invalid media types @ignacio-chiazzo [#89](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/89)
 
