@@ -46,6 +46,7 @@ module WhatsappSdk
               language: "en_US",
               category: "MARKETING",
               components_json: components_json
+            }
           ).returns(valid_template_response)
   
           response = @medias_api.create_template(

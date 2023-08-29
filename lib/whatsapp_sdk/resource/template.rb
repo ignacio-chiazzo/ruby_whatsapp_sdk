@@ -6,6 +6,9 @@ module WhatsappSdk
     class Template
       extend T::Sig
 
+      sig { returns(String) }
+      attr_accessor :id
+
       class Status < T::Enum
         extend T::Sig
 
@@ -17,6 +20,9 @@ module WhatsappSdk
         end
       end
 
+      sig { returns(Status) }
+      attr_accessor :status
+
       class Category < T::Enum
         extend T::Sig
 
@@ -25,6 +31,16 @@ module WhatsappSdk
           MARKETING = new("MARKETING")
           UTILITY = new("UTILITY")
         end
+      end
+
+      sig { returns(Category) }
+      attr_accessor :category
+
+      sig { params(id: String, status: Status, category: Category).void }
+      def initialize(id:, status:, category:)
+        @id = id
+        @status = status
+        @category = category
       end
     end
   end
