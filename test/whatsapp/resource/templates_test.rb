@@ -9,13 +9,13 @@ module WhatsappSdk
       class TemplatesTest < Minitest::Test
         def setup
           client = WhatsappSdk::Api::Client.new("test_token")
-          @templates_api = WhatsappSdk::Api::Messages.new(client)
+          @messages_api = WhatsappSdk::Api::Messages.new(client)
         end
 
         ##### CREATE
         def test_create_a_template_raises_an_error_when_component_and_component_json_are_not_provided
           error = assert_raises(WhatsappSdk::Api::Templates::MissingArgumentError) do
-            @templates_api.send_template(
+            @messages_api.send_template(
               name: "seasonal_promotion", 
               language: "en_US",
               category: "MARKETING",
@@ -38,7 +38,7 @@ module WhatsappSdk
             ]
           }]
 
-          @templates_api.expects(:send_request).with(
+          @messages_api.expects(:send_request).with(
             http_method: "get",
             endpoint: "123456/message_templates",
             params: {
