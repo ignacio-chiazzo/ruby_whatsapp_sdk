@@ -13,9 +13,7 @@ module WhatsappSdk
 
         sig { params(response: T::Hash[T.untyped, T.untyped]).void }
         def initialize(response:)
-          @id = T.let(response["id"], String)
-          @status = WhatsappSdk::Resource::Template::Status.try_deserialize(response["status"])
-          @category = WhatsappSdk::Resource::Template::Category.try_deserialize(response["category"])
+          @template = parse_template(response)
 
           super(response)
         end
