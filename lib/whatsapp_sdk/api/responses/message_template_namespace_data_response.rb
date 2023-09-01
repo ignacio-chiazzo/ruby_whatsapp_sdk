@@ -18,13 +18,13 @@ module WhatsappSdk
         def initialize(response)
           @id = T.let(response["id"], String)
           @message_template_namespace = T.let(response["message_template_namespace"], String)
-          
+
           super(response)
         end
 
-        sig do 
+        sig do
           override.params(response: T::Hash[T.untyped, T.untyped])
-          .returns(T.nilable(MessageTemplateNamespaceDataResponse))
+                  .returns(T.nilable(MessageTemplateNamespaceDataResponse))
         end
         def self.build_from_response(response:)
           return unless response["id"]
