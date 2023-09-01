@@ -17,10 +17,10 @@ module WhatsappSdk
       def test_create_a_template_raises_an_error_when_category_is_invalid
         error = assert_raises(WhatsappSdk::Api::Templates::InvalidCategoryError) do
           @templates_api.create(
-            business_id: 123456,
-            name: "seasonal_promotion", 
+            business_id: 123_456,
+            name: "seasonal_promotion",
             language: "en_US",
-            category: "RANDOM",
+            category: "RANDOM"
           )
         end
 
@@ -55,7 +55,7 @@ module WhatsappSdk
         ).returns(valid_template_response)
 
         template_response = @templates_api.create(
-          business_id: 123456,  
+          business_id: 123_456,
           name: "seasonal_promotion",
           language: "en_US",
           category: "MARKETING",
@@ -71,7 +71,7 @@ module WhatsappSdk
       ##### Update Message Template
       ##### Delete Message Template
 
-      private 
+      private
 
       def mock_response
         @templates_api.stubs(:send_request).returns(valid_template_response)
@@ -93,11 +93,11 @@ module WhatsappSdk
       end
 
       def valid_template_response
-        @valid_response ||= {
-          "id": "123456",
-          "status": "PENDING",
-          "category": "MARKETING"
-        }        
+        @valid_template_response ||= {
+          id: "123456",
+          status: "PENDING",
+          category: "MARKETING"
+        }
       end
     end
   end
