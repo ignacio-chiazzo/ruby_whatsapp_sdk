@@ -71,7 +71,8 @@ module WhatsappSdk
         response = send_request(
           endpoint: "#{business_id}/message_templates",
           http_method: "post",
-          params: params
+          params: params,
+          headers: DEFAULT_HEADERS
         )
 
         WhatsappSdk::Api::Response.new(
@@ -179,7 +180,8 @@ module WhatsappSdk
         response = send_request(
           endpoint: "#{business_id}/message_templates",
           http_method: "delete",
-          params: params
+          params: params,
+          headers: DEFAULT_HEADERS
         )
 
         WhatsappSdk::Api::Response.new(

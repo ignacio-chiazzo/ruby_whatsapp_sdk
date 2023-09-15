@@ -7,6 +7,8 @@ require 'api/templates'
 module WhatsappSdk
   module Api
     class TemplatesTest < Minitest::Test
+      include(ErrorsHelper)
+
       def setup
         client = WhatsappSdk::Api::Client.new("test_token")
         @messages_api = WhatsappSdk::Api::Messages.new(client)
@@ -27,29 +29,55 @@ module WhatsappSdk
         assert_equal("Invalid Category. The possible values are: AUTHENTICATION, MARKETING and UTILITY.", error.message)
       end
 
-      def test_create_a_template_with_valid_params
+      def test_create_a_template_with_valid_params_and_no_components
         mock_response
-        # components_json = [{
-        #   type: "header",
-        #   parameters: [
-        #     {
-        #       type: "image",
-        #       image: {
-        #         link: "http(s)://URL"
-        #       }
-        #     }
-        #   ]
-        # }]
-        components_json = []
 
         @templates_api.expects(:send_request).with(
           http_method: "post",
           endpoint: "123456/message_templates",
           params: {
             name: "seasonal_promotion",
-            language: "en_US",
             category: "MARKETING",
-            components_json: components_json
+            language: "en_US",
+            components: []
+          },
+          headers: { "Content-Type" => "application/json" }
+        ).returns(valid_template_response)
+
+        template_response = @templates_api.create(
+          business_id: 123_456,
+          name: "seasonal_promotion",
+          language: "en_US",
+          category: "MARKETING",
+          components_json: []
+        )
+
+        assert_templates_mock_response(valid_template_response, template_response)
+        assert_predicate(template_response, :ok?)
+      end
+
+      def test_create_a_template_with_valid_params
+        mock_response
+        components_json = [{
+          type: "header",
+          parameters: [
+            {
+              type: "image",
+              image: {
+                link: "http(s)://URL"
+              }
+            }
+          ]
+        }]
+
+        @templates_api.expects(:send_request).with(
+          http_method: "post",
+          endpoint: "123456/message_templates",
+          params: {
+            name: "seasonal_promotion",
+            category: "MARKETING",
+            language: "en_US",
+            components: components_json
           },
           headers: { "Content-Type" => "application/json" }
         ).returns(valid_template_response)
@@ -61,8 +89,7 @@ module WhatsappSdk
           category: "MARKETING",
           components_json: components_json
         )
-        
-        binding.pry
+
         assert_templates_mock_response(valid_template_response, template_response)
         assert_predicate(template_response, :ok?)
       end
@@ -70,9 +97,68 @@ module WhatsappSdk
       ##### GET Templates
       ##### GET Message Template
       ##### Update Message Template
+      
       ##### Delete Message Template
+      def test_delete_template_by_name
+        business_id = 123_456
+        name = "seasonal_promotion"
+
+        @templates_api.expects(:send_request).with(
+          http_method: "delete",
+          endpoint: "#{business_id}/message_templates",
+          params: { name: name },
+          headers: { "Content-Type" => "application/json" }
+        ).returns({ "success" => true })
+
+        response = @templates_api.delete_template(business_id:, name:)
+
+        validate_sucess_data_response(response)
+      end
+      
+      def test_delete_template_by_id
+        business_id = 123_456
+        name = "seasonal_promotion"
+        hsm_id = "987654321"
+
+        @templates_api.expects(:send_request).with(
+          http_method: "delete",
+          endpoint: "#{business_id}/message_templates",
+          params: {
+            name: name,
+            hsm_id: hsm_id,
+          },
+          headers: { "Content-Type" => "application/json" }
+        ).returns({ "success" => true })
+
+        response = @templates_api.delete_template(business_id:, name:, hsm_id: hsm_id)
+
+        validate_sucess_data_response(response)
+      end
+
+      # verify the error response
+      # def test_delete_template_with_error_response
+      #   business_id = 123_456
+      #   name = "seasonal_promotion"
+        
+      #   @templates_api.expects(:send_request).with(
+      #     http_method: "delete",
+      #     endpoint: "#{business_id}/message_templates",
+      #     params: { name: name },
+      #     headers: { "Content-Type" => "application/json" }
+      #   ).returns(generic_error_response)
+
+      #   response = @templates_api.delete_template(business_id:, name:)
+      #   binding.pry
+      #   assert_error_response(generic_error_response, response)
+      # end
 
       private
+
+      def validate_sucess_data_response(response)
+        assert_ok_response(response)
+        assert_equal(WhatsappSdk::Api::Responses::SuccessResponse, response.data.class)
+        assert_predicate(response.data, :success?)
+      end
 
       def mock_response
         @templates_api.stubs(:send_request).returns(valid_template_response)
