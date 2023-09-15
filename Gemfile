@@ -5,7 +5,7 @@ source "https://rubygems.org"
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem("faraday")
+gem("faraday", "~> 2.7.10")
 gem("faraday-multipart")
 gem("rake", ">= 12.3.3")
 gem('sorbet-runtime')
