@@ -40,7 +40,7 @@ module WhatsappSdk
         text_length = text.length
         return if text_length <= MAXIMUM_LENGTH
 
-        raise WhatsappSdk::Resource::Error::InvalidInteractiveFooter,
+        raise WhatsappSdk::Resource::Errors::InvalidInteractiveFooter,
               "Invalid length #{text_length} for text in footer. Maximum length: #{MAXIMUM_LENGTH} characters."
       end
     end

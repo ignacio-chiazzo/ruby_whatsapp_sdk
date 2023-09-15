@@ -1,4 +1,8 @@
 # Unreleased 
+- [Breaking Change] Rename `error` module with `errors`. @ignacio-chiazzo [#101](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/101)
+
+If you are calling an error using `WhatsappSdk::Resource::Error`, you should update it to `WhatsappSdk::Resource::Errors`, e.g. `WhatsappSdk::Resource::Errors::MissingArgumentError`
+
 
 # v 0.9.2
 - Add Support to image/webp sticker media. @renatovico [#94](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/issues/94)

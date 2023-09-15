@@ -7,7 +7,7 @@ module WhatsappSdk
   module Resource
     class InteractionActionSectionRowTest < Minitest::Test
       def test_validation
-        error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionSectionRow) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionSectionRow) do
           WhatsappSdk::Resource::InteractiveActionSectionRow.new(
             title: "I am the longer row title",
             id: "section_row",
@@ -19,7 +19,7 @@ module WhatsappSdk
           error.message
         )
 
-        error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionSectionRow) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionSectionRow) do
           WhatsappSdk::Resource::InteractiveActionSectionRow.new(
             title: "I am the row title",
             id: "section_row",
@@ -31,7 +31,7 @@ module WhatsappSdk
           error.message
         )
 
-        error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionSectionRow) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionSectionRow) do
           WhatsappSdk::Resource::InteractiveActionSectionRow.new(
             title: "I am the row title",
             id: "section_row" * 25,

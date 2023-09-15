@@ -7,7 +7,7 @@ module WhatsappSdk
   module Resource
     class InteractionActionTest < Minitest::Test
       def test_validation
-        error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionButton) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionButton) do
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
             type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage
           )
@@ -18,7 +18,7 @@ module WhatsappSdk
           error.message
         )
 
-        error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionButton) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionButton) do
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
             type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage
           )
@@ -30,7 +30,7 @@ module WhatsappSdk
           error.message
         )
 
-        error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionSection) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionSection) do
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
             type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage
           )
@@ -42,7 +42,7 @@ module WhatsappSdk
           error.message
         )
 
-        error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionReplyButton) do
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
             type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton
           )
@@ -53,7 +53,7 @@ module WhatsappSdk
           error.message
         )
 
-        error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionReplyButton) do
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
             type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton
           )

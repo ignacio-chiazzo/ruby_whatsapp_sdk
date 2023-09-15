@@ -3,7 +3,20 @@
 
 module WhatsappSdk
   module Resource
-    module Error
+    module Errors
+      class MissingArgumentError < StandardError
+        extend T::Sig
+
+        sig { returns(String) }
+        attr_reader :message
+
+        sig { params(message: String).void }
+        def initialize(message)
+          @message = message
+          super(message)
+        end
+      end
+
       class MissingValue < WhatsappSdk::Error
         extend T::Sig
 

@@ -7,7 +7,7 @@ module WhatsappSdk
   module Resource
     class InteractionActionSectionTest < Minitest::Test
       def test_validation
-        error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionSection) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionSection) do
           WhatsappSdk::Resource::InteractiveActionSection.new(
             title: "I am the longer section title"
           )
