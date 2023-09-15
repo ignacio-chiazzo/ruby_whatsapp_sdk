@@ -22,16 +22,17 @@ module WhatsappSdk
         def self.build_from_response(response:)
           return unless response["id"]
 
-          new(response)
+          new(response: response)
         end
 
         private
 
         sig { params(template_json: T::Hash[T.untyped, T.untyped]).returns(::WhatsappSdk::Resource::Template) }
         def parse_template(template_json)
-          ::WhatsappSdk::Resource::Template.new(id: template_json["id"],
-                                                status: template_json["status"],
-                                                category: template_json["category"])
+          status = ::WhatsappSdk::Resource::Template::Status.try_deserialize(template_json["status"])
+          category = ::WhatsappSdk::Resource::Template::Category.try_deserialize(template_json["category"])
+
+          ::WhatsappSdk::Resource::Template.new(id: template_json["id"], status: status, category: category)
         end
       end
     end
