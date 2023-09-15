@@ -2,14 +2,14 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require_relative '../../../lib/whatsapp_sdk/resource/interactive'
-require_relative '../../../lib/whatsapp_sdk/resource/interactive_action'
-require_relative '../../../lib/whatsapp_sdk/resource/interactive_action_reply_button'
-require_relative '../../../lib/whatsapp_sdk/resource/interactive_action_section'
-require_relative '../../../lib/whatsapp_sdk/resource/interactive_action_section_row'
-require_relative '../../../lib/whatsapp_sdk/resource/interactive_body'
-require_relative '../../../lib/whatsapp_sdk/resource/interactive_footer'
-require_relative '../../../lib/whatsapp_sdk/resource/interactive_header'
+require 'whatsapp_sdk/resource/interactive'
+require 'whatsapp_sdk/resource/interactive_action'
+require 'whatsapp_sdk/resource/interactive_action_reply_button'
+require 'whatsapp_sdk/resource/interactive_action_section'
+require 'whatsapp_sdk/resource/interactive_action_section_row'
+require 'whatsapp_sdk/resource/interactive_body'
+require 'whatsapp_sdk/resource/interactive_footer'
+require 'whatsapp_sdk/resource/interactive_header'
 
 module WhatsappSdk
   module Resource

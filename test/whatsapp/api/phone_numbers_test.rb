@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require_relative '../../../lib/whatsapp_sdk/api/phone_numbers'
-require_relative '../../../lib/whatsapp_sdk/resource/contact_response'
-require_relative '../../../lib/whatsapp_sdk/api/client'
+require 'whatsapp_sdk/api/phone_numbers'
+require 'whatsapp_sdk/resource/contact_response'
+require 'whatsapp_sdk/api/client'
 
 module WhatsappSdk
   module Api

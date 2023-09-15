@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require_relative '../../../lib/whatsapp_sdk/resource/currency'
+require 'whatsapp_sdk/resource/currency'
 
 module WhatsappSdk
   module Resource

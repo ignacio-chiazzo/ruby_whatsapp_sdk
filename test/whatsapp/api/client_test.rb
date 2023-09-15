@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-require_relative '../../../lib/whatsapp_sdk/api/client'
-require_relative '../../../lib/whatsapp_sdk/api/api_configuration'
+require 'whatsapp_sdk/api/client'
+require 'whatsapp_sdk/api/api_configuration'
 
 module WhatsappSdk
   module Api

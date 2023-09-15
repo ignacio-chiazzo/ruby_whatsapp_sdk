@@ -1,8 +1,8 @@
 # typed: true
 # frozen_string_literal: true
 
-require_relative '../../../lib/whatsapp_sdk/api/business_profile'
-require_relative '../../../lib/whatsapp_sdk/api/client'
+require 'whatsapp_sdk/api/business_profile'
+require 'whatsapp_sdk/api/client'
 
 module WhatsappSdk
   module Api
