@@ -12,21 +12,21 @@ module WhatsappSdk
       class MessageDataResponse < DataResponse
         extend T::Sig
 
-        sig { returns(T::Array[::WhatsappSdk::Resource::ContactResponse]) }
+        sig { returns(T::Array[Resource::ContactResponse]) }
         attr_reader :contacts
 
-        sig { returns(T::Array[::WhatsappSdk::Resource::Message]) }
+        sig { returns(T::Array[Resource::Message]) }
         attr_reader :messages
 
         sig { params(response: T::Hash[T.untyped, T.untyped]).void }
         def initialize(response:)
           @contacts = T.let(
             response["contacts"]&.map { |contact_json| parse_contact(contact_json) },
-            T::Array[::WhatsappSdk::Resource::ContactResponse]
+            T::Array[Resource::ContactResponse]
           )
           @messages = T.let(
             response["messages"]&.map { |contact_json| parse_message(contact_json) },
-            T::Array[::WhatsappSdk::Resource::Message]
+            T::Array[Resource::Message]
           )
           super(response)
         end
@@ -40,14 +40,14 @@ module WhatsappSdk
 
         private
 
-        sig { params(message_json: T::Hash[T.untyped, T.untyped]).returns(::WhatsappSdk::Resource::Message) }
+        sig { params(message_json: T::Hash[T.untyped, T.untyped]).returns(Resource::Message) }
         def parse_message(message_json)
-          ::WhatsappSdk::Resource::Message.new(id: message_json["id"])
+          Resource::Message.new(id: message_json["id"])
         end
 
-        sig { params(contact_json: T::Hash[T.untyped, T.untyped]).returns(::WhatsappSdk::Resource::ContactResponse) }
+        sig { params(contact_json: T::Hash[T.untyped, T.untyped]).returns(Resource::ContactResponse) }
         def parse_contact(contact_json)
-          ::WhatsappSdk::Resource::ContactResponse.new(input: contact_json["input"], wa_id: contact_json["wa_id"])
+          Resource::ContactResponse.new(input: contact_json["input"], wa_id: contact_json["wa_id"])
         end
       end
     end

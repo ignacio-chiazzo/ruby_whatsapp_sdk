@@ -14,13 +14,13 @@ module WhatsappSdk
     module Resource
       class ParameterObjectTest < Minitest::Test
         def setup
-          @image_media = WhatsappSdk::Resource::Media.new(type: WhatsappSdk::Resource::Media::Type::Image,
-                                                          link: "http(s)://URL", caption: "caption")
-          @document_media = WhatsappSdk::Resource::Media.new(type: WhatsappSdk::Resource::Media::Type::Document,
-                                                             link: "http://URL", filename: "txt.rb")
-          @video_media = WhatsappSdk::Resource::Media.new(type: WhatsappSdk::Resource::Media::Type::Video, id: "123")
-          @currency = WhatsappSdk::Resource::Currency.new(code: "USD", amount: 1000, fallback_value: "USD")
-          @date_time = WhatsappSdk::Resource::DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
+          @image_media = Media.new(type: Media::Type::Image,
+                                   link: "http(s)://URL", caption: "caption")
+          @document_media = Media.new(type: Media::Type::Document,
+                                      link: "http://URL", filename: "txt.rb")
+          @video_media = Media.new(type: Media::Type::Video, id: "123")
+          @currency = Currency.new(code: "USD", amount: 1000, fallback_value: "USD")
+          @date_time = DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
         end
 
         [
@@ -38,8 +38,8 @@ module WhatsappSdk
               attr_name = :image
             end
 
-            error = assert_raises(WhatsappSdk::Resource::Errors::MissingValue) do
-              T.unsafe(WhatsappSdk::Resource::ParameterObject).new(type: type, attr_name => object)
+            error = assert_raises(Errors::MissingValue) do
+              T.unsafe(ParameterObject).new(type: type, attr_name => object)
             end
 
             assert_equal(type.serialize, error.field)
@@ -48,52 +48,52 @@ module WhatsappSdk
         end
 
         def test_creates_a_valid_parameter_object_with_for_type
-          WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Text, text: "foo")
-          WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Currency, currency: @currency)
-          WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::DateTime, date_time: @date_time)
-          WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Image, image: @image_media)
-          WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Video, video: @video_media)
-          WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Document, document: @document_media)
+          ParameterObject.new(type: ParameterObject::Type::Text, text: "foo")
+          ParameterObject.new(type: ParameterObject::Type::Currency, currency: @currency)
+          ParameterObject.new(type: ParameterObject::Type::DateTime, date_time: @date_time)
+          ParameterObject.new(type: ParameterObject::Type::Image, image: @image_media)
+          ParameterObject.new(type: ParameterObject::Type::Video, video: @video_media)
+          ParameterObject.new(type: ParameterObject::Type::Document, document: @document_media)
         end
 
         def test_to_json
-          parameter_image = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Image,
-                                                                       image: @image_media)
+          parameter_image = ParameterObject.new(type: ParameterObject::Type::Image,
+                                                image: @image_media)
           assert_equal(
             { type: "image", image: { link: "http(s)://URL", caption: "caption" } },
             parameter_image.to_json
           )
 
-          parameter_document = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Document,
-                                                                          document: @document_media)
+          parameter_document = ParameterObject.new(type: ParameterObject::Type::Document,
+                                                   document: @document_media)
           assert_equal(
             { type: "document", document: { link: "http://URL", filename: "txt.rb" } },
             parameter_document.to_json
           )
 
-          parameter_video = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Video,
-                                                                       video: @video_media)
+          parameter_video = ParameterObject.new(type: ParameterObject::Type::Video,
+                                                video: @video_media)
           assert_equal(
             { type: "video", video: { id: "123" } },
             parameter_video.to_json
           )
 
-          parameter_text = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Text,
-                                                                      text: "I am a text")
+          parameter_text = ParameterObject.new(type: ParameterObject::Type::Text,
+                                               text: "I am a text")
           assert_equal(
             { type: "text", text: "I am a text" },
             parameter_text.to_json
           )
 
-          parameter_currency = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Currency,
-                                                                          currency: @currency)
+          parameter_currency = ParameterObject.new(type: ParameterObject::Type::Currency,
+                                                   currency: @currency)
           assert_equal(
             { type: "currency", currency: { fallback_value: "USD", code: "USD", amount_1000: 1000 } },
             parameter_currency.to_json
           )
 
-          parameter_date_time = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::DateTime,
-                                                                           date_time: @date_time)
+          parameter_date_time = ParameterObject.new(type: ParameterObject::Type::DateTime,
+                                                    date_time: @date_time)
           assert_equal(
             { type: "date_time", date_time: { fallback_value: @date_time.fallback_value } },
             parameter_date_time.to_json

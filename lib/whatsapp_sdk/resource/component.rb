@@ -62,7 +62,7 @@ module WhatsappSdk
       # appending the text parameter to the predefined prefix URL in the template.
       #
       # @returns subtype [String]. Valid options are quick_reply and url.
-      sig { returns(T.nilable(WhatsappSdk::Resource::Component::Subtype)) }
+      sig { returns(T.nilable(Component::Subtype)) }
       attr_accessor :sub_type
 
       # Required when type=button. Not used for the other types.
@@ -80,7 +80,7 @@ module WhatsappSdk
       sig do
         params(
           type: Type, parameters: T::Array[T.any(ButtonParameter, ParameterObject)],
-          sub_type: T.nilable(WhatsappSdk::Resource::Component::Subtype), index: T.nilable(Integer)
+          sub_type: T.nilable(Component::Subtype), index: T.nilable(Integer)
         ).void
       end
       def initialize(type:, parameters: [], sub_type: nil, index: nil)

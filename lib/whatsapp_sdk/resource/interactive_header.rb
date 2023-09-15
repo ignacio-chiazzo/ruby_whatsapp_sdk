@@ -109,7 +109,7 @@ module WhatsappSdk
 
           next unless value.nil?
 
-          raise WhatsappSdk::Resource::Errors::MissingValue.new(
+          raise Resource::Errors::MissingValue.new(
             type.serialize,
             "#{type.serialize} is required when the type is #{type_b}"
           )

@@ -103,18 +103,18 @@ module WhatsappSdk
         button_length = button.length
         sections_count = sections.length
         unless button_length.positive?
-          raise WhatsappSdk::Resource::Errors::InvalidInteractiveActionButton,
+          raise Errors::InvalidInteractiveActionButton,
                 "Invalid button in action. Button label is required."
         end
 
         unless button_length <= LIST_BUTTON_TITLE_MAXIMUM
-          raise WhatsappSdk::Resource::Errors::InvalidInteractiveActionButton,
+          raise Errors::InvalidInteractiveActionButton,
                 "Invalid length #{button_length} for button. Maximum length: " \
                 "#{LIST_BUTTON_TITLE_MAXIMUM} characters."
         end
 
         unless (LIST_SECTIONS_MINIMUM..LIST_SECTIONS_MAXIMUM).cover?(sections_count)
-          raise WhatsappSdk::Resource::Errors::InvalidInteractiveActionSection,
+          raise Errors::InvalidInteractiveActionSection,
                 "Invalid length #{sections_count} for sections in action. It should be between " \
                 "#{LIST_SECTIONS_MINIMUM} and #{LIST_SECTIONS_MAXIMUM}."
         end
@@ -125,7 +125,7 @@ module WhatsappSdk
       def validate_reply_button
         buttons_count = buttons.length
         unless (REPLY_BUTTONS_MINIMUM..REPLY_BUTTONS_MAXIMUM).cover?(buttons_count)
-          raise WhatsappSdk::Resource::Errors::InvalidInteractiveActionReplyButton,
+          raise Errors::InvalidInteractiveActionReplyButton,
                 "Invalid length #{buttons_count} for buttons in action. It should be between " \
                 "#{REPLY_BUTTONS_MINIMUM} and #{REPLY_BUTTONS_MAXIMUM}."
         end
@@ -133,7 +133,7 @@ module WhatsappSdk
         button_ids = buttons.map(&:id)
         return if button_ids.length.eql?(button_ids.uniq.length)
 
-        raise WhatsappSdk::Resource::Errors::InvalidInteractiveActionReplyButton,
+        raise Errors::InvalidInteractiveActionReplyButton,
               "Duplicate ids #{button_ids} for buttons in action. They should be unique."
       end
     end

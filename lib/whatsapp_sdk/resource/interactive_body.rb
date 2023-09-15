@@ -40,7 +40,7 @@ module WhatsappSdk
         text_length = text.length
         return if text_length <= MAXIMUM_LENGTH
 
-        raise WhatsappSdk::Resource::Errors::InvalidInteractiveBody,
+        raise Errors::InvalidInteractiveBody,
               "Invalid length #{text_length} for text in body. Maximum length: #{MAXIMUM_LENGTH} characters."
       end
     end
