@@ -2,12 +2,12 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require 'whatsapp_sdk/resource/parameter_object'
-require 'whatsapp_sdk/resource/media'
-require 'whatsapp_sdk/resource/date_time'
-require 'whatsapp_sdk/resource/currency'
-require 'whatsapp_sdk/error'
-require 'whatsapp_sdk/resource/errors'
+require 'resource/parameter_object'
+require 'resource/media'
+require 'resource/date_time'
+require 'resource/currency'
+require 'error'
+require 'resource/errors'
 
 module WhatsappSdk
   module Resource

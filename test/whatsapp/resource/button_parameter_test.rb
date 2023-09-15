@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require 'whatsapp_sdk/resource/button_parameter'
+require 'resource/button_parameter'
 
 module WhatsappSdk
   module Resource

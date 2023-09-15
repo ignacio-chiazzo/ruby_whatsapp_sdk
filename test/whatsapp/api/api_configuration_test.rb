@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-require 'whatsapp_sdk/api/client'
+require 'api/client'
 
 module WhatsappSdk
   module Api

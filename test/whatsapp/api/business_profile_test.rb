@@ -1,8 +1,8 @@
 # typed: true
 # frozen_string_literal: true
 
-require 'whatsapp_sdk/api/business_profile'
-require 'whatsapp_sdk/api/client'
+require 'api/business_profile'
+require 'api/client'
 
 module WhatsappSdk
   module Api

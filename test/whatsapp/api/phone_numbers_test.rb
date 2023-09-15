@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require 'whatsapp_sdk/api/phone_numbers'
-require 'whatsapp_sdk/resource/contact_response'
-require 'whatsapp_sdk/api/client'
+require 'api/phone_numbers'
+require 'resource/contact_response'
+require 'api/client'
 
 module WhatsappSdk
   module Api
