@@ -13,10 +13,10 @@ module WhatsappSdk
     class Response
       extend T::Sig
 
-      sig { returns(T.nilable(WhatsappSdk::Api::Responses::ErrorResponse)) }
+      sig { returns(T.nilable(Api::Responses::ErrorResponse)) }
       attr_accessor :error
 
-      sig { returns(T.nilable(WhatsappSdk::Api::Responses::DataResponse)) }
+      sig { returns(T.nilable(Api::Responses::DataResponse)) }
       attr_accessor :data
 
       sig { returns(T::Hash[T.untyped, T.untyped]) }
@@ -25,8 +25,8 @@ module WhatsappSdk
       sig do
         params(
           response: T::Hash[T.untyped, T.untyped],
-          data_class_type: T.class_of(WhatsappSdk::Api::Responses::DataResponse),
-          error_class_type: T.class_of(WhatsappSdk::Api::Responses::ErrorResponse)
+          data_class_type: T.class_of(Api::Responses::DataResponse),
+          error_class_type: T.class_of(Api::Responses::ErrorResponse)
         ).void
       end
       def initialize(response:, data_class_type:, error_class_type: Responses::MessageErrorResponse)

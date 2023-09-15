@@ -67,7 +67,7 @@ module WhatsappSdk
         title_length = title.length
         return if title_length <= ACTION_BUTTON_TITLE_MAXIMUM
 
-        raise WhatsappSdk::Resource::Errors::InvalidInteractiveActionReplyButton,
+        raise Errors::InvalidInteractiveActionReplyButton,
               "Invalid length #{title_length} for title in button. " \
               "Maximum length: #{ACTION_BUTTON_TITLE_MAXIMUM} characters."
       end
@@ -80,7 +80,7 @@ module WhatsappSdk
         id_length = id.length
         return if id_length <= ACTION_BUTTON_ID_MAXIMUM
 
-        raise WhatsappSdk::Resource::Errors::InvalidInteractiveActionReplyButton,
+        raise Errors::InvalidInteractiveActionReplyButton,
               "Invalid length #{id_length} for id in button. Maximum length: #{ACTION_BUTTON_ID_MAXIMUM} characters."
       end
     end

@@ -19,9 +19,9 @@ module WhatsappSdk
       @access_token = access_token
     end
 
-    sig { returns(WhatsappSdk::Api::Client) }
+    sig { returns(Api::Client) }
     def client
-      WhatsappSdk::Api::Client.new(access_token)
+      Api::Client.new(access_token)
     end
   end
 end

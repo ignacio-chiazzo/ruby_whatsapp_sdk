@@ -46,17 +46,17 @@ module WhatsappSdk
       # Get Media by ID.
       #
       # @param media_id [String] Media Id.
-      # @return [WhatsappSdk::Api::Response] Response object.
-      sig { params(media_id: String).returns(WhatsappSdk::Api::Response) }
+      # @return [Api::Response] Response object.
+      sig { params(media_id: String).returns(Api::Response) }
       def media(media_id:)
         response = send_request(
           http_method: "get",
           endpoint: "/#{media_id}"
         )
 
-        WhatsappSdk::Api::Response.new(
+        Api::Response.new(
           response: response,
-          data_class_type: WhatsappSdk::Api::Responses::MediaDataResponse
+          data_class_type: Api::Responses::MediaDataResponse
         )
       end
 
@@ -66,8 +66,8 @@ module WhatsappSdk
       # @param file_path [String] The file_path to download the media e.g. "tmp/downloaded_image.png".
       # @param media_type [String] The media type e.g. "audio/mp4". See the supported types in the official
       #  documentation https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media#supported-media-types.
-      # @return [WhatsappSdk::Api::Response] Response object.
-      sig { params(url: String, file_path: String, media_type: String).returns(WhatsappSdk::Api::Response) }
+      # @return [Api::Response] Response object.
+      sig { params(url: String, file_path: String, media_type: String).returns(Api::Response) }
       def download(url:, file_path:, media_type:)
         raise InvalidMediaTypeError.new(media_type: media_type) unless valid_media_type?(media_type)
 
@@ -80,10 +80,10 @@ module WhatsappSdk
                      { "error" => true, "status" => response.code }
                    end
 
-        WhatsappSdk::Api::Response.new(
+        Api::Response.new(
           response: response,
-          data_class_type: WhatsappSdk::Api::Responses::SuccessResponse,
-          error_class_type: WhatsappSdk::Api::Responses::ErrorResponse
+          data_class_type: Api::Responses::SuccessResponse,
+          error_class_type: Api::Responses::ErrorResponse
         )
       end
 
@@ -93,8 +93,8 @@ module WhatsappSdk
       # @param type [String] Media type e.g. text/plain, video/3gp, image/jpeg, image/png. For more information,
       # see the official documentation https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media#supported-media-types.
       #
-      # @return [WhatsappSdk::Api::Response] Response object.
-      sig { params(sender_id: Integer, file_path: String, type: String).returns(WhatsappSdk::Api::Response) }
+      # @return [Api::Response] Response object.
+      sig { params(sender_id: Integer, file_path: String, type: String).returns(Api::Response) }
       def upload(sender_id:, file_path:, type:)
         raise FileNotFoundError.new(file_path: file_path) unless File.file?(file_path)
 
@@ -106,26 +106,26 @@ module WhatsappSdk
 
         response = send_request(http_method: "post", endpoint: "#{sender_id}/media", params: params)
 
-        WhatsappSdk::Api::Response.new(
+        Api::Response.new(
           response: response,
-          data_class_type: WhatsappSdk::Api::Responses::MediaDataResponse
+          data_class_type: Api::Responses::MediaDataResponse
         )
       end
 
       # Delete a Media by ID.
       #
       # @param media_id [String] Media Id.
-      # @return [WhatsappSdk::Api::Response] Response object.
-      sig { params(media_id: String).returns(WhatsappSdk::Api::Response) }
+      # @return [Api::Response] Response object.
+      sig { params(media_id: String).returns(Api::Response) }
       def delete(media_id:)
         response = send_request(
           http_method: "delete",
           endpoint: "/#{media_id}"
         )
 
-        WhatsappSdk::Api::Response.new(
+        Api::Response.new(
           response: response,
-          data_class_type: WhatsappSdk::Api::Responses::SuccessResponse
+          data_class_type: Api::Responses::SuccessResponse
         )
       end
 
@@ -140,7 +140,7 @@ module WhatsappSdk
       end
 
       def valid_media_type?(media_type)
-        WhatsappSdk::Resource::MediaTypes::SUPPORTED_MEDIA_TYPES.include?(media_type)
+        Resource::MediaTypes::SUPPORTED_MEDIA_TYPES.include?(media_type)
       end
     end
   end

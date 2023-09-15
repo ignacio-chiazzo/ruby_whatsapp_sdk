@@ -17,7 +17,7 @@ module WhatsappSdk
         end
       end
 
-      class MissingValue < WhatsappSdk::Error
+      class MissingValue < Error
         extend T::Sig
 
         sig { returns(String) }
@@ -36,17 +36,17 @@ module WhatsappSdk
 
       class InvalidField < MissingValue; end
 
-      class InvalidInteractiveBody < WhatsappSdk::Error; end
+      class InvalidInteractiveBody < Error; end
 
-      class InvalidInteractiveActionReplyButton < WhatsappSdk::Error; end
+      class InvalidInteractiveActionReplyButton < Error; end
 
-      class InvalidInteractiveActionButton < WhatsappSdk::Error; end
+      class InvalidInteractiveActionButton < Error; end
 
-      class InvalidInteractiveActionSection < WhatsappSdk::Error; end
+      class InvalidInteractiveActionSection < Error; end
 
-      class InvalidInteractiveActionSectionRow < WhatsappSdk::Error; end
+      class InvalidInteractiveActionSectionRow < Error; end
 
-      class InvalidInteractiveFooter < WhatsappSdk::Error; end
+      class InvalidInteractiveFooter < Error; end
     end
   end
 end
