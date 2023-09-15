@@ -30,19 +30,6 @@ module WhatsappSdk
         end
       end
 
-      class MissingArgumentError < StandardError
-        extend T::Sig
-
-        sig { returns(String) }
-        attr_reader :message
-
-        sig { params(message: String).void }
-        def initialize(message)
-          @message = message
-          super(message)
-        end
-      end
-
       # Create a template
       #
       # @param name [String] the template's name.
