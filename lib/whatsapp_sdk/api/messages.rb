@@ -11,19 +11,6 @@ module WhatsappSdk
 
       DEFAULT_HEADERS = T.let({ 'Content-Type' => 'application/json' }.freeze, Hash)
 
-      class MissingArgumentError < StandardError
-        extend T::Sig
-
-        sig { returns(String) }
-        attr_reader :message
-
-        sig { params(message: String).void }
-        def initialize(message)
-          @message = message
-          super(message)
-        end
-      end
-
       # Send a text message.
       #
       # @param sender_id [Integer] Sender' phone number.
@@ -124,7 +111,7 @@ module WhatsappSdk
       def send_image(
         sender_id:, recipient_number:, image_id: nil, link: nil, caption: "", message_id: nil
       )
-        raise MissingArgumentError, "image_id or link is required" if !image_id && !link
+        raise WhatsappSdk::Resource::Error::MissingArgumentError, "image_id or link is required" if !image_id && !link
 
         params = {
           messaging_product: "whatsapp",
@@ -166,7 +153,7 @@ module WhatsappSdk
         ).returns(WhatsappSdk::Api::Response)
       end
       def send_audio(sender_id:, recipient_number:, audio_id: nil, link: nil, message_id: nil)
-        raise MissingArgumentError, "audio_id or link is required" if !audio_id && !link
+        raise WhatsappSdk::Resource::Error::MissingArgumentError, "audio_id or link is required" if !audio_id && !link
 
         params = {
           messaging_product: "whatsapp",
@@ -208,7 +195,7 @@ module WhatsappSdk
       def send_video(
         sender_id:, recipient_number:, video_id: nil, link: nil, caption: "", message_id: nil
       )
-        raise MissingArgumentError, "video_id or link is required" if !video_id && !link
+        raise WhatsappSdk::Resource::Error::MissingArgumentError, "video_id or link is required" if !video_id && !link
 
         params = {
           messaging_product: "whatsapp",
@@ -254,7 +241,7 @@ module WhatsappSdk
       def send_document(
         sender_id:, recipient_number:, document_id: nil, link: nil, caption: "", message_id: nil
       )
-        raise MissingArgumentError, "document or link is required" if !document_id && !link
+        raise WhatsappSdk::Resource::Error::MissingArgumentError, "document or link is required" if !document_id && !link
 
         params = {
           messaging_product: "whatsapp",
@@ -296,7 +283,7 @@ module WhatsappSdk
         ).returns(WhatsappSdk::Api::Response)
       end
       def send_sticker(sender_id:, recipient_number:, sticker_id: nil, link: nil, message_id: nil)
-        raise MissingArgumentError, "sticker or link is required" if !sticker_id && !link
+        raise WhatsappSdk::Resource::Error::MissingArgumentError, "sticker or link is required" if !sticker_id && !link
 
         params = {
           messaging_product: "whatsapp",
@@ -384,7 +371,7 @@ module WhatsappSdk
       def send_interactive_message(
         sender_id:, recipient_number:, interactive: nil, interactive_json: nil, message_id: nil
       )
-        raise MissingArgumentError, "interactive or interactive_json is required" if !interactive && !interactive_json
+        raise WhatsappSdk::Resource::Error::MissingArgumentError, "interactive or interactive_json is required" if !interactive && !interactive_json
 
         params = {
           messaging_product: "whatsapp",
@@ -459,7 +446,7 @@ module WhatsappSdk
       def send_template(
         sender_id:, recipient_number:, name:, language:, components: nil, components_json: nil
       )
-        raise MissingArgumentError, "components or components_json is required" if !components && !components_json
+        raise WhatsappSdk::Resource::Error::MissingArgumentError, "components or components_json is required" if !components && !components_json
 
         params = {
           messaging_product: "whatsapp",
