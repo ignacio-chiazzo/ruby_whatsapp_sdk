@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require_relative '../../../lib/whatsapp_sdk/resource/date_time'
+require 'resource/date_time'
 
 module WhatsappSdk
   module Resource

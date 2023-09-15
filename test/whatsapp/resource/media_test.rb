@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require_relative '../../../lib/whatsapp_sdk/resource/media'
+require 'resource/media'
 
 module WhatsappSdk
   module Resource

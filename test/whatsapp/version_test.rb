@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require_relative '../../lib/whatsapp_sdk/version'
+require 'version'
 
 class VersionTest < Minitest::Test
   def test_that_it_has_a_version_number
