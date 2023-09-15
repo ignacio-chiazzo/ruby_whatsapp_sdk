@@ -134,7 +134,7 @@ module WhatsappSdk
       end
 
       def test_send_image_raises_an_error_if_link_and_image_are_not_provided
-        assert_raises(WhatsappSdk::Resource::Error::MissingArgumentError) do
+        assert_raises(WhatsappSdk::Resource::Errors::MissingArgumentError) do
           @messages_api.send_image(
             sender_id: 123_123, recipient_number: 56_789,
             image_id: nil, link: nil, caption: ""
@@ -205,7 +205,7 @@ module WhatsappSdk
       end
 
       def test_send_audio_raises_an_error_if_link_and_image_are_not_provided
-        assert_raises(WhatsappSdk::Resource::Error::MissingArgumentError) do
+        assert_raises(WhatsappSdk::Resource::Errors::MissingArgumentError) do
           @messages_api.send_audio(
             sender_id: 123_123, recipient_number: 56_789, link: nil, audio_id: nil
           )
@@ -255,7 +255,7 @@ module WhatsappSdk
       end
 
       def test_send_video_raises_an_error_if_link_and_image_are_not_provided
-        assert_raises(WhatsappSdk::Resource::Error::MissingArgumentError) do
+        assert_raises(WhatsappSdk::Resource::Errors::MissingArgumentError) do
           @messages_api.send_video(
             sender_id: 123_123, recipient_number: 56_789, link: nil, video_id: nil
           )
@@ -316,7 +316,7 @@ module WhatsappSdk
       end
 
       def test_send_document_raises_an_error_if_link_and_image_are_not_provided
-        assert_raises(WhatsappSdk::Resource::Error::MissingArgumentError) do
+        assert_raises(WhatsappSdk::Resource::Errors::MissingArgumentError) do
           @messages_api.send_document(
             sender_id: 123_123, recipient_number: 56_789, link: nil, document_id: nil
           )
@@ -377,7 +377,7 @@ module WhatsappSdk
       end
 
       def test_send_sticker_raises_an_error_if_link_and_image_are_not_provided
-        assert_raises(WhatsappSdk::Resource::Error::MissingArgumentError) do
+        assert_raises(WhatsappSdk::Resource::Errors::MissingArgumentError) do
           @messages_api.send_sticker(
             sender_id: 123_123, recipient_number: 56_789, link: nil, sticker_id: nil
           )
@@ -497,7 +497,7 @@ module WhatsappSdk
       end
 
       def test_send_template_raises_an_error_when_component_and_component_json_are_not_provided
-        error = assert_raises(WhatsappSdk::Resource::Error::MissingArgumentError) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::MissingArgumentError) do
           @messages_api.send_template(
             sender_id: 123_123, recipient_number: 56_789, name: "template", language: "en_US"
           )

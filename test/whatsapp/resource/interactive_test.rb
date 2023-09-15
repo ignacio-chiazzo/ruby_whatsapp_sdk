@@ -15,7 +15,7 @@ module WhatsappSdk
   module Resource
     class InteractiveTest < Minitest::Test
       def test_validation_reply_buttons
-        error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionReplyButton) do
           interactive_body = WhatsappSdk::Resource::InteractiveBody.new(text: "This is the body!")
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
             type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton
@@ -49,7 +49,7 @@ module WhatsappSdk
         end
         assert_equal("Invalid length 4 for buttons in action. It should be between 1 and 3.", error.message)
 
-        error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionReplyButton) do
           interactive_body = WhatsappSdk::Resource::InteractiveBody.new(text: "This is the body!")
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
             type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton
@@ -74,7 +74,7 @@ module WhatsappSdk
         assert_equal("Duplicate ids [\"button_1\", \"button_1\"] for buttons in action. They should be unique.",
                      error.message)
 
-        error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionReplyButton) do
           interactive_body = WhatsappSdk::Resource::InteractiveBody.new(text: "This is the body!")
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
             type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton
@@ -93,7 +93,7 @@ module WhatsappSdk
         end
         assert_equal("Invalid length 24 for title in button. Maximum length: 20 characters.", error.message)
 
-        error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionReplyButton) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionReplyButton) do
           interactive_body = WhatsappSdk::Resource::InteractiveBody.new(text: "This is the body!")
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
             type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton
@@ -112,7 +112,7 @@ module WhatsappSdk
         end
         assert_equal("Invalid length 287 for id in button. Maximum length: 256 characters.", error.message)
 
-        error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveFooter) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveFooter) do
           interactive_body = WhatsappSdk::Resource::InteractiveBody.new(text: "This is the body!")
           interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(text: "Footer " * 10)
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
@@ -143,7 +143,7 @@ module WhatsappSdk
         end
         assert_equal("Invalid length 70 for text in footer. Maximum length: 60 characters.", error.message)
 
-        error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveBody) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveBody) do
           interactive_body = WhatsappSdk::Resource::InteractiveBody.new(text: "Body " * 250)
           interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
             type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton
@@ -174,7 +174,7 @@ module WhatsappSdk
       end
 
       def test_validation_list_messages
-        error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionButton) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionButton) do
           interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
             type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
             text: "I am the header!"
@@ -213,7 +213,7 @@ module WhatsappSdk
         end
         assert_equal("Invalid button in action. Button label is required.", error.message)
 
-        error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionSection) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionSection) do
           interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
             type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
             text: "I am the header!"
@@ -254,7 +254,7 @@ module WhatsappSdk
         end
         assert_equal("Invalid length 25 for title in section. Maximum length: 24 characters.", error.message)
 
-        error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionSection) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionSection) do
           interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
             type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
             text: "I am the header!"
@@ -297,7 +297,7 @@ module WhatsappSdk
         end
         assert_equal("Invalid number of rows 11 in section. Maximum count: 10.", error.message)
 
-        error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionSectionRow) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionSectionRow) do
           interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
             type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
             text: "I am the header!"
@@ -338,7 +338,7 @@ module WhatsappSdk
         end
         assert_equal("Invalid length 27 for title in section row. Maximum length: 24 characters.", error.message)
 
-        error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionSectionRow) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionSectionRow) do
           interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
             type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
             text: "I am the header!"
@@ -379,7 +379,7 @@ module WhatsappSdk
         end
         assert_equal("Invalid length 319 for id in section row. Maximum length: 256 characters.", error.message)
 
-        error = assert_raises(WhatsappSdk::Resource::Error::InvalidInteractiveActionSectionRow) do
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionSectionRow) do
           interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
             type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
             text: "I am the header!"

@@ -7,7 +7,7 @@ require_relative '../../../lib/whatsapp_sdk/resource/media'
 require_relative '../../../lib/whatsapp_sdk/resource/date_time'
 require_relative '../../../lib/whatsapp_sdk/resource/currency'
 require_relative '../../../lib/whatsapp_sdk/error'
-require_relative '../../../lib/whatsapp_sdk/resource/error'
+require_relative '../../../lib/whatsapp_sdk/resource/errors'
 
 module WhatsappSdk
   module Resource
@@ -38,7 +38,7 @@ module WhatsappSdk
               attr_name = :image
             end
 
-            error = assert_raises(WhatsappSdk::Resource::Error::MissingValue) do
+            error = assert_raises(WhatsappSdk::Resource::Errors::MissingValue) do
               T.unsafe(WhatsappSdk::Resource::ParameterObject).new(type: type, attr_name => object)
             end
 

@@ -3,7 +3,7 @@
 
 module WhatsappSdk
   module Resource
-    module Error
+    module Errors
       class MissingArgumentError < StandardError
         extend T::Sig
 

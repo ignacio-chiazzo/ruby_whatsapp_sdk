@@ -154,8 +154,8 @@ module WhatsappSdk
           next unless type == type_b
 
           if value.nil?
-            raise WhatsappSdk::Resource::Error::MissingValue.new(type.serialize,
-                                                                 "#{type_b} is required when the type is #{type_b}")
+            raise WhatsappSdk::Resource::Errors::MissingValue.new(type.serialize,
+                                                                  "#{type_b} is required when the type is #{type_b}")
           end
         end
       end

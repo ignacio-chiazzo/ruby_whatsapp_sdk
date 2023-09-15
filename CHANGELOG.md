@@ -1,5 +1,6 @@
 # Unreleased 
 
+- Rename `error` module with `errors`. @ignacio-chiazzo [#101](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/101)
 - Add Support to image/webp sticker media. @renatovico [#94](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/issues/94)
 
 # v 0.9.1
