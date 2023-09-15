@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require_relative '../../../lib/whatsapp_sdk/api/templates'
+require 'api/templates'
 
 module WhatsappSdk
   module Api
@@ -61,7 +61,8 @@ module WhatsappSdk
           category: "MARKETING",
           components_json: components_json
         )
-
+        
+        binding.pry
         assert_templates_mock_response(valid_template_response, template_response)
         assert_predicate(template_response, :ok?)
       end
@@ -94,9 +95,9 @@ module WhatsappSdk
 
       def valid_template_response
         @valid_template_response ||= {
-          id: "123456",
-          status: "PENDING",
-          category: "MARKETING"
+          "id" => "123456",
+          "status" => "PENDING",
+          "category" => "MARKETING"
         }
       end
     end
