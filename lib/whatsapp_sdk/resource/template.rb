@@ -36,11 +36,26 @@ module WhatsappSdk
       sig { returns(Category) }
       attr_accessor :category
 
-      sig { params(id: String, status: Status, category: Category).void }
-      def initialize(id:, status:, category:)
+      sig { returns(String) }
+      attr_accessor :name
+
+      sig { returns(String) }
+      attr_accessor :language
+
+      sig { returns(T::Array[Component]) }
+      attr_accessor :components
+
+      sig do
+        params(id: String, status: Status, category: Category, name: T.nilable(String), language: String,
+               components: T::Array[Component]).void
+      end
+      def initialize(id:, status:, category:, name: "", language: "en_US", components: [])
         @id = id
         @status = status
         @category = category
+        @name = name
+        @language = language
+        @components = components
       end
     end
   end

@@ -10,6 +10,7 @@ require_relative 'responses/success_response'
 require_relative 'responses/message_template_namespace_data_response'
 require_relative 'responses/generic_error_response'
 require_relative 'responses/template_data_response'
+require_relative 'responses/templates_data_response'
 
 module WhatsappSdk
   module Api
@@ -48,12 +49,12 @@ module WhatsappSdk
           name: String,
           category: String,
           language: String,
-          components_json: T.nilable(T::Array[T::Hash[T.untyped, T.untyped]]),
+          components_json: T::Array[T::Hash[T.untyped, T.untyped]],
           allow_category_change: T.nilable(T::Boolean)
         ).returns(WhatsappSdk::Api::Response)
       end
       def create(
-        business_id:, name:, category:, language:, components_json: nil, allow_category_change: nil
+        business_id:, name:, category:, language:, components_json: [], allow_category_change: nil
       )
         unless WhatsappSdk::Resource::Template::Category.try_deserialize(category)
           raise InvalidCategoryError.new(category: category)
@@ -95,15 +96,14 @@ module WhatsappSdk
         response = send_request(
           endpoint: "#{business_id}/message_templates",
           http_method: "get",
-          params: params
+          params: params,
+          headers: DEFAULT_HEADERS
         )
-
-        # binding.pry
-        # TODO: Parse response
 
         WhatsappSdk::Api::Response.new(
           response: response,
-          data_class_type: WhatsappSdk::Api::Responses::MessageDataResponse
+          error_class_type: WhatsappSdk::Api::Responses::GenericErrorResponse,
+          data_class_type: WhatsappSdk::Api::Responses::TemplatesDataResponse
         )
       end
 
@@ -120,6 +120,7 @@ module WhatsappSdk
           http_method: "get",
           params: { "fields" => "message_template_namespace" }
         )
+        # TODO: check output
 
         WhatsappSdk::Api::Response.new(
           response: response,
@@ -142,16 +143,18 @@ module WhatsappSdk
         params = {}
         params[:components] = components_json
 
+        # TODO: Test live!
         response = send_request(
           endpoint: "#{message_template_id}/message_templates",
           http_method: "post",
-          params: params
+          params: params,
+          headers: DEFAULT_HEADERS
         )
 
         WhatsappSdk::Api::Response.new(
           response: response,
           data_class_type: WhatsappSdk::Api::Responses::SuccessResponse,
-          error_class_type: WhatsappSdk::Api::Responses::ErrorResponse
+          error_class_type: WhatsappSdk::Api::Responses::GenericErrorResponse
         )
       end
 
@@ -187,7 +190,7 @@ module WhatsappSdk
         WhatsappSdk::Api::Response.new(
           response: response,
           data_class_type: WhatsappSdk::Api::Responses::SuccessResponse,
-          error_class_type: WhatsappSdk::Api::Responses::ErrorResponse
+          error_class_type: WhatsappSdk::Api::Responses::GenericErrorResponse
         )
       end
     end

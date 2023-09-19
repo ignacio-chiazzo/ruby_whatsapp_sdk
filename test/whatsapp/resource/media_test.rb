@@ -9,11 +9,8 @@ module WhatsappSdk
     module Resource
       class MediaTest < Minitest::Test
         def test_raise_an_error_when_filename_is_passed_and_type_is_not_document
-          error = assert_raises(WhatsappSdk::Resource::Media::InvalidMedia) do
-            WhatsappSdk::Resource::Media.new(
-              type: WhatsappSdk::Resource::Media::Type::Sticker,
-              filename: "afs"
-            )
+          error = assert_raises(Media::InvalidMedia) do
+            Media.new(type: Media::Type::Sticker, filename: "afs")
           end
 
           assert_equal(:filename, error.field)
@@ -21,11 +18,8 @@ module WhatsappSdk
         end
 
         def test_raise_an_error_when_caption_is_passed_and_type_is_not_document_nor_image
-          error = assert_raises(WhatsappSdk::Resource::Media::InvalidMedia) do
-            WhatsappSdk::Resource::Media.new(
-              type: WhatsappSdk::Resource::Media::Type::Video,
-              caption: "I am a caption"
-            )
+          error = assert_raises(Media::InvalidMedia) do
+            Media.new(type: Media::Type::Video, caption: "I am a caption")
           end
 
           assert_equal(:caption, error.field)
@@ -33,13 +27,11 @@ module WhatsappSdk
         end
 
         def test_to_json
-          image = WhatsappSdk::Resource::Media.new(type: WhatsappSdk::Resource::Media::Type::Image,
-                                                   link: "http(s)://URL", caption: "caption")
-          document = WhatsappSdk::Resource::Media.new(type: WhatsappSdk::Resource::Media::Type::Document,
-                                                      link: "http(s)://URL", filename: "txt.rb")
-          video = WhatsappSdk::Resource::Media.new(type: WhatsappSdk::Resource::Media::Type::Video, id: "123")
-          audio = WhatsappSdk::Resource::Media.new(type: WhatsappSdk::Resource::Media::Type::Audio, id: "456")
-          sticker = WhatsappSdk::Resource::Media.new(type: WhatsappSdk::Resource::Media::Type::Sticker, id: "789")
+          image = Media.new(type: Media::Type::Image, link: "http(s)://URL", caption: "caption")
+          document = Media.new(type: Media::Type::Document, link: "http(s)://URL", filename: "txt.rb")
+          video = Media.new(type: Media::Type::Video, id: "123")
+          audio = Media.new(type: Media::Type::Audio, id: "456")
+          sticker = Media.new(type: Media::Type::Sticker, id: "789")
 
           assert_equal({ link: "http(s)://URL", caption: "caption" }, image.to_json)
           assert_equal({ link: "http(s)://URL", filename: "txt.rb" }, document.to_json)

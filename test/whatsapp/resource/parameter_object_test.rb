@@ -64,36 +64,31 @@ module WhatsappSdk
             parameter_image.to_json
           )
 
-          parameter_document = ParameterObject.new(type: ParameterObject::Type::Document,
-                                                   document: @document_media)
+          parameter_document = ParameterObject.new(type: ParameterObject::Type::Document, document: @document_media)
           assert_equal(
             { type: "document", document: { link: "http://URL", filename: "txt.rb" } },
             parameter_document.to_json
           )
 
-          parameter_video = ParameterObject.new(type: ParameterObject::Type::Video,
-                                                video: @video_media)
+          parameter_video = ParameterObject.new(type: ParameterObject::Type::Video, video: @video_media)
           assert_equal(
             { type: "video", video: { id: "123" } },
             parameter_video.to_json
           )
 
-          parameter_text = ParameterObject.new(type: ParameterObject::Type::Text,
-                                               text: "I am a text")
+          parameter_text = ParameterObject.new(type: ParameterObject::Type::Text, text: "I am a text")
           assert_equal(
             { type: "text", text: "I am a text" },
             parameter_text.to_json
           )
 
-          parameter_currency = ParameterObject.new(type: ParameterObject::Type::Currency,
-                                                   currency: @currency)
+          parameter_currency = ParameterObject.new(type: ParameterObject::Type::Currency, currency: @currency)
           assert_equal(
             { type: "currency", currency: { fallback_value: "USD", code: "USD", amount_1000: 1000 } },
             parameter_currency.to_json
           )
 
-          parameter_date_time = ParameterObject.new(type: ParameterObject::Type::DateTime,
-                                                    date_time: @date_time)
+          parameter_date_time = ParameterObject.new(type: ParameterObject::Type::DateTime, date_time: @date_time)
           assert_equal(
             { type: "date_time", date_time: { fallback_value: @date_time.fallback_value } },
             parameter_date_time.to_json

@@ -1,8 +1,12 @@
+# typed: false
+# frozen_string_literal: true
+
 module ErrorsHelper
-  def assert_error_response(expected_error_hash, response)
+  def assert_error_response(expected_error_hash, response, expected_error_class)
     refute_predicate(response, :ok?)
     assert_nil(response.data)
     error = response.error
+    assert_equal(expected_error_class, error.class)
     assert_equal(expected_error_hash["error"]["code"], error.code)
     assert_equal(expected_error_hash["error"]["error_subcode"], error.subcode)
     assert_equal(expected_error_hash["error"]["message"], error.message)

@@ -219,23 +219,12 @@ module WhatsappSdk
             text: "I am the header!"
           )
 
-          interactive_body = InteractiveBody.new(
-            text: "I am the body!"
-          )
-
-          interactive_footer = InteractiveFooter.new(
-            text: "I am the footer!"
-          )
-
-          interactive_action = InteractiveAction.new(
-            type: InteractiveAction::Type::ListMessage
-          )
-
+          interactive_body = InteractiveBody.new(text: "I am the body!")
+          interactive_footer = InteractiveFooter.new(text: "I am the footer!")
+          interactive_action = InteractiveAction.new(type: InteractiveAction::Type::ListMessage)
           interactive_action.button = "I am the button CTA"
 
-          interactive_section_1 = InteractiveActionSection.new(
-            title: "I am the longer section 1"
-          )
+          interactive_section_1 = InteractiveActionSection.new(title: "I am the longer section 1")
           interactive_section_1_row_1 = InteractiveActionSectionRow.new(
             title: "I am the row 1 title",
             id: "section_1_row_1",
@@ -255,28 +244,17 @@ module WhatsappSdk
         assert_equal("Invalid length 25 for title in section. Maximum length: 24 characters.", error.message)
 
         error = assert_raises(Errors::InvalidInteractiveActionSection) do
-          interactive_header = InteractiveHeader.new(
-            type: InteractiveHeader::Type::Text,
-            text: "I am the header!"
-          )
+          interactive_header = InteractiveHeader.new(type: InteractiveHeader::Type::Text, text: "I am the header!")
 
-          interactive_body = InteractiveBody.new(
-            text: "I am the body!"
-          )
+          interactive_body = InteractiveBody.new(text: "I am the body!")
 
-          interactive_footer = InteractiveFooter.new(
-            text: "I am the footer!"
-          )
+          interactive_footer = InteractiveFooter.new(text: "I am the footer!")
 
-          interactive_action = InteractiveAction.new(
-            type: InteractiveAction::Type::ListMessage
-          )
+          interactive_action = InteractiveAction.new(type: InteractiveAction::Type::ListMessage)
 
           interactive_action.button = "I am the button CTA"
 
-          interactive_section_1 = InteractiveActionSection.new(
-            title: "I am the section 1"
-          )
+          interactive_section_1 = InteractiveActionSection.new(title: "I am the section 1")
           11.times do |i|
             interactive_section_row = InteractiveActionSectionRow.new(
               title: "I am the row #{i} title",
@@ -303,23 +281,15 @@ module WhatsappSdk
             text: "I am the header!"
           )
 
-          interactive_body = InteractiveBody.new(
-            text: "I am the body!"
-          )
+          interactive_body = InteractiveBody.new(text: "I am the body!")
 
-          interactive_footer = InteractiveFooter.new(
-            text: "I am the footer!"
-          )
+          interactive_footer = InteractiveFooter.new(text: "I am the footer!")
 
-          interactive_action = InteractiveAction.new(
-            type: InteractiveAction::Type::ListMessage
-          )
+          interactive_action = InteractiveAction.new(type: InteractiveAction::Type::ListMessage)
 
           interactive_action.button = "I am the button CTA"
 
-          interactive_section_1 = InteractiveActionSection.new(
-            title: "I am the section 1"
-          )
+          interactive_section_1 = InteractiveActionSection.new(title: "I am the section 1")
           interactive_section_1_row_1 = InteractiveActionSectionRow.new(
             title: "I am the longer row 1 title",
             id: "section_1_row_1",
@@ -344,23 +314,15 @@ module WhatsappSdk
             text: "I am the header!"
           )
 
-          interactive_body = InteractiveBody.new(
-            text: "I am the body!"
-          )
+          interactive_body = InteractiveBody.new(text: "I am the body!")
 
-          interactive_footer = InteractiveFooter.new(
-            text: "I am the footer!"
-          )
+          interactive_footer = InteractiveFooter.new(text: "I am the footer!")
 
-          interactive_action = InteractiveAction.new(
-            type: InteractiveAction::Type::ListMessage
-          )
+          interactive_action = InteractiveAction.new(type: InteractiveAction::Type::ListMessage)
 
           interactive_action.button = "I am the button CTA"
 
-          interactive_section_1 = InteractiveActionSection.new(
-            title: "I am the section 1"
-          )
+          interactive_section_1 = InteractiveActionSection.new(title: "I am the section 1")
           interactive_section_1_row_1 = InteractiveActionSectionRow.new(
             title: "I am the row 1 title",
             id: "section_1_row_1 " * 20,
@@ -385,23 +347,14 @@ module WhatsappSdk
             text: "I am the header!"
           )
 
-          interactive_body = InteractiveBody.new(
-            text: "I am the body!"
-          )
+          interactive_body = InteractiveBody.new(text: "I am the body!")
+          interactive_footer = InteractiveFooter.new(text: "I am the footer!")
 
-          interactive_footer = InteractiveFooter.new(
-            text: "I am the footer!"
-          )
-
-          interactive_action = InteractiveAction.new(
-            type: InteractiveAction::Type::ListMessage
-          )
+          interactive_action = InteractiveAction.new(type: InteractiveAction::Type::ListMessage)
 
           interactive_action.button = "I am the button CTA"
 
-          interactive_section_1 = InteractiveActionSection.new(
-            title: "I am the section 1"
-          )
+          interactive_section_1 = InteractiveActionSection.new(title: "I am the section 1")
           interactive_section_1_row_1 = InteractiveActionSectionRow.new(
             title: "I am the row 1 title",
             id: "section_1_row_1",

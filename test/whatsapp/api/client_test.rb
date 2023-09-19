@@ -9,7 +9,7 @@ module WhatsappSdk
   module Api
     class ClientTest < Minitest::Test
       def setup
-        @client = WhatsappSdk::Api::Client.new('test_token')
+        @client = Client.new('test_token')
       end
 
       def test_send_request_post_with_success_response

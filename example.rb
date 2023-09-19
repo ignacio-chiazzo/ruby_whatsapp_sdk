@@ -52,6 +52,8 @@ medias_api = WhatsappSdk::Api::Medias.new
 messages_api = WhatsappSdk::Api::Messages.new
 phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new
 business_profile_api = WhatsappSdk::Api::BusinessProfile.new
+templates_api = WhatsappSdk::Api::Templates.new
+
 ############################## Business API ##############################
 business_profile = business_profile_api.details(SENDER_ID)
 business_profile_api.update(phone_number_id: SENDER_ID, params: { about: "A very cool business" } )
@@ -59,6 +61,41 @@ business_profile_api.update(phone_number_id: SENDER_ID, params: { about: "A very
 ############################## Phone Numbers API ##############################
 registered_number = phone_numbers_api.registered_number(SENDER_ID)
 registered_numbers = phone_numbers_api.registered_numbers(BUSINESS_ID)
+
+############################## Templates API ##############################
+templates = templates_api.create(
+  business_id: BUSINESS_ID, name: "hello_world", language: "en_US", category: "MARKETING", 
+  components_json: [
+    {
+      "type": "BODY",
+      "text": "Thank you for your order, {{1}}! Your confirmation number is {{2}}. If you have any questions, please use the buttons below to contact support. Thank you for being a customer!",
+      "example": {
+        "body_text": [
+          [
+            "Pablo","860198-230332"
+          ]
+        ]
+      }
+    }
+  ]
+)
+
+templates = templates_api.templates(business_id: BUSINESS_ID)
+template_one = templates.first # check
+templates = templates_api.update(
+  message_template_id: template_one.id,
+  components_json: [
+    {
+      "type": "BODY",
+      "text": "I was edited!",
+      "example": { "body_text": [ [ "Ignacio","860198-230332" ]]
+      }
+    }
+  ]
+)
+
+template = templates.get_message_template_namespace(business_id: BUSINESS_ID)
+delete_template(business_id: template.id) # TEST DELETION
 
 ############################## Media API ##############################
 
@@ -151,6 +188,8 @@ messages_api.send_document(
 messages_api.send_document(
   sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, document_id: "1234", caption: "Ignacio Chiazzo"
 )
+
+binding.pry
 
 ######### SEND STICKERS
 ## with a link

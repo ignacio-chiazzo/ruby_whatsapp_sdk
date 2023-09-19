@@ -1,0 +1,63 @@
+{
+    "data": [{ "name": "seasonal_promotion",
+         "components":
+         [{ "type": "BODY",
+            "text":
+            "Thank you for your order, {{1}}! Your confirmation number is {{2}}. If you have any questions, please use the buttons below to contact support. Thank you for being a customer!",
+            "example": { "body_text": [["Pablo", "860198-230332"]] } }],
+         "language": "en_US",
+         "status": "PENDING",
+         "category": "MARKETING",
+         "id": "637943821653497" },
+       { "name": "sai_marketing",
+         "components":
+         [{ "type": "HEADER", "format": "TEXT", "text": "Hey. I am a header" },
+          { "type": "BODY", "text": "I am the body." },
+          { "type": "FOOTER", "text": "Footer." },
+          { "type": "BUTTONS",
+            "buttons": [{ "type": "URL", "text": "24", "url": "http://www.ignaciochiazzo.com/" }] }],
+         "language": "en_US",
+         "status": "APPROVED",
+         "category": "MARKETING",
+         "id": "543793501275350" },
+       { "name": "seasonal_promotionasda_4",
+         "components":
+         [
+           {
+             "type": "HEADER", "format": "TEXT",
+             "text": "Our {{1}} is on!", "example": { "header_text": ["Summer Sale"] }
+           },
+           { "type": "BODY",
+             "text": "Shop now through {{1}} and use code {{2}} to get {{3}} off of all merchandise.",
+             "example": { "body_text": [["the end of August", "25OFF", "25%"]] } },
+           { "type": "FOOTER", "text": "Use the buttons below to manage your marketing subscriptions" },
+           { "type": "BUTTONS",
+             "buttons": [{ "type": "QUICK_REPLY", "text": "Unsubscribe from Promos" },
+                           { "type": "QUICK_REPLY", "text": "Unsubscribe from All" }] }
+         ],
+         "language": "en_US",
+         "status": "REJECTED",
+         "category": "MARKETING",
+         "id": "1624560287967996" },
+       { "name": "name2",
+         "components":
+         [
+           {
+             "type": "HEADER", "format": "TEXT",
+             "text": "Our {{1}} is on!", "example": { "header_text": ["Summer Sale"] }
+           },
+           { "type": "BODY",
+             "text": "Shop now through {{1}} and use code {{2}} to get {{3}} off of all merchandise.",
+             "example": { "body_text": [["the end of August", "25OFF", "25%"]] } },
+           { "type": "FOOTER", "text": "Use the buttons below to manage your marketing subscriptions" },
+           { "type": "BUTTONS",
+             "buttons": [{ "type": "QUICK_REPLY", "text": "Unsubscribe from Promos" },
+                           { "type": "QUICK_REPLY", "text": "Unsubscribe from All" }] }
+         ],
+         "language": "en_US",
+         "status": "REJECTED",
+         "category": "MARKETING",
+         "id": "243213188351928" }],
+          "paging": { "cursors": { "before": "MAZDZD", "after": "OTkZD" } } 
+}
+     

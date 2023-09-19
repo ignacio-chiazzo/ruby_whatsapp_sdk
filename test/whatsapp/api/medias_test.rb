@@ -11,14 +11,14 @@ module WhatsappSdk
       include(ErrorsHelper)
 
       def setup
-        client = WhatsappSdk::Api::Client.new("test_token")
-        @medias_api = WhatsappSdk::Api::Medias.new(client)
+        client = Client.new("test_token")
+        @medias_api = Medias.new(client)
       end
 
       def test_media_handles_error_response
         mocked_error_response = mock_error_response
         response = @medias_api.media(media_id: "123_123")
-        assert_error_response(mocked_error_response, response)
+        assert_error_response(mocked_error_response, response, Responses::MessageErrorResponse)
       end
 
       def test_media_with_success_response
@@ -42,7 +42,7 @@ module WhatsappSdk
       def test_delete_media_handles_error_response
         mocked_error_response = mock_error_response
         response = @medias_api.delete(media_id: "1")
-        assert_error_response(mocked_error_response, response)
+        assert_error_response(mocked_error_response, response, Responses::MessageErrorResponse)
       end
 
       def test_delete_media_with_success_response
@@ -64,7 +64,7 @@ module WhatsappSdk
       end
 
       def test_upload_media_raises_an_error_if_the_file_passed_does_not_exists
-        error = assert_raises(WhatsappSdk::Api::Medias::FileNotFoundError) do
+        error = assert_raises(Medias::FileNotFoundError) do
           @medias_api.upload(sender_id: 123, file_path: "fo.png", type: "image/png")
         end
 
@@ -75,7 +75,7 @@ module WhatsappSdk
       def test_upload_media_handles_error_response
         mocked_error_response = mock_error_response
         response = @medias_api.upload(sender_id: 123, file_path: "tmp/whatsapp.png", type: "image/png")
-        assert_error_response(mocked_error_response, response)
+        assert_error_response(mocked_error_response, response, Responses::MessageErrorResponse)
       end
 
       def test_upload_media_with_success_response
@@ -85,7 +85,7 @@ module WhatsappSdk
         response = @medias_api.upload(sender_id: 123, file_path: "tmp/whatsapp.png", type: "image/png")
 
         assert_ok_response(response)
-        assert_equal(WhatsappSdk::Api::Responses::MediaDataResponse, response.data.class)
+        assert_equal(Responses::MediaDataResponse, response.data.class)
         assert_equal(media_id, response.data.id)
       end
 
@@ -110,7 +110,7 @@ module WhatsappSdk
         response = @medias_api.upload(sender_id: 123, file_path: file_path, type: type)
         assert_ok_response(response)
 
-        assert_equal(WhatsappSdk::Api::Responses::MediaDataResponse, response.data.class)
+        assert_equal(Responses::MediaDataResponse, response.data.class)
         assert_equal(media_id, response.data.id)
       end
 
@@ -120,7 +120,7 @@ module WhatsappSdk
         refute_predicate(response, :ok?)
         assert_predicate(response, :error?)
         assert_nil(response.data)
-        assert_equal(WhatsappSdk::Api::Responses::ErrorResponse, response.error.class)
+        assert_equal(Responses::ErrorResponse, response.error.class)
         assert_equal(404, response.error.status)
       end
 
@@ -135,7 +135,7 @@ module WhatsappSdk
 
       def test_download_raises_an_error_when_media_type_is_invalid
         unsupported_media_type = "audio/vnd.qcelp" # is Unsupported
-        error = assert_raises(WhatsappSdk::Api::Medias::InvalidMediaTypeError) do
+        error = assert_raises(Medias::InvalidMediaTypeError) do
           @medias_api.download(url: url_example, file_path: "tmp/testing.vnd.qcelp", media_type: unsupported_media_type)
         end
 
@@ -155,12 +155,12 @@ module WhatsappSdk
 
       def validate_sucess_data_response(response)
         assert_ok_response(response)
-        assert_equal(WhatsappSdk::Api::Responses::SuccessResponse, response.data.class)
+        assert_equal(Responses::SuccessResponse, response.data.class)
         assert_predicate(response.data, :success?)
       end
 
       def assert_ok_response(response)
-        assert_equal(WhatsappSdk::Api::Response, response.class)
+        assert_equal(Response, response.class)
         assert_nil(response.error)
         assert_predicate(response, :ok?)
       end
@@ -189,7 +189,7 @@ module WhatsappSdk
       def assert_medias_mock_response(expected_media_response, response)
         assert_ok_response(response)
 
-        assert_equal(WhatsappSdk::Api::Responses::MediaDataResponse, response.data.class)
+        assert_equal(Responses::MediaDataResponse, response.data.class)
         assert_equal(expected_media_response["id"], response.data.id)
         assert_equal(expected_media_response["url"], response.data.url)
         assert_equal(expected_media_response["mime_type"], response.data.mime_type)

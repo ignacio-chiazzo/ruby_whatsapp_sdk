@@ -13,54 +13,41 @@ module WhatsappSdk
     module Resource
       class ComponentTest < Minitest::Test
         def test_button_index_is_set_to_0_by_default
-          button_component = WhatsappSdk::Resource::Component.new(
-            type: WhatsappSdk::Resource::Component::Type::Button,
-            sub_type: WhatsappSdk::Resource::Component::Subtype::QuickReply
-          )
+          button_component = Component.new(type: Component::Type::Button, sub_type: Component::Subtype::QuickReply)
 
           assert_equal(0, button_component.index)
         end
 
         def test_validation
-          error = assert_raises(WhatsappSdk::Resource::Component::InvalidField) do
-            WhatsappSdk::Resource::Component.new(
-              type: WhatsappSdk::Resource::Component::Type::Header,
-              sub_type: WhatsappSdk::Resource::Component::Subtype::QuickReply
-            )
+          error = assert_raises(Component::InvalidField) do
+            Component.new(type: Component::Type::Header, sub_type: Component::Subtype::QuickReply)
           end
           assert_equal("sub_type is not required when type is not button", error.message)
           assert_equal(:sub_type, error.field)
 
-          error = assert_raises(WhatsappSdk::Resource::Component::InvalidField) do
-            WhatsappSdk::Resource::Component.new(
-              type: WhatsappSdk::Resource::Component::Type::Header, index: 0
-            )
+          error = assert_raises(Component::InvalidField) do
+            Component.new(type: Component::Type::Header, index: 0)
           end
+
           assert_equal("index is not required when type is not button", error.message)
           assert_equal(:index, error.field)
         end
 
         def test_add_parameters
-          image = WhatsappSdk::Resource::Media.new(type: WhatsappSdk::Resource::Media::Type::Image,
-                                                   link: "http(s)://URL", caption: "caption")
-          document = WhatsappSdk::Resource::Media.new(type: WhatsappSdk::Resource::Media::Type::Document,
-                                                      link: "http(s)://URL", filename: "txt.rb")
-          video = WhatsappSdk::Resource::Media.new(type: WhatsappSdk::Resource::Media::Type::Video, id: "123")
-          currency = WhatsappSdk::Resource::Currency.new(code: "USD", amount: 1000, fallback_value: "1000")
-          date_time = WhatsappSdk::Resource::DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
+          image = Media.new(type: Media::Type::Image, link: "http(s)://URL", caption: "caption")
+          document = Media.new(type: Media::Type::Document, link: "http(s)://URL", filename: "txt.rb")
+          video = Media.new(type: Media::Type::Video, id: "123")
+          currency = Currency.new(code: "USD", amount: 1000, fallback_value: "1000")
+          date_time = DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
 
-          parameter_text = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Text,
-                                                                      text: "I am a text")
-          parameter_currency = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Currency,
-                                                                          currency: currency)
-          parameter_date_time = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::DateTime,
-                                                                           date_time: date_time)
-          parameter_image = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Image, image: image)
-          parameter_document = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Document,
-                                                                          document: document)
-          parameter_video = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Video, video: video)
+          parameter_text = ParameterObject.new(type: ParameterObject::Type::Text, text: "I am a text")
+          parameter_currency = ParameterObject.new(type: ParameterObject::Type::Currency, currency: currency)
+          parameter_date_time = ParameterObject.new(type: ParameterObject::Type::DateTime, date_time: date_time)
+          parameter_image = ParameterObject.new(type: ParameterObject::Type::Image, image: image)
+          parameter_document = ParameterObject.new(type: ParameterObject::Type::Document, document: document)
+          parameter_video = ParameterObject.new(type: ParameterObject::Type::Video, video: video)
 
-          header_component = WhatsappSdk::Resource::Component.new(type: WhatsappSdk::Resource::Component::Type::Header)
+          header_component = Component.new(type: Component::Type::Header)
 
           header_component.add_parameter(parameter_text)
           header_component.add_parameter(parameter_currency)
@@ -80,12 +67,11 @@ module WhatsappSdk
         end
 
         def test_to_json_header_component
-          image = WhatsappSdk::Resource::Media.new(type: WhatsappSdk::Resource::Media::Type::Image,
-                                                   link: "http(s)://URL", caption: "caption")
-          parameter_image = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Image, image: image)
+          image = Media.new(type: Media::Type::Image, link: "http(s)://URL", caption: "caption")
+          parameter_image = ParameterObject.new(type: ParameterObject::Type::Image, image: image)
 
-          header_component = WhatsappSdk::Resource::Component.new(
-            type: WhatsappSdk::Resource::Component::Type::Header,
+          header_component = Component.new(
+            type: Component::Type::Header,
             parameters: [parameter_image]
           )
 
@@ -107,19 +93,16 @@ module WhatsappSdk
         end
 
         def test_to_json_body_component
-          parameter_text = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Text,
-                                                                      text: "I am a text")
+          parameter_text = ParameterObject.new(type: ParameterObject::Type::Text, text: "I am a text")
 
-          currency = WhatsappSdk::Resource::Currency.new(code: "USD", amount: 1000, fallback_value: "1000")
-          parameter_currency = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::Currency,
-                                                                          currency: currency)
+          currency = Currency.new(code: "USD", amount: 1000, fallback_value: "1000")
+          parameter_currency = ParameterObject.new(type: ParameterObject::Type::Currency, currency: currency)
 
-          date_time = WhatsappSdk::Resource::DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
-          parameter_date_time = WhatsappSdk::Resource::ParameterObject.new(type: ParameterObject::Type::DateTime,
-                                                                           date_time: date_time)
+          date_time = DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
+          parameter_date_time = ParameterObject.new(type: ParameterObject::Type::DateTime, date_time: date_time)
 
-          body_component = WhatsappSdk::Resource::Component.new(
-            type: WhatsappSdk::Resource::Component::Type::Body,
+          body_component = Component.new(
+            type: Component::Type::Body,
             parameters: [parameter_text, parameter_currency, parameter_date_time]
           )
 
@@ -152,17 +135,13 @@ module WhatsappSdk
         end
 
         def test_to_json_button_component
-          button_component = WhatsappSdk::Resource::Component.new(
-            type: WhatsappSdk::Resource::Component::Type::Button,
+          button_component = Component.new(
+            type: Component::Type::Button,
             index: 0,
-            sub_type: WhatsappSdk::Resource::Component::Subtype::QuickReply,
+            sub_type: Component::Subtype::QuickReply,
             parameters: [
-              WhatsappSdk::Resource::ButtonParameter.new(
-                type: WhatsappSdk::Resource::ButtonParameter::Type::Payload, payload: "payload"
-              ),
-              WhatsappSdk::Resource::ButtonParameter.new(
-                type: WhatsappSdk::Resource::ButtonParameter::Type::Text, text: "text"
-              )
+              ButtonParameter.new(type: ButtonParameter::Type::Payload, payload: "payload"),
+              ButtonParameter.new(type: ButtonParameter::Type::Text, text: "text")
             ]
           )
 

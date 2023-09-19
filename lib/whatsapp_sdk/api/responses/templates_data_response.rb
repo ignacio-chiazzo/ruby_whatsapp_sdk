@@ -7,20 +7,20 @@ require_relative "../../resource/template"
 module WhatsappSdk
   module Api
     module Responses
-      class TemplateDataResponse < DataResponse
-        sig { returns(::WhatsappSdk::Resource::Template) }
-        attr_reader :template
+      class TemplatesDataResponse < DataResponse
+        sig { returns(T::Array[Resource::Template]) }
+        attr_reader :templates
 
         sig { params(response: T::Hash[T.untyped, T.untyped]).void }
         def initialize(response:)
-          @template = parse_template(response)
+          @templates = response['data']&.map { |template| parse_template(template) }
 
           super(response)
         end
 
-        sig { override.params(response: T::Hash[T.untyped, T.untyped]).returns(T.nilable(TemplateDataResponse)) }
+        sig { override.params(response: T::Hash[T.untyped, T.untyped]).returns(T.nilable(TemplatesDataResponse)) }
         def self.build_from_response(response:)
-          return unless response["id"]
+          return unless response["data"]
 
           new(response: response)
         end
@@ -29,10 +29,10 @@ module WhatsappSdk
 
         sig { params(template_json: T::Hash[T.untyped, T.untyped]).returns(::WhatsappSdk::Resource::Template) }
         def parse_template(template_json)
-          status = ::WhatsappSdk::Resource::Template::Status.try_deserialize(template_json["status"])
-          category = ::WhatsappSdk::Resource::Template::Category.try_deserialize(template_json["category"])
+          status = Resource::Template::Status.try_deserialize(template_json["status"])
+          category = Resource::Template::Category.try_deserialize(template_json["category"])
 
-          ::WhatsappSdk::Resource::Template.new(
+          Resource::Template.new(
             id: template_json["id"], status: status, category: category,
             name: template_json["name"] || "",
             language: template_json["language"] || "en_US",

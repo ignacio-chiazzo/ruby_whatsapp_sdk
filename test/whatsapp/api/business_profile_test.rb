@@ -8,8 +8,8 @@ module WhatsappSdk
   module Api
     class BusinessProfileTest < Minitest::Test
       def setup
-        client = WhatsappSdk::Api::Client.new("test_token")
-        @business_profile_api = WhatsappSdk::Api::BusinessProfile.new(client)
+        client = Client.new("test_token")
+        @business_profile_api = BusinessProfile.new(client)
       end
 
       def test_details_handles_error_response
@@ -101,7 +101,7 @@ module WhatsappSdk
         refute_predicate(response, :ok?)
         assert_nil(response.data)
         error = response.error
-        assert_equal(WhatsappSdk::Api::Responses::MessageErrorResponse, error.class)
+        assert_equal(Responses::MessageErrorResponse, error.class)
         assert_equal(mocked_error["error"]["code"], error.code)
         assert_equal(mocked_error["error"]["error_subcode"], error.subcode)
         assert_equal(mocked_error["error"]["message"], error.message)
@@ -110,8 +110,8 @@ module WhatsappSdk
       end
 
       def assert_business_details_mock_response(expected_business_profile, response)
-        assert_equal(WhatsappSdk::Api::Response, response.class)
-        assert_equal(WhatsappSdk::Api::Responses::BusinessProfileDataResponse, response.data.class)
+        assert_equal(Response, response.class)
+        assert_equal(Responses::BusinessProfileDataResponse, response.data.class)
         assert_nil(response.error)
         assert_predicate(response, :ok?)
         assert_equal(expected_business_profile["about"], response.data.about)
@@ -124,8 +124,8 @@ module WhatsappSdk
       end
 
       def assert_update_details_mock_response(expected_response, response)
-        assert_equal(WhatsappSdk::Api::Response, response.class)
-        assert_equal(WhatsappSdk::Api::Responses::SuccessResponse, response.data.class)
+        assert_equal(Response, response.class)
+        assert_equal(Responses::SuccessResponse, response.data.class)
         assert_nil(response.error)
         assert_predicate(response, :ok?)
         assert_equal(expected_response["success"], response.data.success?)

@@ -22,6 +22,7 @@ module WhatsappSdk
       sig { returns(T::Hash[T.untyped, T.untyped]) }
       attr_accessor :raw_response
 
+      # TODO: the default should be generic, not message error
       sig do
         params(
           response: T::Hash[T.untyped, T.untyped],
