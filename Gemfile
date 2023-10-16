@@ -5,12 +5,6 @@ source "https://rubygems.org"
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem("faraday", "~> 2.7.10")
-gem("faraday-multipart")
-gem("rake", ">= 12.3.3")
-gem('sorbet-runtime')
-gem("zeitwerk", ">= 2.6.0")
-
 group(:test) do
   gem('mocha')
   gem('rubocop', require: false)
