@@ -1,4 +1,5 @@
 # Unreleased 
+- Using compatible Gem versions instead of fixed dependency versions @nbluis [#108](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/108)
 - [Breaking Change] Rename `error` module with `errors`. @ignacio-chiazzo [#101](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/101)
 
 If you are calling an error using `WhatsappSdk::Resource::Error`, you should update it to `WhatsappSdk::Resource::Errors`, e.g. `WhatsappSdk::Resource::Errors::MissingArgumentError`
