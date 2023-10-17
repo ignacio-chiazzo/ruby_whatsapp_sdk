@@ -40,15 +40,15 @@ Gem::Specification.new do |spec|
   # spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 2.3"
-  spec.add_development_dependency "minitest", "~> 5.0"
-  spec.add_development_dependency "rake", "~> 12.3.3"
-  spec.add_development_dependency('sorbet', "~>0.5.1")
+  spec.add_development_dependency("bundler", "~> 2.3")
+  spec.add_development_dependency("minitest", "~> 5.0")
+  spec.add_development_dependency("rake", "~> 12.3")
+  spec.add_development_dependency('sorbet', "~>0.5")
 
-  spec.add_runtime_dependency('sorbet-runtime', "~>0.5.1")
+  spec.add_runtime_dependency('sorbet-runtime', "~>0.5")
 
-  spec.add_dependency("faraday", "~> 2.7.10")
-  spec.add_dependency("faraday-multipart", "~> 1.0.4")
-  spec.add_dependency("zeitwerk", "~> 2.6.0")
+  spec.add_dependency("faraday", "~> 2")
+  spec.add_dependency("faraday-multipart", "~> 1")
+  spec.add_dependency("zeitwerk", "~> 2")
   spec.metadata['rubygems_mfa_required'] = 'true'
 end

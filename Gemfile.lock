@@ -2,10 +2,10 @@ PATH
   remote: .
   specs:
     whatsapp_sdk (0.9.2)
-      faraday (~> 2.7.10)
-      faraday-multipart (~> 1.0.4)
-      sorbet-runtime (~> 0.5.1)
-      zeitwerk (~> 2.6.0)
+      faraday (~> 2)
+      faraday-multipart (~> 1)
+      sorbet-runtime (~> 0.5)
+      zeitwerk (~> 2)
 
 GEM
   remote: https://rubygems.org/
@@ -39,7 +39,7 @@ GEM
       pry (>= 0.9.10, < 0.15)
     public_suffix (5.0.0)
     rainbow (3.1.1)
-    rake (13.0.6)
+    rake (12.3.3)
     rbi (0.0.15)
       ast
       parser (>= 2.6.4.0)
@@ -70,6 +70,7 @@ GEM
     sorbet (0.5.10346)
       sorbet-static (= 0.5.10346)
     sorbet-runtime (0.5.10346)
+    sorbet-static (0.5.10346-universal-darwin-19)
     sorbet-static (0.5.10346-universal-darwin-21)
     sorbet-static (0.5.10346-x86_64-linux)
     sorbet-static-and-runtime (0.5.10346)
@@ -108,29 +109,26 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  x86_64-darwin-19
   x86_64-darwin-21
   x86_64-linux
 
 DEPENDENCIES
   bundler (~> 2.3)
-  faraday (~> 2.7.10)
-  faraday-multipart
   minitest (~> 5.0)
   mocha
   pry
   pry-nav
-  rake (>= 12.3.3)
+  rake (~> 12.3)
   rubocop
   rubocop-minitest
   rubocop-performance
   rubocop-sorbet
   sorbet
-  sorbet-runtime
   spoom
   tapioca
   webmock
   whatsapp_sdk!
-  zeitwerk (>= 2.6.0)
 
 BUNDLED WITH
    2.3.22
