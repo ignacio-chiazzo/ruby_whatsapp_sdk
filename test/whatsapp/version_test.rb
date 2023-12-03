@@ -6,6 +6,6 @@ require 'version'
 
 class VersionTest < Minitest::Test
   def test_that_it_has_a_version_number
-    assert_equal("0.9.2", WhatsappSdk::VERSION)
+    assert_equal("0.10.0", WhatsappSdk::VERSION)
   end
 end
