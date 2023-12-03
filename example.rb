@@ -48,10 +48,76 @@ def print_message_sent(message_response)
 end
 ##################################################
 
+
 medias_api = WhatsappSdk::Api::Medias.new
 messages_api = WhatsappSdk::Api::Messages.new
 phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new
 business_profile_api = WhatsappSdk::Api::BusinessProfile.new
+templates_api = WhatsappSdk::Api::Templates.new
+
+############################## Templates API ##############################
+
+## Get list of templates
+templates_api.templates(business_id: BUSINESS_ID)
+
+## Get message templates namespace
+templates_api.get_message_template_namespace(business_id: BUSINESS_ID)
+
+# Create a template
+components_json = [
+  {
+    "type": "BODY",
+    "text": "Thank you for your order, {{1}}! Your confirmation number is {{2}}. If you have any questions, please use the buttons below to contact support. Thank you for being a customer!",
+    "example": {
+      "body_text": [
+        [
+          "Ignacio","860198-230332"
+        ]
+      ]
+    }
+  },
+  {
+    "type": "BUTTONS",
+    "buttons": [
+      {
+        "type": "PHONE_NUMBER",
+        "text": "Call",
+        "phone_number": "59898400766"
+      },
+      {
+        "type": "URL",
+        "text": "Contact Support",
+        "url": "https://www.luckyshrub.com/support"
+      }
+    ]
+  }
+]
+
+new_template = templates_api.create(
+  business_id: BUSINESS_ID, name: "seasonal_promotion", language: "ka", category: "MARKETING",
+  components_json: components_json, allow_category_change: true
+)
+
+# Update a template
+components_json = [
+  {
+    "type" => "header",
+    "parameters" => [
+      {
+        "type" => "image",
+        "image" => {
+          "link" => "https://www.google.com/imgres?imgurl=https%3A%2F%2Fqph.cf2.quoracdn.net%2Fmain-qimg-6d977408fdd90a09a1fee7ba9e2f777c-lq&imgrefurl=https%3A%2F%2Fwww.quora.com%2FHow-can-I-find-my-WhatsApp-ID&tbnid=lDAx1vzXwqCakM&vet=12ahUKEwjKupLviJX4AhVrrHIEHQpGD9MQMygAegUIARC9AQ..i&docid=s-DNQVCrZmhJYM&w=602&h=339&q=example%20whatsapp%20image%20id&ved=2ahUKEwjKupLviJX4AhVrrHIEHQpGD9MQMygAegUIARC9AQ"
+        }
+      }
+    ]
+  }
+]
+templates_api.update(template_id: "1624560287967996", category: "UTILITY")
+
+## Delete a template
+templates_api.delete(business_id: BUSINESS_ID, name: "seasonal_promotion") # delete by name
+# templates_api.delete(business_id: BUSINESS_ID, name: "name2", hsm_id: "243213188351928") # delete by name and id
+
 ############################## Business API ##############################
 business_profile = business_profile_api.details(SENDER_ID)
 business_profile_api.update(phone_number_id: SENDER_ID, params: { about: "A very cool business" } )
@@ -107,7 +173,7 @@ message_id = message_sent.data.messages.first.id
 messages_api.send_reaction(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message_id: message_id, emoji: "\u{1f550}")
 messages_api.send_reaction(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message_id: message_id, emoji: "⛄️")
 
-######### Reply to a message 
+######### Reply to a message
 message_to_reply_id = message_sent.data.messages.first.id
 reply = messages_api.send_text(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message: "I'm a reply", message_id: message_to_reply_id)
 print_message_sent(reply)
