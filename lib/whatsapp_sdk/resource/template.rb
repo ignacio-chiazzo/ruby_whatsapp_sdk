@@ -51,7 +51,7 @@ module WhatsappSdk
           components_json: T.nilable(T::Array[T::Hash[T.untyped, T.untyped]])
         ).void
       end
-      def initialize(id:, status:, category:, language:, name:, components_json:)
+      def initialize(id:, status:, category:, language: nil, name: nil, components_json: nil)
         @id = id
         @status = status
         @category = category

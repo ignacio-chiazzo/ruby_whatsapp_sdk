@@ -1,9 +1,6 @@
 # typed: strict
 # frozen_string_literal: true
 
-require "faraday"
-require "faraday/multipart"
-
 require_relative "request"
 require_relative "response"
 require_relative 'responses/success_response'
@@ -11,8 +8,7 @@ require_relative 'responses/message_template_namespace_data_response'
 require_relative 'responses/generic_error_response'
 require_relative 'responses/template_data_response'
 require_relative 'responses/templates_data_response'
-
-# TODO: Verify all the tests with API calls
+require_relative "../resource/languages"
 
 module WhatsappSdk
   module Api
@@ -62,13 +58,16 @@ module WhatsappSdk
           raise InvalidCategoryError.new(category: category)
         end
 
+        unless WhatsappSdk::Resource::Languages.available?(language)
+          raise WhatsappSdk::Resource::Errors::InvalidLanguageError.new(language: language)
+        end
+
         params = {
           name: name,
           category: category,
           language: language,
           components: components_json
         }
-
         params["allow_category_change"] = allow_category_change if allow_category_change
 
         response = send_request(
@@ -180,15 +179,14 @@ module WhatsappSdk
           hsm_id: T.nilable(String)
         ).returns(WhatsappSdk::Api::Response)
       end
-      def delete_template(business_id:, name:, hsm_id: nil)
+      def delete(business_id:, name:, hsm_id: nil)
         params = { name: name }
         params[:hsm_id] = hsm_id if hsm_id
 
         response = send_request(
           endpoint: "#{business_id}/message_templates",
           http_method: "delete",
-          params: params,
-          headers: DEFAULT_HEADERS
+          params: params
         )
 
         WhatsappSdk::Api::Response.new(

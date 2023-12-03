@@ -18,7 +18,7 @@ module WhatsappSdk
         @templates_api = WhatsappSdk::Api::Templates.new(client)
       end
 
-      ##### CREATE (TESTED)
+      ##### CREATE
       def test_create_a_template_raises_an_error_when_category_is_invalid
         error = assert_raises(WhatsappSdk::Api::Templates::InvalidCategoryError) do
           @templates_api.create(
@@ -30,6 +30,20 @@ module WhatsappSdk
         end
 
         assert_equal("Invalid Category. The possible values are: AUTHENTICATION, MARKETING and UTILITY.", error.message)
+      end
+
+      def test_create_a_template_raises_an_error_when_the_languge_is_invalid
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidLanguageError) do
+          @templates_api.create(
+            business_id: 123_456,
+            name: "seasonal_promotion",
+            language: "en_invalid",
+            category: "MARKETING"
+          )
+        end
+
+        url = "https://developers.facebook.com/docs/whatsapp/api/messages/message-templates"
+        assert_equal("Invalid language. Check the available languages in #{url}.", error.message)
       end
 
       def test_create_a_template_with_valid_params_and_no_components
@@ -200,7 +214,7 @@ module WhatsappSdk
         assert_predicate(template_response.data, :success?)
       end
 
-      ##### Delete Message Template (TESTED)
+      ##### Delete Message Template
       def test_delete_template_by_name
         business_id = 123_456
         name = "seasonal_promotion"
@@ -208,11 +222,10 @@ module WhatsappSdk
         @templates_api.expects(:send_request).with(
           http_method: "delete",
           endpoint: "#{business_id}/message_templates",
-          params: { name: name },
-          headers: { "Content-Type" => "application/json" }
+          params: { name: name }
         ).returns({ "success" => true })
 
-        response = @templates_api.delete_template(business_id: business_id, name: name)
+        response = @templates_api.delete(business_id: business_id, name: name)
 
         validate_sucess_data_response(response)
       end
@@ -228,11 +241,10 @@ module WhatsappSdk
           params: {
             name: name,
             hsm_id: hsm_id
-          },
-          headers: { "Content-Type" => "application/json" }
+          }
         ).returns({ "success" => true })
 
-        response = @templates_api.delete_template(business_id: business_id, name: name, hsm_id: hsm_id)
+        response = @templates_api.delete(business_id: business_id, name: name, hsm_id: hsm_id)
 
         validate_sucess_data_response(response)
       end
@@ -244,11 +256,10 @@ module WhatsappSdk
         @templates_api.expects(:send_request).with(
           http_method: "delete",
           endpoint: "#{business_id}/message_templates",
-          params: { name: name },
-          headers: { "Content-Type" => "application/json" }
+          params: { name: name }
         ).returns(generic_error_response)
 
-        response = @templates_api.delete_template(business_id: business_id, name: name)
+        response = @templates_api.delete(business_id: business_id, name: name)
         assert_error_response(generic_error_response, response)
       end
 
