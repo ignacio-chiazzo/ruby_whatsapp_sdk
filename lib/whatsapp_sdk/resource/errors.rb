@@ -34,6 +34,22 @@ module WhatsappSdk
         end
       end
 
+      class InvalidLanguageError < StandardError
+        extend T::Sig
+
+        URL_AVAILABLE_LANGUAGES = "https://developers.facebook.com/docs/whatsapp/api/messages/message-templates"
+
+        sig { returns(String) }
+        attr_reader :language
+
+        sig { params(language: String).void }
+        def initialize(language:)
+          @language = language
+
+          super("Invalid language. Check the available languages in #{URL_AVAILABLE_LANGUAGES}.")
+        end
+      end
+
       class InvalidField < MissingValue; end
 
       class InvalidInteractiveBody < Error; end

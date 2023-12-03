@@ -9,15 +9,17 @@ require 'api/client'
 module WhatsappSdk
   module Api
     class PhoneNumbersTest < Minitest::Test
+      include(ErrorsHelper)
+
       def setup
         client = WhatsappSdk::Api::Client.new("test_token")
         @phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new(client)
       end
 
       def test_registered_numbers_handles_error_response
-        mocked_error_response = mock_error_response
+        mocked_error_response = mock_error_response(api: @phone_numbers_api)
         response = @phone_numbers_api.registered_numbers(123_123)
-        assert_mock_error_response(mocked_error_response, response)
+        assert_mock_error_response(mocked_error_response, response, WhatsappSdk::Api::Responses::MessageErrorResponse)
       end
 
       def test_registered_numbers_with_success_response
@@ -39,9 +41,9 @@ module WhatsappSdk
       end
 
       def test_registered_number_handles_error_response
-        mocked_error_response = mock_error_response
+        mocked_error_response = mock_error_response(api: @phone_numbers_api)
         response = @phone_numbers_api.registered_number(123_123)
-        assert_mock_error_response(mocked_error_response, response)
+        assert_mock_error_response(mocked_error_response, response, WhatsappSdk::Api::Responses::MessageErrorResponse)
       end
 
       def test_registered_number_with_success_response
@@ -65,7 +67,7 @@ module WhatsappSdk
       def test_register_number_handles_error_response
         mocked_error_response = invalid_register_number_response
         response = @phone_numbers_api.register_number(123_123, 123)
-        assert_mock_error_response(mocked_error_response, response)
+        assert_mock_error_response(mocked_error_response, response, WhatsappSdk::Api::Responses::MessageErrorResponse)
       end
 
       def test_register_number_with_success_response
@@ -95,7 +97,7 @@ module WhatsappSdk
       def test_deregister_number_handles_error_response
         mocked_error_response = invalid_deregister_number_response
         response = @phone_numbers_api.deregister_number(123_123)
-        assert_mock_error_response(mocked_error_response, response)
+        assert_mock_error_response(mocked_error_response, response, WhatsappSdk::Api::Responses::MessageErrorResponse)
       end
 
       def test_deregister_number_with_success_response
@@ -121,20 +123,6 @@ module WhatsappSdk
       end
 
       private
-
-      def mock_error_response
-        error_response = {
-          "error" => {
-            "message" => "Unsupported post request.",
-            "type" => "GraphMethodException",
-            "code" => 100,
-            "error_subcode" => 33,
-            "fbtrace_id" => "Au12W6oW_Np1IyF4v5YwAiU"
-          }
-        }
-        @phone_numbers_api.stubs(:send_request).returns(error_response)
-        error_response
-      end
 
       def mock_phone_numbers_response(response)
         @phone_numbers_api.stubs(:send_request).returns(response)
@@ -215,17 +203,6 @@ module WhatsappSdk
 
         @phone_numbers_api.stubs(:send_request).returns(error_response)
         error_response
-      end
-
-      def assert_mock_error_response(mocked_error, response)
-        refute_predicate(response, :ok?)
-        assert_nil(response.data)
-        error = response.error
-        assert_equal(WhatsappSdk::Api::Responses::MessageErrorResponse, error.class)
-        assert_equal(mocked_error["error"]["code"], error.code)
-        assert_equal(mocked_error["error"]["error_subcode"], error.subcode)
-        assert_equal(mocked_error["error"]["message"], error.message)
-        assert_equal(mocked_error["error"]["fbtrace_id"], error.fbtrace_id)
       end
 
       def assert_phone_numbers_mock_response(expected_phone_number, response)

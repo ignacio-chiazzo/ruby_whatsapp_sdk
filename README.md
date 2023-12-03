@@ -124,11 +124,30 @@ messages_api = WhatsappSdk::Api::Messages.new
 phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new
 medias_api = WhatsappSdk::Api::Medias.new
 business_profile_api = WhatsappSdk::Api::BusinessProfile.new
+templates_api = WhatsappSdk::Api::Templates.new
 ```
 
 Note: Remember to initialize the client first!
 
 ## APIs
+
+### Templates
+<details>
+
+```ruby
+# Get list of templates
+templates_api.templates(business_id: BUSINESS_ID)
+
+# Create a template
+new_template = templates_api.create(
+  business_id: BUSINESS_ID, name: "seasonal_promotion", language: "en_US", category: "MARKETING",
+  components_json: components_json, allow_category_change: true
+) 
+
+# Delete a template
+templates_api.delete(business_id: BUSINESS_ID, name: "my_name") # delete by name
+```
+</details>
 
 ### Business Profile API
 <details>

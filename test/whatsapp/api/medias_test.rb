@@ -8,15 +8,17 @@ require 'api/client'
 module WhatsappSdk
   module Api
     class MediasTest < Minitest::Test
+      include(ErrorsHelper)
+
       def setup
         client = WhatsappSdk::Api::Client.new("test_token")
         @medias_api = WhatsappSdk::Api::Medias.new(client)
       end
 
       def test_media_handles_error_response
-        mocked_error_response = mock_error_response
+        mocked_error_response = mock_error_response(api: @medias_api)
         response = @medias_api.media(media_id: "123_123")
-        assert_mock_error_response(mocked_error_response, response)
+        assert_error_response(mocked_error_response, response)
       end
 
       def test_media_with_success_response
@@ -38,9 +40,9 @@ module WhatsappSdk
       end
 
       def test_delete_media_handles_error_response
-        mocked_error_response = mock_error_response
+        mocked_error_response = mock_error_response(api: @medias_api)
         response = @medias_api.delete(media_id: "1")
-        assert_mock_error_response(mocked_error_response, response)
+        assert_error_response(mocked_error_response, response)
       end
 
       def test_delete_media_with_success_response
@@ -71,9 +73,9 @@ module WhatsappSdk
       end
 
       def test_upload_media_handles_error_response
-        mocked_error_response = mock_error_response
+        mocked_error_response = mock_error_response(api: @medias_api)
         response = @medias_api.upload(sender_id: 123, file_path: "tmp/whatsapp.png", type: "image/png")
-        assert_mock_error_response(mocked_error_response, response)
+        assert_error_response(mocked_error_response, response)
       end
 
       def test_upload_media_with_success_response
@@ -161,34 +163,6 @@ module WhatsappSdk
         assert_equal(WhatsappSdk::Api::Response, response.class)
         assert_nil(response.error)
         assert_predicate(response, :ok?)
-      end
-
-      def error_response_example
-        {
-          "error" => {
-            "message" => "Unsupported get request.",
-            "type" => "GraphMethodException",
-            "code" => 100,
-            "error_subcode" => 33,
-            "fbtrace_id" => "Au12W6oW_Np1IyF4v5YwAiU"
-          }
-        }
-      end
-
-      def mock_error_response(error_response: error_response_example)
-        @medias_api.stubs(:send_request).returns(error_response)
-        error_response
-      end
-
-      def assert_mock_error_response(mocked_error, response)
-        refute_predicate(response, :ok?)
-        assert_nil(response.data)
-        error = response.error
-        assert_equal(mocked_error["error"]["code"], error.code)
-        assert_equal(mocked_error["error"]["error_subcode"], error.subcode)
-        assert_equal(mocked_error["error"]["message"], error.message)
-        assert_equal(mocked_error["error"]["error_subcode"], error.subcode)
-        assert_equal(mocked_error["error"]["fbtrace_id"], error.fbtrace_id)
       end
 
       def mock_get_media_response(response)
