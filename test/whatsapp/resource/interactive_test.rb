@@ -17,9 +17,7 @@ module WhatsappSdk
       def test_validation_reply_buttons
         error = assert_raises(Errors::InvalidInteractiveActionReplyButton) do
           interactive_body = InteractiveBody.new(text: "This is the body!")
-          interactive_action = InteractiveAction.new(
-            type: InteractiveAction::Type::ReplyButton
-          )
+          interactive_action = InteractiveAction.new(type: InteractiveAction::Type::ReplyButton)
           interactive_reply_button_1 = InteractiveActionReplyButton.new(
             title: "I am the button 1",
             id: "button_1"

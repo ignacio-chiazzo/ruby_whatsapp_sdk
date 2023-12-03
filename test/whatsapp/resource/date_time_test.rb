@@ -9,7 +9,7 @@ module WhatsappSdk
     module Resource
       class DateTimeTest < Minitest::Test
         def test_to_json
-          date_time = WhatsappSdk::Resource::DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
+          date_time = DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
           assert_equal({ fallback_value: "2020-01-01T00:00:00Z" }, date_time.to_json)
         end
       end

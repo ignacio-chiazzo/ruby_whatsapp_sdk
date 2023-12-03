@@ -30,8 +30,8 @@ module WhatsappSdk
       include(ErrorsHelper)
 
       def setup
-        client = WhatsappSdk::Api::Client.new("test_token")
-        @messages_api = WhatsappSdk::Api::Messages.new(client)
+        client = Client.new("test_token")
+        @messages_api = Messages.new(client)
       end
 
       def test_send_text_handles_error_response
@@ -39,7 +39,7 @@ module WhatsappSdk
         response = @messages_api.send_text(
           sender_id: 123_123, recipient_number: 56_789, message: "hola"
         )
-        assert_mock_error_response(mocked_error_response, response, WhatsappSdk::Api::Responses::MessageErrorResponse)
+        assert_mock_error_response(mocked_error_response, response, Responses::MessageErrorResponse)
       end
 
       def test_send_text_message_with_success_response
@@ -135,7 +135,7 @@ module WhatsappSdk
       end
 
       def test_send_image_raises_an_error_if_link_and_image_are_not_provided
-        assert_raises(WhatsappSdk::Resource::Errors::MissingArgumentError) do
+        assert_raises(Resource::Errors::MissingArgumentError) do
           @messages_api.send_image(
             sender_id: 123_123, recipient_number: 56_789,
             image_id: nil, link: nil, caption: ""
@@ -206,7 +206,7 @@ module WhatsappSdk
       end
 
       def test_send_audio_raises_an_error_if_link_and_image_are_not_provided
-        assert_raises(WhatsappSdk::Resource::Errors::MissingArgumentError) do
+        assert_raises(Resource::Errors::MissingArgumentError) do
           @messages_api.send_audio(
             sender_id: 123_123, recipient_number: 56_789, link: nil, audio_id: nil
           )
@@ -256,7 +256,7 @@ module WhatsappSdk
       end
 
       def test_send_video_raises_an_error_if_link_and_image_are_not_provided
-        assert_raises(WhatsappSdk::Resource::Errors::MissingArgumentError) do
+        assert_raises(Resource::Errors::MissingArgumentError) do
           @messages_api.send_video(
             sender_id: 123_123, recipient_number: 56_789, link: nil, video_id: nil
           )
@@ -317,7 +317,7 @@ module WhatsappSdk
       end
 
       def test_send_document_raises_an_error_if_link_and_image_are_not_provided
-        assert_raises(WhatsappSdk::Resource::Errors::MissingArgumentError) do
+        assert_raises(Resource::Errors::MissingArgumentError) do
           @messages_api.send_document(
             sender_id: 123_123, recipient_number: 56_789, link: nil, document_id: nil
           )
@@ -378,7 +378,7 @@ module WhatsappSdk
       end
 
       def test_send_sticker_raises_an_error_if_link_and_image_are_not_provided
-        assert_raises(WhatsappSdk::Resource::Errors::MissingArgumentError) do
+        assert_raises(Resource::Errors::MissingArgumentError) do
           @messages_api.send_sticker(
             sender_id: 123_123, recipient_number: 56_789, link: nil, sticker_id: nil
           )
@@ -481,10 +481,10 @@ module WhatsappSdk
           sender_id: 123_123, message_id: "12345"
         )
 
-        assert_equal(WhatsappSdk::Api::Response, message_response.class)
+        assert_equal(Response, message_response.class)
         assert_nil(message_response.error)
         assert_predicate(message_response, :ok?)
-        assert_equal(WhatsappSdk::Api::Responses::ReadMessageDataResponse, message_response.data.class)
+        assert_equal(Responses::ReadMessageDataResponse, message_response.data.class)
         assert_predicate(message_response.data, :success?)
       end
 
@@ -493,12 +493,12 @@ module WhatsappSdk
         response = @messages_api.read_message(
           sender_id: 123_123, message_id: "12345"
         )
-        assert_mock_error_response(mocked_error_response, response, WhatsappSdk::Api::Responses::MessageErrorResponse)
+        assert_mock_error_response(mocked_error_response, response, Responses::MessageErrorResponse)
         assert_predicate(response, :error?)
       end
 
       def test_send_template_raises_an_error_when_component_and_component_json_are_not_provided
-        error = assert_raises(WhatsappSdk::Resource::Errors::MissingArgumentError) do
+        error = assert_raises(Resource::Errors::MissingArgumentError) do
           @messages_api.send_template(
             sender_id: 123_123, recipient_number: 56_789, name: "template", language: "en_US"
           )
@@ -528,50 +528,50 @@ module WhatsappSdk
       end
 
       def test_send_template_with_success_response_by_passing_components
-        currency = WhatsappSdk::Resource::Currency.new(code: "USD", amount: 1000, fallback_value: "1000")
-        date_time = WhatsappSdk::Resource::DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
-        image = WhatsappSdk::Resource::Media.new(type: WhatsappSdk::Resource::Media::Type::Image, link: "http(s)://URL")
+        currency = Resource::Currency.new(code: "USD", amount: 1000, fallback_value: "1000")
+        date_time = Resource::DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
+        image = Resource::Media.new(type: Resource::Media::Type::Image, link: "http(s)://URL")
 
-        parameter_image = WhatsappSdk::Resource::ParameterObject.new(
-          type: WhatsappSdk::Resource::ParameterObject::Type::Image, image: image
+        parameter_image = Resource::ParameterObject.new(
+          type: Resource::ParameterObject::Type::Image, image: image
         )
-        parameter_text = WhatsappSdk::Resource::ParameterObject.new(
-          type: WhatsappSdk::Resource::ParameterObject::Type::Text, text: "TEXT_STRING"
+        parameter_text = Resource::ParameterObject.new(
+          type: Resource::ParameterObject::Type::Text, text: "TEXT_STRING"
         )
-        parameter_currency = WhatsappSdk::Resource::ParameterObject.new(
-          type: WhatsappSdk::Resource::ParameterObject::Type::Currency, currency: currency
+        parameter_currency = Resource::ParameterObject.new(
+          type: Resource::ParameterObject::Type::Currency, currency: currency
         )
-        parameter_date_time = WhatsappSdk::Resource::ParameterObject.new(
-          type: WhatsappSdk::Resource::ParameterObject::Type::DateTime, date_time: date_time
+        parameter_date_time = Resource::ParameterObject.new(
+          type: Resource::ParameterObject::Type::DateTime, date_time: date_time
         )
 
-        header_component = WhatsappSdk::Resource::Component.new(
-          type: WhatsappSdk::Resource::Component::Type::Header,
+        header_component = Resource::Component.new(
+          type: Resource::Component::Type::Header,
           parameters: [parameter_image]
         )
 
-        body_component = WhatsappSdk::Resource::Component.new(
-          type: WhatsappSdk::Resource::Component::Type::Body,
+        body_component = Resource::Component.new(
+          type: Resource::Component::Type::Body,
           parameters: [parameter_text, parameter_currency, parameter_date_time]
         )
 
-        button_component1 = WhatsappSdk::Resource::Component.new(
-          type: WhatsappSdk::Resource::Component::Type::Button,
+        button_component1 = Resource::Component.new(
+          type: Resource::Component::Type::Button,
           index: 0,
-          sub_type: WhatsappSdk::Resource::Component::Subtype::QuickReply,
+          sub_type: Resource::Component::Subtype::QuickReply,
           parameters: [
-            WhatsappSdk::Resource::ButtonParameter.new(type: WhatsappSdk::Resource::ButtonParameter::Type::Payload,
-                                                       payload: "PAYLOAD")
+            Resource::ButtonParameter.new(type: Resource::ButtonParameter::Type::Payload,
+                                          payload: "PAYLOAD")
           ]
         )
 
-        button_component2 = WhatsappSdk::Resource::Component.new(
-          type: WhatsappSdk::Resource::Component::Type::Button,
+        button_component2 = Resource::Component.new(
+          type: Resource::Component::Type::Button,
           index: 1,
-          sub_type: WhatsappSdk::Resource::Component::Subtype::QuickReply,
+          sub_type: Resource::Component::Subtype::QuickReply,
           parameters: [
-            WhatsappSdk::Resource::ButtonParameter.new(type: WhatsappSdk::Resource::ButtonParameter::Type::Payload,
-                                                       payload: "PAYLOAD")
+            Resource::ButtonParameter.new(type: Resource::ButtonParameter::Type::Payload,
+                                          payload: "PAYLOAD")
           ]
         )
 
@@ -728,37 +728,37 @@ module WhatsappSdk
       end
 
       def test_send_interactive_reply_buttons_with_success_response_by_passing_interactive
-        interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
-          type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
+        interactive_header = Resource::InteractiveHeader.new(
+          type: Resource::InteractiveHeader::Type::Text,
           text: "I am the header!"
         )
 
-        interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
+        interactive_body = Resource::InteractiveBody.new(
           text: "I am the body!"
         )
 
-        interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
+        interactive_footer = Resource::InteractiveFooter.new(
           text: "I am the footer!"
         )
 
-        interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-          type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton
+        interactive_action = Resource::InteractiveAction.new(
+          type: Resource::InteractiveAction::Type::ReplyButton
         )
 
-        interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
+        interactive_reply_button_1 = Resource::InteractiveActionReplyButton.new(
           title: "I am the button 1",
           id: "button_1"
         )
         interactive_action.add_reply_button(interactive_reply_button_1)
 
-        interactive_reply_button_2 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
+        interactive_reply_button_2 = Resource::InteractiveActionReplyButton.new(
           title: "I am the button 2",
           id: "button_2"
         )
         interactive_action.add_reply_button(interactive_reply_button_2)
 
-        interactive_reply_buttons = WhatsappSdk::Resource::Interactive.new(
-          type: WhatsappSdk::Resource::Interactive::Type::ReplyButton,
+        interactive_reply_buttons = Resource::Interactive.new(
+          type: Resource::Interactive::Type::ReplyButton,
           header: interactive_header,
           body: interactive_body,
           footer: interactive_footer,
@@ -857,29 +857,29 @@ module WhatsappSdk
       end
 
       def test_send_interactive_list_messages_with_success_response_by_passing_interactive
-        interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
-          type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
+        interactive_header = Resource::InteractiveHeader.new(
+          type: Resource::InteractiveHeader::Type::Text,
           text: "I am the header!"
         )
 
-        interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
+        interactive_body = Resource::InteractiveBody.new(
           text: "I am the body!"
         )
 
-        interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
+        interactive_footer = Resource::InteractiveFooter.new(
           text: "I am the footer!"
         )
 
-        interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-          type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage
+        interactive_action = Resource::InteractiveAction.new(
+          type: Resource::InteractiveAction::Type::ListMessage
         )
 
         interactive_action.button = "I am the button CTA"
 
-        interactive_section_1 = WhatsappSdk::Resource::InteractiveActionSection.new(
+        interactive_section_1 = Resource::InteractiveActionSection.new(
           title: "I am the section 1"
         )
-        interactive_section_1_row_1 = WhatsappSdk::Resource::InteractiveActionSectionRow.new(
+        interactive_section_1_row_1 = Resource::InteractiveActionSectionRow.new(
           title: "I am the row 1 title",
           id: "section_1_row_1",
           description: "I am the optional section 1 row 1 description"
@@ -887,8 +887,8 @@ module WhatsappSdk
         interactive_section_1.add_row(interactive_section_1_row_1)
         interactive_action.add_section(interactive_section_1)
 
-        interactive_list_messages = WhatsappSdk::Resource::Interactive.new(
-          type: WhatsappSdk::Resource::Interactive::Type::ListMessage,
+        interactive_list_messages = Resource::Interactive.new(
+          type: Resource::Interactive::Type::ListMessage,
           header: interactive_header,
           body: interactive_body,
           footer: interactive_footer,
@@ -979,7 +979,7 @@ module WhatsappSdk
       end
 
       def assert_mock_response(_expected_contacts, _expected_messages, message_response)
-        assert_equal(WhatsappSdk::Api::Response, message_response.class)
+        assert_equal(Response, message_response.class)
         assert_nil(message_response.error)
         assert_predicate(message_response, :ok?)
         assert_equal(1, message_response.data.contacts.size)

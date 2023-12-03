@@ -7,10 +7,8 @@ module WhatsappSdk
   module Resource
     class InteractionActionSectionTest < Minitest::Test
       def test_validation
-        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionSection) do
-          WhatsappSdk::Resource::InteractiveActionSection.new(
-            title: "I am the longer section title"
-          )
+        error = assert_raises(Errors::InvalidInteractiveActionSection) do
+          InteractiveActionSection.new(title: "I am the longer section title")
         end
         assert_equal(
           "Invalid length 29 for title in section. Maximum length: 24 characters.",
@@ -19,15 +17,13 @@ module WhatsappSdk
       end
 
       def test_to_json
-        interactive_section = WhatsappSdk::Resource::InteractiveActionSection.new(
-          title: "I am the section"
-        )
-        interactive_section_row_1 = WhatsappSdk::Resource::InteractiveActionSectionRow.new(
+        interactive_section = InteractiveActionSection.new(title: "I am the section")
+        interactive_section_row_1 = InteractiveActionSectionRow.new(
           title: "I am the row 1 title",
           id: "section_row_1",
           description: "I am the optional section row 1 description"
         )
-        interactive_section_row_2 = WhatsappSdk::Resource::InteractiveActionSectionRow.new(
+        interactive_section_row_2 = InteractiveActionSectionRow.new(
           title: "I am the row 2 title",
           id: "section_row_2",
           description: "I am the optional section row 2 description"

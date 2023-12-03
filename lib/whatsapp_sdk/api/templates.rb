@@ -41,7 +41,7 @@ module WhatsappSdk
       # @param allow_category_change [Boolean] Optional Allow category change.
       # Set to true to allow us to assign a category based on the template guidelines and the template's contents.
       #   This can prevent your template from being rejected for miscategorization.
-      # @return [WhatsappSdk::Api::Response] Response object.
+      # @return [Response] Response object.
       sig do
         params(
           business_id: Integer,
@@ -50,7 +50,7 @@ module WhatsappSdk
           language: String,
           components_json: T.nilable(T::Array[T::Hash[T.untyped, T.untyped]]),
           allow_category_change: T.nilable(T::Boolean)
-        ).returns(WhatsappSdk::Api::Response)
+        ).returns(Response)
       end
       def create(
         business_id:, name:, category:, language:, components_json: nil, allow_category_change: nil
@@ -78,10 +78,10 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        WhatsappSdk::Api::Response.new(
+        Response.new(
           response: response,
-          data_class_type: WhatsappSdk::Api::Responses::TemplateDataResponse,
-          error_class_type: WhatsappSdk::Api::Responses::GenericErrorResponse
+          data_class_type: Responses::TemplateDataResponse,
+          error_class_type: Responses::GenericErrorResponse
         )
       end
 
@@ -89,8 +89,8 @@ module WhatsappSdk
       #
       # @param business_id [Integer] The business ID.
       # @param limit [Integer] Optional. Number of templates to return in a single page.
-      # @return [WhatsappSdk::Api::Response] Response object.
-      sig { params(business_id: Integer, limit: T.nilable(Integer)).returns(WhatsappSdk::Api::Response) }
+      # @return [Response] Response object.
+      sig { params(business_id: Integer, limit: T.nilable(Integer)).returns(Response) }
       def templates(business_id:, limit: 100)
         params = {}
         params["limit"] = limit if limit
@@ -101,10 +101,10 @@ module WhatsappSdk
           params: params
         )
 
-        WhatsappSdk::Api::Response.new(
+        Response.new(
           response: response,
-          data_class_type: WhatsappSdk::Api::Responses::TemplatesDataResponse,
-          error_class_type: WhatsappSdk::Api::Responses::GenericErrorResponse
+          data_class_type: Responses::TemplatesDataResponse,
+          error_class_type: Responses::GenericErrorResponse
         )
       end
 
@@ -112,8 +112,8 @@ module WhatsappSdk
       # The message template namespace is required to send messages using the message templates.
       #
       # @param business_id [Integer] The business ID.
-      # @return [WhatsappSdk::Api::Response] Response object.
-      sig { params(business_id: Integer).returns(WhatsappSdk::Api::Response) }
+      # @return [Response] Response object.
+      sig { params(business_id: Integer).returns(Response) }
       def get_message_template_namespace(business_id:)
         response = send_request(
           endpoint: business_id.to_s,
@@ -121,10 +121,10 @@ module WhatsappSdk
           params: { "fields" => "message_template_namespace" }
         )
 
-        WhatsappSdk::Api::Response.new(
+        Response.new(
           response: response,
-          data_class_type: WhatsappSdk::Api::Responses::MessageTemplateNamespaceDataResponse,
-          error_class_type: WhatsappSdk::Api::Responses::GenericErrorResponse
+          data_class_type: Responses::MessageTemplateNamespaceDataResponse,
+          error_class_type: Responses::GenericErrorResponse
         )
       end
 
@@ -137,7 +137,7 @@ module WhatsappSdk
       #
       # @param id [String] Required. The message_template-id.
       # @param components_json [Json] Components that make up the template..
-      # return [WhatsappSdk::Api::Response] Response object.
+      # return [Response] Response object.
       def update(template_id:, category: nil, components_json: nil)
         if category && !WhatsappSdk::Resource::Template::Category.try_deserialize(category)
           raise InvalidCategoryError.new(category: category)
@@ -154,10 +154,10 @@ module WhatsappSdk
           headers: { "Content-Type" => "application/json" }
         )
 
-        WhatsappSdk::Api::Response.new(
+        Response.new(
           response: response,
-          data_class_type: WhatsappSdk::Api::Responses::SuccessResponse,
-          error_class_type: WhatsappSdk::Api::Responses::GenericErrorResponse
+          data_class_type: Responses::SuccessResponse,
+          error_class_type: Responses::GenericErrorResponse
         )
       end
 
@@ -172,13 +172,13 @@ module WhatsappSdk
       # @param name [String] Required. The template's name.
       # @param hsm_id [String] Optional. The template's id.
       #
-      # @return [WhatsappSdk::Api::Response] Response object.
+      # @return [Response] Response object.
       sig do
         params(
           business_id: Integer,
           name: String,
           hsm_id: T.nilable(String)
-        ).returns(WhatsappSdk::Api::Response)
+        ).returns(Response)
       end
       def delete(business_id:, name:, hsm_id: nil)
         params = { name: name }
@@ -190,10 +190,10 @@ module WhatsappSdk
           params: params
         )
 
-        WhatsappSdk::Api::Response.new(
+        Response.new(
           response: response,
-          data_class_type: WhatsappSdk::Api::Responses::SuccessResponse,
-          error_class_type: WhatsappSdk::Api::Responses::GenericErrorResponse
+          data_class_type: Responses::SuccessResponse,
+          error_class_type: Responses::GenericErrorResponse
         )
       end
     end

@@ -9,7 +9,7 @@ module WhatsappSdk
   module Api
     class ClientTest < Minitest::Test
       def setup
-        @client = WhatsappSdk::Api::Client.new('test_token')
+        @client = Client.new('test_token')
       end
 
       def test_send_request_post_with_success_response
@@ -51,7 +51,7 @@ module WhatsappSdk
       private
 
       def stub_test_request(method_name, body: {}, headers: {}, response_status: 200, response_body: { success: true })
-        stub_request(method_name, "#{::WhatsappSdk::Api::ApiConfiguration::API_URL}test")
+        stub_request(method_name, "#{ApiConfiguration::API_URL}test")
           .with(body: body, headers: { 'Accept' => '*/*',
                                        'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
                                        'Authorization' => 'Bearer test_token' }.merge(headers))

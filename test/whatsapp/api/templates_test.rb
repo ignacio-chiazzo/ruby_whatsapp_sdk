@@ -13,14 +13,14 @@ module WhatsappSdk
       include(ErrorsHelper)
 
       def setup
-        client = WhatsappSdk::Api::Client.new("test_token")
-        @messages_api = WhatsappSdk::Api::Messages.new(client)
-        @templates_api = WhatsappSdk::Api::Templates.new(client)
+        client = Client.new("test_token")
+        @messages_api = Messages.new(client)
+        @templates_api = Templates.new(client)
       end
 
       ##### CREATE
       def test_create_a_template_raises_an_error_when_category_is_invalid
-        error = assert_raises(WhatsappSdk::Api::Templates::InvalidCategoryError) do
+        error = assert_raises(Templates::InvalidCategoryError) do
           @templates_api.create(
             business_id: 123_456,
             name: "seasonal_promotion",
@@ -33,7 +33,7 @@ module WhatsappSdk
       end
 
       def test_create_a_template_raises_an_error_when_the_languge_is_invalid
-        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidLanguageError) do
+        error = assert_raises(Resource::Errors::InvalidLanguageError) do
           @templates_api.create(
             business_id: 123_456,
             name: "seasonal_promotion",
@@ -121,7 +121,7 @@ module WhatsappSdk
         templates_response = @templates_api.templates(business_id: 123_456)
 
         assert_ok_response(templates_response)
-        assert_equal(WhatsappSdk::Api::Responses::TemplatesDataResponse, templates_response.data.class)
+        assert_equal(Responses::TemplatesDataResponse, templates_response.data.class)
         assert_equal(1, templates_response.data.templates.size)
         assert_templates_mock_response(mock_example_templates_response["data"][0],
                                        templates_response.data.templates.first)
@@ -151,7 +151,7 @@ module WhatsappSdk
 
         templates_response = @templates_api.get_message_template_namespace(business_id: 123_456)
         assert_ok_response(templates_response)
-        assert_equal(WhatsappSdk::Api::Responses::MessageTemplateNamespaceDataResponse, templates_response.data.class)
+        assert_equal(Responses::MessageTemplateNamespaceDataResponse, templates_response.data.class)
         assert_equal("145145", templates_response.data.id)
         assert_equal("abcd_1234_gfhd_1234", templates_response.data.message_template_namespace)
       end
@@ -171,7 +171,7 @@ module WhatsappSdk
 
       ##### Update Message Template
       def test_update_a_template_raises_an_error_when_category_is_invalid
-        error = assert_raises(WhatsappSdk::Api::Templates::InvalidCategoryError) do
+        error = assert_raises(Templates::InvalidCategoryError) do
           @templates_api.update(template_id: 123_456, category: "INVALID_CATEGORY")
         end
 
@@ -207,8 +207,8 @@ module WhatsappSdk
           components_json: components_json
         )
 
-        assert_equal(WhatsappSdk::Api::Response, template_response.class)
-        assert_equal(WhatsappSdk::Api::Responses::SuccessResponse, template_response.data.class)
+        assert_equal(Response, template_response.class)
+        assert_equal(Responses::SuccessResponse, template_response.data.class)
         assert_nil(template_response.error)
         assert_predicate(template_response, :ok?)
         assert_predicate(template_response.data, :success?)
@@ -267,7 +267,7 @@ module WhatsappSdk
 
       def validate_sucess_data_response(response)
         assert_ok_response(response)
-        assert_equal(WhatsappSdk::Api::Responses::SuccessResponse, response.data.class)
+        assert_equal(Responses::SuccessResponse, response.data.class)
         assert_predicate(response.data, :success?)
       end
 
@@ -277,7 +277,7 @@ module WhatsappSdk
       end
 
       def assert_templates_mock_response(expected_template_response, template_response)
-        assert_equal(WhatsappSdk::Api::Responses::TemplateDataResponse, template_response.class)
+        assert_equal(Responses::TemplateDataResponse, template_response.class)
         assert_equal(expected_template_response["id"], template_response.template.id)
         assert_equal(expected_template_response["status"], template_response.template.status.serialize)
         assert_equal(expected_template_response["category"], template_response.template.category.serialize)
@@ -287,7 +287,7 @@ module WhatsappSdk
       end
 
       def assert_ok_response(response)
-        assert_equal(WhatsappSdk::Api::Response, response.class)
+        assert_equal(Response, response.class)
         assert_nil(response.error)
         assert_predicate(response, :ok?)
       end
