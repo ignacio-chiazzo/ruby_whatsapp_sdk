@@ -31,15 +31,16 @@ module WhatsappSdk
 
       # Create a template
       #
+      # @param business_id [Integer] Business Id.
       # @param name [String] the template's name.
       # @param category [String] the template's category. Possible values: AUTHENTICATION, MARKETING, UTILITY.
-      # @param language [String] Template language and locale cod (e.g. en_US).
+      # @param language [String] Template language and locale code (e.g. en_US).
+      #  See the list of possible languages https://developers.facebook.com/docs/whatsapp/api/messages/message-templates
       # @param components_json [Component] Components that make up the template. See the list of possible components:
       #   https://developers.facebook.com/docs/whatsapp/business-management-api/message-templates/components
       # @param allow_category_change [Boolean] Optional Allow category change.
-      # Set to true to allow us to assign a category
-      #   based on the template guidelines and the template's contents. This can prevent your template
-      #   from being rejected for miscategorization.
+      # Set to true to allow us to assign a category based on the template guidelines and the template's contents.
+      #   This can prevent your template from being rejected for miscategorization.
       # @return [WhatsappSdk::Api::Response] Response object.
       sig do
         params(
@@ -99,7 +100,7 @@ module WhatsappSdk
           http_method: "get",
           params: params
         )
-        # TODO: Parse response
+
         WhatsappSdk::Api::Response.new(
           response: response,
           data_class_type: WhatsappSdk::Api::Responses::TemplatesDataResponse,
@@ -111,7 +112,6 @@ module WhatsappSdk
       # The message template namespace is required to send messages using the message templates.
       #
       # @param business_id [Integer] The business ID.
-      #
       # @return [WhatsappSdk::Api::Response] Response object.
       sig { params(business_id: Integer).returns(WhatsappSdk::Api::Response) }
       def get_message_template_namespace(business_id:)
@@ -135,7 +135,7 @@ module WhatsappSdk
       #
       # Message templates can only be edited when in an Approved, Rejected, or Paused state.
       #
-      # @param id [String] Required The message_template-id.
+      # @param id [String] Required. The message_template-id.
       # @param components_json [Json] Components that make up the template..
       # return [WhatsappSdk::Api::Response] Response object.
       def update(template_id:, category: nil, components_json: nil)
@@ -168,8 +168,9 @@ module WhatsappSdk
       # To delete a template by ID, include the template's ID along with its name in your request;
       # only the template with the matching template ID will be deleted.
       #
-      # @param name [String] Required The template's name.
-      # @param hsm_id [String] Optional The template's id.
+      # @param business_id [Integer] Required. The business ID.
+      # @param name [String] Required. The template's name.
+      # @param hsm_id [String] Optional. The template's id.
       #
       # @return [WhatsappSdk::Api::Response] Response object.
       sig do
