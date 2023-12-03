@@ -26,7 +26,8 @@ require_relative '../contact_helper'
 module WhatsappSdk
   module Api
     class MessagesTest < Minitest::Test
-      include ContactHelper
+      include(ContactHelper)
+      include(ErrorsHelper)
 
       def setup
         client = WhatsappSdk::Api::Client.new("test_token")
@@ -34,11 +35,11 @@ module WhatsappSdk
       end
 
       def test_send_text_handles_error_response
-        mocked_error_response = mock_error_response
+        mocked_error_response = mock_error_response(api: @messages_api)
         response = @messages_api.send_text(
           sender_id: 123_123, recipient_number: 56_789, message: "hola"
         )
-        assert_mock_error_response(mocked_error_response, response)
+        assert_mock_error_response(mocked_error_response, response, WhatsappSdk::Api::Responses::MessageErrorResponse)
       end
 
       def test_send_text_message_with_success_response
@@ -488,11 +489,11 @@ module WhatsappSdk
       end
 
       def test_read_message_with_an_invalid_response
-        mocked_error_response = mock_error_response
+        mocked_error_response = mock_error_response(api: @messages_api)
         response = @messages_api.read_message(
           sender_id: 123_123, message_id: "12345"
         )
-        assert_mock_error_response(mocked_error_response, response)
+        assert_mock_error_response(mocked_error_response, response, WhatsappSdk::Api::Responses::MessageErrorResponse)
         assert_predicate(response, :error?)
       end
 
@@ -943,32 +944,6 @@ module WhatsappSdk
       end
 
       private
-
-      def mock_error_response
-        error_response = {
-          "error" => {
-            "message" => "Unsupported post request.",
-            "type" => "GraphMethodException",
-            "code" => 100,
-            "error_subcode" => 33,
-            "fbtrace_id" => "Au93W6oW_Np0PyF7v5YwAiU"
-          }
-        }
-        @messages_api.stubs(:send_request).returns(error_response)
-        error_response
-      end
-
-      def assert_mock_error_response(mocked_error, response)
-        refute_predicate(response, :ok?)
-        assert_nil(response.data)
-        error = response.error
-        assert_equal(WhatsappSdk::Api::Responses::MessageErrorResponse, error.class)
-        assert_equal(mocked_error["error"]["code"], error.code)
-        assert_equal(mocked_error["error"]["error_subcode"], error.subcode)
-        assert_equal(mocked_error["error"]["message"], error.message)
-        assert_equal(mocked_error["error"]["error_subcode"], error.subcode)
-        assert_equal(mocked_error["error"]["fbtrace_id"], error.fbtrace_id)
-      end
 
       def sticker_link
         "sticker_link"

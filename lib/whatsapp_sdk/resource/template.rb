@@ -36,11 +36,28 @@ module WhatsappSdk
       sig { returns(Category) }
       attr_accessor :category
 
-      sig { params(id: String, status: Status, category: Category).void }
-      def initialize(id:, status:, category:)
+      sig { returns(T.nilable(String)) }
+      attr_accessor :language
+
+      sig { returns(T.nilable(String)) }
+      attr_accessor :name
+
+      sig { returns(T.nilable(T::Array[T::Hash[T.untyped, T.untyped]])) }
+      attr_accessor :components_json
+
+      sig do
+        params(
+          id: String, status: Status, category: Category, language: T.nilable(String), name: T.nilable(String),
+          components_json: T.nilable(T::Array[T::Hash[T.untyped, T.untyped]])
+        ).void
+      end
+      def initialize(id:, status:, category:, language:, name:, components_json:)
         @id = id
         @status = status
         @category = category
+        @language = language
+        @name = name
+        @components_json = components_json
       end
     end
   end

@@ -10,6 +10,9 @@ require_relative 'responses/success_response'
 require_relative 'responses/message_template_namespace_data_response'
 require_relative 'responses/generic_error_response'
 require_relative 'responses/template_data_response'
+require_relative 'responses/templates_data_response'
+
+# TODO: Verify all the tests with API calls
 
 module WhatsappSdk
   module Api
@@ -66,7 +69,7 @@ module WhatsappSdk
           components: components_json
         }
 
-        params[:allow_category_change] = allow_category_change if allow_category_change
+        params["allow_category_change"] = allow_category_change if allow_category_change
 
         response = send_request(
           endpoint: "#{business_id}/message_templates",
@@ -97,13 +100,11 @@ module WhatsappSdk
           http_method: "get",
           params: params
         )
-
-        # binding.pry
         # TODO: Parse response
-
         WhatsappSdk::Api::Response.new(
           response: response,
-          data_class_type: WhatsappSdk::Api::Responses::MessageDataResponse
+          data_class_type: WhatsappSdk::Api::Responses::TemplatesDataResponse,
+          error_class_type: WhatsappSdk::Api::Responses::GenericErrorResponse
         )
       end
 
@@ -138,20 +139,26 @@ module WhatsappSdk
       # @param id [String] Required The message_template-id.
       # @param components_json [Json] Components that make up the template..
       # return [WhatsappSdk::Api::Response] Response object.
-      def update(message_template_id:, components_json: nil)
+      def update(template_id:, category: nil, components_json: nil)
+        if category && !WhatsappSdk::Resource::Template::Category.try_deserialize(category)
+          raise InvalidCategoryError.new(category: category)
+        end
+
         params = {}
-        params[:components] = components_json
+        params[:components] = components_json if components_json
+        params[:category] = category if category
 
         response = send_request(
-          endpoint: "#{message_template_id}/message_templates",
+          endpoint: template_id.to_s,
           http_method: "post",
-          params: params
+          params: params,
+          headers: { "Content-Type" => "application/json" }
         )
 
         WhatsappSdk::Api::Response.new(
           response: response,
           data_class_type: WhatsappSdk::Api::Responses::SuccessResponse,
-          error_class_type: WhatsappSdk::Api::Responses::ErrorResponse
+          error_class_type: WhatsappSdk::Api::Responses::GenericErrorResponse
         )
       end
 
@@ -187,7 +194,7 @@ module WhatsappSdk
         WhatsappSdk::Api::Response.new(
           response: response,
           data_class_type: WhatsappSdk::Api::Responses::SuccessResponse,
-          error_class_type: WhatsappSdk::Api::Responses::ErrorResponse
+          error_class_type: WhatsappSdk::Api::Responses::GenericErrorResponse
         )
       end
     end

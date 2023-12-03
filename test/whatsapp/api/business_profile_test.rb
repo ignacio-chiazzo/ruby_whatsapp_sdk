@@ -7,15 +7,17 @@ require 'api/client'
 module WhatsappSdk
   module Api
     class BusinessProfileTest < Minitest::Test
+      include(ErrorsHelper)
+
       def setup
         client = WhatsappSdk::Api::Client.new("test_token")
         @business_profile_api = WhatsappSdk::Api::BusinessProfile.new(client)
       end
 
       def test_details_handles_error_response
-        mocked_error_response = mock_error_response
+        mocked_error_response = mock_error_response(api: @business_profile_api)
         response = @business_profile_api.details(123_123)
-        assert_mock_error_response(mocked_error_response, response)
+        assert_mock_error_response(mocked_error_response, response, WhatsappSdk::Api::Responses::MessageErrorResponse)
       end
 
       def test_details_with_success_response
@@ -26,9 +28,9 @@ module WhatsappSdk
       end
 
       def test_update_handles_error_response
-        mocked_error_response = mock_error_response
+        mocked_error_response = mock_error_response(api: @business_profile_api)
         response = @business_profile_api.update(phone_number_id: 123_123, params: valid_detail_response)
-        assert_mock_error_response(mocked_error_response, response)
+        assert_mock_error_response(mocked_error_response, response, WhatsappSdk::Api::Responses::MessageErrorResponse)
       end
 
       def test_update_with_success_response
@@ -39,20 +41,6 @@ module WhatsappSdk
       end
 
       private
-
-      def mock_error_response
-        error_response = {
-          "error" => {
-            "message" => "Unsupported post request.",
-            "type" => "GraphMethodException",
-            "code" => 100,
-            "error_subcode" => 33,
-            "fbtrace_id" => "Au12W6oW_Np1IyF4v5YwAiU"
-          }
-        }
-        @business_profile_api.stubs(:send_request).returns(error_response)
-        error_response
-      end
 
       def mock_business_profile_response(response)
         @business_profile_api.stubs(:send_request).returns(response)
@@ -95,18 +83,6 @@ module WhatsappSdk
         {
           "success" => true
         }
-      end
-
-      def assert_mock_error_response(mocked_error, response)
-        refute_predicate(response, :ok?)
-        assert_nil(response.data)
-        error = response.error
-        assert_equal(WhatsappSdk::Api::Responses::MessageErrorResponse, error.class)
-        assert_equal(mocked_error["error"]["code"], error.code)
-        assert_equal(mocked_error["error"]["error_subcode"], error.subcode)
-        assert_equal(mocked_error["error"]["message"], error.message)
-        assert_equal(mocked_error["error"]["error_subcode"], error.subcode)
-        assert_equal(mocked_error["error"]["fbtrace_id"], error.fbtrace_id)
       end
 
       def assert_business_details_mock_response(expected_business_profile, response)

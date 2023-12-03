@@ -16,7 +16,7 @@ module WhatsappSdk
       end
 
       def test_media_handles_error_response
-        mocked_error_response = mock_error_response
+        mocked_error_response = mock_error_response(api: @medias_api)
         response = @medias_api.media(media_id: "123_123")
         assert_error_response(mocked_error_response, response)
       end
@@ -40,7 +40,7 @@ module WhatsappSdk
       end
 
       def test_delete_media_handles_error_response
-        mocked_error_response = mock_error_response
+        mocked_error_response = mock_error_response(api: @medias_api)
         response = @medias_api.delete(media_id: "1")
         assert_error_response(mocked_error_response, response)
       end
@@ -73,7 +73,7 @@ module WhatsappSdk
       end
 
       def test_upload_media_handles_error_response
-        mocked_error_response = mock_error_response
+        mocked_error_response = mock_error_response(api: @medias_api)
         response = @medias_api.upload(sender_id: 123, file_path: "tmp/whatsapp.png", type: "image/png")
         assert_error_response(mocked_error_response, response)
       end
@@ -163,11 +163,6 @@ module WhatsappSdk
         assert_equal(WhatsappSdk::Api::Response, response.class)
         assert_nil(response.error)
         assert_predicate(response, :ok?)
-      end
-
-      def mock_error_response(error_response: generic_error_response)
-        @medias_api.stubs(:send_request).returns(error_response)
-        error_response
       end
 
       def mock_get_media_response(response)
