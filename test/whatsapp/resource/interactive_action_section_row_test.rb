@@ -7,8 +7,8 @@ module WhatsappSdk
   module Resource
     class InteractionActionSectionRowTest < Minitest::Test
       def test_validation
-        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionSectionRow) do
-          WhatsappSdk::Resource::InteractiveActionSectionRow.new(
+        error = assert_raises(Errors::InvalidInteractiveActionSectionRow) do
+          InteractiveActionSectionRow.new(
             title: "I am the longer row title",
             id: "section_row",
             description: "I am the optional section row description"
@@ -19,8 +19,8 @@ module WhatsappSdk
           error.message
         )
 
-        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionSectionRow) do
-          WhatsappSdk::Resource::InteractiveActionSectionRow.new(
+        error = assert_raises(Errors::InvalidInteractiveActionSectionRow) do
+          InteractiveActionSectionRow.new(
             title: "I am the row title",
             id: "section_row",
             description: "I am the optional section row description " * 2
@@ -31,8 +31,8 @@ module WhatsappSdk
           error.message
         )
 
-        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidInteractiveActionSectionRow) do
-          WhatsappSdk::Resource::InteractiveActionSectionRow.new(
+        error = assert_raises(Errors::InvalidInteractiveActionSectionRow) do
+          InteractiveActionSectionRow.new(
             title: "I am the row title",
             id: "section_row" * 25,
             description: "I am the optional section row description"
@@ -45,7 +45,7 @@ module WhatsappSdk
       end
 
       def test_to_json
-        interactive_section_row_1 = WhatsappSdk::Resource::InteractiveActionSectionRow.new(
+        interactive_section_row_1 = InteractiveActionSectionRow.new(
           title: "I am the row title",
           id: "section_row"
         )
@@ -58,7 +58,7 @@ module WhatsappSdk
           interactive_section_row_1.to_json
         )
 
-        interactive_section_row_2 = WhatsappSdk::Resource::InteractiveActionSectionRow.new(
+        interactive_section_row_2 = InteractiveActionSectionRow.new(
           title: "I am the row title",
           id: "section_row",
           description: "I am the optional section row description"
