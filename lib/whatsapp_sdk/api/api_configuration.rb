@@ -6,7 +6,7 @@ module WhatsappSdk
     module ApiConfiguration
       extend T::Sig
 
-      API_VERSION = T.let("v16.0", String)
+      API_VERSION = T.let("v19.0", String)
       API_URL = T.let("https://graph.facebook.com/#{API_VERSION}/", String)
     end
   end
