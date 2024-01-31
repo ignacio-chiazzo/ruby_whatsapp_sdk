@@ -1,5 +1,6 @@
 # Unreleased
 
+# v 0.11.0
 - Bumped API version to v19. @paulomcnally  https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/116
 
 # v 0.10.0
