@@ -1,5 +1,7 @@
 # Unreleased
 
+- Bumped API version to v19. @paulomcnally  https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/116
+
 # v 0.10.0
 - Implement Templates API @emersonu, @ignacio-chiazzo [#90](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/90)
 - Using compatible Gem versions instead of fixed dependency versions @nbluis [#108](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/108)
