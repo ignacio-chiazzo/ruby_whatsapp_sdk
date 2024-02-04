@@ -3,11 +3,26 @@
 
 require_relative "request"
 require_relative "response"
+require_relative "../resource/business_profile"
 
 module WhatsappSdk
   module Api
     class BusinessProfile < Request
       DEFAULT_FIELDS = 'about,address,description,email,profile_picture_url,websites,vertical'
+
+      class InvalidVertical < StandardError
+        extend T::Sig
+
+        sig { returns(String) }
+        attr_accessor :message
+
+        sig { params(vertical: String).void }
+        def initialize(vertical:)
+          @message = "invalid vertical #{vertical}. See the supported types in the official documentation " \
+                     "https://developers.facebook.com/docs/whatsapp/cloud-api/reference/business-profiles"
+          super
+        end
+      end
 
       # Get the details of business profile.
       #
@@ -45,6 +60,7 @@ module WhatsappSdk
       def update(phone_number_id:, params:)
         # this is a required field
         params[:messaging_product] = 'whatsapp'
+        return raise InvalidVertical.new(vertical: params[:vertical]) unless valid_vertical?(params)
 
         response = send_request(
           http_method: "post",
@@ -56,6 +72,15 @@ module WhatsappSdk
           response: response,
           data_class_type: Api::Responses::SuccessResponse
         )
+      end
+
+      private
+
+      sig { params(params: T::Hash[T.untyped, T.untyped]).returns(T::Boolean) }
+      def valid_vertical?(params)
+        return true unless params[:vertical]
+
+        WhatsappSdk::Resource::BusinessProfile::VERTICAL_VALUES.include?(params[:vertical])
       end
     end
   end
