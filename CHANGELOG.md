@@ -1,4 +1,6 @@
 # Unreleased
+- Added ability to specify fields param in the busines profile API. @ignacio-chiazzo  https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/119
+
 
 # v 0.11.0
 - Bumped API version to v19. @paulomcnally  https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/116
