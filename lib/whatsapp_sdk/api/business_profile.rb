@@ -13,11 +13,17 @@ module WhatsappSdk
       #
       # @param phone_number_id [Integer] Phone Number Id.
       # @return [Api::Response] Response object.
-      sig { params(phone_number_id: Integer).returns(Api::Response) }
-      def details(phone_number_id)
+      sig { params(phone_number_id: Integer, fields: T.nilable(T::Array[String])).returns(Api::Response) }
+      def details(phone_number_id, fields: nil)
+        fields = if fields
+                   fields.join(',')
+                 else
+                   DEFAULT_FIELDS
+                 end
+
         response = send_request(
           http_method: "get",
-          endpoint: "#{phone_number_id}/whatsapp_business_profile?fields=#{DEFAULT_FIELDS}"
+          endpoint: "#{phone_number_id}/whatsapp_business_profile?fields=#{fields}"
         )
 
         Api::Response.new(

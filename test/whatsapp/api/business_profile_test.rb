@@ -20,6 +20,32 @@ module WhatsappSdk
         assert_mock_error_response(mocked_error_response, response, Responses::MessageErrorResponse)
       end
 
+      def test_details_accepts_fields
+        fields = %w[about address]
+        phone_number_id = 123_456
+        @business_profile_api.stubs(:send_request)
+                             .with(
+                               http_method: "get",
+                               endpoint: "#{phone_number_id}/whatsapp_business_profile?fields=about,address"
+                             ).returns(valid_details_response)
+
+        response = @business_profile_api.details(phone_number_id, fields: fields)
+        assert_business_details_mock_response(valid_detail_response, response)
+      end
+
+      def test_details_sends_all_fields_by_default
+        fields = "about,address,description,email,profile_picture_url,websites,vertical"
+        phone_number_id = 123_456
+        @business_profile_api.stubs(:send_request)
+                             .with(
+                               http_method: "get",
+                               endpoint: "#{phone_number_id}/whatsapp_business_profile?fields=#{fields}"
+                             ).returns(valid_details_response)
+
+        response = @business_profile_api.details(phone_number_id)
+        assert_business_details_mock_response(valid_detail_response, response)
+      end
+
       def test_details_with_success_response
         mock_business_profile_response(valid_details_response)
         response = @business_profile_api.details(123_123)
