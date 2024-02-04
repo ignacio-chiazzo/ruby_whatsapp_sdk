@@ -53,10 +53,26 @@ module WhatsappSdk
         assert_predicate(response, :ok?)
       end
 
+      def test_update_returns_an_error_if_vertical_is_invalid
+        params = { vertical: "invalid_vertical" }
+        mock_business_profile_response(valid_details_response)
+        assert_raises(BusinessProfile::InvalidVertical) do
+          @business_profile_api.update(phone_number_id: 123_123, params: params)
+        end
+      end
+
       def test_update_handles_error_response
         mocked_error_response = mock_error_response(api: @business_profile_api)
         response = @business_profile_api.update(phone_number_id: 123_123, params: valid_detail_response)
         assert_mock_error_response(mocked_error_response, response, Responses::MessageErrorResponse)
+      end
+
+      def test_update_does_not_return_an_error_if_vertical_is_valid
+        params = { vertical: "BEAUTY" }
+        mock_business_profile_response(valid_update_response)
+        response = @business_profile_api.update(phone_number_id: 123_123, params: params)
+        assert_update_details_mock_response(valid_update_response, response)
+        assert_predicate(response, :ok?)
       end
 
       def test_update_with_success_response
