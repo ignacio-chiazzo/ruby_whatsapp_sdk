@@ -167,7 +167,8 @@ module WhatsappSdk
         response = send_request(
           endpoint: endpoint(sender_id),
           params: params,
-          headers: DEFAULT_HEADERS
+          headers: DEFAULT_HEADERS,
+          multipart: true
         )
 
         Api::Response.new(

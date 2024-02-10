@@ -104,7 +104,7 @@ module WhatsappSdk
           type: type
         }
 
-        response = send_request(http_method: "post", endpoint: "#{sender_id}/media", params: params)
+        response = send_request(http_method: "post", endpoint: "#{sender_id}/media", params: params, multipart: true)
 
         Api::Response.new(
           response: response,

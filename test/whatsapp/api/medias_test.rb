@@ -100,6 +100,7 @@ module WhatsappSdk
         @medias_api.expects(:send_request).with(
           http_method: "post",
           endpoint: "123/media",
+          multipart: true,
           params: {
             messaging_product: "whatsapp",
             file: file_part,
