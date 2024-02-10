@@ -180,6 +180,7 @@ module WhatsappSdk
               "message" => "(#100) Param pin must be 6 characters long.",
               "type" => "OAuthException",
               "code" => 100,
+              "error_subcode" => 22,
               "fbtrace_id" => "AVU2ojfLmjKZSKbkWqjA_Uc"
             }
         }
@@ -221,21 +222,29 @@ module WhatsappSdk
       end
 
       def assert_phone_number(expected_phone_number, phone_number)
-        assert_equal(expected_phone_number["id"], phone_number.id)
-        assert_equal(expected_phone_number["display_phone_number"], phone_number.display_phone_number)
-        assert_equal(expected_phone_number["quality_rating"], phone_number.quality_rating)
-        assert_equal(expected_phone_number["verified_name"], phone_number.verified_name)
-        assert_equal(expected_phone_number["code_verification_status"], phone_number.code_verification_status)
-        assert_equal(expected_phone_number["is_official_business_account"], phone_number.is_official_business_account)
-        assert_equal(expected_phone_number["account_mode"], phone_number.account_mode)
-        assert_equal(expected_phone_number["eligibility_for_api_business_global_search"],
-                     phone_number.eligibility_for_api_business_global_search)
-        assert_equal(expected_phone_number["is_pin_enabled"], phone_number.is_pin_enabled)
-        assert_equal(expected_phone_number["name_status"], phone_number.name_status)
-        assert_equal(expected_phone_number["new_name_status"], phone_number.new_name_status)
-        assert_equal(expected_phone_number["status"], phone_number.status)
-        assert_equal(expected_phone_number["search_visibility"], phone_number.search_visibility)
-        assert_equal(expected_phone_number["certificate"], phone_number.certificate)
+        [
+          [expected_phone_number["id"], phone_number.id],
+          [expected_phone_number["display_phone_number"], phone_number.display_phone_number],
+          [expected_phone_number["quality_rating"], phone_number.quality_rating],
+          [expected_phone_number["verified_name"], phone_number.verified_name],
+          [expected_phone_number["code_verification_status"], phone_number.code_verification_status],
+          [expected_phone_number["is_official_business_account"], phone_number.is_official_business_account],
+          [expected_phone_number["account_mode"], phone_number.account_mode],
+          [expected_phone_number["eligibility_for_api_business_global_search"],
+           phone_number.eligibility_for_api_business_global_search],
+          [expected_phone_number["is_pin_enabled"], phone_number.is_pin_enabled],
+          [expected_phone_number["name_status"], phone_number.name_status],
+          [expected_phone_number["new_name_status"], phone_number.new_name_status],
+          [expected_phone_number["status"], phone_number.status],
+          [expected_phone_number["search_visibility"], phone_number.search_visibility],
+          [expected_phone_number["certificate"], phone_number.certificate]
+        ].each do |expected, actual|
+          if expected.nil?
+            assert_nil(actual)
+          else
+            assert_equal(expected, actual)
+          end
+        end
       end
     end
   end
