@@ -277,13 +277,21 @@ module WhatsappSdk
       end
 
       def assert_templates_mock_response(expected_template_response, template_response)
-        assert_equal(Responses::TemplateDataResponse, template_response.class)
-        assert_equal(expected_template_response["id"], template_response.template.id)
-        assert_equal(expected_template_response["status"], template_response.template.status.serialize)
-        assert_equal(expected_template_response["category"], template_response.template.category.serialize)
-        assert_equal(expected_template_response["language"], template_response.template.language)
-        assert_equal(expected_template_response["name"], template_response.template.name)
-        assert_equal(expected_template_response["components"], template_response.template.components_json)
+        [
+          [Responses::TemplateDataResponse, template_response.class],
+          [expected_template_response["id"], template_response.template.id],
+          [expected_template_response["status"], template_response.template.status.serialize],
+          [expected_template_response["category"], template_response.template.category.serialize],
+          [expected_template_response["language"], template_response.template.language],
+          [expected_template_response["name"], template_response.template.name],
+          [expected_template_response["components"], template_response.template.components_json]
+        ].each do |expected, actual|
+          if expected.nil?
+            assert_nil(actual)
+          else
+            assert_equal(expected, actual)
+          end
+        end
       end
 
       def assert_ok_response(response)
