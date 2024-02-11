@@ -33,6 +33,8 @@ if ACCESS_TOKEN == "<TODO replace>"
   exit
 end
 
+puts "\n\n\n\n\n\n ***************    Starting calling the Cloud API    *************** \n"
+
 ################# Initialize Client #################
 WhatsappSdk.configure do |config|
   config.access_token = ACCESS_TOKEN
@@ -46,6 +48,14 @@ def print_message_sent(message_response)
     puts "Error: #{message_response.error&.to_s}"
   end
 end
+
+def print_data_or_error(response, identifier)
+  if response.error?
+    return "Error: #{response.error&.to_s}"
+  end
+
+  return identifier
+end
 ##################################################
 
 
@@ -56,12 +66,13 @@ business_profile_api = WhatsappSdk::Api::BusinessProfile.new
 templates_api = WhatsappSdk::Api::Templates.new
 
 ############################## Templates API ##############################
-
 ## Get list of templates
-templates_api.templates(business_id: BUSINESS_ID)
+templates = templates_api.templates(business_id: BUSINESS_ID)
+puts "GET Templates list : #{print_data_or_error(templates, templates.data&.templates.map { |r| r.template.name })}"
 
 ## Get message templates namespace
-templates_api.get_message_template_namespace(business_id: BUSINESS_ID)
+template_namespace = templates_api.get_message_template_namespace(business_id: BUSINESS_ID)
+puts "GET template by namespace: #{print_data_or_error(template_namespace, template_namespace.data&.id)}"
 
 # Create a template
 components_json = [
@@ -97,6 +108,7 @@ new_template = templates_api.create(
   business_id: BUSINESS_ID, name: "seasonal_promotion", language: "ka", category: "MARKETING",
   components_json: components_json, allow_category_change: true
 )
+puts "GET template by namespace: #{print_data_or_error(template_namespace, template_namespace.data&.id)}"
 
 # Update a template
 components_json = [
@@ -112,66 +124,83 @@ components_json = [
     ]
   }
 ]
-templates_api.update(template_id: "1624560287967996", category: "UTILITY")
+updated_template = templates_api.update(template_id: "1624560287967996", category: "UTILITY")
+puts "UPDATE template by id: #{print_data_or_error(updated_template, updated_template.data&.id)}"
 
 ## Delete a template
-templates_api.delete(business_id: BUSINESS_ID, name: "seasonal_promotion") # delete by name
+delete_template = templates_api.delete(business_id: BUSINESS_ID, name: "seasonal_promotion") # delete by name
+puts "DELETE template by id: #{print_data_or_error(delete_template, delete_template.data&.id) }"
 # templates_api.delete(business_id: BUSINESS_ID, name: "name2", hsm_id: "243213188351928") # delete by name and id
 
 ############################## Business API ##############################
 business_profile = business_profile_api.details(SENDER_ID)
-business_profile_api.update(phone_number_id: SENDER_ID, params: { about: "A very cool business" } )
+puts "DELETE Business Profile by id: #{print_data_or_error(delete_template, business_profile.data&.id) }"
+
+updated_bp = business_profile_api.update(phone_number_id: SENDER_ID, params: { about: "A very cool business" } )
+puts "UPDATE Business Profile by id: #{print_data_or_error(updated_bp, updated_bp.data&.id) }"
 
 ############################## Phone Numbers API ##############################
 registered_number = phone_numbers_api.registered_number(SENDER_ID)
+puts "GET Registered number: #{print_data_or_error(registered_number, registered_number.data&.id)}"
+
 registered_numbers = phone_numbers_api.registered_numbers(BUSINESS_ID)
+puts "GET Registered numbers: #{print_data_or_error(registered_number, registered_numbers.data&.phone_numbers.map(&:id))}"
 
 ############################## Media API ##############################
 
 ##### Image #####
 # upload a Image
 uploaded_media = medias_api.upload(sender_id: SENDER_ID, file_path: "tmp/whatsapp.png", type: "image/png")
-media_id = uploaded_media.data&.id
-puts "Uploaded media id: #{media_id}"
+puts "Uploaded media id: #{print_data_or_error(uploaded_media, uploaded_media.data&.id)}"
 
 # get a media Image
-media = medias_api.media(media_id: media_id).data
-puts "Media info: #{media.raw_data_response}"
+if uploaded_media.data&.id
+  media = medias_api.media(media_id: uploaded_media.data&.id)
+  puts "GET Media id: #{print_data_or_error(media, media.data&.id)}"
 
-# download media Image
-download_image = medias_api.download(url: media.url, file_path: 'tmp/downloaded_image.png', media_type: "image/png")
-puts "Downloaded: #{download_image.data.success?}"
+  # download media Image
+  download_image = medias_api.download(url: media.data.url, file_path: 'tmp/downloaded_image.png', media_type: "image/png")
+  puts "Downloaded: #{print_data_or_error(download_image, download_image.data.success?)}"
 
-# delete a media
-deleted_media = medias_api.delete(media_id: media&.id)
-puts "Deleted: #{deleted_media.data.success?}"
+  # delete a media
+  deleted_media = medias_api.delete(media_id: media.data.id)
+  puts "DELETE: #{print_data_or_error(deleted_media, deleted_media.data.success?)}"
+end
 
 #### Audio ####
 # upload an audio
 uploaded_media = medias_api.upload(sender_id: SENDER_ID, file_path: "tmp/downloaded_audio.ogg", type: "audio/ogg")
+puts "Uploaded media id: #{print_data_or_error(uploaded_media, uploaded_media.data&.id)}"
+
+if uploaded_media.data&.id
+media_id = uploaded_media.data&.id
 media_id = uploaded_media.data&.id
 puts "Uploaded media id: #{media_id}"
+  media_id = uploaded_media.data&.id
+puts "Uploaded media id: #{media_id}"
 
-# get a media audio
-media = medias_api.media(media_id: media_id).data
-puts "Media info: #{media.raw_data_response}"
+  # get a media audio
+  media = medias_api.media(media_id: media_id)
+  puts "GET Media id: #{print_data_or_error(media, media.data&.id)}"
 
-# get a media audio
-audio_link = media.url
-download_image = medias_api.download(url: audio_link, file_path: 'tmp/downloaded_audio2.ogg', media_type: "audio/ogg")
-puts "Downloaded: #{download_image.data.success?}"
+  # get a media audio
+  audio_link = media.data.url
+  download_image = medias_api.download(url: audio_link, file_path: 'tmp/downloaded_audio2.ogg', media_type: "audio/ogg")
+  puts "Download Media Audio: #{print_data_or_error(download_image, download_image.data.success?)}"
+end
 
 ############################## Messages API ##############################
 
 ######### SEND A TEXT MESSAGE
-message_sent = messages_api.send_text(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
-                                      message: "Hey there! it's Whatsapp Ruby SDK")
+message_sent = messages_api.send_text(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message: "Hey there! it's Whatsapp Ruby SDK")
 print_message_sent(message_sent)
 
 ######### React to a message
 message_id = message_sent.data.messages.first.id
-messages_api.send_reaction(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message_id: message_id, emoji: "\u{1f550}")
-messages_api.send_reaction(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message_id: message_id, emoji: "⛄️")
+reaction_1_sent = messages_api.send_reaction(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message_id: message_id, emoji: "\u{1f550}")
+reaction_2_sent = messages_api.send_reaction(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message_id: message_id, emoji: "⛄️")
+puts "Message Reaction 1: #{print_data_or_error(reaction_1_sent, reaction_1_sent.data&.messages.first&.id)}"
+puts "Message Reaction 2: #{print_data_or_error(reaction_2_sent, reaction_2_sent.data&.messages.first&.id)}"
 
 ######### Reply to a message
 message_to_reply_id = message_sent.data.messages.first.id
@@ -190,40 +219,49 @@ print_message_sent(location_sent)
 
 ######### SEND AN IMAGE
 # Send an image with a link
-image_sent = messages_api.send_image(
-  sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: media.url, caption: "Ignacio Chiazzo Profile"
-)
-print_message_sent(image_sent)
+if media.data&.id
+  image_sent = messages_api.send_image(
+    sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: media.data.url, caption: "Ignacio Chiazzo Profile"
+  )
+  print_message_sent(image_sent)
 
-# Send an image with an id
-messages_api.send_image(
-  sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, image_id: media.id, caption: "Ignacio Chiazzo Profile"
-)
+  # Send an image with an id
+  messages_api.send_image(
+    sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, image_id: media.data.id, caption: "Ignacio Chiazzo Profile"
+  )
+  print_message_sent(image_sent)
+end
 
 ######### SEND AUDIOS
 ## with a link
-messages_api.send_audio(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: "audio_link")
+audio_sent = messages_api.send_audio(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: "audio_link")
+print_message_sent(audio_sent)
 
 ## with an audio id
-messages_api.send_audio(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, audio_id: "1234")
+audio_sent = messages_api.send_audio(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, audio_id: "1234")
+print_message_sent(audio_sent)
 
 ######### SEND DOCUMENTS
 ## with a link
-messages_api.send_document(
+document_sent = messages_api.send_document(
   sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: "document_link", caption: "Ignacio Chiazzo"
 )
+print_message_sent(document_sent)
 
 ## with a document id
-messages_api.send_document(
+document_sent = messages_api.send_document(
   sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, document_id: "1234", caption: "Ignacio Chiazzo"
 )
+print_message_sent(document_sent)
 
 ######### SEND STICKERS
 ## with a link
-messages_api.send_sticker(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: "link")
+sticker_sent = messages_api.send_sticker(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: "link")
+print_message_sent(sticker_sent)
 
 ## with a sticker_id
-messages_api.send_sticker(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, sticker_id: "1234")
+sticker_sent = messages_api.send_sticker(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, sticker_id: "1234")
+print_message_sent(sticker_sent)
 
 ######### SEND A TEMPLATE
 # Note: The template must have been created previously.
