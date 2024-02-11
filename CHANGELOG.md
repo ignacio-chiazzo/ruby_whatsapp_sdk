@@ -1,6 +1,7 @@
 # Unreleased
-- Validate Vertical on BusinessProfile update API. @ignacio-chiazzo  https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/120
-- Added ability to specify fields param in the busines profile API. @ignacio-chiazzo  https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/119
+- Use http multipart only when is needed. @ignacio-chiazzo [#123](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/123)
+- Validate Vertical on BusinessProfile update API. @ignacio-chiazzo [#120](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/120)
+- Added ability to specify fields param in the busines profile API. @ignacio-chiazzo [#119](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/119)
 
 # v 0.11.0
 - Bumped API version to v19. @paulomcnally  https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/116

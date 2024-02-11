@@ -224,6 +224,7 @@ module WhatsappSdk
             type: "audio",
             audio: { link: audio_link }
           },
+          multipart: true,
           headers: { "Content-Type" => "application/json" }
         ).returns(valid_response(valid_contacts, valid_messages))
 
@@ -245,6 +246,7 @@ module WhatsappSdk
             type: "audio",
             audio: { id: audio_id }
           },
+          multipart: true,
           headers: { "Content-Type" => "application/json" }
         ).returns(valid_response(valid_contacts, valid_messages))
 
@@ -355,7 +357,7 @@ module WhatsappSdk
         assert_predicate(message_response, :ok?)
       end
 
-      def test_send_document_message_with_an_document_id
+      def test_send_document_message_with_a_document_id
         document_id = "12_345"
         @messages_api.expects(:send_request).with(
           endpoint: "123123/messages",

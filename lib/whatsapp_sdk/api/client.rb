@@ -20,13 +20,14 @@ module WhatsappSdk
           full_url: T.nilable(String),
           http_method: String,
           params: T::Hash[T.untyped, T.untyped],
-          headers: T::Hash[T.untyped, T.untyped]
+          headers: T::Hash[T.untyped, T.untyped],
+          multipart: T::Boolean
         ).returns(T.nilable(T::Hash[T.untyped, T.untyped]))
       end
-      def send_request(endpoint: "", full_url: nil, http_method: "post", params: {}, headers: {})
+      def send_request(endpoint: "", full_url: nil, http_method: "post", params: {}, headers: {}, multipart: false)
         url = full_url || ApiConfiguration::API_URL
 
-        faraday_request = T.unsafe(faraday(url))
+        faraday_request = T.unsafe(faraday(url: url, multipart: multipart))
 
         response = faraday_request.public_send(http_method, endpoint, request_params(params, headers), headers)
 
@@ -69,12 +70,12 @@ module WhatsappSdk
         params
       end
 
-      sig { params(url: String).returns(Faraday::Connection) }
-      def faraday(url)
+      sig { params(url: String, multipart: T::Boolean).returns(Faraday::Connection) }
+      def faraday(url:, multipart: false)
         ::Faraday.new(url) do |client|
-          client.request :multipart
-          client.request :url_encoded
-          client.adapter ::Faraday.default_adapter
+          client.request(:multipart) if multipart
+          client.request(:url_encoded)
+          client.adapter(::Faraday.default_adapter)
           client.headers['Authorization'] = "Bearer #{@access_token}" unless @access_token.nil?
         end
       end
