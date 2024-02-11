@@ -526,8 +526,9 @@ Bug reports and pull requests are welcome on GitHub at [https://github.com/ignac
 
 If you want a feature to be implemented in the gem, please, open an issue and we will take a look as soon as we can. 
 
-
 Do you want to contribute and are unsure where to start? Ping me on Twitter, and I will help you!
+
+Check [Contributing](/CONTRIBUTING.MD) file.
 
 ## License
 
