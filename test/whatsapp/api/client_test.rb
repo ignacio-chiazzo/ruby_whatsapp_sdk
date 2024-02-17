@@ -48,6 +48,20 @@ module WhatsappSdk
         assert_nil(response_body)
       end
 
+      def test_valid_api_version
+        invalid_api_version = 'v16.0'
+        assert_silent do
+          setup(api_version: invalid_api_version)
+        end
+      end
+
+      def test_invalid_api_version
+        invalid_api_version = 'invalid_version'
+        assert_raises ArgumentError do
+          setup(api_version: invalid_api_version)
+        end
+      end
+
       private
 
       def stub_test_request(method_name, body: {}, headers: {}, response_status: 200, response_body: { success: true },
