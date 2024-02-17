@@ -41,6 +41,7 @@ To use `Messages`, `Media` or `PhoneNumbers`, you need to initialize the `Client
 # config/initializers/whatsapp_sdk.rb
 WhatsappSdk.configure do |config|
   config.access_token = ACCESS_TOKEN
+  config.api_version = API_VERSION # Optionally specify the API version to use (defaults to the latest version of the API).
 end
 ```
 

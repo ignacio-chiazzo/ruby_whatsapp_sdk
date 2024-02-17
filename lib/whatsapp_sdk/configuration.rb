@@ -5,6 +5,7 @@ module WhatsappSdk
   # This module allows client instantiating the client as a singleton like the following example:
   # WhatsappSdk.configure do |config|
   #   config.access_token = ACCESS_TOKEN
+  #   config.api_version = API_VERSION
   # end
   #
   # The gem have access to the client through WhatsappSdk.configuration.client
