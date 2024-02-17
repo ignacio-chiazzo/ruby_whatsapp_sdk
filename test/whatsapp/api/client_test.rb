@@ -8,8 +8,8 @@ require 'api/api_configuration'
 module WhatsappSdk
   module Api
     class ClientTest < Minitest::Test
-      def setup
-        @client = Client.new('test_token')
+      def setup(api_version: ApiConfiguration::DEFAULT_API_VERSION)
+        @client = Client.new('test_token', api_version)
       end
 
       def test_send_request_post_with_success_response
@@ -50,8 +50,9 @@ module WhatsappSdk
 
       private
 
-      def stub_test_request(method_name, body: {}, headers: {}, response_status: 200, response_body: { success: true })
-        stub_request(method_name, "#{ApiConfiguration::API_URL}test")
+      def stub_test_request(method_name, body: {}, headers: {}, response_status: 200, response_body: { success: true },
+                            api_version: ApiConfiguration::DEFAULT_API_VERSION)
+        stub_request(method_name, "#{ApiConfiguration::API_URL}/#{api_version}/test")
           .with(body: body, headers: { 'Accept' => '*/*',
                                        'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
                                        'Authorization' => 'Bearer test_token' }.merge(headers))

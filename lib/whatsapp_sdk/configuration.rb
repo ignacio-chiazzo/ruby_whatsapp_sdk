@@ -14,14 +14,18 @@ module WhatsappSdk
     sig { returns(String) }
     attr_accessor :access_token
 
-    sig { params(access_token: String).void }
-    def initialize(access_token = "")
+    sig { returns(String) }
+    attr_accessor :api_version
+
+    sig { params(access_token: String, api_version: String).void }
+    def initialize(access_token = "", api_version = Api::ApiConfiguration::DEFAULT_API_VERSION)
       @access_token = access_token
+      @api_version = api_version
     end
 
     sig { returns(Api::Client) }
     def client
-      Api::Client.new(access_token)
+      Api::Client.new(access_token, api_version)
     end
   end
 end
