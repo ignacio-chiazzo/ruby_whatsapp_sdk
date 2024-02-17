@@ -1,11 +1,11 @@
 # Ruby Whatsapp SDK
+
 [![Gem Version](https://badge.fury.io/rb/whatsapp_sdk.svg)](https://badge.fury.io/rb/whatsapp_sdk)
 [![CircleCI](https://circleci.com/gh/circleci/circleci-docs.svg?style=svg)](https://circleci.com/gh/ignacio-chiazzo/ruby_whatsapp_sdk)
 <a href="https://codeclimate.com/github/ignacio-chiazzo/ruby_whatsapp_sdk/maintainability"><img src="https://api.codeclimate.com/v1/badges/169cce95450272e4ad7d/maintainability" /></a>
 
 The SDK provides a set of operations and classes to use the Whatsapp API.
 Send stickers, messages, audio, videos, locations, react and reply to messages or just ask for the phone numbers through this library in a few steps!
-
 
 ## Demo
 
@@ -35,14 +35,15 @@ There are three primary resources, `Messages`, `Media` and `PhoneNumbers`. `Mess
 
 To use `Messages`, `Media` or `PhoneNumbers`, you need to initialize the `Client` that contains auth information. There are two ways to do it.
 
-1) Use an initializer
-  
+1. Use an initializer
+
 ```ruby
 # config/initializers/whatsapp_sdk.rb
 WhatsappSdk.configure do |config|
   config.access_token = ACCESS_TOKEN
 end
 ```
+
 OR 2) Create a `Client` instance and pass it to the `Messages`, `Medias` or `PhoneNumbers` instance like this:
 
 ```ruby
@@ -68,7 +69,7 @@ Each API operation returns a `WhatsappSdk::Api::Response` that contains `data` a
 
 Try sending a message to your phone in the UI.
 
-<details><summary>4) Copy the ACCESS_TOKEN, the SENDER_ID, the BUSINESS_ID and the RECEIPIENT_NUMBER</summary>
+<details><summary>4) Copy the ACCESS_TOKEN, the SENDER_ID, the BUSINESS_ID and the RECIPIENT_NUMBER</summary>
 <img width="1010" alt="Screen Shot 2022-09-05 at 11 13 24 AM" src="https://user-images.githubusercontent.com/11672878/188480634-369f8de1-b851-4735-86de-f49e96f78d8c.png">
 </details>
 
@@ -76,11 +77,12 @@ Try sending a message to your phone in the UI.
 
 <details><summary>5) Use the GEM to interact with Whatsapp</summary>
 
-Example: 
-1) Install the gem by running `gem install whatsapp_sdk` in the gem.
-2) Open the irb terminal by running `irb` 
-3) `require "whatsapp_sdk"` 
-4) Set up the `ACCESS_TOKEN`, the `SENDER_ID`, the `BUSINESS_ID` and the `RECEIPIENT_NUMBER` in variables.
+Example:
+
+1. Install the gem by running `gem install whatsapp_sdk` in the gem.
+2. Open the irb terminal by running `irb`
+3. `require "whatsapp_sdk"`
+4. Set up the `ACCESS_TOKEN`, the `SENDER_ID`, the `BUSINESS_ID` and the `RECIPIENT_NUMBER` in variables.
 
 ```ruby
 ACCESS_TOKEN = "EAAZAvvr0DZBs0BABRLF8zohP5Epc6pyNu"
@@ -89,7 +91,7 @@ SENDER_ID = 1234567891011
 RECIPIENT_NUMBER = 12398765432
 ```
 
-5) Configure the Client by running 
+5. Configure the Client by running
 
 ```ruby
 WhatsappSdk.configure do |config|
@@ -97,15 +99,17 @@ WhatsappSdk.configure do |config|
 end
 ```
 
-6) Try the Phone Numbers API or Messages API
+6. Try the Phone Numbers API or Messages API
 
 Phone Numbers API
+
 ```ruby
 phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new
 registered_number = phone_numbers_api.registered_number(SENDER_ID)
 ```
 
 Messages API
+
 ```ruby
 messages_api = WhatsappSdk::Api::Messages.new
 message_sent = messages_api.send_text(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
@@ -117,6 +121,7 @@ Check the [example.rb file](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk
 </details>
 
 ## Operations
+
 First, create the client and then create an instance `WhatsappSdk::Api::Messages` that requires a client as a param like this:
 
 ```ruby
@@ -132,6 +137,7 @@ Note: Remember to initialize the client first!
 ## APIs
 
 ### Templates
+
 <details>
 
 ```ruby
@@ -142,25 +148,30 @@ templates_api.templates(business_id: BUSINESS_ID)
 new_template = templates_api.create(
   business_id: BUSINESS_ID, name: "seasonal_promotion", language: "en_US", category: "MARKETING",
   components_json: components_json, allow_category_change: true
-) 
+)
 
 # Delete a template
 templates_api.delete(business_id: BUSINESS_ID, name: "my_name") # delete by name
 ```
+
 </details>
 
 ### Business Profile API
+
 <details>
 
 Get the details of your business
+
 ```ruby
 business_profile = business_profile_api.details(123456)
 ```
 
 Update the details of your business
+
 ```ruby
 business_profile_api.update(phone_number_id: SENDER_ID, params: { about: "A very cool business" } )
 ```
+
 </details>
 
 ### Phone numbers API
@@ -168,45 +179,55 @@ business_profile_api.update(phone_number_id: SENDER_ID, params: { about: "A very
 <details>
 
 Get the list of phone numbers registered
+
 ```ruby
 phone_numbers_api.registered_numbers(123456) # accepts a business_id
 ```
 
 Get the a phone number by id
+
 ```ruby
 phone_numbers_api.registered_numbers(123456) # accepts a phone_number_id
 ```
 
 Register a phone number
+
 ```ruby
 phone_numbers_api.register_number(phone_number_id, pin)
 ```
 
 Deregister a phone number
+
 ```ruby
 phone_numbers_api.deregister_number(phone_number_id)
 ```
+
 </details>
 
 ### Media API
+
 <details>
 
 Upload a media
+
 ```ruby
 medias_api.upload(sender_id: SENDER_ID, file_path: "tmp/whatsapp.png", type: "image/png")
 ```
 
 Get a media
+
 ```ruby
 media = medias_api.media(media_id: MEDIA_ID)
 ```
 
 Download media
+
 ```ruby
 medias_api.download(url: MEDIA_URL, file_path: 'tmp/downloaded_whatsapp.png', media_type: "image/png")
 ```
 
 Delete a media
+
 ```ruby
 medias_api.delete(media_id: MEDIA_ID)
 ```
@@ -214,6 +235,7 @@ medias_api.delete(media_id: MEDIA_ID)
 </details>
 
 ### Messages API
+
 <details>
 
 **Send a text message**
@@ -223,6 +245,7 @@ messages_api.send_text(sender_id: 1234, recipient_number: 112345678, message: "h
 ```
 
 **Read a message**
+
 ```ruby
 messages_api.read_message(sender_id: 1234, message_id: "wamid.HBgLMTM0M12345678910=")
 ```
@@ -230,7 +253,7 @@ messages_api.read_message(sender_id: 1234, message_id: "wamid.HBgLMTM0M123456789
 Note: To get the `message_id` you can set up [Webhooks](https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/components) that will listen and fire an event when a message is received.
 
 **Send a reaction to message**
-To send a reaction to a message, you need to obtain the mssage id and look for the emoji's unicode you want to use.
+To send a reaction to a message, you need to obtain the message id and look for the emoji's unicode you want to use.
 
 ```ruby
 messages_api.send_reaction(sender_id: 123_123, recipient_number: 56_789, message_id: "12345", emoji: "\u{1f550}")
@@ -256,6 +279,7 @@ messages_api.send_location(
 
 **Send an image message**
 It could use a link or an image_id.
+
 ```ruby
 # with a link
 messages_api.send_image(
@@ -270,6 +294,7 @@ messages_api.send_image(
 
 **Send an audio message**
 It could use a link or an audio_id.
+
 ```ruby
 # with a link
 messages_api.send_audio(sender_id: 123123, recipient_number: 56789, link: "audio_link")
@@ -280,6 +305,7 @@ messages_api.send_audio(sender_id: 123123, recipient_number: 56789, audio_id: "1
 
 **Send a document message**
 It could use a link or a document_id.
+
 ```ruby
 # with a link
 messages_api.send_document(
@@ -294,6 +320,7 @@ messages_api.send_document(
 
 **Send a sticker message**
 It could use a link or a sticker_id.
+
 ```ruby
 # with a link
 messages_api.send_sticker(sender_id: 123123, recipient_number: 56789, link: "link")
@@ -310,7 +337,8 @@ contacts = [create_contact(params)]
 messages_api.send_contacts(sender_id: 123123, recipient_number: 56789, contacts: contacts)
 ```
 
-Alernative, you could pass a plain json like this:
+Alternatively, you could pass a plain json like this:
+
 ```ruby
 messages_api.send_contacts(sender_id: 123123, recipient_number: 56789, contacts_json: {...})
 ```
@@ -328,7 +356,7 @@ date_time = WhatsappSdk::Resource::DateTime.new(fallback_value: "2020-01-01T00:0
 image = WhatsappSdk::Resource::Media.new(type: "image", link: "http(s)://URL")
 
 parameter_image = WhatsappSdk::Resource::ParameterObject.new(type: WhatsappSdk::Resource::ParameterObject::Type::Image, image: image)
-# You can also use a plain string as type e.g. 
+# You can also use a plain string as type e.g.
 # parameter_image = WhatsappSdk::Resource::ParameterObject.new(type: "image", image: image)
 parameter_text = WhatsappSdk::Resource::ParameterObject.new(type: WhatsappSdk::Resource::ParameterObject::Type::Text, text: "TEXT_STRING")
 parameter_currency = WhatsappSdk::Resource::ParameterObject.new(type: WhatsappSdk::Resource::ParameterObject::Type::Currency, currency: currency)
@@ -366,7 +394,8 @@ button_component2 = WhatsappSdk::Resource::Component.new(
 
 </details>
 
-Alernative, you could pass a plain json like this:
+Alternatively, you could pass a plain json like this:
+
 ```ruby
 @messages_api.send_template(sender_id: 12_345, recipient_number: 12345678, name: "hello_world", language: "en_US", components_json: [{...}])
 ```
@@ -421,9 +450,11 @@ messages_api.send_interactive_list_messages(
   interactive: interactive_list_messages
 )
 ```
+
 </details>
 
-Alternative, you could pass a plain json like this:
+Alternatively, you could pass a plain json like this:
+
 ```ruby
 messages_api.send_interactive_list_messages(
   sender_id: 12_345, recipient_number: 1234567890
@@ -477,17 +508,19 @@ messages_api.send_interactive_reply_buttons(
   interactive: interactive_reply_buttons
 )
 ```
+
 </details>
 
 Alternative, you could pass a plain json like this:
+
 ```ruby
 messages_api.send_interactive_reply_buttons(
   sender_id: 12_345, recipient_number: 1234567890
   interactive_json: {...}
 )
 ```
-</details>
 
+</details>
 
 ## Examples
 
@@ -500,11 +533,11 @@ Visit [the example file](/example.rb) with examples to call the API in a single 
 
 ## Troubleshooting
 
-- If the API response is `success`,  but the message is not delivered, ensure the device you're sending the message to is using a supported Whatsapp version. [Check documentation](https://developers.facebook.com/docs/whatsapp/cloud-api/support/troubleshooting#message-not-delivered). Try also replying a message to the number you are registered on your Whatsapp.
+- If the API response is `success`, but the message is not delivered, ensure the device you're sending the message to is using a supported Whatsapp version. [Check documentation](https://developers.facebook.com/docs/whatsapp/cloud-api/support/troubleshooting#message-not-delivered). Try also replying a message to the number you are registered on your Whatsapp.
 - Ensure your Meta App uses an API version greater than or equal to `v.14`.
 - Ensure that the Panel in the Facebook dashboard doesn't display any errors.
 
-Note: Sometimes the messages are delayed; see [Meta documentation](https://developers.facebook.com/docs/whatsapp/on-premises/guides/send-message-performance#delays). 
+Note: Sometimes the messages are delayed; see [Meta documentation](https://developers.facebook.com/docs/whatsapp/on-premises/guides/send-message-performance#delays).
 
 ## Development
 
@@ -513,10 +546,10 @@ After checking out the repo, run `bin/setup` to install dependencies. Then, run 
 Run ' bundle exec rake install ' to install this gem onto your local machine. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ### Run all the tests
+
 - **Unit tests:** Run `rake test`
 - **Sorbet Typecheck:** run `srb tc`
 - **Linters:** `bundle exec rubocop`
-
 
 To update the Cloud API version update the version in `lib/whatsapp_sdk/api/api_configuration.rb`. Check the [Cloud API changelog for API udpates](https://developers.facebook.com/docs/whatsapp/business-platform/changelog#api-error-response-behavior).
 
@@ -524,7 +557,7 @@ To update the Cloud API version update the version in `lib/whatsapp_sdk/api/api_
 
 Bug reports and pull requests are welcome on GitHub at [https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk) This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
-If you want a feature to be implemented in the gem, please, open an issue and we will take a look as soon as we can. 
+If you want a feature to be implemented in the gem, please, open an issue and we will take a look as soon as we can.
 
 Do you want to contribute and are unsure where to start? Ping me on Twitter, and I will help you!
 
