@@ -77,7 +77,6 @@ module WhatsappSdk
         assert_match('INFO -- response: ', logged_string)
       end
 
-
       def test_logs_http_requests_into_the_logger_with_response_body
         logger_io = StringIO.new
         client = Client.new(
