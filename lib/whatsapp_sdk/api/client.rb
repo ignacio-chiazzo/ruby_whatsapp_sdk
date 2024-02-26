@@ -12,9 +12,23 @@ module WhatsappSdk
 
       API_VERSIONS = T.let(YAML.load_file("config/api_versions.yml"), T::Array[String])
 
-      sig { params(access_token: String, api_version: String).void }
-      def initialize(access_token, api_version = ApiConfiguration::DEFAULT_API_VERSION)
+      sig do
+        params(
+          access_token: String,
+          api_version: String,
+          logger: T.nilable(T.any(Logger, T.class_of(Logger))),
+          logger_options: Hash
+        ).void
+      end
+      def initialize(
+        access_token,
+        api_version = ApiConfiguration::DEFAULT_API_VERSION,
+        logger = nil,
+        logger_options = {}
+      )
         @access_token = access_token
+        @logger = logger
+        @logger_options = logger_options
 
         validate_api_version(api_version)
         @api_version = api_version
@@ -83,6 +97,7 @@ module WhatsappSdk
           client.request(:url_encoded)
           client.adapter(::Faraday.default_adapter)
           client.headers['Authorization'] = "Bearer #{@access_token}" unless @access_token.nil?
+          client.response(:logger, @logger, @logger_options) unless @logger.nil?
         end
       end
 
