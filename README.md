@@ -46,16 +46,26 @@ Available API version can be found [here](https://developers.facebook.com/docs/g
 WhatsappSdk.configure do |config|
   config.access_token = ACCESS_TOKEN
   config.api_version = API_VERSION
+  config.logger = Logger.new(STDOUT) # optional, Faraday logger to attach
+  config.logger_options = { bodies: true } # optional, they are all valid logger_options for Faraday
 end
 ```
+More Details on Faraday Logger Options are [here](https://lostisland.github.io/faraday/#/middleware/included/logging?id=logging).
 
 OR 2) Create a `Client` instance and pass it to the `Messages`, `Medias` or `PhoneNumbers` instance like this:
 
+**Without Logger:**
 ```ruby
 client = WhatsappSdk::Api::Client.new("<ACCESS TOKEN>") # replace this with a valid access token
 messages_api = WhatsappSdk::Api::Messages.new(client)
 ```
-
+**With Logger:**
+```ruby
+logger = Logger.new(STDOUT)
+logger_options = { bodies: true }
+client = WhatsappSdk::Api::Client.new("<ACCESS TOKEN>", "<API VERSION>", logger, logger_options) # replace this with a valid access token
+messages_api = WhatsappSdk::Api::Messages.new(client)
+```
 Each API operation returns a `WhatsappSdk::Api::Response` that contains `data` and `error` and a couple of helpful functions such as `ok?` and `error?`. There are three types of responses `WhatsappSdk::Api::MessageDataResponse`, `WhatsappSdk::Api::PhoneNumberDataResponse` and `WhatsappSdk::Api::PhoneNumbersDataResponse`. Each of them contains different attributes.
 
 ## Set up a Meta app
