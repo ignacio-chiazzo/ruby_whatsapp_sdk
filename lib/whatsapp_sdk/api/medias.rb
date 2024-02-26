@@ -64,12 +64,15 @@ module WhatsappSdk
       #
       # @param url URL.
       # @param file_path [String] The file_path to download the media e.g. "tmp/downloaded_image.png".
-      # @param media_type [String] The media type e.g. "audio/mp4". See the supported types in the official
-      #  documentation https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media#supported-media-types.
+      # @param media_type [String] The media type e.g. "audio/mp4". See possible types in the official
+      #  documentation https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media#supported-media-types,
+      #  but note that the API may allow more depending on the client.
       # @return [Api::Response] Response object.
       sig { params(url: String, file_path: String, media_type: String).returns(Api::Response) }
       def download(url:, file_path:, media_type:)
-        raise InvalidMediaTypeError.new(media_type: media_type) unless valid_media_type?(media_type)
+        # Allow download of unsupported media types, since Cloud API may decide to let it through.
+        #   https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/discussions/127
+        # raise InvalidMediaTypeError.new(media_type: media_type) unless valid_media_type?(media_type)
 
         content_type_header = map_media_type_to_content_type_header(media_type)
 

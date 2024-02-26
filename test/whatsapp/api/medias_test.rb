@@ -134,18 +134,14 @@ module WhatsappSdk
         validate_sucess_data_response(response)
       end
 
-      def test_download_raises_an_error_when_media_type_is_invalid
-        unsupported_media_type = "audio/vnd.qcelp" # is Unsupported
-        error = assert_raises(Medias::InvalidMediaTypeError) do
-          @medias_api.download(url: url_example, file_path: "tmp/testing.vnd.qcelp", media_type: unsupported_media_type)
-        end
-
-        assert_equal(
-          "Invalid Media Type audio/vnd.qcelp. See the supported types in the official documentation " \
-          "https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media#supported-media-types.",
-          error.message
-        )
-        assert_equal("audio/vnd.qcelp", error.media_type)
+      def test_download_allows_unsupported_media_type
+        unsupported_media_type = "application/x-zip-compressed" # is unsupported
+        file_path = "tmp/testing.zip"
+        @medias_api.expects(:download_file).with(url: url_example, content_type_header: unsupported_media_type,
+                                                 file_path: file_path)
+                   .returns(Net::HTTPOK.new(true, 200, "OK"))
+        response = @medias_api.download(url: url_example, file_path: file_path, media_type: unsupported_media_type)
+        validate_sucess_data_response(response)
       end
 
       private

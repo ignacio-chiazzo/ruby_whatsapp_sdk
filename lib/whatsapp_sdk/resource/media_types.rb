@@ -13,6 +13,8 @@ module WhatsappSdk
       # The content-type header matches with the media type using Internet Assigned Numbers Authority (IANA).
       # Media type list defined by IANA https://www.iana.org/assignments/media-types/media-types.xhtml
       #
+      # NOTE: Cloud API may decide to allow more media types to be downloaded, since the support differs depending on
+      # the used client.
 
       AUDIO_TYPES = %w[audio/aac audio/mp4 audio/mpeg audio/amr audio/ogg].freeze
       DOCUMENT_TYPES = %w[
