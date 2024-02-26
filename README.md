@@ -37,11 +37,15 @@ To use `Messages`, `Media` or `PhoneNumbers`, you need to initialize the `Client
 
 1. Use an initializer
 
+Note:
+Optionally, you can specify the desired API version to use (defaults to the latest version if omitted).
+Available API version can be found [here](https://developers.facebook.com/docs/graph-api/changelog/versions).
+
 ```ruby
 # config/initializers/whatsapp_sdk.rb
 WhatsappSdk.configure do |config|
   config.access_token = ACCESS_TOKEN
-  config.api_version = API_VERSION # Optionally specify the API version to use (defaults to the latest version of the API).
+  config.api_version = API_VERSION
 end
 ```
 
