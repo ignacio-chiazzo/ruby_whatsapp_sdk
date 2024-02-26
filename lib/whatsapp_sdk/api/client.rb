@@ -3,15 +3,21 @@
 
 require "faraday"
 require "faraday/multipart"
+require "yaml"
 
 module WhatsappSdk
   module Api
     class Client
       extend T::Sig
 
-      sig { params(access_token: String).void }
-      def initialize(access_token)
+      API_VERSIONS = T.let(YAML.load_file("config/api_versions.yml"), T::Array[String])
+
+      sig { params(access_token: String, api_version: String).void }
+      def initialize(access_token, api_version = ApiConfiguration::DEFAULT_API_VERSION)
         @access_token = access_token
+
+        validate_api_version(api_version)
+        @api_version = api_version
       end
 
       sig do
@@ -25,7 +31,7 @@ module WhatsappSdk
         ).returns(T.nilable(T::Hash[T.untyped, T.untyped]))
       end
       def send_request(endpoint: "", full_url: nil, http_method: "post", params: {}, headers: {}, multipart: false)
-        url = full_url || ApiConfiguration::API_URL
+        url = full_url || "#{ApiConfiguration::API_URL}/#{@api_version}/"
 
         faraday_request = T.unsafe(faraday(url: url, multipart: multipart))
 
@@ -78,6 +84,11 @@ module WhatsappSdk
           client.adapter(::Faraday.default_adapter)
           client.headers['Authorization'] = "Bearer #{@access_token}" unless @access_token.nil?
         end
+      end
+
+      sig { params(api_version: String).void }
+      def validate_api_version(api_version)
+        raise ArgumentError, "Invalid API version: #{api_version}" unless API_VERSIONS.include?(api_version)
       end
     end
   end
