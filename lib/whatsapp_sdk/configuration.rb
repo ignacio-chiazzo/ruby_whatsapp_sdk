@@ -49,7 +49,7 @@ module WhatsappSdk
 
     sig { returns(Api::Client) }
     def client
-      Api::Client.new(access_token, logger, logger_options, api_version)
+      Api::Client.new(access_token, api_version, logger, logger_options)
     end
   end
 end
