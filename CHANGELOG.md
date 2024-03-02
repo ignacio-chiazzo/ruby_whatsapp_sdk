@@ -1,4 +1,9 @@
 # Unreleased
+
+# v 0.12.0
+- Added ability to specify logger @chahmedejaz [#129](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/129)
+- Allow download of unsupported media types @dvuckovic [#128](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/128)
+- Allow users to specify the API version. @conr [#126](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/126)
 - Use http multipart only when is needed. @ignacio-chiazzo [#123](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/123)
 - Validate Vertical on BusinessProfile update API. @ignacio-chiazzo [#120](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/120)
 - Added ability to specify fields param in the busines profile API. @ignacio-chiazzo [#119](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/119)
