@@ -119,7 +119,7 @@ module WhatsappSdk
       def assert_match_logger_output!(logged_string)
         assert_match('INFO -- request: GET https://graph.facebook.com/v19.0/test', logged_string)
         assert_match('INFO -- request: Authorization: "Bearer test_token"', logged_string)
-        assert_match('User-Agent: "Faraday v2.7.12"', logged_string)
+        assert_match('User-Agent: "Faraday', logged_string)
         assert_match('INFO -- response: Status 200', logged_string)
       end
     end

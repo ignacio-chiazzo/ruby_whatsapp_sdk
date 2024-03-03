@@ -39,6 +39,7 @@ module WhatsappSdk
         response = @messages_api.send_text(
           sender_id: 123_123, recipient_number: 56_789, message: "hola"
         )
+
         assert_mock_error_response(mocked_error_response, response, Responses::MessageErrorResponse)
       end
 
@@ -47,6 +48,7 @@ module WhatsappSdk
         message_response = @messages_api.send_text(
           sender_id: 123_123, recipient_number: 56_789, message: "hola"
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -67,6 +69,7 @@ module WhatsappSdk
         message_response = @messages_api.send_text(
           sender_id: 123_123, recipient_number: 56_789, message: "hola"
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -88,6 +91,7 @@ module WhatsappSdk
         message_response = @messages_api.send_text(
           sender_id: 123_123, recipient_number: 56_789, message: "hola", message_id: "wamid.987654321"
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -130,6 +134,7 @@ module WhatsappSdk
           sender_id: 123_123, recipient_number: 56_789,
           longitude: longitude, latitude: latitude, name: name, address: address
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -149,6 +154,7 @@ module WhatsappSdk
           sender_id: 123_123, recipient_number: 56_789,
           image_id: "123", link: nil, caption: ""
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -170,6 +176,7 @@ module WhatsappSdk
           sender_id: 123_123, recipient_number: 56_789,
           link: image_link, caption: "Ignacio Chiazzo Profile"
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -192,6 +199,7 @@ module WhatsappSdk
           sender_id: 123_123, recipient_number: 56_789,
           image_id: image_id, caption: "Ignacio Chiazzo Profile"
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -201,6 +209,7 @@ module WhatsappSdk
         message_response = @messages_api.send_audio(
           sender_id: 123_123, recipient_number: 56_789, link: "1234"
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -231,6 +240,7 @@ module WhatsappSdk
         message_response = @messages_api.send_audio(
           sender_id: 123_123, recipient_number: 56_789, link: audio_link
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -253,6 +263,7 @@ module WhatsappSdk
         message_response = @messages_api.send_audio(
           sender_id: 123_123, recipient_number: 56_789, audio_id: audio_id
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -271,6 +282,7 @@ module WhatsappSdk
           sender_id: 123_123, recipient_number: 56_789,
           video_id: "123", link: nil, caption: ""
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -292,6 +304,7 @@ module WhatsappSdk
           sender_id: 123_123, recipient_number: 56_789,
           link: video_link, caption: "Ignacio Chiazzo Profile"
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -314,6 +327,7 @@ module WhatsappSdk
           sender_id: 123_123, recipient_number: 56_789,
           video_id: video_id, caption: "Ignacio Chiazzo Profile"
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -332,6 +346,7 @@ module WhatsappSdk
           sender_id: 123_123, recipient_number: 56_789,
           document_id: "123", link: nil, caption: ""
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -353,6 +368,7 @@ module WhatsappSdk
           sender_id: 123_123, recipient_number: 56_789,
           link: document_link, caption: "Ignacio Chiazzo Profile"
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -375,6 +391,7 @@ module WhatsappSdk
           sender_id: 123_123, recipient_number: 56_789,
           document_id: document_id, caption: "Ignacio Chiazzo Profile"
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -393,6 +410,7 @@ module WhatsappSdk
           sender_id: 123_123, recipient_number: 56_789,
           sticker_id: "123", link: nil
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -413,6 +431,7 @@ module WhatsappSdk
         message_response = @messages_api.send_sticker(
           sender_id: 123_123, recipient_number: 56_789, link: sticker_link
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -434,6 +453,7 @@ module WhatsappSdk
         message_response = @messages_api.send_sticker(
           sender_id: 123_123, recipient_number: 56_789, sticker_id: sticker_id
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -443,6 +463,7 @@ module WhatsappSdk
         message_response = @messages_api.send_contacts(
           sender_id: 123_123, recipient_number: 56_789, contacts: [create_contact]
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -464,6 +485,7 @@ module WhatsappSdk
         message_response = @messages_api.send_contacts(
           sender_id: 123_123, recipient_number: 56_789, contacts: contacts
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -483,10 +505,10 @@ module WhatsappSdk
           sender_id: 123_123, message_id: "12345"
         )
 
-        assert_equal(Response, message_response.class)
+        assert_instance_of(Response, message_response)
         assert_nil(message_response.error)
         assert_predicate(message_response, :ok?)
-        assert_equal(Responses::ReadMessageDataResponse, message_response.data.class)
+        assert_instance_of(Responses::ReadMessageDataResponse, message_response.data)
         assert_predicate(message_response.data, :success?)
       end
 
@@ -495,6 +517,7 @@ module WhatsappSdk
         response = @messages_api.read_message(
           sender_id: 123_123, message_id: "12345"
         )
+
         assert_mock_error_response(mocked_error_response, response, Responses::MessageErrorResponse)
         assert_predicate(response, :error?)
       end
@@ -525,6 +548,7 @@ module WhatsappSdk
             ]
           }]
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -577,78 +601,78 @@ module WhatsappSdk
           ]
         )
 
-        @messages_api.expects(:send_request).with({
-                                                    endpoint: "123123/messages",
-                                                    params: {
-                                                      messaging_product: "whatsapp",
-                                                      to: 12_345_678,
-                                                      recipient_type: "individual",
-                                                      type: "template",
-                                                      template: {
-                                                        name: "hello_world",
-                                                        language: { code: "en_US" },
-                                                        components: [
-                                                          {
-                                                            type: "header",
-                                                            parameters: [
-                                                              {
-                                                                type: "image",
-                                                                image: {
-                                                                  link: "http(s)://URL"
-                                                                }
-                                                              }
-                                                            ]
-                                                          },
-                                                          {
-                                                            type: "body",
-                                                            parameters: [
-                                                              {
-                                                                type: "text",
-                                                                text: "TEXT_STRING"
-                                                              },
-                                                              {
-                                                                type: "currency",
-                                                                currency: {
-                                                                  fallback_value: "1000",
-                                                                  code: "USD",
-                                                                  amount_1000: 1000
-                                                                }
-                                                              },
-                                                              {
-                                                                type: "date_time",
-                                                                date_time: {
-                                                                  fallback_value: "2020-01-01T00:00:00Z"
-                                                                }
-                                                              }
-                                                            ]
-                                                          },
-                                                          {
-                                                            type: "button",
-                                                            sub_type: "quick_reply",
-                                                            index: 0,
-                                                            parameters: [
-                                                              {
-                                                                type: "payload",
-                                                                payload: "PAYLOAD"
-                                                              }
-                                                            ]
-                                                          },
-                                                          {
-                                                            type: "button",
-                                                            sub_type: "quick_reply",
-                                                            index: 1,
-                                                            parameters: [
-                                                              {
-                                                                type: "payload",
-                                                                payload: "PAYLOAD"
-                                                              }
-                                                            ]
-                                                          }
-                                                        ]
-                                                      }
-                                                    },
-                                                    headers: { "Content-Type" => "application/json" }
-                                                  }).returns(valid_response(valid_contacts, valid_messages))
+        @messages_api.expects(:send_request).with(
+          endpoint: "123123/messages",
+          params: {
+            messaging_product: "whatsapp",
+            to: 12_345_678,
+            recipient_type: "individual",
+            type: "template",
+            template: {
+              name: "hello_world",
+              language: { code: "en_US" },
+              components: [
+                {
+                  type: "header",
+                  parameters: [
+                    {
+                      type: "image",
+                      image: {
+                        link: "http(s)://URL"
+                      }
+                    }
+                  ]
+                },
+                {
+                  type: "body",
+                  parameters: [
+                    {
+                      type: "text",
+                      text: "TEXT_STRING"
+                    },
+                    {
+                      type: "currency",
+                      currency: {
+                        fallback_value: "1000",
+                        code: "USD",
+                        amount_1000: 1000
+                      }
+                    },
+                    {
+                      type: "date_time",
+                      date_time: {
+                        fallback_value: "2020-01-01T00:00:00Z"
+                      }
+                    }
+                  ]
+                },
+                {
+                  type: "button",
+                  sub_type: "quick_reply",
+                  index: 0,
+                  parameters: [
+                    {
+                      type: "payload",
+                      payload: "PAYLOAD"
+                    }
+                  ]
+                },
+                {
+                  type: "button",
+                  sub_type: "quick_reply",
+                  index: 1,
+                  parameters: [
+                    {
+                      type: "payload",
+                      payload: "PAYLOAD"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          headers: { "Content-Type" => "application/json" }
+        ).returns(valid_response(valid_contacts, valid_messages))
 
         message_response = @messages_api.send_template(
           sender_id: 123_123, recipient_number: 12_345_678, name: "hello_world", language: "en_US",
@@ -664,6 +688,7 @@ module WhatsappSdk
         message_response = @messages_api.send_reaction(
           sender_id: 123_123, recipient_number: 56_789, message_id: "12345", emoji: "\\uD83D\\uDE00"
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -687,6 +712,7 @@ module WhatsappSdk
         message_response = @messages_api.send_reaction(
           sender_id: 123_123, recipient_number: 56_789, message_id: "12345", emoji: "\\uD83D\\uDE00"
         )
+
         assert_mock_response(valid_contacts, valid_messages, message_response)
         assert_predicate(message_response, :ok?)
       end
@@ -981,7 +1007,7 @@ module WhatsappSdk
       end
 
       def assert_mock_response(_expected_contacts, _expected_messages, message_response)
-        assert_equal(Response, message_response.class)
+        assert_instance_of(Response, message_response)
         assert_nil(message_response.error)
         assert_predicate(message_response, :ok?)
         assert_equal(1, message_response.data.contacts.size)
