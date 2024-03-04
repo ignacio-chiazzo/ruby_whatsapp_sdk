@@ -3,7 +3,6 @@
 
 require "faraday"
 require "faraday/multipart"
-require "yaml"
 
 module WhatsappSdk
   module Api
