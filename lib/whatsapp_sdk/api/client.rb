@@ -10,7 +10,15 @@ module WhatsappSdk
     class Client
       extend T::Sig
 
-      API_VERSIONS = T.let(YAML.load_file("config/api_versions.yml"), T::Array[String])
+      API_VERSIONS = T.let(
+        [
+          'v19.0', 'v18.0', 'v17.0', 'v16.0', 'v15.0', 'v14.0', 'v13.0', 'v12.0',
+          'v11.0', 'v10.0', 'v9.0', 'v8.0', 'v7.0', 'v6.0', 'v5.0', 'v4.0', 'v3.3',
+          'v3.2', 'v3.1', 'v3.0', 'v2.12', 'v2.11', 'v2.10', 'v2.9', 'v2.8', 'v2.7',
+          'v2.6', 'v2.5', 'v2.4', 'v2.3', 'v2.2', 'v2.1'
+        ].freeze,
+        T::Array[String]
+      )
 
       sig do
         params(
