@@ -10,7 +10,10 @@ module WhatsappSdk
     class Client
       extend T::Sig
 
-      API_VERSIONS = T.let(YAML.load_file("config/api_versions.yml"), T::Array[String])
+      API_VERSIONS = T.let(
+        YAML.load_file(File.join(__dir__, "../../../config/api_versions.yml")),
+        T::Array[String]
+      )
 
       sig do
         params(
