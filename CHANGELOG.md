@@ -1,5 +1,8 @@
 # Unreleased
 
+# v 0.12.1
+- Fix bug using client/api_versions @mgruner [#134](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/134)
+
 # v 0.12.0
 - Added ability to specify logger @chahmedejaz [#129](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/129)
 - Allow download of unsupported media types @dvuckovic [#128](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/128)
