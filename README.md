@@ -548,7 +548,10 @@ Visit [the example file](/example.rb) with examples to call the API in a single 
 
 ## Troubleshooting
 
-- If the API response is `success`, but the message is not delivered, ensure the device you're sending the message to is using a supported Whatsapp version. [Check documentation](https://developers.facebook.com/docs/whatsapp/cloud-api/support/troubleshooting#message-not-delivered). Try also replying a message to the number you are registered on your Whatsapp.
+If you try to send a text message directly without a message template created and approved in your Meta control panel, you can't start a chat with other people. But if you receive a message before, it's possible to send a message.
+
+If the API response is still `success`, but the message is not delivered:
+  - ensure the device you're sending the message to is using a supported Whatsapp version. [Check documentation](https://developers.facebook.com/docs/whatsapp/cloud-api/support/troubleshooting#message-not-delivered). Try also replying a message to the number you are registered on your Whatsapp.
 - Ensure your Meta App uses an API version greater than or equal to `v.14`.
 - Ensure that the Panel in the Facebook dashboard doesn't display any errors.
 
