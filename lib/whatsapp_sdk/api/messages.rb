@@ -236,7 +236,7 @@ module WhatsappSdk
         params(
           sender_id: Integer, recipient_number: Integer,
           document_id: T.nilable(String), link: T.nilable(String), caption: String,
-          message_id: T.nilable(String)
+          message_id: T.nilable(String), filename: T.nilable(String)
         ).returns(Api::Response)
       end
       def send_document(
