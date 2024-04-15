@@ -240,7 +240,7 @@ module WhatsappSdk
         ).returns(Api::Response)
       end
       def send_document(
-        sender_id:, recipient_number:, document_id: nil, link: nil, caption: "", message_id: nil
+        sender_id:, recipient_number:, document_id: nil, link: nil, caption: "", message_id: nil, filename: nil
       )
         if !document_id && !link
           raise Resource::Errors::MissingArgumentError,
@@ -258,6 +258,7 @@ module WhatsappSdk
                             else
                               { id: document_id, caption: caption }
                             end
+        params[:document] = params[:document].merge({ filename: filename }) if filename
         params[:context] = { message_id: message_id } if message_id
 
         response = send_request(
