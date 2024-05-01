@@ -381,8 +381,7 @@ module WhatsappSdk
             to: 56_789,
             recipient_type: "individual",
             type: "document",
-            document: { link: document_link, caption: "Ignacio Chiazzo Profile" }
-            filename: "custom_name"
+            document: { link: document_link, caption: "Ignacio Chiazzo Profile", filename: "custom_name" }
           },
           headers: { "Content-Type" => "application/json" }
         ).returns(valid_response(valid_contacts, valid_messages))
