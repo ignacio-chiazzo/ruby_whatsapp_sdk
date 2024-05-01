@@ -373,6 +373,29 @@ module WhatsappSdk
         assert_predicate(message_response, :ok?)
       end
 
+      def test_send_document_message_with_file_name
+        @messages_api.expects(:send_request).with(
+          endpoint: "123123/messages",
+          params: {
+            messaging_product: "whatsapp",
+            to: 56_789,
+            recipient_type: "individual",
+            type: "document",
+            document: { link: document_link, caption: "Ignacio Chiazzo Profile" }
+            filename: "custom_name"
+          },
+          headers: { "Content-Type" => "application/json" }
+        ).returns(valid_response(valid_contacts, valid_messages))
+
+        message_response = @messages_api.send_document(
+          sender_id: 123_123, recipient_number: 56_789,
+          link: document_link, caption: "Ignacio Chiazzo Profile", filename: "custom_name"
+        )
+
+        assert_mock_response(valid_contacts, valid_messages, message_response)
+        assert_predicate(message_response, :ok?)
+      end
+
       def test_send_document_message_with_a_document_id
         document_id = "12_345"
         @messages_api.expects(:send_request).with(
