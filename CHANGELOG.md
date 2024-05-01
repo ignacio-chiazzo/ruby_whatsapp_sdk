@@ -1,15 +1,16 @@
 # Unreleased
+- Added the ability to specify the `filename` [via the document](https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages) API. @sahilas [#137](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/137)
 
 # v 0.12.1
-- Fix bug using client/api_versions @mgruner [#134](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/134)
+- Fix bug using `client/api_versions` @mgruner [#134](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/134)
 
 # v 0.12.0
 - Added ability to specify logger @chahmedejaz [#129](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/129)
 - Allow download of unsupported media types @dvuckovic [#128](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/128)
 - Allow users to specify the API version. @conr [#126](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/126)
-- Use http multipart only when is needed. @ignacio-chiazzo [#123](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/123)
+- Use HTTP multipart only when needed. @ignacio-chiazzo [#123](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/123)
 - Validate Vertical on BusinessProfile update API. @ignacio-chiazzo [#120](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/120)
-- Added ability to specify fields param in the busines profile API. @ignacio-chiazzo [#119](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/119)
+- Added ability to specify fields param in the business profile API. @ignacio-chiazzo [#119](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/119)
 
 # v 0.11.0
 - Bumped API version to v19. @paulomcnally  https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/116
@@ -68,7 +69,7 @@ Remove warnings [#41](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/
 Require Faraday [#40](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/40)
 
 # v 0.4.0
-- Make the gem stricly typed using Sorbet [#34](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/34), [#35](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/35), [#37](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/37)
+- Make the gem strictly typed using Sorbet [#34](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/34), [#35](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/35), [#37](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/37)
 - Object IDs are Strings in development [#37](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/37)
 
 # v 0.3.2
@@ -82,12 +83,12 @@ Require Faraday [#40](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/
 
 # v 0.2.0
 - Added Media API
-- Added error and sucess responses
-- Added faraday-multiplart as part of the library
+- Added error and successful responses
+- Added faraday-multipart as part of the library
  
 # v 0.1.0
 - Added Message Template API.
-- Added Currency and Datetime resources.
+- Added Currency and DateTime resources.
 - Added Media resource.
 - Added Component and ParameterObject resource.
 - Fixed bug in recipient_number in Messages API.
