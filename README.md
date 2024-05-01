@@ -333,6 +333,8 @@ messages_api.send_document(
 )
 ```
 
+Note, you can specify the filename via file [`filename` argument](https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages). 
+
 **Send a sticker message**
 It could use a link or a sticker_id.
 
