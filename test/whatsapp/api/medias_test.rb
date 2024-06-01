@@ -117,9 +117,7 @@ module WhatsappSdk
 
       def test_download_media_handles_error_response
         error_response = Responses::ErrorResponse.new(
-          error: true,
-          status: 404,
-          raw_data_response: { "error" => true, "status" => 404, "body" => nil }
+          response: { "error" => true, "status" => 404, "body" => nil }
         )
         @medias_api.stubs(:download_file).returns(error_response)
         response = @medias_api.download(url: url_example, media_type: "image/png", file_path: "tmp/testing.png")
@@ -133,9 +131,7 @@ module WhatsappSdk
       def test_download_media_sends_valid_params
         file_path = "tmp/testing.png"
         success_response = Responses::SuccessResponse.new(
-          success: true,
-          status: 200,
-          raw_data_response: { "success" => true, "status" => 200, "body" => nil }
+          response: { "success" => true, "status" => 200, "body" => nil }
         )
         @medias_api.expects(:download_file).with(url: url_example, content_type_header: "image/png",
                                                  file_path: file_path)
@@ -148,9 +144,7 @@ module WhatsappSdk
         unsupported_media_type = "application/x-zip-compressed" # is unsupported
         file_path = "tmp/testing.zip"
         success_response = Responses::SuccessResponse.new(
-          success: true,
-          status: 200,
-          raw_data_response: { "success" => true, "status" => 200, "body" => nil }
+          response: { "success" => true, "status" => 200, "body" => nil }
         )
         @medias_api.expects(:download_file).with(url: url_example, content_type_header: unsupported_media_type,
                                                  file_path: file_path)
