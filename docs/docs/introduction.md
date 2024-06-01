@@ -88,8 +88,6 @@ Try sending a message to your phone in the UI.
 <img width="1010" alt="Screen Shot 2022-09-05 at 11 13 24 AM" src="https://user-images.githubusercontent.com/11672878/188480634-369f8de1-b851-4735-86de-f49e96f78d8c.png">
 </details>
 
-</details>
-
 <details><summary>5) Use the GEM to interact with Whatsapp</summary>
 
 Example:
