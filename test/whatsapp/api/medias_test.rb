@@ -117,14 +117,14 @@ module WhatsappSdk
 
       def test_download_media_handles_error_response
         error_response = Responses::ErrorResponse.new(
-          response: { "error" => true, "status" => 404, "body" => nil }
+          response: { "error" => true, "status" => nil, "body" => nil }
         )
         @medias_api.stubs(:download_file).returns(error_response)
         response = @medias_api.download(url: url_example, media_type: "image/png", file_path: "tmp/testing.png")
         refute_predicate(response, :ok?)
         assert_predicate(response, :error?)
         assert_equal(Responses::ErrorResponse, response.error.class)
-        assert_equal(404, response.error.status)
+        assert_equal(500, response.error.status)
       end
 
       def test_download_media_sends_valid_params
