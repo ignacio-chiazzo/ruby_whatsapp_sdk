@@ -368,7 +368,8 @@ WhatsApp message templates are specific message formats that businesses use to s
 
 **Before sending a message template, you need to create one.** visit the [Official API Documentation](https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-message-templates)
 
-<details> <summary>Component's example</summary>
+<details>
+<summary>Component's example</summary>
 
 ```ruby
 currency = WhatsappSdk::Resource::Currency.new(code: "USD", amount: 1000, fallback_value: "1000")
