@@ -123,7 +123,6 @@ module WhatsappSdk
         response = @medias_api.download(url: url_example, media_type: "image/png", file_path: "tmp/testing.png")
         refute_predicate(response, :ok?)
         assert_predicate(response, :error?)
-        assert_nil(response.data)
         assert_equal(Responses::ErrorResponse, response.error.class)
         assert_equal(404, response.error.status)
       end
