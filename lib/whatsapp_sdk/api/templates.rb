@@ -13,7 +13,7 @@ require_relative "../resource/languages"
 module WhatsappSdk
   module Api
     class Templates < Request
-      DEFAULT_HEADERS = T.let({ 'Content-Type' => 'application/json' }.freeze, Hash)
+      DEFAULT_HEADERS = T.let({ 'Content-Type' => 'application/json' }.freeze, T::Hash[T.untyped, T.untyped])
 
       class InvalidCategoryError < StandardError
         extend T::Sig
@@ -138,6 +138,13 @@ module WhatsappSdk
       # @param id [String] Required. The message_template-id.
       # @param components_json [Json] Components that make up the template..
       # return [Response] Response object.
+      sig do
+        params(
+          template_id: String,
+          category: T.nilable(String),
+          components_json: T.nilable(T::Hash[T.untyped, T.untyped])
+        ).returns(Response)
+      end
       def update(template_id:, category: nil, components_json: nil)
         if category && !WhatsappSdk::Resource::Template::Category.try_deserialize(category)
           raise InvalidCategoryError.new(category: category)
