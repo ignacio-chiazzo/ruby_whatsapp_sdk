@@ -15,7 +15,7 @@ module WhatsappSdk
       # Returns the ActionSection description you want to send.
       #
       # @returns description [String]. The character limit is 72 characters if present.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :description
 
       # Returns the ActionSection unique identifier you want to send.
@@ -37,6 +37,7 @@ module WhatsappSdk
         validate
       end
 
+      sig { returns(String) }
       def to_json
         json = {
           id: id,
