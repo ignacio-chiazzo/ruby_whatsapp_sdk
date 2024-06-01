@@ -134,6 +134,7 @@ module WhatsappSdk
 
       private
 
+      sig { params(media_type: String).returns(String) }
       def map_media_type_to_content_type_header(media_type)
         # Media type maps 1:1 to the content-type header.
         # The list of supported types are in MediaTypes::SUPPORTED_TYPES.
@@ -142,6 +143,7 @@ module WhatsappSdk
         media_type
       end
 
+      sig { params(media_type: String).returns(T::Boolean) }
       def valid_media_type?(media_type)
         Resource::MediaTypes::SUPPORTED_MEDIA_TYPES.include?(media_type)
       end
