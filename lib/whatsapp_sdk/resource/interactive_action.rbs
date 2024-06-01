@@ -1,0 +1,61 @@
+module WhatsappSdk
+  module Resource
+    class InteractiveAction
+      class Type < T::Enum
+        enums do
+          ListMessage = new("list_message")
+          ReplyButton = new("reply_button")
+        end
+      end
+
+      sig { returns(Type) }
+      attr_accessor :type
+
+      sig { returns(T::Array[InteractiveActionReplyButton]) }
+      attr_accessor :buttons
+
+      sig { returns(String) }
+      attr_accessor :button
+
+      sig { returns(T::Array[InteractiveActionSection]) }
+      attr_accessor :sections
+
+      sig { params(reply_button: InteractiveActionReplyButton).void }
+      def add_reply_button(reply_button); end
+
+      sig { params(section: InteractiveActionSection).void }
+      def add_section(section); end
+
+      REPLY_BUTTONS_MINIMUM: Integer
+      REPLY_BUTTONS_MAXIMUM: Integer
+      LIST_BUTTON_TITLE_MAXIMUM: Integer
+      LIST_SECTIONS_MINIMUM: Integer
+      LIST_SECTIONS_MAXIMUM: Integer
+
+      sig do
+        params(
+          type: Type, buttons: T::Array[InteractiveActionReplyButton],
+          button: String, sections: T::Array[InteractiveActionSection]
+        ).void
+      end
+      def initialize(type:, buttons: [], button: "", sections: []); end
+
+      sig { returns(T::Hash[T.untyped, T.untyped]) }
+      def to_json; end
+
+      sig { void }
+      def validate; end
+
+      private
+
+      sig { void }
+      def validate_fields; end
+
+      sig { void }
+      def validate_list_message; end
+
+      sig { void }
+      def validate_reply_button; end
+    end
+  end
+end
