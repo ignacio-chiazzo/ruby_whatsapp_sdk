@@ -78,9 +78,9 @@ module WhatsappSdk
 
         response = download_file(url: url, file_path: file_path, content_type_header: content_type_header)
         response = if response["code"].to_i == 200
-                     { "success" => true }
+                     { "success" => true, "status" => response["code"], "body" => response["body"] }
                    else
-                     { "error" => true, "status" => response["code"] }
+                     { "error" => true, "status" => response["code"], "body" => response["body"] }
                    end
 
         Api::Response.new(
