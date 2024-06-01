@@ -66,7 +66,7 @@ module WhatsappSdk
         logger_io = StringIO.new
         client = Client.new('test_token', ApiConfiguration::DEFAULT_API_VERSION, Logger.new(logger_io))
 
-        stub_test_request(:get)
+        stub_test_request(method_name: :get)
         client.send_request(endpoint: 'test', http_method: 'get')
 
         logged_string = logger_io.string
@@ -86,7 +86,7 @@ module WhatsappSdk
           { bodies: true }
         )
 
-        stub_test_request(:get)
+        stub_test_request(method_name: :get)
         client.send_request(endpoint: 'test', http_method: 'get')
 
         logged_string = logger_io.string
