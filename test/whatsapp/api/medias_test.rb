@@ -137,8 +137,8 @@ module WhatsappSdk
                    .returns(success_response)
         response = @medias_api.download(url: url_example, file_path: "tmp/testing.png", media_type: "image/png")
         assert_ok_response(response)
-        assert_equal(Responses::SuccessResponse, response.data.class)
-        assert_predicate(response.data, :success?)
+        assert_equal(Responses::SuccessResponse, response.class)
+        assert_predicate(response, :ok?)
       end
 
       def test_download_allows_unsupported_media_type
@@ -151,8 +151,8 @@ module WhatsappSdk
                    .returns(success_response)
         response = @medias_api.download(url: url_example, file_path: file_path, media_type: unsupported_media_type)
         assert_ok_response(response)
-        assert_equal(Responses::SuccessResponse, response.data.class)
-        assert_predicate(response.data, :success?)
+        assert_equal(Responses::SuccessResponse, response.class)
+        assert_predicate(response, :ok?)
       end
 
       private
