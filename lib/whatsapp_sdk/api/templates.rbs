@@ -1,0 +1,55 @@
+module WhatsappSdk
+  module Api
+    class Templates < Request
+      DEFAULT_HEADERS: T::Hash[T.untyped, T.untyped]
+
+      class InvalidCategoryError < StandardError
+        extend T::Sig
+
+        sig { returns(String) }
+        attr_reader :category
+
+        sig { params(category: String).void }
+        def initialize(category:); end
+      end
+
+      sig do
+        params(
+          business_id: Integer,
+          name: String,
+          category: String,
+          language: String,
+          components_json: T.nilable(T::Array[T::Hash[T.untyped, T.untyped]]),
+          allow_category_change: T.nilable(T::Boolean)
+        ).returns(Response)
+      end
+      def create(
+        business_id:, name:, category:, language:, components_json: nil, allow_category_change: nil
+      ); end
+
+      sig { params(business_id: Integer, limit: T.nilable(Integer)).returns(Response) }
+      def templates(business_id:, limit: 100); end
+
+      sig { params(business_id: Integer).returns(Response) }
+      def get_message_template_namespace(business_id:); end
+
+      sig do
+        params(
+          template_id: String,
+          category: T.nilable(String),
+          components_json: T.nilable(T::Hash[T.untyped, T.untyped])
+        ).returns(Response)
+      end
+      def update(template_id:, category: nil, components_json: nil); end
+
+      sig do
+        params(
+          business_id: Integer,
+          name: String,
+          hsm_id: T.nilable(String)
+        ).returns(Response)
+      end
+      def delete(business_id:, name:, hsm_id: nil); end
+    end
+  end
+end
