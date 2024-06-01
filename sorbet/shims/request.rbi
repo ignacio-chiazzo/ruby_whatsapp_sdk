@@ -4,7 +4,7 @@
 module WhatsappSdk
   module Api
     class Request
-      def download_file(url, path_to_file_name = nil); end
+      def download_file(url:, content_type_header:, file_path: nil); end
     end
   end
 end
