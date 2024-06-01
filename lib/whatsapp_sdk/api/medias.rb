@@ -78,12 +78,18 @@ module WhatsappSdk
 
         response = download_file(url: url, file_path: file_path, content_type_header: content_type_header)
         if response.raw_data_response["code"].to_i == 200
-          Api::Responses::SuccessResponse.new(
-            response: { "success" => true, "status" => response.raw_data_response["code"], "body" => response.raw_data_response["body"] }
+          Api::Response.new(
+            response: Api::Responses::SuccessResponse.new(
+              response: { "success" => true, "status" => response.raw_data_response["code"], "body" => response.raw_data_response["body"] }
+            ),
+            data_class_type: Api::Responses::SuccessResponse
           )
         else
-          Api::Responses::ErrorResponse.new(
-            response: { "error" => true, "status" => response.raw_data_response["code"] || 500, "body" => response.raw_data_response["body"] }
+          Api::Response.new(
+            response: Api::Responses::ErrorResponse.new(
+              response: { "error" => true, "status" => response.raw_data_response["code"] || 500, "body" => response.raw_data_response["body"] }
+            ),
+            error_class_type: Api::Responses::ErrorResponse
           )
         end
       end
