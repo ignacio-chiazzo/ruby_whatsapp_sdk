@@ -55,7 +55,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::MediaDataResponse
         )
       end
@@ -77,7 +77,7 @@ module WhatsappSdk
         content_type_header = map_media_type_to_content_type_header(media_type)
 
         response = download_file(url: url, file_path: file_path, content_type_header: content_type_header)
-        response = response
+        response = T.must(response)
         response = if response["code"].to_i == 200
                      { "success" => true }
                    else
@@ -85,7 +85,7 @@ module WhatsappSdk
                    end
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::SuccessResponse,
           error_class_type: Api::Responses::ErrorResponse
         )
@@ -111,7 +111,7 @@ module WhatsappSdk
         response = send_request(http_method: "post", endpoint: "#{sender_id}/media", params: params, multipart: true)
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::MediaDataResponse
         )
       end
@@ -128,7 +128,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::SuccessResponse
         )
       end
