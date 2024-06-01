@@ -44,7 +44,7 @@ module WhatsappSdk
         validate
       end
 
-      sig { returns(String) }
+      sig { returns(T::Hash[T.untyped, T.untyped]) }
       def to_json
         json = { type: type.serialize }
         json[type.serialize.to_sym] = {
@@ -52,7 +52,7 @@ module WhatsappSdk
           title: title
         }
 
-        json.to_json
+        json
       end
 
       private
