@@ -132,8 +132,8 @@ module WhatsappSdk
         success_response = Responses::SuccessResponse.new(
           response: { "success" => true, "status" => 200, "body" => nil }
         )
-        @medias_api.expects(:download_file).with(url: url_example, content_type_header: "image/png",
-                                                 file_path: file_path)
+        @medias_api.stubs(:download_file).with(url: url_example, content_type_header: "image/png",
+                                               file_path: file_path)
                    .returns(success_response)
         response = @medias_api.download(url: url_example, file_path: "tmp/testing.png", media_type: "image/png")
         assert_ok_response(response)
@@ -147,7 +147,7 @@ module WhatsappSdk
         success_response = Responses::SuccessResponse.new(
           response: { "success" => true, "status" => 200, "body" => nil }
         )
-        @medias_api.expects(:download_file).with(url: url_example, content_type_header: unsupported_media_type, file_path: file_path)
+        @medias_api.stubs(:download_file).with(url: url_example, content_type_header: unsupported_media_type, file_path: file_path)
                    .returns(success_response)
         response = @medias_api.download(url: url_example, file_path: file_path, media_type: unsupported_media_type)
         assert_ok_response(response)
