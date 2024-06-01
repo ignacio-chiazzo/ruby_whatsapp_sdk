@@ -97,6 +97,12 @@ module WhatsappSdk
         file_part = mock
         T.unsafe(Faraday::FilePart).stubs(:new).returns(file_part)
 
+        custom_headers = {
+          "Cache-Control" => "no-cache",
+          "Last-Modified" => "Wed, 21 Oct 2015 07:28:00 GMT",
+          "E-tag" => "33a64df551425fcc55e4d42a148795d9f25f89d4"
+        }
+
         @medias_api.expects(:send_request).with(
           http_method: "post",
           endpoint: "123/media",
@@ -107,12 +113,14 @@ module WhatsappSdk
             type: type
           },
           headers: {
-            "Cache-Control" => "max-age=31536000, public",
-            "Content-Type" => type
+            "Content-Type" => type,
+            "Cache-Control" => "no-cache",
+            "Last-Modified" => "Wed, 21 Oct 2015 07:28:00 GMT",
+            "E-tag" => "33a64df551425fcc55e4d42a148795d9f25f89d4"
           }
         ).returns({ "id" => media_id })
 
-        response = @medias_api.upload(sender_id: 123, file_path: file_path, type: type)
+        response = @medias_api.upload(sender_id: 123, file_path: file_path, type: type, headers: custom_headers)
         assert_ok_response(response)
 
         assert_equal(Responses::MediaDataResponse, response.data.class)

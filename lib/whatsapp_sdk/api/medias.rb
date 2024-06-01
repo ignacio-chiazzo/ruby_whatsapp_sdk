@@ -97,8 +97,8 @@ module WhatsappSdk
       # see the official documentation https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media#supported-media-types.
       #
       # @return [Api::Response] Response object.
-      sig { params(sender_id: Integer, file_path: String, type: String).returns(Api::Response) }
-      def upload(sender_id:, file_path:, type:)
+      sig { params(sender_id: Integer, file_path: String, type: String, headers: T::Hash[String, String]).returns(Api::Response) }
+      def upload(sender_id:, file_path:, type:, headers: {})
         raise FileNotFoundError.new(file_path: file_path) unless File.file?(file_path)
 
         params = {
@@ -107,10 +107,11 @@ module WhatsappSdk
           type: type
         }
 
-        headers = {
-          "Cache-Control" => "max-age=31536000, public",
+        default_headers = {
           "Content-Type" => type
         }
+
+        headers = default_headers.merge(headers)
 
         response = send_request(http_method: "post", endpoint: "#{sender_id}/media", params: params, headers: headers, multipart: true)
 
