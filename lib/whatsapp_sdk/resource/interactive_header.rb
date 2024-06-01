@@ -80,7 +80,7 @@ module WhatsappSdk
                                         raise "Invalid type: #{type}"
                                       end
 
-        json
+        json.to_json
       end
 
       private
@@ -109,7 +109,7 @@ module WhatsappSdk
 
           next unless value.nil?
 
-          raise Resource::Errors::MissingValue.new(
+          raise WhatsappSdk::Resource::Errors::MissingValue.new(
             type.serialize,
             "#{type.serialize} is required when the type is #{type_b}"
           )
