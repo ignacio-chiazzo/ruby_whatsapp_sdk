@@ -112,12 +112,7 @@ module WhatsappSdk
             file: file_part,
             type: type
           },
-          headers: {
-            "Content-Type" => type,
-            "Cache-Control" => "no-cache",
-            "Last-Modified" => "Wed, 21 Oct 2015 07:28:00 GMT",
-            "E-tag" => "33a64df551425fcc55e4d42a148795d9f25f89d4"
-          }
+          headers: custom_headers
         ).returns({ "id" => media_id })
 
         response = @medias_api.upload(sender_id: 123, file_path: file_path, type: type, headers: custom_headers)

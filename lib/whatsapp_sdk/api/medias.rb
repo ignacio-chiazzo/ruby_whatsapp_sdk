@@ -107,12 +107,6 @@ module WhatsappSdk
           type: type
         }
 
-        default_headers = {
-          "Content-Type" => type
-        }
-
-        headers = default_headers.merge(headers)
-
         response = send_request(http_method: "post", endpoint: "#{sender_id}/media", params: params, headers: headers, multipart: true)
 
         Api::Response.new(
