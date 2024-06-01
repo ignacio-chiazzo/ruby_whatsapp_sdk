@@ -33,7 +33,7 @@ module WhatsappSdk
           @display_phone_number = T.let(response["display_phone_number"], String)
           @quality_rating = T.let(response["quality_rating"], String)
           @is_pin_enabled = T.let(response["is_pin_enabled"], T::Boolean)
-          @is_official_business_account = T.let(response["is_official_business_account"], T.nilable(T::Boolean))
+          @is_official_business_account = T.let(T.must(response["is_official_business_account"]), T::Boolean)
           @account_mode = T.let(response["account_mode"], T.nilable(String))
           @certificate = T.let(response["certificate"], T.nilable(String))
           @code_verification_status = T.let(response["code_verification_status"], T.nilable(String))
