@@ -107,7 +107,12 @@ module WhatsappSdk
           type: type
         }
 
-        response = send_request(http_method: "post", endpoint: "#{sender_id}/media", params: params, multipart: true)
+        headers = {
+          "Cache-Control" => "max-age=31536000, public",
+          "Content-Type" => type
+        }
+
+        response = send_request(http_method: "post", endpoint: "#{sender_id}/media", params: params, headers: headers, multipart: true)
 
         Api::Response.new(
           response: response,

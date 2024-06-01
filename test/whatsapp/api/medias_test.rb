@@ -105,6 +105,10 @@ module WhatsappSdk
             messaging_product: "whatsapp",
             file: file_part,
             type: type
+          },
+          headers: {
+            "Cache-Control" => "max-age=31536000, public",
+            "Content-Type" => type
           }
         ).returns({ "id" => media_id })
 
