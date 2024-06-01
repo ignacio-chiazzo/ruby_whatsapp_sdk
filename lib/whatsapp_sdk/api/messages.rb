@@ -87,7 +87,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.cast(response, T::Hash[T.untyped, T.untyped]),
           data_class_type: Api::Responses::MessageDataResponse
         )
       end
@@ -133,7 +133,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.cast(response, T::Hash[T.untyped, T.untyped]),
           data_class_type: Api::Responses::MessageDataResponse
         )
       end
@@ -172,7 +172,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.cast(response, T::Hash[T.untyped, T.untyped]),
           data_class_type: Api::Responses::MessageDataResponse
         )
       end
@@ -218,7 +218,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.cast(response, T::Hash[T.untyped, T.untyped]),
           data_class_type: Api::Responses::MessageDataResponse
         )
       end
@@ -268,7 +268,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.cast(response, T::Hash[T.untyped, T.untyped]),
           data_class_type: Api::Responses::MessageDataResponse
         )
       end
@@ -306,7 +306,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.cast(response, T::Hash[T.untyped, T.untyped]),
           data_class_type: Api::Responses::MessageDataResponse
         )
       end
@@ -346,7 +346,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.cast(response, T::Hash[T.untyped, T.untyped]),
           data_class_type: Api::Responses::MessageDataResponse
         )
       end
@@ -402,7 +402,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.cast(response, T::Hash[T.untyped, T.untyped]),
           data_class_type: Api::Responses::MessageDataResponse
         )
       end
@@ -430,7 +430,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.cast(response, T::Hash[T.untyped, T.untyped]),
           data_class_type: Api::Responses::ReadMessageDataResponse
         )
       end
@@ -483,7 +483,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.cast(response, T::Hash[T.untyped, T.untyped]),
           data_class_type: Api::Responses::MessageDataResponse
         )
       end
@@ -520,7 +520,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.cast(response, T::Hash[T.untyped, T.untyped]),
           data_class_type: Api::Responses::MessageDataResponse
         )
       end
