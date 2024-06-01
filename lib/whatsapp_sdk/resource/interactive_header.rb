@@ -80,7 +80,7 @@ module WhatsappSdk
                                         raise "Invalid type: #{type}"
                                       end
 
-        json.to_json
+        json
       end
 
       private
