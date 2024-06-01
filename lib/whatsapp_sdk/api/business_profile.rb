@@ -42,7 +42,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::BusinessProfileDataResponse
         )
       end
@@ -69,7 +69,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::SuccessResponse
         )
       end
