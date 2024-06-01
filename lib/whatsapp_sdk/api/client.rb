@@ -92,7 +92,7 @@ module WhatsappSdk
         ).returns(T.any(T::Hash[T.untyped, T.untyped], String))
       end
       def request_params(params, headers)
-        return params.to_json if params.is_a?(Hash) && headers['Content-Type'] == 'application/json'
+        return params.to_json if headers['Content-Type'] == 'application/json'
 
         params
       end
