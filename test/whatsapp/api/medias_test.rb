@@ -169,8 +169,12 @@ module WhatsappSdk
 
       def assert_ok_response(response)
         assert_equal(Response, response.class)
-        assert_nil(response.error)
-        assert_predicate(response, :ok?)
+        if response.is_a?(Responses::SuccessResponse)
+          assert_nil(response.error)
+          assert_predicate(response, :ok?)
+        elsif response.is_a?(Responses::ErrorResponse)
+          assert_predicate(response, :error?)
+        end
       end
 
       def mock_get_media_response(response)
