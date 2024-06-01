@@ -24,7 +24,7 @@ module WhatsappSdk
           access_token: String,
           api_version: String,
           logger: T.nilable(T.any(Logger, T.class_of(Logger))),
-          logger_options: Hash
+          logger_options: T::Hash[T.untyped, T.untyped]
         ).void
       end
       def initialize(
