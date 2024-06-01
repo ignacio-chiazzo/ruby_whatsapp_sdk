@@ -79,7 +79,7 @@ module WhatsappSdk
         )
 
         Response.new(
-          response: response,
+          response: T.let(response, T::Hash[T.untyped, T.untyped]),
           data_class_type: Responses::TemplateDataResponse,
           error_class_type: Responses::GenericErrorResponse
         )
@@ -102,7 +102,7 @@ module WhatsappSdk
         )
 
         Response.new(
-          response: response,
+          response: T.let(response, T::Hash[T.untyped, T.untyped]),
           data_class_type: Responses::TemplatesDataResponse,
           error_class_type: Responses::GenericErrorResponse
         )
@@ -122,7 +122,7 @@ module WhatsappSdk
         )
 
         Response.new(
-          response: response,
+          response: T.let(response, T::Hash[T.untyped, T.untyped]),
           data_class_type: Responses::MessageTemplateNamespaceDataResponse,
           error_class_type: Responses::GenericErrorResponse
         )
@@ -162,7 +162,7 @@ module WhatsappSdk
         )
 
         Response.new(
-          response: response,
+          response: T.let(response, T::Hash[T.untyped, T.untyped]),
           data_class_type: Responses::SuccessResponse,
           error_class_type: Responses::GenericErrorResponse
         )
@@ -198,7 +198,7 @@ module WhatsappSdk
         )
 
         Response.new(
-          response: response,
+          response: T.let(response, T::Hash[T.untyped, T.untyped]),
           data_class_type: Responses::SuccessResponse,
           error_class_type: Responses::GenericErrorResponse
         )
