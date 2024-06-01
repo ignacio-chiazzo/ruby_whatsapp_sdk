@@ -100,6 +100,7 @@ Example:
 2. Open the irb terminal by running `irb`
 3. `require "whatsapp_sdk"`
 4. Set up the `ACCESS_TOKEN`, the `SENDER_ID`, the `BUSINESS_ID` and the `RECIPIENT_NUMBER` in variables.
+
 ```ruby
 ACCESS_TOKEN = "EAAZAvvr0DZBs0BABRLF8zohP5Epc6pyNu"
 BUSINESS_ID = 1213141516171819
@@ -108,6 +109,7 @@ RECIPIENT_NUMBER = 12398765432
 ```
 
 5. Configure the Client by running
+
 ```ruby
 WhatsappSdk.configure do |config|
   config.access_token = ACCESS_TOKEN
@@ -117,12 +119,14 @@ end
 6. Try the Phone Numbers API or Messages API
 
 Phone Numbers API
+
 ```ruby
 phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new
 registered_number = phone_numbers_api.registered_number(SENDER_ID)
 ```
 
 Messages API
+
 ```ruby
 messages_api = WhatsappSdk::Api::Messages.new
 message_sent = messages_api.send_text(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
