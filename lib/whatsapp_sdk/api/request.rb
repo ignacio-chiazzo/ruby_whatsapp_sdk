@@ -16,7 +16,9 @@ module WhatsappSdk
         response = @client.download_file(url: url, content_type_header: content_type_header, file_path: file_path)
         {
           "code" => response.code,
-          "body" => response.body
+          "body" => response.body,
+          "success" => response.code.to_i == 200,
+          "error" => response.code.to_i != 200
         }
       end
 
