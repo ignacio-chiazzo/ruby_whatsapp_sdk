@@ -1,3 +1,4 @@
+# typed: true
 # This is an RBI file for the webmock gem
 
 module WebMock
