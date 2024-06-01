@@ -1,0 +1,21 @@
+module WhatsappSdk
+  module Api
+    module Responses
+      class PhoneNumbersDataResponse < DataResponse
+        sig { returns(T::Array[PhoneNumberDataResponse]) }
+        attr_reader :phone_numbers
+
+        sig { params(response: T::Hash[T.untyped, T.untyped]).void }
+        def initialize(response); end
+
+        sig { override.params(response: T::Hash[T.untyped, T.untyped]).returns(T.nilable(PhoneNumbersDataResponse)) }
+        def self.build_from_response(response:); end
+
+        private
+
+        sig { params(phone_number: T::Hash[T.untyped, T.untyped]).returns(PhoneNumberDataResponse) }
+        def parse_phone_number(phone_number); end
+      end
+    end
+  end
+end

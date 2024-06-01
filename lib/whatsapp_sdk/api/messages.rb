@@ -9,7 +9,7 @@ module WhatsappSdk
     class Messages < Request
       extend T::Sig
 
-      DEFAULT_HEADERS = T.let({ 'Content-Type' => 'application/json' }.freeze, Hash)
+      DEFAULT_HEADERS = T.let({ 'Content-Type' => 'application/json' }.freeze, T::Hash[T.untyped, T.untyped])
 
       # Send a text message.
       #
