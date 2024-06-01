@@ -116,7 +116,12 @@ module WhatsappSdk
       end
 
       def test_download_media_handles_error_response
-        @medias_api.stubs(:download_file).returns({ "error" => true, "status" => 404, "body" => nil })
+        error_response = Responses::ErrorResponse.new(
+          error: true,
+          status: 404,
+          raw_data_response: { "error" => true, "status" => 404, "body" => nil }
+        )
+        @medias_api.stubs(:download_file).returns(error_response)
         response = @medias_api.download(url: url_example, media_type: "image/png", file_path: "tmp/testing.png")
         refute_predicate(response, :ok?)
         assert_predicate(response, :error?)
@@ -127,9 +132,14 @@ module WhatsappSdk
 
       def test_download_media_sends_valid_params
         file_path = "tmp/testing.png"
+        success_response = Responses::SuccessResponse.new(
+          success: true,
+          status: 200,
+          raw_data_response: { "success" => true, "status" => 200, "body" => nil }
+        )
         @medias_api.expects(:download_file).with(url: url_example, content_type_header: "image/png",
                                                  file_path: file_path)
-                   .returns({ "success" => true, "status" => 200, "body" => nil })
+                   .returns(success_response)
         response = @medias_api.download(url: url_example, file_path: "tmp/testing.png", media_type: "image/png")
         validate_sucess_data_response(response)
       end
@@ -137,9 +147,14 @@ module WhatsappSdk
       def test_download_allows_unsupported_media_type
         unsupported_media_type = "application/x-zip-compressed" # is unsupported
         file_path = "tmp/testing.zip"
+        success_response = Responses::SuccessResponse.new(
+          success: true,
+          status: 200,
+          raw_data_response: { "success" => true, "status" => 200, "body" => nil }
+        )
         @medias_api.expects(:download_file).with(url: url_example, content_type_header: unsupported_media_type,
                                                  file_path: file_path)
-                   .returns({ "success" => true, "status" => 200, "body" => nil })
+                   .returns(success_response)
         response = @medias_api.download(url: url_example, file_path: file_path, media_type: unsupported_media_type)
         validate_sucess_data_response(response)
       end
