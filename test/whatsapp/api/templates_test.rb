@@ -179,17 +179,19 @@ module WhatsappSdk
       end
 
       def test_update_a_template_with_components_and_category
-        components_json = [{
-          type: "header",
-          parameters: [
-            {
-              type: "image",
-              image: {
-                link: "http(s)://URL"
+        components_json = {
+          header: {
+            type: "header",
+            parameters: [
+              {
+                type: "image",
+                image: {
+                  link: "http(s)://URL"
+                }
               }
-            }
-          ]
-        }]
+            ]
+          }
+        }
 
         template_id = "123456"
         new_category = "MARKETING"
