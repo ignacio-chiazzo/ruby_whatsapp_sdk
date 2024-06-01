@@ -23,8 +23,8 @@ module WhatsappSdk
         @rows << row
       end
 
-      ACTION_SECTION_TITLE_MAXIMUM = 24
-      ACTION_SECTION_ROWS_MAXIMUM = 10
+      ACTION_SECTION_TITLE_MAXIMUM = T.let(24, Integer)
+      ACTION_SECTION_ROWS_MAXIMUM = T.let(10, Integer)
 
       sig { params(title: String, rows: T::Array[InteractiveActionSectionRow]).void }
       def initialize(title:, rows: [])
@@ -33,11 +33,12 @@ module WhatsappSdk
         validate(skip_rows: true)
       end
 
+      sig { returns(String) }
       def to_json
         {
           title: title,
           rows: rows.map(&:to_json)
-        }
+        }.to_json
       end
 
       sig { params(skip_rows: T.nilable(T::Boolean)).void }
