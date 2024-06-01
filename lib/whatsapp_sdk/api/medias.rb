@@ -55,7 +55,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::MediaDataResponse
         )
       end
@@ -110,7 +110,7 @@ module WhatsappSdk
         response = send_request(http_method: "post", endpoint: "#{sender_id}/media", params: params, multipart: true)
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::MediaDataResponse
         )
       end
@@ -127,7 +127,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::SuccessResponse
         )
       end
