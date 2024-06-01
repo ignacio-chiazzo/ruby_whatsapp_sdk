@@ -25,7 +25,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::PhoneNumbersDataResponse
         )
       end
@@ -42,7 +42,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::PhoneNumberDataResponse
         )
       end
@@ -66,7 +66,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::PhoneNumberDataResponse
         )
       end
@@ -88,7 +88,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::PhoneNumberDataResponse
         )
       end
