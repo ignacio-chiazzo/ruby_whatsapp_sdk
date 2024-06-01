@@ -172,7 +172,7 @@ module WhatsappSdk
       ##### Update Message Template
       def test_update_a_template_raises_an_error_when_category_is_invalid
         error = assert_raises(Templates::InvalidCategoryError) do
-          @templates_api.update(template_id: 123_456, category: "INVALID_CATEGORY")
+          @templates_api.update(template_id: "123456", category: "INVALID_CATEGORY")
         end
 
         assert_equal("Invalid Category. The possible values are: AUTHENTICATION, MARKETING and UTILITY.", error.message)
