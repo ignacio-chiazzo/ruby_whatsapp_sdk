@@ -43,9 +43,9 @@ module WhatsappSdk
           id: id,
           title: title
         }
-        json[:description] = description if description.length.positive?
+        json[:description] = T.must(description) if T.must(description).length.positive?
 
-        json
+        json.to_json
       end
 
       private
@@ -82,7 +82,7 @@ module WhatsappSdk
 
       sig { void }
       def validate_description
-        description_length = description.length
+        description_length = T.must(description).length
         return if description_length <= ACTION_SECTION_DESCRIPTION_MAXIMUM
 
         raise Errors::InvalidInteractiveActionSectionRow,
