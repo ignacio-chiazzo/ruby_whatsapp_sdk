@@ -77,17 +77,19 @@ module WhatsappSdk
         content_type_header = map_media_type_to_content_type_header(media_type)
 
         response = download_file(url: url, file_path: file_path, content_type_header: content_type_header)
-        if response.raw_data_response["code"].to_i == 200
+        if response.code.to_i == 200
           Api::Response.new(
             response: Api::Responses::SuccessResponse.new(
-              response: { "success" => true, "status" => response.raw_data_response["code"], "body" => response.raw_data_response["body"] }
+              success: true,
+              raw_data_response: { "success" => true, "status" => response.code, "body" => response.body }
             ),
             data_class_type: Api::Responses::SuccessResponse
           )
         else
           Api::Response.new(
             response: Api::Responses::ErrorResponse.new(
-              response: { "error" => true, "status" => response.raw_data_response["code"] || 500, "body" => response.raw_data_response["body"] }
+              error: true,
+              raw_data_response: { "error" => true, "status" => response.code || 500, "body" => response.body }
             ),
             error_class_type: Api::Responses::ErrorResponse
           )
