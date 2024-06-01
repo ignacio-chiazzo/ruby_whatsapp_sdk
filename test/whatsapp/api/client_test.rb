@@ -13,7 +13,7 @@ module WhatsappSdk
       end
 
       def test_send_request_post_with_success_response
-        stub_test_request(:post, body: { 'foo' => 'bar' },
+        stub_test_request(method_name: :post, body: { 'foo' => 'bar' },
                                  headers: { 'Content-Type' => 'application/x-www-form-urlencoded' })
 
         response_body = @client.send_request(endpoint: 'test',
@@ -24,7 +24,7 @@ module WhatsappSdk
       end
 
       def test_send_request_post_json_content_with_success_response
-        stub_test_request(:post, body: { 'foo' => 'bar' }.to_json, headers: { 'Content-Type' => 'application/json' })
+        stub_test_request(method_name: :post, body: { 'foo' => 'bar' }.to_json, headers: { 'Content-Type' => 'application/json' })
 
         response_body = @client.send_request(endpoint: 'test',
                                              http_method: 'post',
@@ -34,15 +34,14 @@ module WhatsappSdk
       end
 
       def test_send_request_get_with_success_response
-        stub_test_request(:get)
+        stub_test_request(method_name: :get)
 
-        response_body = @client.send_request(endpoint: 'test',
-                                             http_method: 'get')
+        response_body = @client.send_request(endpoint: 'test', http_method: 'get')
         assert_equal({ 'success' => true }, response_body)
       end
 
       def test_send_request_delete_with_success_response
-        stub_test_request(:delete, response_status: 204, response_body: "")
+        stub_test_request(method_name: :delete, response_status: 204, response_body: "")
 
         response_body = @client.send_request(endpoint: 'test', http_method: 'delete')
         assert_nil(response_body)
