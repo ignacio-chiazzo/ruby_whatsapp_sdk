@@ -37,7 +37,7 @@ module WhatsappSdk
         validate
       end
 
-      sig { returns(String) }
+      sig { returns(T::Hash[T.untyped, T.untyped]) }
       def to_json
         json = {
           id: id,
@@ -45,7 +45,16 @@ module WhatsappSdk
         }
         json[:description] = T.must(description) if T.must(description).length.positive?
 
-        json.to_json
+        json
+      end
+
+      sig { returns(T::Hash[T.untyped, T.untyped]) }
+      def to_h
+        {
+          id: id,
+          title: title,
+          description: description
+        }
       end
 
       private
