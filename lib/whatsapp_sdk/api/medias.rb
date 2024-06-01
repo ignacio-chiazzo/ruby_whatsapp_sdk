@@ -79,8 +79,7 @@ module WhatsappSdk
         response = download_file(url: url, file_path: file_path, content_type_header: content_type_header)
         if response["code"].to_i == 200
           success_response = Api::Responses::SuccessResponse.new(
-            success: true,
-            raw_data_response: response
+            response: response
           )
           Api::Response.new(
             response: success_response,
@@ -88,8 +87,7 @@ module WhatsappSdk
           )
         else
           error_response = Api::Responses::ErrorResponse.new(
-            error: true,
-            raw_data_response: response
+            response: response
           )
           Api::Response.new(
             response: error_response,
