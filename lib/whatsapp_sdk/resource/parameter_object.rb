@@ -138,7 +138,7 @@ module WhatsappSdk
       def validate_type
         return if Type.valid?(type)
 
-        raise InvalidType, type
+        raise InvalidType, type.serialize
       end
 
       sig { void }
