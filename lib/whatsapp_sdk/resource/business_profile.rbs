@@ -1,0 +1,7 @@
+module WhatsappSdk
+  module Resource
+    class BusinessProfile
+      VERTICAL_VALUES: T::Array[String]
+    end
+  end
+end
