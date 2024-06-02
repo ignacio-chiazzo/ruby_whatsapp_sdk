@@ -78,19 +78,13 @@ module WhatsappSdk
 
         response = download_file(url: url, file_path: file_path, content_type_header: content_type_header)
         if response.raw_data_response["status"].to_i == 200
-          success_response = Api::Responses::SuccessResponse.new(
-            response: response.raw_data_response
-          )
           Api::Response.new(
-            response: success_response,
+            response: response.raw_data_response,
             data_class_type: Api::Responses::SuccessResponse
           )
         else
-          error_response = Api::Responses::ErrorResponse.new(
-            response: response.raw_data_response
-          )
           Api::Response.new(
-            response: error_response,
+            response: response.raw_data_response,
             error_class_type: Api::Responses::ErrorResponse
           )
         end
