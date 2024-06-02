@@ -80,11 +80,13 @@ module WhatsappSdk
         if response["status"].to_i == 200
           Api::Response.new(
             response: response,
-            data_class_type: Api::Responses::SuccessResponse
+            data_class_type: Api::Responses::SuccessResponse,
+            error_class_type: Api::Responses::ErrorResponse
           )
         else
           Api::Response.new(
             response: response,
+            data_class_type: Api::Responses::SuccessResponse,
             error_class_type: Api::Responses::ErrorResponse
           )
         end
