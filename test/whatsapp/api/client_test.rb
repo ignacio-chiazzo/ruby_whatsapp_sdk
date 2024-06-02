@@ -102,7 +102,7 @@ module WhatsappSdk
 
       private
 
-      def stub_test_request(method_name, body: {}, headers: {}, response_status: 200, response_body: { success: true },
+      def stub_test_request(method_name:, body: {}, headers: {}, response_status: 200, response_body: { success: true },
                             api_version: ApiConfiguration::DEFAULT_API_VERSION)
         WebMock.stub_request(method_name, "#{ApiConfiguration::API_URL}/#{api_version}/test")
           .with(body: body, headers: { 'Accept' => '*/*',

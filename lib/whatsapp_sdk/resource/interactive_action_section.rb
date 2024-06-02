@@ -33,12 +33,12 @@ module WhatsappSdk
         validate(skip_rows: true)
       end
 
-      sig { returns(String) }
+      sig { returns(T::Hash[T.untyped, T.untyped]) }
       def to_json
         {
           title: title,
-          rows: rows.map(&:to_json)
-        }.to_json
+          rows: rows.map(&:to_h)
+        }
       end
 
       sig { params(skip_rows: T.nilable(T::Boolean)).void }
