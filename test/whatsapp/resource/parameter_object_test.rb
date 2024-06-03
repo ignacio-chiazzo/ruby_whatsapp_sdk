@@ -6,6 +6,7 @@ require 'resource/parameter_object'
 require 'resource/media'
 require 'resource/date_time'
 require 'resource/currency'
+require 'resource/location'
 require 'error'
 require 'resource/errors'
 
@@ -21,11 +22,13 @@ module WhatsappSdk
           @video_media = Media.new(type: Media::Type::Video, id: "123")
           @currency = Currency.new(code: "USD", amount: 1000, fallback_value: "USD")
           @date_time = DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
+          @location = Location.new(latitude: 25.779510, longitude: -80.338631, name: "Miami Store", address: "820 NW 87th Ave, Miami, FL")
         end
 
         [
           ParameterObject::Type::Text, ParameterObject::Type::Currency, ParameterObject::Type::DateTime,
-          ParameterObject::Type::Image, ParameterObject::Type::Document, ParameterObject::Type::Video
+          ParameterObject::Type::Image, ParameterObject::Type::Document, ParameterObject::Type::Video,
+          ParameterObject::Type::Location
         ].each do |type|
           define_method(
             "test_raise_an_error_when_type_is_#{type.serialize}_but_the_attribute_#{type.serialize}_is_not_passed"
@@ -54,6 +57,7 @@ module WhatsappSdk
           ParameterObject.new(type: ParameterObject::Type::Image, image: @image_media)
           ParameterObject.new(type: ParameterObject::Type::Video, video: @video_media)
           ParameterObject.new(type: ParameterObject::Type::Document, document: @document_media)
+          ParameterObject.new(type: ParameterObject::Type::Location, location: @location)
         end
 
         def test_to_json
@@ -97,6 +101,21 @@ module WhatsappSdk
           assert_equal(
             { type: "date_time", date_time: { fallback_value: @date_time.fallback_value } },
             parameter_date_time.to_json
+          )
+
+          parameter_location = ParameterObject.new(type: ParameterObject::Type::Location, location: @location)
+
+          assert_equal(
+            {
+              type: "location",
+              location: {
+                latitude: @location.latitude,
+                longitude: @location.longitude,
+                name: @location.name,
+                address: @location.address
+              }
+            },
+            parameter_location.to_json
           )
         end
       end
