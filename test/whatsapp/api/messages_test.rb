@@ -579,6 +579,7 @@ module WhatsappSdk
         currency = Resource::Currency.new(code: "USD", amount: 1000, fallback_value: "1000")
         date_time = Resource::DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
         image = Resource::Media.new(type: Resource::Media::Type::Image, link: "http(s)://URL")
+        location = Resource::Location.new(latitude: 25.779510, longitude: -80.338631, name: "miami store", address: "820 nw 87th ave, miami, fl")
 
         parameter_image = Resource::ParameterObject.new(
           type: Resource::ParameterObject::Type::Image, image: image
@@ -591,6 +592,10 @@ module WhatsappSdk
         )
         parameter_date_time = Resource::ParameterObject.new(
           type: Resource::ParameterObject::Type::DateTime, date_time: date_time
+        )
+        parameter_location = Resource::ParameterObject.new(
+          type: Resource::ParameterObject::Type::Location,
+          location: location
         )
 
         header_component = Resource::Component.new(
@@ -621,6 +626,11 @@ module WhatsappSdk
             Resource::ButtonParameter.new(type: Resource::ButtonParameter::Type::Payload,
                                           payload: "PAYLOAD")
           ]
+        )
+
+        location_component = Resource::Component.new(
+          type: Resource::Component::Type::Header,
+          parameters: [parameter_location]
         )
 
         @messages_api.expects(:send_request).with(
@@ -689,6 +699,20 @@ module WhatsappSdk
                       payload: "PAYLOAD"
                     }
                   ]
+                },
+                {
+                  type: "header",
+                  parameters: [
+                    {
+                      type: "location",
+                      location: {
+                        latitude: 25.779510,
+                        longitude: -80.338631,
+                        name: "miami store",
+                        address: "820 nw 87th ave, miami, fl"
+                      }
+                    }
+                  ]
                 }
               ]
             }
@@ -698,7 +722,7 @@ module WhatsappSdk
 
         message_response = @messages_api.send_template(
           sender_id: 123_123, recipient_number: 12_345_678, name: "hello_world", language: "en_US",
-          components: [header_component, body_component, button_component1, button_component2]
+          components: [header_component, body_component, button_component1, button_component2, location_component]
         )
 
         assert_mock_response(valid_contacts, valid_messages, message_response)
