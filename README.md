@@ -333,7 +333,7 @@ messages_api.send_document(
 )
 ```
 
-Note, you can specify the filename via file [`filename` argument](https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages). 
+Note, you can specify the filename via file [`filename` argument](https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages).
 
 **Send a sticker message**
 It could use a link or a sticker_id.
@@ -575,9 +575,9 @@ To update the Cloud API version update the version in `lib/whatsapp_sdk/api/api_
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at [https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk) This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at [https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk). This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
-If you want a feature to be implemented in the gem, please, open an issue and we will take a look as soon as we can.
+If you want a feature to be implemented in the gem, please, open an issue at [GitHub Issue #144](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/issues/144) and we will take a look as soon as we can.
 
 Do you want to contribute and are unsure where to start? Ping me on Twitter, and I will help you!
 
