@@ -38,6 +38,7 @@ module WhatsappSdk
           Image = new("image")
           Document = new("document")
           Video = new("video")
+          Location = new("location")
         end
       end
 
@@ -79,13 +80,20 @@ module WhatsappSdk
       sig { returns(T.nilable(Media)) }
       attr_accessor :video
 
+      # Returns location if the parameter object type is location
+      #
+      # @returns location [Location]
+      sig { returns(T.nilable(Location)) }
+      attr_accessor :location
+
       sig do
         params(
           type: T.any(Type, String), text: T.nilable(String), currency: T.nilable(Currency),
-          date_time: T.nilable(DateTime), image: T.nilable(Media), document: T.nilable(Media), video: T.nilable(Media)
+          date_time: T.nilable(DateTime), image: T.nilable(Media), document: T.nilable(Media), video: T.nilable(Media),
+          location: T.nilable(Location)
         ).void
       end
-      def initialize(type:, text: nil, currency: nil, date_time: nil, image: nil, document: nil, video: nil)
+      def initialize(type:, text: nil, currency: nil, date_time: nil, image: nil, document: nil, video: nil, location: nil)
         @type = T.let(deserialize_type(type), Type)
         @text = text
         @currency = currency
@@ -93,6 +101,7 @@ module WhatsappSdk
         @image = image
         @document = document
         @video = video
+        @location = location
         validate
       end
 
@@ -112,6 +121,8 @@ module WhatsappSdk
                                         T.must(document).to_json
                                       when "video"
                                         T.must(video).to_json
+                                      when "location"
+                                        T.must(location).to_json
                                       else
                                         raise "Invalid type: #{type}"
                                       end
@@ -149,7 +160,8 @@ module WhatsappSdk
           [Type::DateTime, date_time],
           [Type::Image, image],
           [Type::Document, document],
-          [Type::Video, video]
+          [Type::Video, video],
+          [Type::Location, location]
         ].each do |type_b, value|
           next unless type == type_b
 

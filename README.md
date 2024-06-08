@@ -371,6 +371,9 @@ WhatsApp message templates are specific message formats that businesses use to s
 currency = WhatsappSdk::Resource::Currency.new(code: "USD", amount: 1000, fallback_value: "1000")
 date_time = WhatsappSdk::Resource::DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
 image = WhatsappSdk::Resource::Media.new(type: "image", link: "http(s)://URL")
+location = WhatsappSdk::Resource::Location.new(
+  latitude: 25.779510, longitude: -80.338631, name: "miami store", address: "820 nw 87th ave, miami, fl"
+)
 
 parameter_image = WhatsappSdk::Resource::ParameterObject.new(type: WhatsappSdk::Resource::ParameterObject::Type::Image, image: image)
 # You can also use a plain string as type e.g.
@@ -378,6 +381,10 @@ parameter_image = WhatsappSdk::Resource::ParameterObject.new(type: WhatsappSdk::
 parameter_text = WhatsappSdk::Resource::ParameterObject.new(type: WhatsappSdk::Resource::ParameterObject::Type::Text, text: "TEXT_STRING")
 parameter_currency = WhatsappSdk::Resource::ParameterObject.new(type: WhatsappSdk::Resource::ParameterObject::Type::Currency, currency: currency)
 parameter_date_time = WhatsappSdk::Resource::ParameterObject.new(type: WhatsappSdk::Resource::ParameterObject::Type::DateTime, date_time: date_time)
+parameter_location = WhatsappSdk::Resource::ParameterObject.new(
+  type: WhatsappSdk::Resource::ParameterObject::Type::Location,
+  location: location
+)
 
 header_component = WhatsappSdk::Resource::Component.new(
   type: WhatsappSdk::Resource::Component::Type::Header,
@@ -405,6 +412,11 @@ button_component2 = WhatsappSdk::Resource::Component.new(
   parameters: [
     WhatsappSdk::Resource::ButtonParameter.new(type: WhatsappSdk::Resource::ButtonParameter::Type::Payload, payload: "PAYLOAD")
   ]
+)
+
+location_component = WhatsappSdk::Resource::Component.new(
+  type: WhatsappSdk::Resource::Component::Type::Header,
+  parameters: [parameter_location]
 )
 @messages_api.send_template(sender_id: 12_345, recipient_number: 12345678, name: "hello_world", language: "en_US", components_json: [component_1])
 ```

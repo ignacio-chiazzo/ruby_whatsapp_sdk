@@ -271,14 +271,16 @@ response_with_object = messages_api.send_template(sender_id: SENDER_ID, recipien
                                                   name: "hello_world", language: "en_US", components: [])
 puts response_with_object
 
-# Send a template with components.Remember to create the template first.
+# Send a template with components (Remember to create the template first).
 header_component = WhatsappSdk::Resource::Component.new(
   type: WhatsappSdk::Resource::Component::Type::Header
 )
-
 image = WhatsappSdk::Resource::Media.new(type: "image", link: "http(s)://URL", caption: "caption")
 document = WhatsappSdk::Resource::Media.new(type: "document", link: "http(s)://URL", filename: "txt.rb")
 video = WhatsappSdk::Resource::Media.new(type: "video", id: "123")
+location = WhatsappSdk::Resource::Location.new(
+  latitude: 25.779510, longitude: -80.338631, name: "miami store", address: "820 nw 87th ave, miami, fl"
+)
 
 parameter_image = WhatsappSdk::Resource::ParameterObject.new(
   type: "image",
@@ -300,10 +302,16 @@ parameter_text = WhatsappSdk::Resource::ParameterObject.new(
   text: "I am a text"
 )
 
+parameter_location = WhatsappSdk::Resource::ParameterObject.new(
+  type: "location",
+  location: location
+)
+
 header_component.add_parameter(parameter_text)
 header_component.add_parameter(parameter_image)
 header_component.add_parameter(parameter_video)
 header_component.add_parameter(parameter_document)
+header_component.add_parameter(parameter_location)
 header_component.to_json
 
 body_component = WhatsappSdk::Resource::Component.new(
