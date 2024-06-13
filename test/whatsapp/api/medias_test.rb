@@ -123,32 +123,37 @@ module WhatsappSdk
       end
 
       def test_download_media_handles_error_response
-        @medias_api.stubs(:download_file).returns(Net::HTTPNotFound.new(1, 404, "Not Found"))
+        error_response = { "error" => true, "status" => nil, "body" => nil }
+        @medias_api.stubs(:download_file).returns(error_response)
         response = @medias_api.download(url: url_example, media_type: "image/png", file_path: "tmp/testing.png")
         refute_predicate(response, :ok?)
         assert_predicate(response, :error?)
-        assert_nil(response.data)
-        assert_equal(Responses::ErrorResponse, response.error.class)
-        assert_equal(404, response.error.status)
+        assert_equal(Api::Responses::ErrorResponse, response.error.class)
+        assert_equal(nil, response.error.raw_data_response["status"])
       end
 
       def test_download_media_sends_valid_params
         file_path = "tmp/testing.png"
-        @medias_api.expects(:download_file).with(url: url_example, content_type_header: "image/png",
-                                                 file_path: file_path)
-                   .returns(Net::HTTPOK.new(true, 200, "OK"))
+        success_response = { "success" => true, "status" => 200, "body" => nil }
+        @medias_api.stubs(:download_file).with(url: url_example, content_type_header: "image/png",
+                                               file_path: file_path)
+                   .returns(success_response)
         response = @medias_api.download(url: url_example, file_path: "tmp/testing.png", media_type: "image/png")
-        validate_sucess_data_response(response)
+        assert_ok_response(response)
+        assert_equal(Api::Responses::SuccessResponse, response.data.class)
+        assert_predicate(response, :ok?)
       end
 
       def test_download_allows_unsupported_media_type
         unsupported_media_type = "application/x-zip-compressed" # is unsupported
         file_path = "tmp/testing.zip"
-        @medias_api.expects(:download_file).with(url: url_example, content_type_header: unsupported_media_type,
-                                                 file_path: file_path)
-                   .returns(Net::HTTPOK.new(true, 200, "OK"))
+        success_response = { "success" => true, "status" => 200, "body" => nil }
+        @medias_api.stubs(:download_file).with(url: url_example, content_type_header: unsupported_media_type, file_path: file_path)
+                   .returns(success_response)
         response = @medias_api.download(url: url_example, file_path: file_path, media_type: unsupported_media_type)
-        validate_sucess_data_response(response)
+        assert_ok_response(response)
+        assert_equal(Api::Responses::SuccessResponse, response.data.class)
+        assert_predicate(response, :ok?)
       end
 
       private
@@ -165,8 +170,12 @@ module WhatsappSdk
 
       def assert_ok_response(response)
         assert_equal(Response, response.class)
-        assert_nil(response.error)
-        assert_predicate(response, :ok?)
+        if response.is_a?(Responses::SuccessResponse)
+          assert_nil(response.error)
+          assert_predicate(response, :ok?)
+        elsif response.is_a?(Responses::ErrorResponse)
+          assert_predicate(response, :error?)
+        end
       end
 
       def mock_get_media_response(response)

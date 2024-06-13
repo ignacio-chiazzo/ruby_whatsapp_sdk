@@ -13,7 +13,7 @@ module WhatsappSdk
 
         sig { params(response: T::Hash[T.untyped, T.untyped]).void }
         def initialize(response:)
-          @template = parse_template(response)
+          @template = T.let(parse_template(response), ::WhatsappSdk::Resource::Template)
 
           super(response)
         end
@@ -38,8 +38,8 @@ module WhatsappSdk
 
           ::WhatsappSdk::Resource::Template.new(
             id: id,
-            status: status,
-            category: category,
+            status: T.must(status),
+            category: T.must(category),
             language: language,
             name: name,
             components_json: components_json

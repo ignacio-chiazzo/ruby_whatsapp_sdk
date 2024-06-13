@@ -55,7 +55,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::MediaDataResponse
         )
       end
@@ -77,17 +77,19 @@ module WhatsappSdk
         content_type_header = map_media_type_to_content_type_header(media_type)
 
         response = download_file(url: url, file_path: file_path, content_type_header: content_type_header)
-        response = if response.code.to_i == 200
-                     { "success" => true }
-                   else
-                     { "error" => true, "status" => response.code }
-                   end
-
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::SuccessResponse,
-          error_class_type: Api::Responses::ErrorResponse
-        )
+        if response["status"].to_i == 200
+          Api::Response.new(
+            response: response,
+            data_class_type: Api::Responses::SuccessResponse,
+            error_class_type: Api::Responses::ErrorResponse
+          )
+        else
+          Api::Response.new(
+            response: response,
+            data_class_type: Api::Responses::SuccessResponse,
+            error_class_type: Api::Responses::ErrorResponse
+          )
+        end
       end
 
       # Upload a media.
@@ -123,7 +125,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::MediaDataResponse
         )
       end
@@ -140,13 +142,14 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::SuccessResponse
         )
       end
 
       private
 
+      sig { params(media_type: String).returns(String) }
       def map_media_type_to_content_type_header(media_type)
         # Media type maps 1:1 to the content-type header.
         # The list of supported types are in MediaTypes::SUPPORTED_TYPES.
@@ -155,6 +158,7 @@ module WhatsappSdk
         media_type
       end
 
+      sig { params(media_type: String).returns(T::Boolean) }
       def valid_media_type?(media_type)
         Resource::MediaTypes::SUPPORTED_MEDIA_TYPES.include?(media_type)
       end

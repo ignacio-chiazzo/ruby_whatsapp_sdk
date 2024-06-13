@@ -38,12 +38,13 @@ module WhatsappSdk
 
       sig { params(title: String, id: String).void }
       def initialize(title:, id:)
-        @type = Type::Reply
+        @type = T.let(Type::Reply, Type)
         @title = title
         @id = id
         validate
       end
 
+      sig { returns(T::Hash[T.untyped, T.untyped]) }
       def to_json
         json = { type: type.serialize }
         json[type.serialize.to_sym] = {

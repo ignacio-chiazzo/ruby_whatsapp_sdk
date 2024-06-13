@@ -16,18 +16,18 @@ module WhatsappSdk
       # NOTE: Cloud API may decide to allow more media types to be downloaded, since the support differs depending on
       # the used client.
 
-      AUDIO_TYPES = %w[audio/aac audio/mp4 audio/mpeg audio/amr audio/ogg].freeze
-      DOCUMENT_TYPES = %w[
+      AUDIO_TYPES = T.let(%w[audio/aac audio/mp4 audio/mpeg audio/amr audio/ogg].freeze, T::Array[String])
+      DOCUMENT_TYPES = T.let(%w[
         text/plain application/pdf application/vnd.ms-powerpoint application/msword application/vnd.ms-excel
         application/vnd.openxmlformats-officedocument.wordprocessingml.document
         application/vnd.openxmlformats-officedocument.presentationml.presentation
         application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-      ].freeze
-      IMAGE_TYPES = %w[image/jpeg image/png].freeze
-      STICKER_TYPES = %w[image/webp].freeze
-      VIDEO_TYPES = %w[video/mp4 video/3gp].freeze
+      ].freeze, T::Array[String])
+      IMAGE_TYPES = T.let(%w[image/jpeg image/png].freeze, T::Array[String])
+      STICKER_TYPES = T.let(%w[image/webp].freeze, T::Array[String])
+      VIDEO_TYPES = T.let(%w[video/mp4 video/3gp].freeze, T::Array[String])
 
-      SUPPORTED_MEDIA_TYPES = [AUDIO_TYPES + DOCUMENT_TYPES + IMAGE_TYPES + STICKER_TYPES + VIDEO_TYPES].flatten.freeze
+      SUPPORTED_MEDIA_TYPES = T.let([AUDIO_TYPES + DOCUMENT_TYPES + IMAGE_TYPES + STICKER_TYPES + VIDEO_TYPES].flatten.freeze, T::Array[T.untyped])
     end
   end
 end

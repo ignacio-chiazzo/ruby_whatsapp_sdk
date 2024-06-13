@@ -86,7 +86,8 @@ module WhatsappSdk
                 rows: [
                   {
                     id: "section_row",
-                    title: "I am the row title"
+                    title: "I am the row title",
+                    description: ""
                   }
                 ]
               }

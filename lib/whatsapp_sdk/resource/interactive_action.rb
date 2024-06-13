@@ -84,12 +84,14 @@ module WhatsappSdk
         json
       end
 
+      sig { void }
       def validate
         validate_fields
       end
 
       private
 
+      sig { void }
       def validate_fields
         case type.serialize
         when "list_message"
@@ -99,6 +101,7 @@ module WhatsappSdk
         end
       end
 
+      sig { returns(T::Array[InteractiveActionSection]) }
       def validate_list_message
         button_length = button.length
         sections_count = sections.length
@@ -122,6 +125,7 @@ module WhatsappSdk
         sections.each(&:validate)
       end
 
+      sig { returns(NilClass) }
       def validate_reply_button
         buttons_count = buttons.length
         unless (REPLY_BUTTONS_MINIMUM..REPLY_BUTTONS_MAXIMUM).cover?(buttons_count)

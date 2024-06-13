@@ -4,6 +4,7 @@
 require 'test_helper'
 require 'api/client'
 require 'api/api_configuration'
+require 'webmock/minitest'
 
 module WhatsappSdk
   module Api
@@ -13,7 +14,7 @@ module WhatsappSdk
       end
 
       def test_send_request_post_with_success_response
-        stub_test_request(:post, body: { 'foo' => 'bar' },
+        stub_test_request(method_name: :post, body: { 'foo' => 'bar' },
                                  headers: { 'Content-Type' => 'application/x-www-form-urlencoded' })
 
         response_body = @client.send_request(endpoint: 'test',
@@ -24,7 +25,7 @@ module WhatsappSdk
       end
 
       def test_send_request_post_json_content_with_success_response
-        stub_test_request(:post, body: { 'foo' => 'bar' }.to_json, headers: { 'Content-Type' => 'application/json' })
+        stub_test_request(method_name: :post, body: { 'foo' => 'bar' }.to_json, headers: { 'Content-Type' => 'application/json' })
 
         response_body = @client.send_request(endpoint: 'test',
                                              http_method: 'post',
@@ -34,15 +35,14 @@ module WhatsappSdk
       end
 
       def test_send_request_get_with_success_response
-        stub_test_request(:get)
+        stub_test_request(method_name: :get)
 
-        response_body = @client.send_request(endpoint: 'test',
-                                             http_method: 'get')
+        response_body = @client.send_request(endpoint: 'test', http_method: 'get')
         assert_equal({ 'success' => true }, response_body)
       end
 
       def test_send_request_delete_with_success_response
-        stub_test_request(:delete, response_status: 204, response_body: "")
+        stub_test_request(method_name: :delete, response_status: 204, response_body: "")
 
         response_body = @client.send_request(endpoint: 'test', http_method: 'delete')
         assert_nil(response_body)
@@ -66,7 +66,7 @@ module WhatsappSdk
         logger_io = StringIO.new
         client = Client.new('test_token', ApiConfiguration::DEFAULT_API_VERSION, Logger.new(logger_io))
 
-        stub_test_request(:get)
+        stub_test_request(method_name: :get)
         client.send_request(endpoint: 'test', http_method: 'get')
 
         logged_string = logger_io.string
@@ -86,7 +86,7 @@ module WhatsappSdk
           { bodies: true }
         )
 
-        stub_test_request(:get)
+        stub_test_request(method_name: :get)
         client.send_request(endpoint: 'test', http_method: 'get')
 
         logged_string = logger_io.string
@@ -102,9 +102,9 @@ module WhatsappSdk
 
       private
 
-      def stub_test_request(method_name, body: {}, headers: {}, response_status: 200, response_body: { success: true },
+      def stub_test_request(method_name:, body: {}, headers: {}, response_status: 200, response_body: { success: true },
                             api_version: ApiConfiguration::DEFAULT_API_VERSION)
-        stub_request(method_name, "#{ApiConfiguration::API_URL}/#{api_version}/test")
+        WebMock.stub_request(method_name, "#{ApiConfiguration::API_URL}/#{api_version}/test")
           .with(body: body, headers: { 'Accept' => '*/*',
                                        'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
                                        'Authorization' => 'Bearer test_token' }.merge(headers))

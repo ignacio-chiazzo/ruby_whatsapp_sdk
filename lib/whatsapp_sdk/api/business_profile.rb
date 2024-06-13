@@ -18,8 +18,8 @@ module WhatsappSdk
 
         sig { params(vertical: String).void }
         def initialize(vertical:)
-          @message = "invalid vertical #{vertical}. See the supported types in the official documentation " \
-                     "https://developers.facebook.com/docs/whatsapp/cloud-api/reference/business-profiles"
+          @message = T.let("invalid vertical #{vertical}. See the supported types in the official documentation " \
+                           "https://developers.facebook.com/docs/whatsapp/cloud-api/reference/business-profiles", String)
           super
         end
       end
@@ -42,7 +42,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::BusinessProfileDataResponse
         )
       end
@@ -60,7 +60,7 @@ module WhatsappSdk
       def update(phone_number_id:, params:)
         # this is a required field
         params[:messaging_product] = 'whatsapp'
-        return raise InvalidVertical.new(vertical: params[:vertical]) unless valid_vertical?(params)
+        raise InvalidVertical.new(vertical: params[:vertical]) unless valid_vertical?(params)
 
         response = send_request(
           http_method: "post",
@@ -69,7 +69,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::SuccessResponse
         )
       end

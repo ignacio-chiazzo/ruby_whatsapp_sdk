@@ -7,11 +7,11 @@ require_relative "response"
 module WhatsappSdk
   module Api
     class PhoneNumbers < Request
-      DEFAULT_FIELDS = %i[
+      DEFAULT_FIELDS = T.let(%i[
         id is_official_business_account display_phone_number verified_name account_mode quality_rating
         certificate code_verification_status eligibility_for_api_business_global_search is_pin_enabled
         name_status new_name_status status search_visibility messaging_limit_tier
-      ].join(",").freeze
+      ].join(",").freeze, String)
 
       # Get list of registered numbers.
       #
@@ -25,7 +25,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::PhoneNumbersDataResponse
         )
       end
@@ -42,7 +42,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::PhoneNumberDataResponse
         )
       end
@@ -66,7 +66,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::PhoneNumberDataResponse
         )
       end
@@ -88,7 +88,7 @@ module WhatsappSdk
         )
 
         Api::Response.new(
-          response: response,
+          response: T.must(response),
           data_class_type: Api::Responses::PhoneNumberDataResponse
         )
       end

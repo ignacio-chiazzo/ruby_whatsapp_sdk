@@ -12,8 +12,6 @@ module WhatsappSdk
   class Configuration
     extend T::Sig
 
-    logger_or_subclass_or_nil = T.nilable(T.any(Logger, T.class_of(Logger)))
-
     sig { returns(String) }
     attr_accessor :access_token
 
@@ -21,18 +19,18 @@ module WhatsappSdk
     attr_accessor :api_version
 
     # loggers like ActiveSupport::Logger (Rails.logger) is a subclass of Logger
-    sig { returns(logger_or_subclass_or_nil) }
+    sig { returns(T.nilable(T.any(Logger, T.class_of(Logger)))) }
     attr_accessor :logger
 
-    sig { returns(Hash) }
+    sig { returns(T::Hash[T.untyped, T.untyped]) }
     attr_accessor :logger_options
 
     sig do
       params(
         access_token: String,
         api_version: String,
-        logger: logger_or_subclass_or_nil,
-        logger_options: Hash
+        logger: T.nilable(T.any(Logger, T.class_of(Logger))),
+        logger_options: T::Hash[T.untyped, T.untyped]
       ).void
     end
     def initialize(

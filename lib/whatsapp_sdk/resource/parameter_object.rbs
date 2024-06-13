@@ -1,0 +1,74 @@
+module WhatsappSdk
+  module Resource
+    class ParameterObject
+      class InvalidType < StandardError
+        extend T::Sig
+
+        sig { returns(String) }
+        attr_accessor :message
+
+        sig { params(type: String).void }
+        def initialize(type:); end
+      end
+
+      sig { returns(Type) }
+      attr_accessor :type
+
+      class Type < T::Enum
+        extend T::Sig
+
+        enums do
+          Text = new("text")
+          Currency = new("currency")
+          DateTime = new("date_time")
+          Image = new("image")
+          Document = new("document")
+          Video = new("video")
+        end
+      end
+
+      sig { returns(T.nilable(String)) }
+      attr_accessor :text
+
+      sig { returns(T.nilable(Currency)) }
+      attr_accessor :currency
+
+      sig { returns(T.nilable(DateTime)) }
+      attr_accessor :date_time
+
+      sig { returns(T.nilable(Media)) }
+      attr_accessor :image
+
+      sig { returns(T.nilable(Media)) }
+      attr_accessor :document
+
+      sig { returns(T.nilable(Media)) }
+      attr_accessor :video
+
+      sig do
+        params(
+          type: T.any(Type, String), text: T.nilable(String), currency: T.nilable(Currency),
+          date_time: T.nilable(DateTime), image: T.nilable(Media), document: T.nilable(Media), video: T.nilable(Media)
+        ).void
+      end
+      def initialize(type:, text: nil, currency: nil, date_time: nil, image: nil, document: nil, video: nil); end
+
+      sig { returns(T::Hash[T.untyped, T.untyped]) }
+      def to_json; end
+
+      private
+
+      sig { params(type: T.any(String, Type)).returns(Type) }
+      def deserialize_type(type); end
+
+      sig { void }
+      def validate; end
+
+      sig { void }
+      def validate_type; end
+
+      sig { void }
+      def validate_attributes; end
+    end
+  end
+end

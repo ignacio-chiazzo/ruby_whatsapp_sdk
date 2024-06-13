@@ -15,7 +15,7 @@ module WhatsappSdk
       # Returns the ActionSection description you want to send.
       #
       # @returns description [String]. The character limit is 72 characters if present.
-      sig { returns(String) }
+      sig { returns(T.nilable(String)) }
       attr_accessor :description
 
       # Returns the ActionSection unique identifier you want to send.
@@ -37,14 +37,24 @@ module WhatsappSdk
         validate
       end
 
+      sig { returns(T::Hash[T.untyped, T.untyped]) }
       def to_json
         json = {
           id: id,
           title: title
         }
-        json[:description] = description if description.length.positive?
+        json[:description] = T.must(description) if T.must(description).length.positive?
 
         json
+      end
+
+      sig { returns(T::Hash[T.untyped, T.untyped]) }
+      def to_h
+        {
+          id: id,
+          title: title,
+          description: description
+        }
       end
 
       private
@@ -81,7 +91,7 @@ module WhatsappSdk
 
       sig { void }
       def validate_description
-        description_length = description.length
+        description_length = T.must(description).length
         return if description_length <= ACTION_SECTION_DESCRIPTION_MAXIMUM
 
         raise Errors::InvalidInteractiveActionSectionRow,

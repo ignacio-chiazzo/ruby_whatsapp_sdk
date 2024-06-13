@@ -1,0 +1,75 @@
+module WhatsappSdk
+  module Api
+    class Messages < Request
+      DEFAULT_HEADERS: T::Hash[T.untyped, T.untyped]
+
+      def send_text(
+        sender_id: Integer, recipient_number: Integer, message: String,
+        message_id: T.nilable(String)
+      ): Api::Response; end
+
+      def send_location(
+        sender_id: Integer, recipient_number: Integer,
+        longitude: Float, latitude: Float, name: String, address: String,
+        message_id: T.nilable(String)
+      ): Api::Response; end
+
+      def send_image(
+        sender_id: Integer, recipient_number: Integer, image_id: T.nilable(String),
+        link: T.nilable(String), caption: T.nilable(String),
+        message_id: T.nilable(String)
+      ): Api::Response; end
+
+      def send_audio(
+        sender_id: Integer, recipient_number: Integer, audio_id: T.nilable(String),
+        link: T.nilable(String), message_id: T.nilable(String)
+      ): Api::Response; end
+
+      def send_video(
+        sender_id: Integer, recipient_number: Integer,
+        video_id: T.nilable(String), link: T.nilable(String), caption: String,
+        message_id: T.nilable(String)
+      ): Api::Response; end
+
+      def send_document(
+        sender_id: Integer, recipient_number: Integer,
+        document_id: T.nilable(String), link: T.nilable(String), caption: String,
+        message_id: T.nilable(String), filename: T.nilable(String)
+      ): Api::Response; end
+
+      def send_sticker(
+        sender_id: Integer, recipient_number: Integer, sticker_id: T.nilable(String),
+        link: T.nilable(String), message_id: T.nilable(String)
+      ): Api::Response; end
+
+      def send_contacts(
+        sender_id: Integer, recipient_number: Integer,
+        contacts: T.nilable(T::Array[Resource::Contact]),
+        contacts_json: T::Hash[T.untyped, T.untyped], message_id: T.nilable(String)
+      ): Api::Response; end
+
+      def send_interactive_message(
+        sender_id: Integer, recipient_number: Integer,
+        interactive: T.nilable(Resource::Interactive),
+        interactive_json: T.nilable(T::Hash[T.untyped, T.untyped]), message_id: T.nilable(String)
+      ): Api::Response; end
+
+      def read_message(sender_id: Integer, message_id: String): Api::Response; end
+
+      def send_template(
+        sender_id: Integer, recipient_number: Integer, name: String, language: String,
+        components: T.nilable(T::Array[Resource::Component]),
+        components_json: T.nilable(T::Array[T::Hash[T.untyped, T.untyped]])
+      ): Api::Response; end
+
+      def send_reaction(
+        sender_id: Integer, recipient_number: Integer, message_id: String,
+        emoji: T.any(String, Integer)
+      ): Api::Response; end
+
+      private
+
+      def endpoint(sender_id: Integer): String; end
+    end
+  end
+end
