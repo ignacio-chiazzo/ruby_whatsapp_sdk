@@ -1,4 +1,3 @@
-# typed: strict
 # frozen_string_literal: true
 
 require_relative "request"
@@ -13,15 +12,11 @@ require_relative "../resource/languages"
 module WhatsappSdk
   module Api
     class Templates < Request
-      DEFAULT_HEADERS = T.let({ 'Content-Type' => 'application/json' }.freeze, Hash)
+      DEFAULT_HEADERS = { 'Content-Type' => 'application/json' }.freeze
 
       class InvalidCategoryError < StandardError
-        extend T::Sig
-
-        sig { returns(String) }
         attr_reader :category
 
-        sig { params(category: String).void }
         def initialize(category:)
           @category = category
 
@@ -42,16 +37,6 @@ module WhatsappSdk
       # Set to true to allow us to assign a category based on the template guidelines and the template's contents.
       #   This can prevent your template from being rejected for miscategorization.
       # @return [Response] Response object.
-      sig do
-        params(
-          business_id: Integer,
-          name: String,
-          category: String,
-          language: String,
-          components_json: T.nilable(T::Array[T::Hash[T.untyped, T.untyped]]),
-          allow_category_change: T.nilable(T::Boolean)
-        ).returns(Response)
-      end
       def create(
         business_id:, name:, category:, language:, components_json: nil, allow_category_change: nil
       )
@@ -90,7 +75,6 @@ module WhatsappSdk
       # @param business_id [Integer] The business ID.
       # @param limit [Integer] Optional. Number of templates to return in a single page.
       # @return [Response] Response object.
-      sig { params(business_id: Integer, limit: T.nilable(Integer)).returns(Response) }
       def templates(business_id:, limit: 100)
         params = {}
         params["limit"] = limit if limit
@@ -113,7 +97,6 @@ module WhatsappSdk
       #
       # @param business_id [Integer] The business ID.
       # @return [Response] Response object.
-      sig { params(business_id: Integer).returns(Response) }
       def get_message_template_namespace(business_id:)
         response = send_request(
           endpoint: business_id.to_s,
@@ -173,13 +156,6 @@ module WhatsappSdk
       # @param hsm_id [String] Optional. The template's id.
       #
       # @return [Response] Response object.
-      sig do
-        params(
-          business_id: Integer,
-          name: String,
-          hsm_id: T.nilable(String)
-        ).returns(Response)
-      end
       def delete(business_id:, name:, hsm_id: nil)
         params = { name: name }
         params[:hsm_id] = hsm_id if hsm_id

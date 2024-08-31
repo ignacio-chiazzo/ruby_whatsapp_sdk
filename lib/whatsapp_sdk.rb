@@ -11,9 +11,6 @@ loader.setup
 
 module WhatsappSdk
   class << self
-    extend T::Sig
-
-    sig { returns(Configuration) }
     def configuration
       @configuration ||= Configuration.new
     end

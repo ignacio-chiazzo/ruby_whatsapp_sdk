@@ -1,4 +1,3 @@
-# typed: strict
 # frozen_string_literal: true
 
 require "faraday"
@@ -14,12 +13,8 @@ module WhatsappSdk
   module Api
     class Medias < Request
       class FileNotFoundError < StandardError
-        extend T::Sig
-
-        sig { returns(String) }
         attr_reader :file_path
 
-        sig { params(file_path: String).void }
         def initialize(file_path:)
           @file_path = file_path
 
@@ -29,12 +24,8 @@ module WhatsappSdk
       end
 
       class InvalidMediaTypeError < StandardError
-        extend T::Sig
-
-        sig { returns(String) }
         attr_reader :media_type
 
-        sig { params(media_type: String).void }
         def initialize(media_type:)
           @media_type = media_type
           message =  "Invalid Media Type #{media_type}. See the supported types in the official documentation " \
@@ -47,7 +38,6 @@ module WhatsappSdk
       #
       # @param media_id [String] Media Id.
       # @return [Api::Response] Response object.
-      sig { params(media_id: String).returns(Api::Response) }
       def media(media_id:)
         response = send_request(
           http_method: "get",
@@ -68,7 +58,6 @@ module WhatsappSdk
       #  documentation https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media#supported-media-types,
       #  but note that the API may allow more depending on the client.
       # @return [Api::Response] Response object.
-      sig { params(url: String, file_path: String, media_type: String).returns(Api::Response) }
       def download(url:, file_path:, media_type:)
         # Allow download of unsupported media types, since Cloud API may decide to let it through.
         #   https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/discussions/127
@@ -97,14 +86,6 @@ module WhatsappSdk
       # see the official documentation https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media#supported-media-types.
       #
       # @return [Api::Response] Response object.
-      sig do
-        params(
-          sender_id: Integer,
-          file_path: String,
-          type: String,
-          headers: T::Hash[String, String]
-        ).returns(Api::Response)
-      end
       def upload(sender_id:, file_path:, type:, headers: {})
         raise FileNotFoundError.new(file_path: file_path) unless File.file?(file_path)
 
@@ -132,7 +113,6 @@ module WhatsappSdk
       #
       # @param media_id [String] Media Id.
       # @return [Api::Response] Response object.
-      sig { params(media_id: String).returns(Api::Response) }
       def delete(media_id:)
         response = send_request(
           http_method: "delete",

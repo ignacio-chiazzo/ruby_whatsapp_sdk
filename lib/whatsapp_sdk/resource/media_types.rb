@@ -1,11 +1,8 @@
-# typed: strict
 # frozen_string_literal: true
 
 module WhatsappSdk
   module Resource
     class MediaTypes
-      extend T::Sig
-
       # The media types supported by Whatsapp. The list contains all the types defined in the Whatsapp API
       # documentation: https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media#supported-media-types
       #

@@ -4,7 +4,7 @@
 module WhatsappSdk
   module Api
     class Request
-      extend T::Sig
+
 
       def initialize(client = WhatsappSdk.configuration.client)
         @client = client

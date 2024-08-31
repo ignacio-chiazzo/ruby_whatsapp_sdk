@@ -1,4 +1,3 @@
-# typed: strict
 # frozen_string_literal: true
 
 require_relative "data_response"
@@ -8,24 +7,15 @@ module WhatsappSdk
   module Api
     module Responses
       class MessageTemplateNamespaceDataResponse < DataResponse
-        sig { returns(String) }
-        attr_accessor :message_template_namespace
+        attr_accessor :message_template_namespace, :id
 
-        sig { returns(String) }
-        attr_accessor :id
-
-        sig { params(response: T::Hash[T.untyped, T.untyped]).void }
         def initialize(response)
-          @id = T.let(response["id"], String)
-          @message_template_namespace = T.let(response["message_template_namespace"], String)
+          @id = response["id"]
+          @message_template_namespace = response["message_template_namespace"]
 
           super(response)
         end
 
-        sig do
-          override.params(response: T::Hash[T.untyped, T.untyped])
-                  .returns(T.nilable(MessageTemplateNamespaceDataResponse))
-        end
         def self.build_from_response(response:)
           return unless response["id"]
 
