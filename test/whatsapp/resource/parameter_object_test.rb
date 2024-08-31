@@ -22,7 +22,8 @@ module WhatsappSdk
           @video_media = Media.new(type: Media::Type::Video, id: "123")
           @currency = Currency.new(code: "USD", amount: 1000, fallback_value: "USD")
           @date_time = DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
-          @location = Location.new(latitude: 25.779510, longitude: -80.338631, name: "Miami Store", address: "820 NW 87th Ave, Miami, FL")
+          @location = Location.new(latitude: 25.779510, longitude: -80.338631, name: "Miami Store",
+                                   address: "820 NW 87th Ave, Miami, FL")
         end
 
         [

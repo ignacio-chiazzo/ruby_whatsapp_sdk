@@ -1,3 +1,6 @@
+# typed: false
+# frozen_string_literal: true
+
 module WhatsappSdk
   module Resource
     class Location

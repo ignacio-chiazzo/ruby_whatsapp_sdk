@@ -579,7 +579,8 @@ module WhatsappSdk
         currency = Resource::Currency.new(code: "USD", amount: 1000, fallback_value: "1000")
         date_time = Resource::DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
         image = Resource::Media.new(type: Resource::Media::Type::Image, link: "http(s)://URL")
-        location = Resource::Location.new(latitude: 25.779510, longitude: -80.338631, name: "miami store", address: "820 nw 87th ave, miami, fl")
+        location = Resource::Location.new(latitude: 25.779510, longitude: -80.338631, name: "miami store",
+                                          address: "820 nw 87th ave, miami, fl")
 
         parameter_image = Resource::ParameterObject.new(
           type: Resource::ParameterObject::Type::Image, image: image

@@ -93,7 +93,16 @@ module WhatsappSdk
           location: T.nilable(Location)
         ).void
       end
-      def initialize(type:, text: nil, currency: nil, date_time: nil, image: nil, document: nil, video: nil, location: nil)
+      def initialize(
+        type:,
+        text: nil,
+        currency: nil,
+        date_time: nil,
+        image: nil,
+        document: nil,
+        video: nil,
+        location: nil
+      )
         @type = T.let(deserialize_type(type), Type)
         @text = text
         @currency = currency
