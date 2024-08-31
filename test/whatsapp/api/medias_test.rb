@@ -95,7 +95,7 @@ module WhatsappSdk
         type = "image/png"
 
         file_part = mock
-        T.unsafe(Faraday::FilePart).stubs(:new).returns(file_part)
+        Faraday::FilePart.stubs(:new).returns(file_part)
 
         custom_headers = {
           "Cache-Control" => "no-cache",

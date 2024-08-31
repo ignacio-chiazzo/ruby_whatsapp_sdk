@@ -43,7 +43,7 @@ module WhatsappSdk
             end
 
             error = assert_raises(Errors::MissingValue) do
-              T.unsafe(ParameterObject).new(type: type, attr_name => object)
+              ParameterObject.new(type: type, attr_name => object)
             end
 
             assert_equal(type.serialize, error.field)
