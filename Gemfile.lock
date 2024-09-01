@@ -4,7 +4,6 @@ PATH
     whatsapp_sdk (0.12.1)
       faraday (~> 2)
       faraday-multipart (~> 1)
-      sorbet-runtime (~> 0.5)
       zeitwerk (~> 2)
 
 GEM
@@ -58,22 +57,8 @@ GEM
     rubocop-performance (1.14.2)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
-    rubocop-sorbet (0.7.0)
-      rubocop (>= 0.90.0)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
-    sorbet (0.5.10346)
-      sorbet-static (= 0.5.10346)
-    sorbet-runtime (0.5.10346)
-    sorbet-static (0.5.10346-universal-darwin-19)
-    sorbet-static (0.5.10346-universal-darwin-21)
-    sorbet-static (0.5.10346-x86_64-linux)
-    spoom (1.1.12)
-      sorbet (>= 0.5.9204)
-      sorbet-runtime (>= 0.5.9204)
-      thor (>= 0.19.2)
-    tapioca (0.0.1)
-    thor (1.2.1)
     unicode-display_width (2.2.0)
     webmock (3.18.1)
       addressable (>= 2.8.0)
@@ -97,10 +82,6 @@ DEPENDENCIES
   rubocop
   rubocop-minitest
   rubocop-performance
-  rubocop-sorbet
-  sorbet
-  spoom
-  tapioca
   webmock
   whatsapp_sdk!
 

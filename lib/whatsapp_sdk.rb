@@ -4,7 +4,6 @@
 require "zeitwerk"
 require "faraday"
 require "faraday/multipart"
-require "sorbet-runtime"
 
 loader = Zeitwerk::Loader.for_gem
 loader.setup
