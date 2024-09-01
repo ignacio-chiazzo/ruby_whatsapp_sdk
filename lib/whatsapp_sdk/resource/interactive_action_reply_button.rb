@@ -3,10 +3,8 @@
 module WhatsappSdk
   module Resource
     class InteractiveActionReplyButton
-      class Type < T::Enum
-        enums do
-          Reply = new("reply")
-        end
+      module Type
+        REPLY = "reply"
       end
 
       # Returns the ActionButton type of message you want to send.
@@ -29,15 +27,15 @@ module WhatsappSdk
       ACTION_BUTTON_ID_MAXIMUM = 256
 
       def initialize(title:, id:)
-        @type = Type::Reply
+        @type = Type::REPLY
         @title = title
         @id = id
         validate
       end
 
       def to_json
-        json = { type: type.serialize }
-        json[type.serialize.to_sym] = {
+        json = { type: type }
+        json[type.to_sym] = {
           id: id,
           title: title
         }

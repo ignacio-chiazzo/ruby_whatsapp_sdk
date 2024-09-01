@@ -7,7 +7,7 @@ module WhatsappSdk
     module Responses
       class BusinessProfileDataResponse < DataResponse
         attr_accessor :about, :address, :description, :email, :messaging_product,
-          :profile_picture_url, :vertical, :websites
+                      :profile_picture_url, :vertical, :websites
 
         def initialize(response)
           @about = response["data"][0]["about"]

@@ -13,41 +13,41 @@ module WhatsappSdk
     module Resource
       class ComponentTest < Minitest::Test
         def test_button_index_is_set_to_0_by_default
-          button_component = Component.new(type: Component::Type::Button, sub_type: Component::Subtype::QuickReply)
+          button_component = Component.new(type: Component::Type::BUTTON, sub_type: Component::Subtype::QUICK_REPLY)
           assert_equal(0, button_component.index)
         end
 
         def test_validation
           error = assert_raises(Component::InvalidField) do
-            Component.new(type: Component::Type::Header, sub_type: Component::Subtype::QuickReply)
+            Component.new(type: Component::Type::HEADER, sub_type: Component::Subtype::QUICK_REPLY)
           end
           assert_equal("sub_type is not required when type is not button", error.message)
           assert_equal(:sub_type, error.field)
 
           error = assert_raises(Component::InvalidField) do
-            Component.new(type: Component::Type::Header, index: 0)
+            Component.new(type: Component::Type::HEADER, index: 0)
           end
           assert_equal("index is not required when type is not button", error.message)
           assert_equal(:index, error.field)
         end
 
         def test_add_parameters
-          image = Media.new(type: Media::Type::Image,
+          image = Media.new(type: Media::Type::IMAGE,
                             link: "http(s)://URL", caption: "caption")
-          document = Media.new(type: Media::Type::Document,
+          document = Media.new(type: Media::Type::DOCUMENT,
                                link: "http(s)://URL", filename: "txt.rb")
-          video = Media.new(type: Media::Type::Video, id: "123")
+          video = Media.new(type: Media::Type::VIDEO, id: "123")
           currency = Currency.new(code: "USD", amount: 1000, fallback_value: "1000")
           date_time = DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
 
-          parameter_text = ParameterObject.new(type: ParameterObject::Type::Text, text: "I am a text")
-          parameter_currency = ParameterObject.new(type: ParameterObject::Type::Currency, currency: currency)
-          parameter_date_time = ParameterObject.new(type: ParameterObject::Type::DateTime, date_time: date_time)
-          parameter_image = ParameterObject.new(type: ParameterObject::Type::Image, image: image)
-          parameter_document = ParameterObject.new(type: ParameterObject::Type::Document, document: document)
-          parameter_video = ParameterObject.new(type: ParameterObject::Type::Video, video: video)
+          parameter_text = ParameterObject.new(type: ParameterObject::Type::TEXT, text: "I am a text")
+          parameter_currency = ParameterObject.new(type: ParameterObject::Type::CURRENCY, currency: currency)
+          parameter_date_time = ParameterObject.new(type: ParameterObject::Type::DATE_TIME, date_time: date_time)
+          parameter_image = ParameterObject.new(type: ParameterObject::Type::IMAGE, image: image)
+          parameter_document = ParameterObject.new(type: ParameterObject::Type::DOCUMENT, document: document)
+          parameter_video = ParameterObject.new(type: ParameterObject::Type::VIDEO, video: video)
 
-          header_component = Component.new(type: Component::Type::Header)
+          header_component = Component.new(type: Component::Type::HEADER)
 
           header_component.add_parameter(parameter_text)
           header_component.add_parameter(parameter_currency)
@@ -67,11 +67,11 @@ module WhatsappSdk
         end
 
         def test_to_json_header_component
-          image = Media.new(type: Media::Type::Image, link: "http(s)://URL", caption: "caption")
-          parameter_image = ParameterObject.new(type: ParameterObject::Type::Image, image: image)
+          image = Media.new(type: Media::Type::IMAGE, link: "http(s)://URL", caption: "caption")
+          parameter_image = ParameterObject.new(type: ParameterObject::Type::IMAGE, image: image)
 
           header_component = Component.new(
-            type: Component::Type::Header,
+            type: Component::Type::HEADER,
             parameters: [parameter_image]
           )
 
@@ -93,16 +93,16 @@ module WhatsappSdk
         end
 
         def test_to_json_body_component
-          parameter_text = ParameterObject.new(type: ParameterObject::Type::Text, text: "I am a text")
+          parameter_text = ParameterObject.new(type: ParameterObject::Type::TEXT, text: "I am a text")
 
           currency = Currency.new(code: "USD", amount: 1000, fallback_value: "1000")
-          parameter_currency = ParameterObject.new(type: ParameterObject::Type::Currency, currency: currency)
+          parameter_currency = ParameterObject.new(type: ParameterObject::Type::CURRENCY, currency: currency)
 
           date_time = DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
-          parameter_date_time = ParameterObject.new(type: ParameterObject::Type::DateTime, date_time: date_time)
+          parameter_date_time = ParameterObject.new(type: ParameterObject::Type::DATE_TIME, date_time: date_time)
 
           body_component = Component.new(
-            type: Component::Type::Body,
+            type: Component::Type::BODY,
             parameters: [parameter_text, parameter_currency, parameter_date_time]
           )
 
@@ -136,12 +136,12 @@ module WhatsappSdk
 
         def test_to_json_button_component
           button_component = Component.new(
-            type: Component::Type::Button,
+            type: Component::Type::BUTTON,
             index: 0,
-            sub_type: Component::Subtype::QuickReply,
+            sub_type: Component::Subtype::QUICK_REPLY,
             parameters: [
-              ButtonParameter.new(type: ButtonParameter::Type::Payload, payload: "payload"),
-              ButtonParameter.new(type: ButtonParameter::Type::Text, text: "text")
+              ButtonParameter.new(type: ButtonParameter::Type::PAYLOAD, payload: "payload"),
+              ButtonParameter.new(type: ButtonParameter::Type::TEXT, text: "text")
             ]
           )
 

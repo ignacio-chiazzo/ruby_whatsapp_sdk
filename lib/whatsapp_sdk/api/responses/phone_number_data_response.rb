@@ -7,9 +7,9 @@ module WhatsappSdk
     module Responses
       class PhoneNumberDataResponse < DataResponse
         attr_accessor :id, :verified_name, :display_phone_number, :quality_rating, :is_pin_enabled,
-          :is_official_business_account, :account_mode, :certificate, :code_verification_status,
-          :eligibility_for_api_business_global_search, :name_status, :new_name_status, :status,
-          :search_visibility, :messaging_limit_tier
+                      :is_official_business_account, :account_mode, :certificate, :code_verification_status,
+                      :eligibility_for_api_business_global_search, :name_status, :new_name_status, :status,
+                      :search_visibility, :messaging_limit_tier
 
         def initialize(response)
           @id = response["id"]

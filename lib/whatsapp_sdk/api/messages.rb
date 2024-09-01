@@ -245,7 +245,7 @@ module WhatsappSdk
           messaging_product: "whatsapp",
           to: recipient_number,
           recipient_type: "individual",
-          type: Resource::Media::Type::Sticker
+          type: Resource::Media::Type::STICKER
         }
         params[:sticker] = link ? { link: link } : { id: sticker_id }
         params[:context] = { message_id: message_id } if message_id

@@ -3,13 +3,11 @@
 module WhatsappSdk
   module Resource
     class Interactive
-      class Type < T::Enum
-        enums do
-          ListMessage = new("list")
-          ReplyButton = new("button")
-          SingleProductMessage = new("product")
-          MultiProductMessage = new("product_list")
-        end
+      module Type
+        LIST_MESSAGE = "list"
+        REPLY_BUTTON = "button"
+        SINGLE_PRODUCT_MESSAGE = "product"
+        MULTI_PRODUCT_MESSAGE = "product_list"
       end
 
       # Returns the Interactive type of message you want to send.
@@ -47,7 +45,7 @@ module WhatsappSdk
       end
 
       def to_json
-        json = { type: type.serialize }
+        json = { type: type }
         json[:header] = header.to_json if header
         json[:body] = body.to_json
         json[:footer] = footer.to_json if footer

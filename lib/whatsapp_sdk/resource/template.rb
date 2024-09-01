@@ -3,24 +3,40 @@
 module WhatsappSdk
   module Resource
     class Template
-      class Status < T::Enum
-        enums do
-          PENDING_DELETION = new("PENDING_DELETION")
-          APPROVED = new("APPROVED")
-          PENDING = new("PENDING")
-          REJECTED = new("REJECTED")
+      module Status
+        PENDING_DELETION = "PENDING_DELETION"
+        APPROVED = "APPROVED"
+        PENDING = "PENDING"
+        REJECTED = "REJECTED"
+
+        STATUSES = [PENDING_DELETION, APPROVED, PENDING, REJECTED].freeze
+
+        def valid?(status)
+          STATUSES.include?(status)
+        end
+
+        def serialize(status)
+          STATUSES.include?(status) ? status : nil
         end
       end
 
-      class Category < T::Enum
-        enums do
-          AUTHENTICATION = new("AUTHENTICATION")
-          MARKETING = new("MARKETING")
-          UTILITY = new("UTILITY")
+      module Category
+        AUTHENTICATION = "AUTHENTICATION"
+        MARKETING = "MARKETING"
+        UTILITY = "UTILITY"
+
+        CATEGORIES = [AUTHENTICATION, MARKETING, UTILITY].freeze
+
+        def self.valid?(category)
+          CATEGORIES.include?(category)
+        end
+
+        def self.serialize(category)
+          CATEGORIES.include?(category) ? category : nil
         end
       end
 
-      attr_accessor :id,:status, :category, :language, :name, :components_json
+      attr_accessor :id, :status, :category, :language, :name, :components_json
 
       def initialize(id:, status:, category:, language: nil, name: nil, components_json: nil)
         @id = id

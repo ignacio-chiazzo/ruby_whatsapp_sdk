@@ -3,17 +3,14 @@
 module WhatsappSdk
   module Resource
     class ButtonParameter
-
       # Returns the button parameter type.
       #
       # @returns type [String] Valid options are payload and text.
       attr_accessor :type
 
-      class Type < T::Enum
-        enums do
-          Text = new("text")
-          Payload = new("payload")
-        end
+      module Type
+        TEXT = "text"
+        PAYLOAD = "payload"
       end
 
       # Required for quick_reply buttons.
@@ -37,7 +34,7 @@ module WhatsappSdk
 
       def to_json
         json = {
-          type: type.serialize
+          type: type
         }
         json[:payload] = payload if payload
         json[:text] = text if text

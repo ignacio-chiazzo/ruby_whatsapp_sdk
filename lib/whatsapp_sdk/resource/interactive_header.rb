@@ -8,13 +8,11 @@ module WhatsappSdk
       # @returns type [String] Valid options are text, image, document, video.
       attr_accessor :type
 
-      class Type < T::Enum
-        enums do
-          Text = new("text")
-          Image = new("image")
-          Document = new("document")
-          Video = new("video")
-        end
+      module Type
+        TEXT = "text"
+        IMAGE = "image"
+        DOCUMENT = "document"
+        VIDEO = "video"
       end
 
       # Returns Text string if the interactive header type is text.
@@ -40,7 +38,7 @@ module WhatsappSdk
       attr_accessor :video
 
       def initialize(type:, text: nil, image: nil, document: nil, video: nil)
-        @type = deserialize_type(type)
+        @type = type
         @text = text
         @image = image
         @document = document
@@ -49,30 +47,24 @@ module WhatsappSdk
       end
 
       def to_json
-        json = { type: type.serialize }
-        json[type.serialize.to_sym] = case type.serialize
-                                      when "text"
-                                        text
-                                      when "image"
-                                        image.to_json
-                                      when "document"
-                                        document.to_json
-                                      when "video"
-                                        video.to_json
-                                      else
-                                        raise "Invalid type: #{type}"
-                                      end
+        json = { type: type }
+        json[type.to_sym] = case type
+                            when "text"
+                              text
+                            when "image"
+                              image.to_json
+                            when "document"
+                              document.to_json
+                            when "video"
+                              video.to_json
+                            else
+                              raise "Invalid type: #{type}"
+                            end
 
         json
       end
 
       private
-
-      def deserialize_type(type)
-        return type if type.is_a?(Type)
-
-        Type.deserialize(type)
-      end
 
       def validate
         validate_attributes
@@ -80,18 +72,18 @@ module WhatsappSdk
 
       def validate_attributes
         [
-          [Type::Text, text],
-          [Type::Image, image],
-          [Type::Document, document],
-          [Type::Video, video]
+          [Type::TEXT, text],
+          [Type::IMAGE, image],
+          [Type::DOCUMENT, document],
+          [Type::VIDEO, video]
         ].each do |type_b, value|
           next unless type == type_b
 
           next unless value.nil?
 
           raise Resource::Errors::MissingValue.new(
-            type.serialize,
-            "#{type.serialize} is required when the type is #{type_b}"
+            type,
+            "#{type} is required when the type is #{type_b}"
           )
         end
       end

@@ -40,7 +40,7 @@ module WhatsappSdk
       def create(
         business_id:, name:, category:, language:, components_json: nil, allow_category_change: nil
       )
-        unless WhatsappSdk::Resource::Template::Category.try_deserialize(category)
+        unless WhatsappSdk::Resource::Template::Category.valid?(category)
           raise InvalidCategoryError.new(category: category)
         end
 
@@ -122,7 +122,7 @@ module WhatsappSdk
       # @param components_json [Json] Components that make up the template..
       # return [Response] Response object.
       def update(template_id:, category: nil, components_json: nil)
-        if category && !WhatsappSdk::Resource::Template::Category.try_deserialize(category)
+        if category && !WhatsappSdk::Resource::Template::Category.valid?(category)
           raise InvalidCategoryError.new(category: category)
         end
 

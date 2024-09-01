@@ -4,8 +4,6 @@
 module WhatsappSdk
   module Api
     class Request
-
-
       def initialize(client = WhatsappSdk.configuration.client)
         @client = client
       end

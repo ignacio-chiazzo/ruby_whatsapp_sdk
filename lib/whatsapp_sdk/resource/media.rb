@@ -4,9 +4,7 @@ module WhatsappSdk
   module Resource
     class Media
       class InvalidMedia < StandardError
-        attr_reader :field
-
-        attr_reader :message
+        attr_reader :field, :message
 
         def initialize(field, message)
           @field = field
@@ -20,14 +18,12 @@ module WhatsappSdk
       # @returns id [String].
       attr_accessor :id
 
-      class Type < T::Enum
-        enums do
-          Audio = new('audio')
-          Document = new('document')
-          Image = new('image')
-          Video = new('video')
-          Sticker = new('sticker')
-        end
+      module Type
+        AUDIO = 'audio'
+        DOCUMENT = 'document'
+        IMAGE = 'image'
+        VIDEO = 'video'
+        STICKER = 'sticker'
       end
 
       # @returns type [String]. Valid options ar audio, document, image, video and sticker.
@@ -50,7 +46,7 @@ module WhatsappSdk
       attr_accessor :filename
 
       def initialize(type:, id: nil, link: nil, caption: nil, filename: nil)
-        @type = deserialize_type(type)
+        @type = type
         @id = id
         @link = link
         @caption = caption
@@ -69,12 +65,6 @@ module WhatsappSdk
 
       private
 
-      def deserialize_type(type)
-        return type if type.is_a?(Type)
-
-        Type.deserialize(type)
-      end
-
       def validate_media
         raise InvalidMedia.new(:filename, "filename can only be used with document") if filename && !supports_filename?
 
@@ -86,11 +76,11 @@ module WhatsappSdk
       end
 
       def supports_filename?
-        type == Type::Document
+        type == Type::DOCUMENT
       end
 
       def supports_caption?
-        type == Type::Document || type == Type::Image
+        type == Type::DOCUMENT || type == Type::IMAGE
       end
     end
   end

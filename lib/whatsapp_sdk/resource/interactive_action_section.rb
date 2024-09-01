@@ -10,7 +10,7 @@ module WhatsappSdk
 
       # Returns the ActionSection rows you want to send.
       #
-      # @returns id [T::Array[InteractiveActionSectionRow]]. There must be at least one rows object.
+      # @returns an array of InteractiveActionSectionRow. There must be at least one rows object.
       attr_accessor :rows
 
       def add_row(row)

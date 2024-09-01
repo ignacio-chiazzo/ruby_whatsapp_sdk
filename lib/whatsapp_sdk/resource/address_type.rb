@@ -2,11 +2,9 @@
 
 module WhatsappSdk
   module Resource
-    class AddressType < T::Enum
-      enums do
-        Home = new("Home")
-        Work = new("Work")
-      end
+    module AddressType
+      HOME = "Home"
+      WORK = "Work"
     end
   end
 end

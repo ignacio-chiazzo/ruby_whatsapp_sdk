@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 
 module WhatsappSdk
@@ -14,19 +13,15 @@ module WhatsappSdk
         end
       end
 
-      class Type < T::Enum
-        enums do
-          Header = new("header")
-          Body = new("body")
-          Button = new("button")
-        end
+      module Type
+        HEADER = "header"
+        BODY = "body"
+        BUTTON = "button"
       end
 
-      class Subtype < T::Enum
-        enums do
-          QuickReply = new("quick_reply")
-          Url = new("url")
-        end
+      module Subtype
+        QUICK_REPLY = "quick_reply"
+        URL = "url"
       end
 
       # Returns the Component type.
@@ -63,16 +58,16 @@ module WhatsappSdk
         @parameters = parameters
         @type = type
         @sub_type = sub_type
-        @index = index.nil? && type == Type::Button ? 0 : index
+        @index = index.nil? && type == Type::BUTTON ? 0 : index
         validate_fields
       end
 
       def to_json
         json = {
-          type: type.serialize,
+          type: type,
           parameters: parameters.map(&:to_json)
         }
-        json[:sub_type] = sub_type&.serialize if sub_type
+        json[:sub_type] = sub_type if sub_type
         json[:index] = index if index
         json
       end
@@ -80,7 +75,7 @@ module WhatsappSdk
       private
 
       def validate_fields
-        return if type == Type::Button
+        return if type == Type::BUTTON
 
         raise InvalidField.new(:sub_type, 'sub_type is not required when type is not button') if sub_type
 

@@ -24,8 +24,8 @@ module WhatsappSdk
         private
 
         def parse_template(template_json)
-          status = ::WhatsappSdk::Resource::Template::Status.try_deserialize(template_json["status"])
-          category = ::WhatsappSdk::Resource::Template::Category.try_deserialize(template_json["category"])
+          status = template_json["status"]
+          category = template_json["category"]
           id = template_json["id"]
           language = template_json["language"]
           name = template_json["name"]

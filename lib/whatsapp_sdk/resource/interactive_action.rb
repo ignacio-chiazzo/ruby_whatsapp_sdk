@@ -3,10 +3,14 @@
 module WhatsappSdk
   module Resource
     class InteractiveAction
-      class Type < T::Enum
-        enums do
-          ListMessage = new("list_message")
-          ReplyButton = new("reply_button")
+      module Type
+        LIST_MESSAGE = "list_message"
+        REPLY_BUTTON = "reply_button"
+
+        TYPES = [LIST_MESSAGE, REPLY_BUTTON].freeze
+
+        def valid?(type)
+          TYPES.include?(type)
         end
       end
 
@@ -56,7 +60,7 @@ module WhatsappSdk
 
       def to_json
         json = {}
-        case type.serialize
+        case type
         when "list_message"
           json = { button: button, sections: sections.map(&:to_json) }
         when "reply_button"
@@ -73,10 +77,10 @@ module WhatsappSdk
       private
 
       def validate_fields
-        case type.serialize
-        when "list_message"
+        case type
+        when Type::LIST_MESSAGE
           validate_list_message
-        when "reply_button"
+        when Type::REPLY_BUTTON
           validate_reply_button
         end
       end

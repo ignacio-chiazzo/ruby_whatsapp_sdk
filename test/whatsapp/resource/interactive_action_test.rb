@@ -8,7 +8,7 @@ module WhatsappSdk
     class InteractionActionTest < Minitest::Test
       def test_validation
         error = assert_raises(Errors::InvalidInteractiveActionButton) do
-          interactive_action = InteractiveAction.new(type: InteractiveAction::Type::ListMessage)
+          interactive_action = InteractiveAction.new(type: InteractiveAction::Type::LIST_MESSAGE)
           interactive_action.validate
         end
         assert_equal(
@@ -17,7 +17,7 @@ module WhatsappSdk
         )
 
         error = assert_raises(Errors::InvalidInteractiveActionButton) do
-          interactive_action = InteractiveAction.new(type: InteractiveAction::Type::ListMessage)
+          interactive_action = InteractiveAction.new(type: InteractiveAction::Type::LIST_MESSAGE)
           interactive_action.button = "I am the longer CTA button"
           interactive_action.validate
         end
@@ -27,7 +27,7 @@ module WhatsappSdk
         )
 
         error = assert_raises(Errors::InvalidInteractiveActionSection) do
-          interactive_action = InteractiveAction.new(type: InteractiveAction::Type::ListMessage)
+          interactive_action = InteractiveAction.new(type: InteractiveAction::Type::LIST_MESSAGE)
           interactive_action.button = "I am the CTA button"
           interactive_action.validate
         end
@@ -37,7 +37,7 @@ module WhatsappSdk
         )
 
         error = assert_raises(Errors::InvalidInteractiveActionReplyButton) do
-          interactive_action = InteractiveAction.new(type: InteractiveAction::Type::ReplyButton)
+          interactive_action = InteractiveAction.new(type: InteractiveAction::Type::REPLY_BUTTON)
           interactive_action.validate
         end
 
@@ -47,7 +47,7 @@ module WhatsappSdk
         )
 
         error = assert_raises(Errors::InvalidInteractiveActionReplyButton) do
-          interactive_action = InteractiveAction.new(type: InteractiveAction::Type::ReplyButton)
+          interactive_action = InteractiveAction.new(type: InteractiveAction::Type::REPLY_BUTTON)
           interactive_reply_button_1 = InteractiveActionReplyButton.new(
             title: "I am the button 1",
             id: "button_1"
@@ -69,7 +69,7 @@ module WhatsappSdk
       end
 
       def test_to_json_list_message
-        interactive_action = InteractiveAction.new(type: InteractiveAction::Type::ListMessage)
+        interactive_action = InteractiveAction.new(type: InteractiveAction::Type::LIST_MESSAGE)
         interactive_action.button = "I am the CTA button"
 
         interactive_section = InteractiveActionSection.new(title: "I am the section title")
@@ -97,7 +97,7 @@ module WhatsappSdk
       end
 
       def test_to_json_reply_button
-        interactive_action = InteractiveAction.new(type: InteractiveAction::Type::ReplyButton)
+        interactive_action = InteractiveAction.new(type: InteractiveAction::Type::REPLY_BUTTON)
         interactive_reply_button = InteractiveActionReplyButton.new(
           title: "I am the button",
           id: "button"

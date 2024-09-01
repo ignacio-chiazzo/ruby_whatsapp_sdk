@@ -444,7 +444,7 @@ module WhatsappSdk
             messaging_product: "whatsapp",
             to: 56_789,
             recipient_type: "individual",
-            type: Resource::Media::Type::Sticker,
+            type: Resource::Media::Type::STICKER,
             sticker: { link: sticker_link }
           },
           headers: { "Content-Type" => "application/json" }
@@ -466,7 +466,7 @@ module WhatsappSdk
             messaging_product: "whatsapp",
             to: 56_789,
             recipient_type: "individual",
-            type: Resource::Media::Type::Sticker,
+            type: Resource::Media::Type::STICKER,
             sticker: { id: sticker_id }
           },
           headers: { "Content-Type" => "application/json" }
@@ -578,59 +578,63 @@ module WhatsappSdk
       def test_send_template_with_success_response_by_passing_components
         currency = Resource::Currency.new(code: "USD", amount: 1000, fallback_value: "1000")
         date_time = Resource::DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
-        image = Resource::Media.new(type: Resource::Media::Type::Image, link: "http(s)://URL")
+        image = Resource::Media.new(type: Resource::Media::Type::IMAGE, link: "http(s)://URL")
         location = Resource::Location.new(latitude: 25.779510, longitude: -80.338631, name: "miami store",
                                           address: "820 nw 87th ave, miami, fl")
 
         parameter_image = Resource::ParameterObject.new(
-          type: Resource::ParameterObject::Type::Image, image: image
+          type: Resource::ParameterObject::Type::IMAGE, image: image
         )
         parameter_text = Resource::ParameterObject.new(
-          type: Resource::ParameterObject::Type::Text, text: "TEXT_STRING"
+          type: Resource::ParameterObject::Type::TEXT, text: "TEXT_STRING"
         )
         parameter_currency = Resource::ParameterObject.new(
-          type: Resource::ParameterObject::Type::Currency, currency: currency
+          type: Resource::ParameterObject::Type::CURRENCY, currency: currency
         )
         parameter_date_time = Resource::ParameterObject.new(
-          type: Resource::ParameterObject::Type::DateTime, date_time: date_time
+          type: Resource::ParameterObject::Type::DATE_TIME, date_time: date_time
         )
         parameter_location = Resource::ParameterObject.new(
-          type: Resource::ParameterObject::Type::Location,
+          type: Resource::ParameterObject::Type::LOCATION,
           location: location
         )
 
         header_component = Resource::Component.new(
-          type: Resource::Component::Type::Header,
+          type: Resource::Component::Type::HEADER,
           parameters: [parameter_image]
         )
 
         body_component = Resource::Component.new(
-          type: Resource::Component::Type::Body,
+          type: Resource::Component::Type::BODY,
           parameters: [parameter_text, parameter_currency, parameter_date_time]
         )
 
         button_component1 = Resource::Component.new(
-          type: Resource::Component::Type::Button,
+          type: Resource::Component::Type::BUTTON,
           index: 0,
-          sub_type: Resource::Component::Subtype::QuickReply,
+          sub_type: Resource::Component::Subtype::QUICK_REPLY,
           parameters: [
-            Resource::ButtonParameter.new(type: Resource::ButtonParameter::Type::Payload,
-                                          payload: "PAYLOAD")
+            Resource::ButtonParameter.new(
+              type: Resource::ButtonParameter::Type::PAYLOAD,
+              payload: "PAYLOAD"
+            )
           ]
         )
 
         button_component2 = Resource::Component.new(
-          type: Resource::Component::Type::Button,
+          type: Resource::Component::Type::BUTTON,
           index: 1,
-          sub_type: Resource::Component::Subtype::QuickReply,
+          sub_type: Resource::Component::Subtype::QUICK_REPLY,
           parameters: [
-            Resource::ButtonParameter.new(type: Resource::ButtonParameter::Type::Payload,
-                                          payload: "PAYLOAD")
+            Resource::ButtonParameter.new(
+              type: Resource::ButtonParameter::Type::PAYLOAD,
+              payload: "PAYLOAD"
+            )
           ]
         )
 
         location_component = Resource::Component.new(
-          type: Resource::Component::Type::Header,
+          type: Resource::Component::Type::HEADER,
           parameters: [parameter_location]
         )
 
@@ -804,7 +808,7 @@ module WhatsappSdk
 
       def test_send_interactive_reply_buttons_with_success_response_by_passing_interactive
         interactive_header = Resource::InteractiveHeader.new(
-          type: Resource::InteractiveHeader::Type::Text,
+          type: Resource::InteractiveHeader::Type::TEXT,
           text: "I am the header!"
         )
 
@@ -817,7 +821,7 @@ module WhatsappSdk
         )
 
         interactive_action = Resource::InteractiveAction.new(
-          type: Resource::InteractiveAction::Type::ReplyButton
+          type: Resource::InteractiveAction::Type::REPLY_BUTTON
         )
 
         interactive_reply_button_1 = Resource::InteractiveActionReplyButton.new(
@@ -833,7 +837,7 @@ module WhatsappSdk
         interactive_action.add_reply_button(interactive_reply_button_2)
 
         interactive_reply_buttons = Resource::Interactive.new(
-          type: Resource::Interactive::Type::ReplyButton,
+          type: Resource::Interactive::Type::REPLY_BUTTON,
           header: interactive_header,
           body: interactive_body,
           footer: interactive_footer,
@@ -933,7 +937,7 @@ module WhatsappSdk
 
       def test_send_interactive_list_messages_with_success_response_by_passing_interactive
         interactive_header = Resource::InteractiveHeader.new(
-          type: Resource::InteractiveHeader::Type::Text,
+          type: Resource::InteractiveHeader::Type::TEXT,
           text: "I am the header!"
         )
 
@@ -946,7 +950,7 @@ module WhatsappSdk
         )
 
         interactive_action = Resource::InteractiveAction.new(
-          type: Resource::InteractiveAction::Type::ListMessage
+          type: Resource::InteractiveAction::Type::LIST_MESSAGE
         )
 
         interactive_action.button = "I am the button CTA"
@@ -963,7 +967,7 @@ module WhatsappSdk
         interactive_action.add_section(interactive_section_1)
 
         interactive_list_messages = Resource::Interactive.new(
-          type: Resource::Interactive::Type::ListMessage,
+          type: Resource::Interactive::Type::LIST_MESSAGE,
           header: interactive_header,
           body: interactive_body,
           footer: interactive_footer,

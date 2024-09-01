@@ -18,15 +18,27 @@ module WhatsappSdk
       # @returns type [String] Valid options are text, currency, date_time, image, document, video.
       attr_accessor :type
 
-      class Type < T::Enum
-        enums do
-          Text = new("text")
-          Currency = new("currency")
-          DateTime = new("date_time")
-          Image = new("image")
-          Document = new("document")
-          Video = new("video")
-          Location = new("location")
+      module Type
+        TEXT = "text"
+        CURRENCY = "currency"
+        DATE_TIME = "date_time"
+        IMAGE = "image"
+        DOCUMENT = "document"
+        VIDEO = "video"
+        LOCATION = "location"
+
+        TYPES = [
+          TEXT,
+          CURRENCY,
+          DATE_TIME,
+          IMAGE,
+          DOCUMENT,
+          VIDEO,
+          LOCATION
+        ].freeze
+
+        def self.valid?(type)
+          TYPES.include?(type)
         end
       end
 
@@ -77,7 +89,7 @@ module WhatsappSdk
         video: nil,
         location: nil
       )
-        @type = deserialize_type(type)
+        @type = type
         @text = text
         @currency = currency
         @date_time = date_time
@@ -89,36 +101,30 @@ module WhatsappSdk
       end
 
       def to_json
-        json = { type: type.serialize }
-        json[type.serialize.to_sym] = case type.serialize
-                                      when "text"
-                                        text
-                                      when "currency"
-                                        currency.to_json
-                                      when "date_time"
-                                        date_time.to_json
-                                      when "image"
-                                        image.to_json
-                                      when "document"
-                                        document.to_json
-                                      when "video"
-                                        video.to_json
-                                      when "location"
-                                        location.to_json
-                                      else
-                                        raise "Invalid type: #{type}"
-                                      end
+        json = { type: type }
+        json[type.to_sym] = case type
+                            when "text"
+                              text
+                            when "currency"
+                              currency.to_json
+                            when "date_time"
+                              date_time.to_json
+                            when "image"
+                              image.to_json
+                            when "document"
+                              document.to_json
+                            when "video"
+                              video.to_json
+                            when "location"
+                              location.to_json
+                            else
+                              raise "Invalid type: #{type}"
+                            end
 
         json
       end
 
       private
-
-      def deserialize_type(type)
-        return type if type.is_a?(Type)
-
-        Type.deserialize(type)
-      end
 
       def validate
         validate_attributes
@@ -133,20 +139,21 @@ module WhatsappSdk
 
       def validate_attributes
         [
-          [Type::Text, text],
-          [Type::Currency, currency],
-          [Type::DateTime, date_time],
-          [Type::Image, image],
-          [Type::Document, document],
-          [Type::Video, video],
-          [Type::Location, location]
+          [Type::TEXT, text],
+          [Type::CURRENCY, currency],
+          [Type::DATE_TIME, date_time],
+          [Type::IMAGE, image],
+          [Type::DOCUMENT, document],
+          [Type::VIDEO, video],
+          [Type::LOCATION, location]
         ].each do |type_b, value|
           next unless type == type_b
+          next unless value.nil?
 
-          if value.nil?
-            raise Errors::MissingValue.new(type.serialize,
-                                           "#{type_b} is required when the type is #{type_b}")
-          end
+          raise Errors::MissingValue.new(
+            type,
+            "#{type_b} is required when the type is #{type_b}"
+          )
         end
       end
     end

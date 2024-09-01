@@ -280,8 +280,8 @@ module WhatsappSdk
         [
           [Responses::TemplateDataResponse, template_response.class],
           [expected_template_response["id"], template_response.template.id],
-          [expected_template_response["status"], template_response.template.status.serialize],
-          [expected_template_response["category"], template_response.template.category.serialize],
+          [expected_template_response["status"], template_response.template.status],
+          [expected_template_response["category"], template_response.template.category],
           [expected_template_response["language"], template_response.template.language],
           [expected_template_response["name"], template_response.template.name],
           [expected_template_response["components"], template_response.template.components_json]
