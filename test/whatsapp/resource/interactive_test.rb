@@ -17,7 +17,7 @@ module WhatsappSdk
       def test_validation_reply_buttons
         error = assert_raises(Errors::InvalidInteractiveActionReplyButton) do
           interactive_body = InteractiveBody.new(text: "This is the body!")
-          interactive_action = InteractiveAction.new(type: InteractiveAction::Type::ReplyButton)
+          interactive_action = InteractiveAction.new(type: InteractiveAction::Type::REPLY_BUTTON)
           interactive_reply_button_1 = InteractiveActionReplyButton.new(
             title: "I am the button 1",
             id: "button_1"
@@ -40,7 +40,7 @@ module WhatsappSdk
           interactive_action.add_reply_button(interactive_reply_button_4)
 
           Interactive.new(
-            type: Interactive::Type::ReplyButton,
+            type: Interactive::Type::REPLY_BUTTON,
             body: interactive_body,
             action: interactive_action
           )
@@ -50,7 +50,7 @@ module WhatsappSdk
         error = assert_raises(Errors::InvalidInteractiveActionReplyButton) do
           interactive_body = InteractiveBody.new(text: "This is the body!")
           interactive_action = InteractiveAction.new(
-            type: InteractiveAction::Type::ReplyButton
+            type: InteractiveAction::Type::REPLY_BUTTON
           )
           interactive_reply_button_1 = InteractiveActionReplyButton.new(
             title: "I am the button 1",
@@ -64,7 +64,7 @@ module WhatsappSdk
           interactive_action.add_reply_button(interactive_reply_button_2)
 
           Interactive.new(
-            type: Interactive::Type::ReplyButton,
+            type: Interactive::Type::REPLY_BUTTON,
             body: interactive_body,
             action: interactive_action
           )
@@ -75,7 +75,7 @@ module WhatsappSdk
         error = assert_raises(Errors::InvalidInteractiveActionReplyButton) do
           interactive_body = InteractiveBody.new(text: "This is the body!")
           interactive_action = InteractiveAction.new(
-            type: InteractiveAction::Type::ReplyButton
+            type: InteractiveAction::Type::REPLY_BUTTON
           )
           interactive_reply_button_1 = InteractiveActionReplyButton.new(
             title: "I am the longer button 1",
@@ -84,7 +84,7 @@ module WhatsappSdk
           interactive_action.add_reply_button(interactive_reply_button_1)
 
           Interactive.new(
-            type: Interactive::Type::ReplyButton,
+            type: Interactive::Type::REPLY_BUTTON,
             body: interactive_body,
             action: interactive_action
           )
@@ -94,7 +94,7 @@ module WhatsappSdk
         error = assert_raises(Errors::InvalidInteractiveActionReplyButton) do
           interactive_body = InteractiveBody.new(text: "This is the body!")
           interactive_action = InteractiveAction.new(
-            type: InteractiveAction::Type::ReplyButton
+            type: InteractiveAction::Type::REPLY_BUTTON
           )
           interactive_reply_button_1 = InteractiveActionReplyButton.new(
             title: "I am the button 1",
@@ -103,7 +103,7 @@ module WhatsappSdk
           interactive_action.add_reply_button(interactive_reply_button_1)
 
           Interactive.new(
-            type: Interactive::Type::ReplyButton,
+            type: Interactive::Type::REPLY_BUTTON,
             body: interactive_body,
             action: interactive_action
           )
@@ -114,7 +114,7 @@ module WhatsappSdk
           interactive_body = InteractiveBody.new(text: "This is the body!")
           interactive_footer = InteractiveFooter.new(text: "Footer " * 10)
           interactive_action = InteractiveAction.new(
-            type: InteractiveAction::Type::ReplyButton
+            type: InteractiveAction::Type::REPLY_BUTTON
           )
           interactive_reply_button_1 = InteractiveActionReplyButton.new(
             title: "I am the button 1",
@@ -133,7 +133,7 @@ module WhatsappSdk
           interactive_action.add_reply_button(interactive_reply_button_3)
 
           Interactive.new(
-            type: Interactive::Type::ReplyButton,
+            type: Interactive::Type::REPLY_BUTTON,
             body: interactive_body,
             footer: interactive_footer,
             action: interactive_action
@@ -144,7 +144,7 @@ module WhatsappSdk
         error = assert_raises(Errors::InvalidInteractiveBody) do
           interactive_body = InteractiveBody.new(text: "Body " * 250)
           interactive_action = InteractiveAction.new(
-            type: InteractiveAction::Type::ReplyButton
+            type: InteractiveAction::Type::REPLY_BUTTON
           )
           interactive_reply_button_1 = InteractiveActionReplyButton.new(
             title: "I am the button 1",
@@ -163,7 +163,7 @@ module WhatsappSdk
           interactive_action.add_reply_button(interactive_reply_button_3)
 
           Interactive.new(
-            type: Interactive::Type::ReplyButton,
+            type: Interactive::Type::REPLY_BUTTON,
             body: interactive_body,
             action: interactive_action
           )
@@ -174,7 +174,7 @@ module WhatsappSdk
       def test_validation_list_messages
         error = assert_raises(Errors::InvalidInteractiveActionButton) do
           interactive_header = InteractiveHeader.new(
-            type: InteractiveHeader::Type::Text,
+            type: InteractiveHeader::Type::TEXT,
             text: "I am the header!"
           )
 
@@ -187,7 +187,7 @@ module WhatsappSdk
           )
 
           interactive_action = InteractiveAction.new(
-            type: InteractiveAction::Type::ListMessage
+            type: InteractiveAction::Type::LIST_MESSAGE
           )
 
           interactive_section_1 = InteractiveActionSection.new(
@@ -202,7 +202,7 @@ module WhatsappSdk
           interactive_action.add_section(interactive_section_1)
 
           Interactive.new(
-            type: Interactive::Type::ListMessage,
+            type: Interactive::Type::LIST_MESSAGE,
             header: interactive_header,
             body: interactive_body,
             footer: interactive_footer,
@@ -213,7 +213,7 @@ module WhatsappSdk
 
         error = assert_raises(Errors::InvalidInteractiveActionSection) do
           interactive_header = InteractiveHeader.new(
-            type: InteractiveHeader::Type::Text,
+            type: InteractiveHeader::Type::TEXT,
             text: "I am the header!"
           )
 
@@ -226,7 +226,7 @@ module WhatsappSdk
           )
 
           interactive_action = InteractiveAction.new(
-            type: InteractiveAction::Type::ListMessage
+            type: InteractiveAction::Type::LIST_MESSAGE
           )
 
           interactive_action.button = "I am the button CTA"
@@ -243,7 +243,7 @@ module WhatsappSdk
           interactive_action.add_section(interactive_section_1)
 
           Interactive.new(
-            type: Interactive::Type::ListMessage,
+            type: Interactive::Type::LIST_MESSAGE,
             header: interactive_header,
             body: interactive_body,
             footer: interactive_footer,
@@ -254,7 +254,7 @@ module WhatsappSdk
 
         error = assert_raises(Errors::InvalidInteractiveActionSection) do
           interactive_header = InteractiveHeader.new(
-            type: InteractiveHeader::Type::Text,
+            type: InteractiveHeader::Type::TEXT,
             text: "I am the header!"
           )
 
@@ -267,7 +267,7 @@ module WhatsappSdk
           )
 
           interactive_action = InteractiveAction.new(
-            type: InteractiveAction::Type::ListMessage
+            type: InteractiveAction::Type::LIST_MESSAGE
           )
 
           interactive_action.button = "I am the button CTA"
@@ -286,7 +286,7 @@ module WhatsappSdk
           interactive_action.add_section(interactive_section_1)
 
           Interactive.new(
-            type: Interactive::Type::ListMessage,
+            type: Interactive::Type::LIST_MESSAGE,
             header: interactive_header,
             body: interactive_body,
             footer: interactive_footer,
@@ -297,7 +297,7 @@ module WhatsappSdk
 
         error = assert_raises(Errors::InvalidInteractiveActionSectionRow) do
           interactive_header = InteractiveHeader.new(
-            type: InteractiveHeader::Type::Text,
+            type: InteractiveHeader::Type::TEXT,
             text: "I am the header!"
           )
 
@@ -310,7 +310,7 @@ module WhatsappSdk
           )
 
           interactive_action = InteractiveAction.new(
-            type: InteractiveAction::Type::ListMessage
+            type: InteractiveAction::Type::LIST_MESSAGE
           )
 
           interactive_action.button = "I am the button CTA"
@@ -327,7 +327,7 @@ module WhatsappSdk
           interactive_action.add_section(interactive_section_1)
 
           Interactive.new(
-            type: Interactive::Type::ListMessage,
+            type: Interactive::Type::LIST_MESSAGE,
             header: interactive_header,
             body: interactive_body,
             footer: interactive_footer,
@@ -338,7 +338,7 @@ module WhatsappSdk
 
         error = assert_raises(Errors::InvalidInteractiveActionSectionRow) do
           interactive_header = InteractiveHeader.new(
-            type: InteractiveHeader::Type::Text,
+            type: InteractiveHeader::Type::TEXT,
             text: "I am the header!"
           )
 
@@ -351,7 +351,7 @@ module WhatsappSdk
           )
 
           interactive_action = InteractiveAction.new(
-            type: InteractiveAction::Type::ListMessage
+            type: InteractiveAction::Type::LIST_MESSAGE
           )
 
           interactive_action.button = "I am the button CTA"
@@ -368,7 +368,7 @@ module WhatsappSdk
           interactive_action.add_section(interactive_section_1)
 
           Interactive.new(
-            type: Interactive::Type::ListMessage,
+            type: Interactive::Type::LIST_MESSAGE,
             header: interactive_header,
             body: interactive_body,
             footer: interactive_footer,
@@ -379,7 +379,7 @@ module WhatsappSdk
 
         error = assert_raises(Errors::InvalidInteractiveActionSectionRow) do
           interactive_header = InteractiveHeader.new(
-            type: InteractiveHeader::Type::Text,
+            type: InteractiveHeader::Type::TEXT,
             text: "I am the header!"
           )
 
@@ -392,7 +392,7 @@ module WhatsappSdk
           )
 
           interactive_action = InteractiveAction.new(
-            type: InteractiveAction::Type::ListMessage
+            type: InteractiveAction::Type::LIST_MESSAGE
           )
 
           interactive_action.button = "I am the button CTA"
@@ -409,7 +409,7 @@ module WhatsappSdk
           interactive_action.add_section(interactive_section_1)
 
           Interactive.new(
-            type: Interactive::Type::ListMessage,
+            type: Interactive::Type::LIST_MESSAGE,
             header: interactive_header,
             body: interactive_body,
             footer: interactive_footer,
@@ -421,7 +421,7 @@ module WhatsappSdk
 
       def test_to_json_reply_buttons
         interactive_header = InteractiveHeader.new(
-          type: InteractiveHeader::Type::Text,
+          type: InteractiveHeader::Type::TEXT,
           text: "I am the header!"
         )
 
@@ -434,7 +434,7 @@ module WhatsappSdk
         )
 
         interactive_action = InteractiveAction.new(
-          type: InteractiveAction::Type::ReplyButton
+          type: InteractiveAction::Type::REPLY_BUTTON
         )
 
         interactive_reply_button_1 = InteractiveActionReplyButton.new(
@@ -450,7 +450,7 @@ module WhatsappSdk
         interactive_action.add_reply_button(interactive_reply_button_2)
 
         interactive_reply_buttons = Interactive.new(
-          type: Interactive::Type::ReplyButton,
+          type: Interactive::Type::REPLY_BUTTON,
           header: interactive_header,
           body: interactive_body,
           footer: interactive_footer,
@@ -495,7 +495,7 @@ module WhatsappSdk
 
       def test_to_json_list_messages
         interactive_header = InteractiveHeader.new(
-          type: InteractiveHeader::Type::Text,
+          type: InteractiveHeader::Type::TEXT,
           text: "I am the header!"
         )
 
@@ -508,7 +508,7 @@ module WhatsappSdk
         )
 
         interactive_action = InteractiveAction.new(
-          type: InteractiveAction::Type::ListMessage
+          type: InteractiveAction::Type::LIST_MESSAGE
         )
 
         interactive_action.button = "I am the button CTA"
@@ -525,7 +525,7 @@ module WhatsappSdk
         interactive_action.add_section(interactive_section_1)
 
         interactive_list_messages = Interactive.new(
-          type: Interactive::Type::ListMessage,
+          type: Interactive::Type::LIST_MESSAGE,
           header: interactive_header,
           body: interactive_body,
           footer: interactive_footer,

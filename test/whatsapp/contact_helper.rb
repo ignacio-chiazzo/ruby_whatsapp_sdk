@@ -1,11 +1,7 @@
-# typed: strict
 # frozen_string_literal: true
 
 module WhatsappSdk
   module ContactHelper
-    extend T::Sig
-
-    sig { returns(T::Array[Resource::Address]) }
     def create_addresses
       address1 = Resource::Address.new(
         street: "STREET",
@@ -14,7 +10,7 @@ module WhatsappSdk
         zip: "ZIP",
         country: "COUNTRY",
         country_code: "COUNTRY_CODE",
-        type: Resource::AddressType::Work
+        type: Resource::AddressType::WORK
       )
 
       address2 = Resource::Address.new(
@@ -24,21 +20,19 @@ module WhatsappSdk
         zip: "ZIP",
         country: "COUNTRY",
         country_code: "COUNTRY_CODE",
-        type: Resource::AddressType::Work
+        type: Resource::AddressType::WORK
       )
 
       [address1, address2]
     end
 
-    sig { returns(T::Array[Resource::Email]) }
     def create_emails
-      email1 = Resource::Email.new(email: "ignacio@gmail.com", type: Resource::AddressType::Work)
-      email2 = Resource::Email.new(email: "ignacio2@gmail.com", type: Resource::AddressType::Home)
+      email1 = Resource::Email.new(email: "ignacio@gmail.com", type: Resource::AddressType::WORK)
+      email2 = Resource::Email.new(email: "ignacio2@gmail.com", type: Resource::AddressType::HOME)
 
       [email1, email2]
     end
 
-    sig { returns(Resource::Name) }
     def create_name
       Resource::Name.new(
         formatted_name: "ignacio chiazzo",
@@ -50,28 +44,24 @@ module WhatsappSdk
       )
     end
 
-    sig { returns(Resource::Org) }
     def create_org
       Resource::Org.new(company: "ignacioCo", department: "Engineering", title: "ignacioOrg")
     end
 
-    sig { returns(T::Array[Resource::PhoneNumber]) }
     def create_phone_numbers
-      phone1 = Resource::PhoneNumber.new(phone: "1234567", type: Resource::AddressType::Home, wa_id: "1234")
-      phone2 = Resource::PhoneNumber.new(phone: "9876543", type: Resource::AddressType::Work, wa_id: "1234")
+      phone1 = Resource::PhoneNumber.new(phone: "1234567", type: Resource::AddressType::HOME, wa_id: "1234")
+      phone2 = Resource::PhoneNumber.new(phone: "9876543", type: Resource::AddressType::WORK, wa_id: "1234")
 
       [phone1, phone2]
     end
 
-    sig { returns(T::Array[Resource::Url]) }
     def create_urls
-      url1 = Resource::Url.new(url: "1234567", type: Resource::AddressType::Home)
-      url2 = Resource::Url.new(url: "1234567", type: Resource::AddressType::Work)
+      url1 = Resource::Url.new(url: "1234567", type: Resource::AddressType::HOME)
+      url2 = Resource::Url.new(url: "1234567", type: Resource::AddressType::WORK)
 
       [url1, url2]
     end
 
-    sig { returns(Resource::Contact) }
     def create_contact
       Resource::Contact.new(
         addresses: create_addresses,

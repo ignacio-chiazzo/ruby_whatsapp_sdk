@@ -8,6 +8,5 @@ require "minitest/assertions"
 require 'mocha/minitest'
 require "pry"
 require "pry-nav"
-require "sorbet-runtime"
 require "webmock/minitest"
 require "errors_helper"

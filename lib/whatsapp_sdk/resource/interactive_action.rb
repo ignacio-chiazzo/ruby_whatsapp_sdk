@@ -1,53 +1,46 @@
-# typed: strict
 # frozen_string_literal: true
 
 module WhatsappSdk
   module Resource
     class InteractiveAction
-      extend T::Sig
+      module Type
+        LIST_MESSAGE = "list_message"
+        REPLY_BUTTON = "reply_button"
 
-      class Type < T::Enum
-        extend T::Sig
+        TYPES = [LIST_MESSAGE, REPLY_BUTTON].freeze
 
-        enums do
-          ListMessage = new("list_message")
-          ReplyButton = new("reply_button")
+        def valid?(type)
+          TYPES.include?(type)
         end
       end
 
       # Returns the type of interactive action you want to send.
       #
       # @returns type [Type]. Supported Options are list_message and reply_button.
-      sig { returns(Type) }
       attr_accessor :type
 
       # Returns the buttons of the Action. For reply_button type, it's required.
       #
       # @returns buttons [Array<InteractiveActionReplyButton>] .
-      sig { returns(T::Array[InteractiveActionReplyButton]) }
       attr_accessor :buttons
 
       # Returns the button of the Action. For list_message type, it's required.
       #
       # @returns button [String] .
-      sig { returns(String) }
       attr_accessor :button
 
       # Returns the sections of the Action. For list_message type, it's required.
       #
       # @returns sections [Array<InteractiveActionSection>] .
-      sig { returns(T::Array[InteractiveActionSection]) }
       attr_accessor :sections
 
       # TODO: attr_accessor :catalog_id
       # TODO: attr_accessor :product_retailer_id
 
-      sig { params(reply_button: InteractiveActionReplyButton).void }
       def add_reply_button(reply_button)
         @buttons << reply_button
       end
 
-      sig { params(section: InteractiveActionSection).void }
       def add_section(section)
         @sections << section
       end
@@ -58,12 +51,6 @@ module WhatsappSdk
       LIST_SECTIONS_MINIMUM = 1
       LIST_SECTIONS_MAXIMUM = 10
 
-      sig do
-        params(
-          type: Type, buttons: T::Array[InteractiveActionReplyButton],
-          button: String, sections: T::Array[InteractiveActionSection]
-        ).void
-      end
       def initialize(type:, buttons: [], button: "", sections: [])
         @type = type
         @buttons = buttons
@@ -71,10 +58,9 @@ module WhatsappSdk
         @sections = sections
       end
 
-      sig { returns(T::Hash[T.untyped, T.untyped]) }
       def to_json
         json = {}
-        case type.serialize
+        case type
         when "list_message"
           json = { button: button, sections: sections.map(&:to_json) }
         when "reply_button"
@@ -91,10 +77,10 @@ module WhatsappSdk
       private
 
       def validate_fields
-        case type.serialize
-        when "list_message"
+        case type
+        when Type::LIST_MESSAGE
           validate_list_message
-        when "reply_button"
+        when Type::REPLY_BUTTON
           validate_reply_button
         end
       end

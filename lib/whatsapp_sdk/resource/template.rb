@@ -1,56 +1,43 @@
-# typed: strict
 # frozen_string_literal: true
 
 module WhatsappSdk
   module Resource
     class Template
-      extend T::Sig
+      module Status
+        PENDING_DELETION = "PENDING_DELETION"
+        APPROVED = "APPROVED"
+        PENDING = "PENDING"
+        REJECTED = "REJECTED"
 
-      sig { returns(String) }
-      attr_accessor :id
+        STATUSES = [PENDING_DELETION, APPROVED, PENDING, REJECTED].freeze
 
-      class Status < T::Enum
-        extend T::Sig
+        def valid?(status)
+          STATUSES.include?(status)
+        end
 
-        enums do
-          PENDING_DELETION = new("PENDING_DELETION")
-          APPROVED = new("APPROVED")
-          PENDING = new("PENDING")
-          REJECTED = new("REJECTED")
+        def serialize(status)
+          STATUSES.include?(status) ? status : nil
         end
       end
 
-      sig { returns(Status) }
-      attr_accessor :status
+      module Category
+        AUTHENTICATION = "AUTHENTICATION"
+        MARKETING = "MARKETING"
+        UTILITY = "UTILITY"
 
-      class Category < T::Enum
-        extend T::Sig
+        CATEGORIES = [AUTHENTICATION, MARKETING, UTILITY].freeze
 
-        enums do
-          AUTHENTICATION = new("AUTHENTICATION")
-          MARKETING = new("MARKETING")
-          UTILITY = new("UTILITY")
+        def self.valid?(category)
+          CATEGORIES.include?(category)
+        end
+
+        def self.serialize(category)
+          CATEGORIES.include?(category) ? category : nil
         end
       end
 
-      sig { returns(Category) }
-      attr_accessor :category
+      attr_accessor :id, :status, :category, :language, :name, :components_json
 
-      sig { returns(T.nilable(String)) }
-      attr_accessor :language
-
-      sig { returns(T.nilable(String)) }
-      attr_accessor :name
-
-      sig { returns(T.nilable(T::Array[T::Hash[T.untyped, T.untyped]])) }
-      attr_accessor :components_json
-
-      sig do
-        params(
-          id: String, status: Status, category: Category, language: T.nilable(String), name: T.nilable(String),
-          components_json: T.nilable(T::Array[T::Hash[T.untyped, T.untyped]])
-        ).void
-      end
       def initialize(id:, status:, category:, language: nil, name: nil, components_json: nil)
         @id = id
         @status = status

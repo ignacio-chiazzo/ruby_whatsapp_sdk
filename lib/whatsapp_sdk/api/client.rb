@@ -1,4 +1,3 @@
-# typed: strict
 # frozen_string_literal: true
 
 require "faraday"
@@ -7,26 +6,13 @@ require "faraday/multipart"
 module WhatsappSdk
   module Api
     class Client
-      extend T::Sig
+      API_VERSIONS = [
+        'v19.0', 'v18.0', 'v17.0', 'v16.0', 'v15.0', 'v14.0', 'v13.0', 'v12.0',
+        'v11.0', 'v10.0', 'v9.0', 'v8.0', 'v7.0', 'v6.0', 'v5.0', 'v4.0', 'v3.3',
+        'v3.2', 'v3.1', 'v3.0', 'v2.12', 'v2.11', 'v2.10', 'v2.9', 'v2.8', 'v2.7',
+        'v2.6', 'v2.5', 'v2.4', 'v2.3', 'v2.2', 'v2.1'
+      ].freeze
 
-      API_VERSIONS = T.let(
-        [
-          'v19.0', 'v18.0', 'v17.0', 'v16.0', 'v15.0', 'v14.0', 'v13.0', 'v12.0',
-          'v11.0', 'v10.0', 'v9.0', 'v8.0', 'v7.0', 'v6.0', 'v5.0', 'v4.0', 'v3.3',
-          'v3.2', 'v3.1', 'v3.0', 'v2.12', 'v2.11', 'v2.10', 'v2.9', 'v2.8', 'v2.7',
-          'v2.6', 'v2.5', 'v2.4', 'v2.3', 'v2.2', 'v2.1'
-        ].freeze,
-        T::Array[String]
-      )
-
-      sig do
-        params(
-          access_token: String,
-          api_version: String,
-          logger: T.nilable(T.any(Logger, T.class_of(Logger))),
-          logger_options: Hash
-        ).void
-      end
       def initialize(
         access_token,
         api_version = ApiConfiguration::DEFAULT_API_VERSION,
@@ -41,20 +27,10 @@ module WhatsappSdk
         @api_version = api_version
       end
 
-      sig do
-        params(
-          endpoint: String,
-          full_url: T.nilable(String),
-          http_method: String,
-          params: T::Hash[T.untyped, T.untyped],
-          headers: T::Hash[T.untyped, T.untyped],
-          multipart: T::Boolean
-        ).returns(T.nilable(T::Hash[T.untyped, T.untyped]))
-      end
       def send_request(endpoint: "", full_url: nil, http_method: "post", params: {}, headers: {}, multipart: false)
         url = full_url || "#{ApiConfiguration::API_URL}/#{@api_version}/"
 
-        faraday_request = T.unsafe(faraday(url: url, multipart: multipart))
+        faraday_request = faraday(url: url, multipart: multipart)
 
         response = faraday_request.public_send(http_method, endpoint, request_params(params, headers), headers)
 
@@ -63,10 +39,6 @@ module WhatsappSdk
         JSON.parse(response.body)
       end
 
-      sig do
-        params(url: String, content_type_header: String, file_path: T.nilable(String))
-          .returns(Net::HTTPResponse)
-      end
       def download_file(url:, content_type_header:, file_path: nil)
         uri = URI.parse(url)
         request = Net::HTTP::Get.new(uri)
@@ -85,19 +57,12 @@ module WhatsappSdk
 
       private
 
-      sig do
-        params(
-          params: T::Hash[T.untyped, T.untyped],
-          headers: T::Hash[T.untyped, T.untyped]
-        ).returns(T.any(T::Hash[T.untyped, T.untyped], String))
-      end
       def request_params(params, headers)
         return params.to_json if params.is_a?(Hash) && headers['Content-Type'] == 'application/json'
 
         params
       end
 
-      sig { params(url: String, multipart: T::Boolean).returns(Faraday::Connection) }
       def faraday(url:, multipart: false)
         ::Faraday.new(url) do |client|
           client.request(:multipart) if multipart
@@ -108,7 +73,6 @@ module WhatsappSdk
         end
       end
 
-      sig { params(api_version: String).void }
       def validate_api_version(api_version)
         raise ArgumentError, "Invalid API version: #{api_version}" unless API_VERSIONS.include?(api_version)
       end

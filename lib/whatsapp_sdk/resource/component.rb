@@ -1,21 +1,11 @@
-# typed: strict
 # frozen_string_literal: true
 
 module WhatsappSdk
   module Resource
     class Component
-      extend T::Sig
-
       class InvalidField < StandardError
-        extend T::Sig
+        attr_reader :field, :message
 
-        sig { returns(Symbol) }
-        attr_reader :field
-
-        sig { returns(String) }
-        attr_reader :message
-
-        sig { params(field: Symbol, message: String).void }
         def initialize(field, message)
           @field = field
           @message = message
@@ -23,35 +13,25 @@ module WhatsappSdk
         end
       end
 
-      class Type < T::Enum
-        extend T::Sig
-
-        enums do
-          Header = new("header")
-          Body = new("body")
-          Button = new("button")
-        end
+      module Type
+        HEADER = "header"
+        BODY = "body"
+        BUTTON = "button"
       end
 
-      class Subtype < T::Enum
-        extend T::Sig
-
-        enums do
-          QuickReply = new("quick_reply")
-          Url = new("url")
-        end
+      module Subtype
+        QUICK_REPLY = "quick_reply"
+        URL = "url"
       end
 
       # Returns the Component type.
       #
       # @returns type [String]. Supported Options are header, body and button.
-      sig { returns(Type) }
       attr_accessor :type
 
       # Returns the parameters of the component. For button type, it's required.
       #
       # @returns parameter [Array<ButtonParameter, ParameterObject>] .
-      sig { returns(T::Array[T.any(ButtonParameter, ParameterObject)]) }
       attr_accessor :parameters
 
       # Returns the Type of button to create. Required when type=button. Not used for the other types.
@@ -62,51 +42,40 @@ module WhatsappSdk
       # appending the text parameter to the predefined prefix URL in the template.
       #
       # @returns subtype [String]. Valid options are quick_reply and url.
-      sig { returns(T.nilable(Component::Subtype)) }
       attr_accessor :sub_type
 
       # Required when type=button. Not used for the other types.
       # Position index of the button. You can have up to 3 buttons using index values of 0 to 2.
       #
       # @returns index [Integer].
-      sig { returns(T.nilable(Integer)) }
       attr_accessor :index
 
-      sig { params(parameter: T.any(ButtonParameter, ParameterObject)).void }
       def add_parameter(parameter)
         @parameters << parameter
       end
 
-      sig do
-        params(
-          type: Type, parameters: T::Array[T.any(ButtonParameter, ParameterObject)],
-          sub_type: T.nilable(Component::Subtype), index: T.nilable(Integer)
-        ).void
-      end
       def initialize(type:, parameters: [], sub_type: nil, index: nil)
         @parameters = parameters
         @type = type
         @sub_type = sub_type
-        @index = index.nil? && type == Type::Button ? 0 : index
+        @index = index.nil? && type == Type::BUTTON ? 0 : index
         validate_fields
       end
 
-      sig { returns(T::Hash[T.untyped, T.untyped]) }
       def to_json
         json = {
-          type: type.serialize,
+          type: type,
           parameters: parameters.map(&:to_json)
         }
-        json[:sub_type] = sub_type&.serialize if sub_type
+        json[:sub_type] = sub_type if sub_type
         json[:index] = index if index
         json
       end
 
       private
 
-      sig { void }
       def validate_fields
-        return if type == Type::Button
+        return if type == Type::BUTTON
 
         raise InvalidField.new(:sub_type, 'sub_type is not required when type is not button') if sub_type
 

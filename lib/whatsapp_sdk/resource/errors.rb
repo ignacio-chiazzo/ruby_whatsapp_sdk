@@ -1,16 +1,11 @@
-# typed: strict
 # frozen_string_literal: true
 
 module WhatsappSdk
   module Resource
     module Errors
       class MissingArgumentError < StandardError
-        extend T::Sig
-
-        sig { returns(String) }
         attr_reader :message
 
-        sig { params(message: String).void }
         def initialize(message)
           @message = message
           super(message)
@@ -18,15 +13,8 @@ module WhatsappSdk
       end
 
       class MissingValue < Error
-        extend T::Sig
+        attr_reader :field, :message
 
-        sig { returns(String) }
-        attr_reader :field
-
-        sig { returns(String) }
-        attr_reader :message
-
-        sig { params(field: String, message: String).void }
         def initialize(field, message)
           @field = field
           @message = message
@@ -35,14 +23,10 @@ module WhatsappSdk
       end
 
       class InvalidLanguageError < StandardError
-        extend T::Sig
-
         URL_AVAILABLE_LANGUAGES = "https://developers.facebook.com/docs/whatsapp/api/messages/message-templates"
 
-        sig { returns(String) }
         attr_reader :language
 
-        sig { params(language: String).void }
         def initialize(language:)
           @language = language
 

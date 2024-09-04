@@ -450,7 +450,7 @@ interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
 )
 
 interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-  type: WhatsappSdk::Resource::InteractiveAction::Type::ListMessage
+  type: WhatsappSdk::Resource::InteractiveAction::Type::LIST_MESSAGE
 )
 
 interactive_action.button = "I am the button CTA"
@@ -509,7 +509,7 @@ interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
 )
 
 interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-  type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton
+  type: WhatsappSdk::REPLY_BUTTON
 )
 
 interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(

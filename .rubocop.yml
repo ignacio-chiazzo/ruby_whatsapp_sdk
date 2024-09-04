@@ -1,7 +1,6 @@
 require:
   - rubocop-minitest
   - rubocop-performance
-  - rubocop-sorbet
 
 AllCops:
   NewCops: enable
@@ -53,6 +52,4 @@ Gemspec/RequiredRubyVersion:
 Minitest/MultipleAssertions:
   Enabled: false
 
-Style/AccessorGrouping: # disabled so that we can use sorbet signatures for each attr
-  Enabled: false 
 

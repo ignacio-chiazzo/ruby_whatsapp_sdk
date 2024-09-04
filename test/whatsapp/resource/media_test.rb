@@ -10,7 +10,7 @@ module WhatsappSdk
       class MediaTest < Minitest::Test
         def test_raise_an_error_when_filename_is_passed_and_type_is_not_document
           error = assert_raises(Media::InvalidMedia) do
-            Media.new(type: Media::Type::Sticker, filename: "afs")
+            Media.new(type: Media::Type::STICKER, filename: "afs")
           end
 
           assert_equal(:filename, error.field)
@@ -19,7 +19,7 @@ module WhatsappSdk
 
         def test_raise_an_error_when_caption_is_passed_and_type_is_not_document_nor_image
           error = assert_raises(Media::InvalidMedia) do
-            Media.new(type: Media::Type::Video, caption: "I am a caption")
+            Media.new(type: Media::Type::VIDEO, caption: "I am a caption")
           end
 
           assert_equal(:caption, error.field)
@@ -27,11 +27,11 @@ module WhatsappSdk
         end
 
         def test_to_json
-          image = Media.new(type: Media::Type::Image, link: "http(s)://URL", caption: "caption")
-          document = Media.new(type: Media::Type::Document, link: "http(s)://URL", filename: "txt.rb")
-          video = Media.new(type: Media::Type::Video, id: "123")
-          audio = Media.new(type: Media::Type::Audio, id: "456")
-          sticker = Media.new(type: Media::Type::Sticker, id: "789")
+          image = Media.new(type: Media::Type::IMAGE, link: "http(s)://URL", caption: "caption")
+          document = Media.new(type: Media::Type::DOCUMENT, link: "http(s)://URL", filename: "txt.rb")
+          video = Media.new(type: Media::Type::VIDEO, id: "123")
+          audio = Media.new(type: Media::Type::AUDIO, id: "456")
+          sticker = Media.new(type: Media::Type::STICKER, id: "789")
 
           assert_equal({ link: "http(s)://URL", caption: "caption" }, image.to_json)
           assert_equal({ link: "http(s)://URL", filename: "txt.rb" }, document.to_json)

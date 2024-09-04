@@ -1,4 +1,3 @@
-# typed: strict
 # frozen_string_literal: true
 
 require_relative "request"
@@ -7,9 +6,7 @@ require_relative "response"
 module WhatsappSdk
   module Api
     class Messages < Request
-      extend T::Sig
-
-      DEFAULT_HEADERS = T.let({ 'Content-Type' => 'application/json' }.freeze, Hash)
+      DEFAULT_HEADERS = { 'Content-Type' => 'application/json' }.freeze
 
       # Send a text message.
       #
@@ -18,12 +15,6 @@ module WhatsappSdk
       # @param message [String] Text to send.
       # @param message_id [String] The id of the message to reply to.
       # @return [Api::Response] Response object.
-      sig do
-        params(
-          sender_id: Integer, recipient_number: Integer, message: String,
-          message_id: T.nilable(String)
-        ).returns(Api::Response)
-      end
       def send_text(sender_id:, recipient_number:, message:, message_id: nil)
         params = {
           messaging_product: "whatsapp",
@@ -56,13 +47,6 @@ module WhatsappSdk
       # @param address [String] Location address.
       # @param message_id [String] The id of the message to reply to.
       # @return [Api::Response] Response object.
-      sig do
-        params(
-          sender_id: Integer, recipient_number: Integer,
-          longitude: Float, latitude: Float, name: String, address: String,
-          message_id: T.nilable(String)
-        ).returns(Api::Response)
-      end
       def send_location(
         sender_id:, recipient_number:, longitude:, latitude:, name:, address:, message_id: nil
       )
@@ -101,13 +85,6 @@ module WhatsappSdk
       # @param caption [String] Image caption.
       # @param message_id [String] The id of the message to reply to.
       # @return [Api::Response] Response object.
-      sig do
-        params(
-          sender_id: Integer, recipient_number: Integer, image_id: T.nilable(String),
-          link: T.nilable(String), caption: T.nilable(String),
-          message_id: T.nilable(String)
-        ).returns(Api::Response)
-      end
       def send_image(
         sender_id:, recipient_number:, image_id: nil, link: nil, caption: "", message_id: nil
       )
@@ -146,12 +123,6 @@ module WhatsappSdk
       # @param link [String] Audio link.
       # @param message_id [String] The id of the message to reply to.
       # @return [Api::Response] Response object.
-      sig do
-        params(
-          sender_id: Integer, recipient_number: Integer, audio_id: T.nilable(String),
-          link: T.nilable(String), message_id: T.nilable(String)
-        ).returns(Api::Response)
-      end
       def send_audio(sender_id:, recipient_number:, audio_id: nil, link: nil, message_id: nil)
         raise Resource::Errors::MissingArgumentError, "audio_id or link is required" if !audio_id && !link
 
@@ -186,13 +157,6 @@ module WhatsappSdk
       # @param caption [String] Image caption.
       # @param message_id [String] The id of the message to reply to.
       # @return [Api::Response] Response object.
-      sig do
-        params(
-          sender_id: Integer, recipient_number: Integer,
-          video_id: T.nilable(String), link: T.nilable(String), caption: String,
-          message_id: T.nilable(String)
-        ).returns(Api::Response)
-      end
       def send_video(
         sender_id:, recipient_number:, video_id: nil, link: nil, caption: "", message_id: nil
       )
@@ -232,13 +196,6 @@ module WhatsappSdk
       # @param caption [String] Image caption.
       # @param message_id [String] The id of the message to reply to.
       # @return [Api::Response] Response object.
-      sig do
-        params(
-          sender_id: Integer, recipient_number: Integer,
-          document_id: T.nilable(String), link: T.nilable(String), caption: String,
-          message_id: T.nilable(String), filename: T.nilable(String)
-        ).returns(Api::Response)
-      end
       def send_document(
         sender_id:, recipient_number:, document_id: nil, link: nil, caption: "", message_id: nil, filename: nil
       )
@@ -281,12 +238,6 @@ module WhatsappSdk
       # @param link [String] Image link.
       # @param message_id [String] The id of the message to reply to.
       # @return [Api::Response] Response object.
-      sig do
-        params(
-          sender_id: Integer, recipient_number: Integer, sticker_id: T.nilable(String),
-          link: T.nilable(String), message_id: T.nilable(String)
-        ).returns(Api::Response)
-      end
       def send_sticker(sender_id:, recipient_number:, sticker_id: nil, link: nil, message_id: nil)
         raise Resource::Errors::MissingArgumentError, "sticker or link is required" if !sticker_id && !link
 
@@ -294,7 +245,7 @@ module WhatsappSdk
           messaging_product: "whatsapp",
           to: recipient_number,
           recipient_type: "individual",
-          type: Resource::Media::Type::Sticker
+          type: Resource::Media::Type::STICKER
         }
         params[:sticker] = link ? { link: link } : { id: sticker_id }
         params[:context] = { message_id: message_id } if message_id
@@ -320,13 +271,6 @@ module WhatsappSdk
       # @param contacts_json [Json] Contacts.
       # @param message_id [String] The id of the message to reply to.
       # @return [Api::Response] Response object.
-      sig do
-        params(
-          sender_id: Integer, recipient_number: Integer,
-          contacts: T.nilable(T::Array[Resource::Contact]),
-          contacts_json: T::Hash[T.untyped, T.untyped], message_id: T.nilable(String)
-        ).returns(Api::Response)
-      end
       def send_contacts(
         sender_id:, recipient_number:, contacts: nil, contacts_json: {}, message_id: nil
       )
@@ -366,13 +310,6 @@ module WhatsappSdk
       #    If you pass interactive_json, you can't pass interactive.
       # @param message_id [String] The id of the message to reply to.
       # @return [Api::Response] Response object.
-      sig do
-        params(
-          sender_id: Integer, recipient_number: Integer,
-          interactive: T.nilable(Resource::Interactive),
-          interactive_json: T.nilable(T::Hash[T.untyped, T.untyped]), message_id: T.nilable(String)
-        ).returns(Api::Response)
-      end
       def send_interactive_message(
         sender_id:, recipient_number:, interactive: nil, interactive_json: nil, message_id: nil
       )
@@ -415,7 +352,6 @@ module WhatsappSdk
       # @param sender_id [Integer] Sender' phone number.
       # @param message_id [Integer] Message ID.
       # @return [Api::Response] Response object.
-      sig { params(sender_id: Integer, message_id: String).returns(Api::Response) }
       def read_message(sender_id:, message_id:)
         params = {
           messaging_product: "whatsapp",
@@ -444,13 +380,6 @@ module WhatsappSdk
       # @param components [Component] Component.
       # @param components_json [Json] The component as a Json. If you pass components_json, you can't pass components.
       # @return [Api::Response] Response object.
-      sig do
-        params(
-          sender_id: Integer, recipient_number: Integer, name: String, language: String,
-          components: T.nilable(T::Array[Resource::Component]),
-          components_json: T.nilable(T::Array[T::Hash[T.untyped, T.untyped]])
-        ).returns(Api::Response)
-      end
       def send_template(
         sender_id:, recipient_number:, name:, language:, components: nil, components_json: nil
       )
@@ -495,12 +424,6 @@ module WhatsappSdk
       # @param message_id [String] the id of the message to reaction.
       # @param emoji [String] unicode of the emoji to send.
       # @return [Api::Response] Response object.
-      sig do
-        params(
-          sender_id: Integer, recipient_number: Integer, message_id: String,
-          emoji: T.any(String, Integer)
-        ).returns(Api::Response)
-      end
       def send_reaction(sender_id:, recipient_number:, message_id:, emoji:)
         params = {
           messaging_product: "whatsapp",
@@ -527,7 +450,6 @@ module WhatsappSdk
 
       private
 
-      sig { params(sender_id: Integer).returns(String) }
       def endpoint(sender_id)
         "#{sender_id}/messages"
       end

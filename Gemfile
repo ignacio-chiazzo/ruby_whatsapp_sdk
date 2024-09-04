@@ -10,16 +10,12 @@ group(:test) do
   gem('rubocop', require: false)
   gem('rubocop-minitest', require: false)
   gem('rubocop-performance', require: false)
-  gem('rubocop-sorbet', require: false)
   gem('webmock')
 end
 
 group(:development) do
   gem('pry')
   gem('pry-nav')
-  gem('sorbet')
-  gem('spoom')
-  gem('tapioca', require: false)
 end
 
 gemspec
