@@ -375,49 +375,38 @@ location = WhatsappSdk::Resource::Location.new(
   latitude: 25.779510, longitude: -80.338631, name: "miami store", address: "820 nw 87th ave, miami, fl"
 )
 
-parameter_image = WhatsappSdk::Resource::ParameterObject.new(type: WhatsappSdk::Resource::ParameterObject::Type::Image, image: image)
-# You can also use a plain string as type e.g.
-# parameter_image = WhatsappSdk::Resource::ParameterObject.new(type: "image", image: image)
-parameter_text = WhatsappSdk::Resource::ParameterObject.new(type: WhatsappSdk::Resource::ParameterObject::Type::Text, text: "TEXT_STRING")
-parameter_currency = WhatsappSdk::Resource::ParameterObject.new(type: WhatsappSdk::Resource::ParameterObject::Type::Currency, currency: currency)
-parameter_date_time = WhatsappSdk::Resource::ParameterObject.new(type: WhatsappSdk::Resource::ParameterObject::Type::DateTime, date_time: date_time)
-parameter_location = WhatsappSdk::Resource::ParameterObject.new(
-  type: WhatsappSdk::Resource::ParameterObject::Type::Location,
-  location: location
-)
+parameter_image = WhatsappSdk::Resource::ParameterObject.new(type: "image", image: image)
+parameter_text = WhatsappSdk::Resource::ParameterObject.new(type: "text", text: "TEXT_STRING")
+parameter_currency = WhatsappSdk::Resource::ParameterObject.new(type: "currency", currency: currency)
+parameter_date_time = WhatsappSdk::Resource::ParameterObject.new(type: "date_time", date_time: date_time)
+parameter_location = WhatsappSdk::Resource::ParameterObject.new(type: "location", location: location)
 
-header_component = WhatsappSdk::Resource::Component.new(
-  type: WhatsappSdk::Resource::Component::Type::Header,
-  parameters: [parameter_image]
-)
+header_component = WhatsappSdk::Resource::Component.new(type: "header", parameters: [parameter_image])
 
 body_component = WhatsappSdk::Resource::Component.new(
-  type: WhatsappSdk::Resource::Component::Type::Body,
+  type: "body", 
   parameters: [parameter_text, parameter_currency, parameter_date_time]
 )
 
 button_component1 = WhatsappSdk::Resource::Component.new(
-  type: WhatsappSdk::Resource::Component::Type::Button,
+  type: "button",
   index: 0,
-  sub_type: WhatsappSdk::Resource::Component::Subtype::QuickReply,
+  sub_type: "quick_reply",
   parameters: [
-    WhatsappSdk::Resource::ButtonParameter.new(type: WhatsappSdk::Resource::ButtonParameter::Type::Payload, payload: "PAYLOAD")
+    WhatsappSdk::Resource::ButtonParameter.new(type: "payload", payload: "PAYLOAD")
   ]
 )
 
 button_component2 = WhatsappSdk::Resource::Component.new(
-  type: WhatsappSdk::Resource::Component::Type::Button,
+  type: "button",
   index: 1,
-  sub_type: WhatsappSdk::Resource::Component::Subtype::QuickReply,
+  sub_type: "quick_reply",
   parameters: [
-    WhatsappSdk::Resource::ButtonParameter.new(type: WhatsappSdk::Resource::ButtonParameter::Type::Payload, payload: "PAYLOAD")
+    WhatsappSdk::Resource::ButtonParameter.new(type: "payload", payload: "PAYLOAD")
   ]
 )
 
-location_component = WhatsappSdk::Resource::Component.new(
-  type: WhatsappSdk::Resource::Component::Type::Header,
-  parameters: [parameter_location]
-)
+location_component = WhatsappSdk::Resource::Component.new(type: "header", parameters: [parameter_location])
 @messages_api.send_template(sender_id: 12_345, recipient_number: 12345678, name: "hello_world", language: "en_US", components_json: [component_1])
 ```
 
@@ -436,28 +425,14 @@ Visit the [Official API Documentation](https://developers.facebook.com/docs/what
 <summary>List Message's example</summary>
 
 ```ruby
-interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
-  type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
-  text: "I am the header!"
-)
-
-interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
-  text: "I am the body!"
-)
-
-interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
-  text: "I am the footer!"
-)
-
-interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-  type: WhatsappSdk::Resource::InteractiveAction::Type::LIST_MESSAGE
-)
+interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(type: "text", text: "I am the header!")
+interactive_body = WhatsappSdk::Resource::InteractiveBody.new(text: "I am the body!")
+interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(text: "I am the footer!")
+interactive_action = WhatsappSdk::Resource::InteractiveAction.new(type: "list_message")
 
 interactive_action.button = "I am the button CTA"
 
-interactive_section_1 = WhatsappSdk::Resource::InteractiveActionSection.new(
-  title: "I am the section 1"
-)
+interactive_section_1 = WhatsappSdk::Resource::InteractiveActionSection.new(title: "I am the section 1")
 interactive_section_1_row_1 = WhatsappSdk::Resource::InteractiveActionSectionRow.new(
   title: "I am the row 1 title",
   id: "section_1_row_1",
@@ -467,7 +442,7 @@ interactive_section_1.add_row(interactive_section_1_row_1)
 interactive_action.add_section(interactive_section_1)
 
 interactive_list_messages = WhatsappSdk::Resource::Interactive.new(
-  type: WhatsappSdk::Resource::Interactive::Type::ListMessage,
+  type: "list",
   header: interactive_header,
   body: interactive_body,
   footer: interactive_footer,
@@ -495,23 +470,11 @@ messages_api.send_interactive_list_messages(
 <summary>Reply Button's example</summary>
 
 ```ruby
-interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
-  type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
-  text: "I am the header!"
-)
+interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(type: "text", text: "I am the header!")
+interactive_body = WhatsappSdk::Resource::InteractiveBody.new(text: "I am the body!")
+interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(text: "I am the footer!")
 
-interactive_body = WhatsappSdk::Resource::InteractiveBody.new(
-  text: "I am the body!"
-)
-
-interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
-  text: "I am the footer!"
-)
-
-interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-  type: WhatsappSdk::REPLY_BUTTON
-)
-
+interactive_action = WhatsappSdk::Resource::InteractiveAction.new(type: "reply_button")
 interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
   title: "I am the reply button 1",
   id: "button_1"
@@ -525,7 +488,7 @@ interactive_reply_button_2 = WhatsappSdk::Resource::InteractiveActionReplyButton
 interactive_action.add_reply_button(interactive_reply_button_2)
 
 interactive_reply_buttons = WhatsappSdk::Resource::Interactive.new(
-  type: WhatsappSdk::Resource::Interactive::Type::ReplyButton,
+  type: "reply_button",
   header: interactive_header,
   body: interactive_body,
   footer: interactive_footer,

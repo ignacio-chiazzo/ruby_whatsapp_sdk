@@ -134,10 +134,10 @@ puts "DELETE template by id: #{print_data_or_error(delete_template, delete_templ
 
 ############################## Business API ##############################
 business_profile = business_profile_api.details(SENDER_ID)
-puts "DELETE Business Profile by id: #{print_data_or_error(delete_template, business_profile.data&.id) }"
+puts "DELETE Business Profile by id: #{print_data_or_error(delete_template, business_profile.data&.about) }"
 
 updated_bp = business_profile_api.update(phone_number_id: SENDER_ID, params: { about: "A very cool business" } )
-puts "UPDATE Business Profile by id: #{print_data_or_error(updated_bp, updated_bp.data&.id) }"
+puts "UPDATE Business Profile by id: #{print_data_or_error(updated_bp, updated_bp.data&.success?) }"
 
 ############################## Phone Numbers API ##############################
 registered_number = phone_numbers_api.registered_number(SENDER_ID)
@@ -273,7 +273,7 @@ puts response_with_object
 
 # Send a template with components (Remember to create the template first).
 header_component = WhatsappSdk::Resource::Component.new(
-  type: WhatsappSdk::Resource::Component::Type::Header
+  type: WhatsappSdk::Resource::Component::Type::HEADER
 )
 image = WhatsappSdk::Resource::Media.new(type: "image", link: "http(s)://URL", caption: "caption")
 document = WhatsappSdk::Resource::Media.new(type: "document", link: "http(s)://URL", filename: "txt.rb")
@@ -315,7 +315,7 @@ header_component.add_parameter(parameter_location)
 header_component.to_json
 
 body_component = WhatsappSdk::Resource::Component.new(
-  type: WhatsappSdk::Resource::Component::Type::Body
+  type: WhatsappSdk::Resource::Component::Type::BODY
 )
 body_component.add_parameter(parameter_text)
 body_component.add_parameter(parameter_image)
@@ -324,18 +324,18 @@ body_component.add_parameter(parameter_document)
 body_component.to_json
 
 button_component_1 = WhatsappSdk::Resource::Component.new(
-  type: WhatsappSdk::Resource::Component::Type::Button,
+  type: WhatsappSdk::Resource::Component::Type::BUTTON,
   index: 0,
-  sub_type: WhatsappSdk::Resource::Component::Subtype::QuickReply,
-  parameters: [WhatsappSdk::Resource::ButtonParameter.new(type: WhatsappSdk::Resource::ButtonParameter::Type::Payload,
+  sub_type: WhatsappSdk::Resource::Component::Subtype::QUICK_REPLY,
+  parameters: [WhatsappSdk::Resource::ButtonParameter.new(type: WhatsappSdk::Resource::ButtonParameter::Type::PAYLOAD,
                                                           payload: "payload")]
 )
 
 button_component_2 = WhatsappSdk::Resource::Component.new(
-  type: WhatsappSdk::Resource::Component::Type::Button,
+  type: WhatsappSdk::Resource::Component::Type::BUTTON,
   index: 1,
-  sub_type: WhatsappSdk::Resource::Component::Subtype::QuickReply,
-  parameters: [WhatsappSdk::Resource::ButtonParameter.new(type: WhatsappSdk::Resource::ButtonParameter::Type::Payload,
+  sub_type: WhatsappSdk::Resource::Component::Subtype::QUICK_REPLY,
+  parameters: [WhatsappSdk::Resource::ButtonParameter.new(type: WhatsappSdk::Resource::ButtonParameter::Type::PAYLOAD,
                                                           payload: "payload")]
 )
 
@@ -361,7 +361,7 @@ puts response_with_json
 ######### SEND INTERACTIVE MESSAGES
 ## with reply buttons
 interactive_header = WhatsappSdk::Resource::InteractiveHeader.new(
-  type: WhatsappSdk::Resource::InteractiveHeader::Type::Text,
+  type: WhatsappSdk::Resource::InteractiveHeader::Type::TEXT,
   text: "I'm the header!"
 )
 
@@ -374,7 +374,7 @@ interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
 )
 
 interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-  type: WhatsappSdk::Resource::InteractiveAction::Type::ReplyButton,
+  type: WhatsappSdk::Resource::InteractiveAction::Type::REPLY_BUTTON,
 )
 
 interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
@@ -390,7 +390,7 @@ interactive_reply_button_2 = WhatsappSdk::Resource::InteractiveActionReplyButton
 interactive_action.add_reply_button(interactive_reply_button_2)
 
 interactive_reply_buttons = WhatsappSdk::Resource::Interactive.new(
-  type: WhatsappSdk::Resource::Interactive::Type::ReplyButton,
+  type: WhatsappSdk::Resource::Interactive::Type::REPLY_BUTTON,
   header: interactive_header,
   body: interactive_body,
   footer: interactive_footer,
