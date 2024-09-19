@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    whatsapp_sdk (0.12.1)
+    whatsapp_sdk (0.13.0)
       faraday (~> 2)
       faraday-multipart (~> 1)
       zeitwerk (~> 2)
