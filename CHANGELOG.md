@@ -1,4 +1,7 @@
 # Unreleased
+
+# v 0.13.0
+
 - Remove sorbet dependency @ignacio-chiazzo [148](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/148) 
 - Added the ability to specify the `filename` [via the document](https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages) API. @sahilas [#137](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/137)
 
