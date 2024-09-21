@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   DESCRIPTION
   spec.homepage      = "https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk"
   spec.license       = "MIT"
-  spec.required_ruby_version = '>= 1.8.6'
+  spec.required_ruby_version = '>= 2.7.0'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.

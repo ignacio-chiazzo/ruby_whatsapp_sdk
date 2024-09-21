@@ -1,4 +1,5 @@
 # Unreleased
+- Increased minimum required Ruby version to 2.7.0
 
 # v 0.13.0
 
