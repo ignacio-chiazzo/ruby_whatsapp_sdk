@@ -1,5 +1,6 @@
 # Unreleased
-- Increased minimum required Ruby version to 2.7.0
+- Used [VCR gem]() for tests @igacio-chiazzo [153](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/153)
+- Increased minimum required Ruby version to 2.7.0 @ignacio-chiazzo [151](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/151)
 
 # v 0.13.0
 

@@ -150,61 +150,82 @@ puts "GET Registered numbers: #{print_data_or_error(registered_number, registere
 
 ##### Image #####
 # upload a Image
-uploaded_media = medias_api.upload(sender_id: SENDER_ID, file_path: "tmp/whatsapp.png", type: "image/png")
+uploaded_media = medias_api.upload(sender_id: SENDER_ID, file_path: "test/fixtures/assets/whatsapp.png", type: "image/png")
 puts "Uploaded media id: #{print_data_or_error(uploaded_media, uploaded_media.data&.id)}"
 
 # get a media Image
 if uploaded_media.data&.id
-  media = medias_api.media(media_id: uploaded_media.data&.id)
+  media = medias_api.media(media_id: 1753306975419607)
   puts "GET Media id: #{print_data_or_error(media, media.data&.id)}"
 
   # download media Image
-  download_image = medias_api.download(url: media.data.url, file_path: 'tmp/downloaded_image.png', media_type: "image/png")
+  download_image = medias_api.download(url: media.data.url, file_path: 'test/fixtures/assets/downloaded_image.png', media_type: "image/png")
   puts "Downloaded: #{print_data_or_error(download_image, download_image.data.success?)}"
 
   # delete a media
   deleted_media = medias_api.delete(media_id: media.data.id)
   puts "DELETE: #{print_data_or_error(deleted_media, deleted_media.data.success?)}"
+else
+  puts "No media to download and delete"
 end
+
+#### Video ####
+# upload a video
+uploaded_media = medias_api.upload(sender_id: SENDER_ID, file_path: "test/fixtures/assets/riquelme.mp4", type: "video/mp4")
+puts "Uploaded media id: #{print_data_or_error(uploaded_media, uploaded_media.data&.id)}"
+
+media = medias_api.media(media_id: "535689082735659")
+
+# upload a video
+uploaded_video = medias_api.upload(sender_id: SENDER_ID, file_path: "test/fixtures/assets/riquelme.mp4", type: "video/mp4")
+puts "Uploaded media id: #{print_data_or_error(uploaded_media, uploaded_media.data&.id)}"
+
+media = medias_api.media(media_id: "535689082735659")
 
 #### Audio ####
 # upload an audio
-uploaded_media = medias_api.upload(sender_id: SENDER_ID, file_path: "tmp/downloaded_audio.ogg", type: "audio/ogg")
+uploaded_media = medias_api.upload(sender_id: SENDER_ID, file_path: "test/fixtures/assets/downloaded_audio.ogg", type: "audio/ogg")
 puts "Uploaded media id: #{print_data_or_error(uploaded_media, uploaded_media.data&.id)}"
 
 if uploaded_media.data&.id
-media_id = uploaded_media.data&.id
-media_id = uploaded_media.data&.id
-puts "Uploaded media id: #{media_id}"
   media_id = uploaded_media.data&.id
-puts "Uploaded media id: #{media_id}"
+  puts "Uploaded media id: #{media_id}"
 
   # get a media audio
   media = medias_api.media(media_id: media_id)
-  puts "GET Media id: #{print_data_or_error(media, media.data&.id)}"
+  puts "GET Media id: #{print_data_or_error(media, media_id)}"
 
   # get a media audio
   audio_link = media.data.url
-  download_image = medias_api.download(url: audio_link, file_path: 'tmp/downloaded_audio2.ogg', media_type: "audio/ogg")
+  download_image = medias_api.download(url: audio_link, file_path: 'test/fixtures/assets/downloaded_audio2.ogg', media_type: "audio/ogg")
   puts "Download Media Audio: #{print_data_or_error(download_image, download_image.data.success?)}"
 end
 
 ############################## Messages API ##############################
 
 ######### SEND A TEXT MESSAGE
-message_sent = messages_api.send_text(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message: "Hey there! it's Whatsapp Ruby SDK")
+message_sent = messages_api.send_text(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
+                                      message: "Hey there! it's Whatsapp Ruby SDK")
 print_message_sent(message_sent)
 
 ######### React to a message
 message_id = message_sent.data.messages.first.id
-reaction_1_sent = messages_api.send_reaction(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message_id: message_id, emoji: "\u{1f550}")
-reaction_2_sent = messages_api.send_reaction(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message_id: message_id, emoji: "⛄️")
+reaction_1_sent = messages_api.send_reaction(
+  sender_id: SENDER_ID,
+  recipient_number: RECIPIENT_NUMBER,
+  message_id: message_id,
+  emoji: "\u{1f550}"
+  )
+
+reaction_2_sent = messages_api.send_reaction(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
+                                             message_id: message_id, emoji: "⛄️")
 puts "Message Reaction 1: #{print_data_or_error(reaction_1_sent, reaction_1_sent.data&.messages.first&.id)}"
 puts "Message Reaction 2: #{print_data_or_error(reaction_2_sent, reaction_2_sent.data&.messages.first&.id)}"
 
 ######### Reply to a message
 message_to_reply_id = message_sent.data.messages.first.id
-reply = messages_api.send_text(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message: "I'm a reply", message_id: message_to_reply_id)
+reply = messages_api.send_text(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message: "I'm a reply",
+                               message_id: message_to_reply_id)
 print_message_sent(reply)
 
 ######### Send location
@@ -374,7 +395,7 @@ interactive_footer = WhatsappSdk::Resource::InteractiveFooter.new(
 )
 
 interactive_action = WhatsappSdk::Resource::InteractiveAction.new(
-  type: WhatsappSdk::Resource::InteractiveAction::Type::REPLY_BUTTON,
+  type: WhatsappSdk::Resource::InteractiveAction::Type::REPLY_BUTTON
 )
 
 interactive_reply_button_1 = WhatsappSdk::Resource::InteractiveActionReplyButton.new(
