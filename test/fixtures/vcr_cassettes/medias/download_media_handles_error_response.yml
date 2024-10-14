@@ -1,0 +1,45 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.ignaciochiazzo.com/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - www.ignaciochiazzo.com
+      Authorization:
+      - Bearer <ACCESS_TOKEN>
+      Content-Type:
+      - image/png
+  response:
+    status:
+      code: 301
+      message: Moved Permanently
+    headers:
+      Content-Type:
+      - text/plain; charset=utf-8
+      Date:
+      - Mon, 14 Oct 2024 11:23:23 GMT
+      Location:
+      - https://ignaciochiazzo.com/
+      Server:
+      - Netlify
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Nf-Request-Id:
+      - 01JA5C9GBPWGFHJV4XKA0JCCB6
+      Content-Length:
+      - '42'
+    body:
+      encoding: UTF-8
+      string: Redirecting to https://ignaciochiazzo.com/
+  recorded_at: Mon, 14 Oct 2024 11:23:23 GMT
+recorded_with: VCR 6.3.1
