@@ -39,16 +39,6 @@ module WhatsappSdk
         end
       end
 
-      def test_media_sends_valid_params
-        @medias_api.expects(:send_request).with(
-          http_method: "get",
-          endpoint: "/1"
-        ).returns(valid_media_response)
-
-        response = @medias_api.media(media_id: "1")
-        assert_predicate(response, :ok?)
-      end
-
       def test_delete_media_handles_error_response
         VCR.use_cassette("medias/delete_media_handles_error_response") do
           response = @medias_api.delete(media_id: "123_123")
@@ -224,23 +214,6 @@ module WhatsappSdk
 
       def url_example
         "https://www.ignaciochiazzo.com"
-      end
-
-      def assert_ok_response(response)
-        assert_equal(Response, response.class)
-        assert_nil(response.error)
-        assert_predicate(response, :ok?)
-      end
-
-      def valid_media_response
-        {
-          "url" => "www.ignaciochiazzo.com",
-          "mime_type" => "image/jpeg",
-          "sha256" => "821858a6a2f4fb2f0860f646924321dfbcd34d1af2a692e5aeec0b4bd2219ade",
-          "file_size" => 1170,
-          "id" => "123456",
-          "messaging_product" => "whatsapp"
-        }
       end
 
       def assert_media_response(expected_media_response, response)

@@ -11,7 +11,6 @@ module WhatsappSdk
       include(ApiResponseHelper)
 
       def setup
-        # TODO: raise error if access token is not set
         client = Client.new(ENV.fetch('WHATSAPP_ACCESS_TOKEN', nil))
         @business_profile_api = BusinessProfile.new(client)
       end
