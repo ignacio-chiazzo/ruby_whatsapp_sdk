@@ -60,6 +60,8 @@ GEM
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
     unicode-display_width (2.2.0)
+    vcr (6.3.1)
+      base64
     webmock (3.18.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -82,6 +84,7 @@ DEPENDENCIES
   rubocop
   rubocop-minitest
   rubocop-performance
+  vcr
   webmock
   whatsapp_sdk!
 
