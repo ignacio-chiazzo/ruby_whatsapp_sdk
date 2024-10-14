@@ -1,0 +1,69 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://graph.facebook.com/v19.0/107878721936019/messages
+    body:
+      encoding: UTF-8
+      string: '{"messaging_product":"whatsapp","to":13437772910,"recipient_type":"individual","type":"contacts","contacts":[{"addresses":[{"street":"STREET","city":"CITY","state":"STATE","zip":"ZIP","country":"COUNTRY","country_code":"COUNTRY_CODE","type":"Work"},{"street":"STREET","city":"CITY","state":"STATE","zip":"ZIP","country":"COUNTRY","country_code":"COUNTRY_CODE","type":"Work"}],"birthday":"2019-01-01","emails":[{"email":"ignacio@gmail.com","type":"Work"},{"email":"ignacio2@gmail.com","type":"Home"}],"name":{"formatted_name":"ignacio
+        chiazzo","first_name":"ignacio","last_name":"chiazo","middle_name":"jose","suffix":"ch","prefix":"ig"},"org":{"company":"ignacioCo","department":"Engineering","title":"ignacioOrg"},"phones":[{"phone":"1234567","type":"Home","wa_id":"1234"},{"phone":"9876543","type":"Work","wa_id":"1234"}],"urls":[{"url":"1234567","type":"Home"},{"url":"1234567","type":"Work"}]}]}'
+    headers:
+      Authorization:
+      - Bearer <ACCESS_TOKEN>
+      User-Agent:
+      - Faraday v2.12.0
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Origin
+      X-Ad-Api-Version-Warning:
+      - The call has been auto-upgraded to v20.0 as v19.0 will be deprecated.
+      X-Business-Use-Case-Usage:
+      - '{"114503234599312":[{"type":"whatsapp","call_count":1,"total_cputime":1,"total_time":1,"estimated_time_to_regain_access":0}]}'
+      Access-Control-Allow-Origin:
+      - "*"
+      Facebook-Api-Version:
+      - v20.0
+      Strict-Transport-Security:
+      - max-age=15552000; preload
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Request-Id:
+      - AxLNozQ7qy3QfiF8-wCqAQw
+      X-Fb-Trace-Id:
+      - CUnwlMgdfL/
+      X-Fb-Rev:
+      - '1017313430'
+      X-Fb-Debug:
+      - 1b8a5mwFTimg2pP0HqkTMdw3wrIDp5EzKxpZ5Cx5gIaA9pJpcPeT4SUGenAxRv0CXIvYxYdw5rwR+PzvM5tfuQ==
+      Date:
+      - Mon, 14 Oct 2024 14:20:12 GMT
+      X-Fb-Connection-Quality:
+      - EXCELLENT; q=0.9, rtt=27, rtx=0, c=10, mss=1380, tbw=3369, tp=-1, tpl=-1,
+        uplat=679, ullat=0
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '172'
+    body:
+      encoding: UTF-8
+      string: '{"messaging_product":"whatsapp","contacts":[{"input":"13437772910","wa_id":"13437772910"}],"messages":[{"id":"wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBJDRDhCNTAwRkU0MTdCNkI3OUMA"}]}'
+  recorded_at: Mon, 14 Oct 2024 14:20:12 GMT
+recorded_with: VCR 6.3.1

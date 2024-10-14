@@ -1,0 +1,69 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://graph.facebook.com/v19.0/107878721936019/messages
+    body:
+      encoding: UTF-8
+      string: '{"messaging_product":"whatsapp","to":13437772910,"recipient_type":"individual","type":"image","image":{"link":"https://ignaciochiazzo.com/static/4c403819b9750c8ad8b20a75308f2a8a/876d5/profile-pic.avif","caption":"Ignacio
+        Chiazzo Profile"}}'
+    headers:
+      Authorization:
+      - Bearer <ACCESS_TOKEN>
+      User-Agent:
+      - Faraday v2.12.0
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Origin
+      X-Ad-Api-Version-Warning:
+      - The call has been auto-upgraded to v20.0 as v19.0 will be deprecated.
+      X-Business-Use-Case-Usage:
+      - '{"114503234599312":[{"type":"whatsapp","call_count":1,"total_cputime":1,"total_time":1,"estimated_time_to_regain_access":0}]}'
+      Access-Control-Allow-Origin:
+      - "*"
+      Facebook-Api-Version:
+      - v20.0
+      Strict-Transport-Security:
+      - max-age=15552000; preload
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Request-Id:
+      - AzH_akbbVpXbdU1j53PUMPb
+      X-Fb-Trace-Id:
+      - EixEmG6Vwgg
+      X-Fb-Rev:
+      - '1017313430'
+      X-Fb-Debug:
+      - 2i1MTD40/hkUJekerjzbuw791GHM30UWZ28QOtxPwuSHUZjHlEmot89uDjVMwu+TV51VsKeyzahTFVrj5PdbVA==
+      Date:
+      - Mon, 14 Oct 2024 13:22:44 GMT
+      X-Fb-Connection-Quality:
+      - EXCELLENT; q=0.9, rtt=26, rtx=0, c=10, mss=1380, tbw=3368, tp=-1, tpl=-1,
+        uplat=620, ullat=0
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '172'
+    body:
+      encoding: UTF-8
+      string: '{"messaging_product":"whatsapp","contacts":[{"input":"13437772910","wa_id":"13437772910"}],"messages":[{"id":"wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBJFOTU0Mzg1NTBBQjI5NkE3OUMA"}]}'
+  recorded_at: Mon, 14 Oct 2024 13:22:44 GMT
+recorded_with: VCR 6.3.1
