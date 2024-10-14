@@ -93,15 +93,15 @@ module WhatsappSdk
 
       def test_upload_media_handles_error_response
         VCR.use_cassette("medias/upload_media_handles_error_response") do
-          response = @medias_api.upload(sender_id: "1234567", file_path: "tmp/whatsapp.png", type: "image/png")
+          response = @medias_api.upload(sender_id: "1234567", file_path: "test/fixtures/assets/whatsapp.png", type: "image/png")
 
           assert_unsupported_request_error("post", response, "1234567", "AntlLyAlE6ZvA8AWFzcRYzZ")
         end
       end
 
-      def test_upload_media_with_success_response
+      def test_upload_image_media_with_success_response
         VCR.use_cassette("medias/upload_media_with_success_response") do
-          response = @medias_api.upload(sender_id: @sender_id, file_path: "tmp/whatsapp.png", type: "image/png")
+          response = @medias_api.upload(sender_id: @sender_id, file_path: "test/fixtures/assets/whatsapp.png", type: "image/png")
 
           assert_ok_response(response)
           assert_equal(Responses::MediaDataResponse, response.data.class)
@@ -109,9 +109,49 @@ module WhatsappSdk
         end
       end
 
+      def test_upload_audio_media_with_success_response
+        VCR.use_cassette("medias/upload_audio_media_with_success_response") do
+          response = @medias_api.upload(sender_id: @sender_id, file_path: "test/fixtures/assets/downloaded_audio.ogg", type: "audio/ogg")
+
+          assert_ok_response(response)
+          assert_equal(Responses::MediaDataResponse, response.data.class)
+          assert_equal("914268667232441", response.data.id)
+        end
+      end
+
+      def test_upload_video_media_with_success_response
+        VCR.use_cassette("medias/upload_video_media_with_success_response") do
+          response = @medias_api.upload(sender_id: @sender_id, file_path: "test/fixtures/assets/riquelme.mp4", type: "video/mp4")
+
+          assert_ok_response(response)
+          assert_equal(Responses::MediaDataResponse, response.data.class)
+          assert_equal("1236350287490060", response.data.id)
+        end
+      end
+
+      def test_upload_document_media_with_success_response
+        VCR.use_cassette("medias/upload_document_media_with_success_response") do
+          response = @medias_api.upload(sender_id: @sender_id, file_path: "test/fixtures/assets/document.pdf", type: "application/pdf")
+
+          assert_ok_response(response)
+          assert_equal(Responses::MediaDataResponse, response.data.class)
+          assert_equal("347507378388855", response.data.id)
+        end
+      end
+
+      def test_upload_sticker_media_with_success_response
+        VCR.use_cassette("medias/upload_sticker_media_with_success_response") do
+          response = @medias_api.upload(sender_id: @sender_id, file_path: "test/fixtures/assets/sticker.webp", type: "image/webp")
+
+          assert_ok_response(response)
+          assert_equal(Responses::MediaDataResponse, response.data.class)
+          assert_equal("503335829198997", response.data.id)
+        end
+      end
+
       def test_upload_media_sends_valid_params
         media_id = "987654321"
-        file_path = "tmp/whatsapp.png"
+        file_path = "test/fixtures/assets/whatsapp.png"
         type = "image/png"
 
         file_part = mock
@@ -144,7 +184,7 @@ module WhatsappSdk
 
       def test_download_media_handles_error_response
         VCR.use_cassette("medias/download_media_handles_error_response") do
-          response = @medias_api.download(url: url_example, media_type: "image/png", file_path: "tmp/testing.png")
+          response = @medias_api.download(url: url_example, media_type: "image/png", file_path: "test/fixtures/assets/testing.png")
 
           assert_predicate(response, :error?)
           assert_equal(Responses::ErrorResponse, response.error.class)
@@ -153,7 +193,7 @@ module WhatsappSdk
       end
 
       def test_download_media_sends_valid_params
-        file_path = "tmp/testing.png"
+        file_path = "test/fixtures/assets/testing.png"
         @medias_api.expects(:download_file)
                    .with(url: url_example, content_type_header: "image/png", file_path: file_path)
                    .returns(Net::HTTPOK.new(true, 200, "OK"))
@@ -164,7 +204,7 @@ module WhatsappSdk
 
       def test_download_allows_unsupported_media_type
         unsupported_media_type = "application/x-zip-compressed"
-        file_path = "tmp/testing.zip"
+        file_path = "test/fixtures/assets/testing.zip"
         @medias_api.expects(:download_file).with(url: url_example, content_type_header: unsupported_media_type,
                                                  file_path: file_path)
                    .returns(Net::HTTPOK.new(true, 200, "OK"))
@@ -175,7 +215,7 @@ module WhatsappSdk
       def test_download_media_success_response
         VCR.use_cassette("medias/download_media_success_response") do
           url = "https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=1761991787669262&ext=1728905510&hash=ATsz9FvlFt63X6Vj00u7PY7SNVCDtCYDeyUqClaX8b5rAg"
-          response = @medias_api.download(url: url, file_path: "tmp/testing.png", media_type: "image/png")
+          response = @medias_api.download(url: url, file_path: "test/fixtures/assets/testing.png", media_type: "image/png")
           assert_ok_success_response(response)
         end
       end

@@ -65,7 +65,7 @@ module WhatsappSdk
     def create_contact
       Resource::Contact.new(
         addresses: create_addresses,
-        birthday: "2019_01_01",
+        birthday: "2019-01-01",
         emails: create_emails,
         name: create_name,
         org: create_org,
