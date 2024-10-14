@@ -48,14 +48,21 @@ module ErrorsHelper
     assert_equal(mocked_error["error"]["fbtrace_id"], error.fbtrace_id)
   end
 
-  # error: { code:, error_subcode:, message:, fbtrace_id: }
   def assert_error_response(expected_error, response)
     refute_predicate(response, :ok?)
     assert_nil(response.data)
     error = response.error
-    assert_equal(expected_error[:code], error.code)
-    assert_equal(expected_error[:error_subcode], error.subcode)
-    assert_equal(expected_error[:message], error.message)
-    assert_equal(expected_error[:fbtrace_id], error.fbtrace_id)
+    [
+      [expected_error[:code], error.code],
+      [expected_error[:error_subcode], error.subcode],
+      [expected_error[:message], error.message],
+      [expected_error[:fbtrace_id], error.fbtrace_id]
+    ].each do |expected, actual|
+      if expected.nil?
+        assert_nil(actual)
+      else
+        assert_equal(expected, actual)
+      end
+    end
   end
 end
