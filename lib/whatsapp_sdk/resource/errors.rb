@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "error"
+
 module WhatsappSdk
   module Resource
     module Errors

@@ -1,0 +1,97 @@
+---
+http_interactions:
+- request:
+    method: delete
+    uri: https://graph.facebook.com/123_123
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <ACCESS_TOKEN>
+      User-Agent:
+      - Faraday v2.12.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Vary:
+      - Origin
+      Access-Control-Allow-Origin:
+      - "*"
+      Cross-Origin-Resource-Policy:
+      - cross-origin
+      X-App-Usage:
+      - '{"call_count":0,"total_cputime":0,"total_time":0}'
+      Content-Type:
+      - application/json; charset=UTF-8
+      Www-Authenticate:
+      - OAuth "Facebook Platform" "invalid_request" "(#100) Invalid post_id parameter"
+      Facebook-Api-Version:
+      - v20.0
+      Strict-Transport-Security:
+      - max-age=15552000; preload
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Request-Id:
+      - AIejXf67At-GZg4mX_Cs-Md
+      X-Fb-Trace-Id:
+      - EbZt3UtGra3
+      X-Fb-Rev:
+      - '1017312134'
+      X-Fb-Debug:
+      - kKQCDj+dwNi1Ac17atUygsjPaWxVhuJbzT6TafidM7uTq7hTMETALhsiEqXShBGs5mHHFUGi9i+YB/WyU6puVg==
+      Date:
+      - Mon, 14 Oct 2024 11:15:27 GMT
+      Proxy-Status:
+      - http_request_error; e_proxy="AcJN84T8JQkyo48uDfEWM87pssQExsromaz6Gujj5q72W888qqFqKqK0g6H3nA6S6ScFkYuVMbAtWRz6neiq";
+        e_fb_binaryversion="AcKFDWTd23ZcdFWTfPdWLvCrP1cui1jLRAKgGY-jSzBahul2qFe8wrAtrKM_X5zzJatefA35KH1VfSPFjUQgSNkSZbOB30XNMqg";
+        e_fb_httpversion="AcKwhnPYf6r3N702yzWXAsgYok_i94h21HuBLaXtxadARbjrQwHcb5oGPtw2";
+        e_fb_responsebytes="AcLvHlan6l6YoKky_CQmK_lOZtdFvkkLPAk-wOuCIG1S_hs-svzSiqtY8RAg";
+        e_fb_requesttime="AcKkDRWU0xkkW9kMvi0g6Co_XZoHS4db-Vo3FD15IXfvzBBOM7t7Oq6EhVICP3Kic3LG_OUjLg";
+        e_fb_requesthandler="AcKJP8KcEUD4_oGdCfr4ChNgeFEMmRrbHAZiMYfTGN_jjTTybfQfkFwP4h2w_J_H1nlJPKEJuiE";
+        e_fb_hostheader="AcLNEVeTCkiPITSbO53xTgHRuInKXSRSrrnYHupvIlg7evnRAcSJsWesBlRUl1O5I6OkusWcLZlcutf3";
+        e_fb_requestsequencenumber="AcIEL7veriQTAKI8bx-Dpy8lhYwFB360we7TKTWaOzkwFwM4_TIikmv-Y54mdQ";
+        e_upip="AcJo-sXNsEefPxQhN8yndEc6qVJLWpUf6GePngeXJVkAC2r2S_h3Ni8GCDwfI9wBFbSONN7SDUxfuXcnIPHE3zXLLfcD7BssVITqF-A";
+        e_fb_builduser="AcLNU9aiX0YdBjqoutpLbowaAn1XEw7wWiDsa8sxQHn5YVMh2UUDJuGJC4_Amnv_rk8";
+        e_fb_vipport="AcKZgR5QfcdPfh56ebti2vgh8_ZYQPBa835nycfE1YtHwyMIYn-bosw4ILzR";
+        e_clientaddr="AcL9jWgHwMAixfBBPnaq8XanbAXO6rC3Rri-7y0IjGb3L6EIbn8tCfCi46np3wEhCtYmGOso7IHf6xcsIy8xWqBUxTjG5UIGPQ12OCFWK_Kl5h03gw";
+        e_fb_vipaddr="AcINHFGHp8LQVVtKjqSW_p8sf1GSRR3eO59kDMikXlQ2zKa-ARIB5HeLozzFIbWmnxHjtbRXkY2SBjO3PWw1pYmJg_6IXcm_hw";
+        e_fb_configversion="AcK1PdX-ZCbskcKDc4H4Eb3Twq8qxBKYTnf3cOoctxwT_cOGoLyWRGE4OXi17g",
+        http_request_error; e_proxy="AcISwfDCBLnbUdOFpPp0xb8pbEhZNieflg9dmxF3WtHq8FcrAYSAl9KwhpNxY0Z5GWRW5ki1ahQAA58";
+        e_fb_binaryversion="AcJ9_TaMsFjyyVsAbHfPHQ580GfFPgytRg_BWqsxg2f-zxsJ4aN3QKZglczL2VT4_qKj0w4PlPhilmTzifbX50tCb4ufILG4eOU";
+        e_fb_httpversion="AcIIXKXlMZlJm5xEr1zGpnZT0P39JYY9l9aoUbJb9YsqfGSBI8FqxWZAvxhf";
+        e_fb_responsebytes="AcKV1BHz5qT54lVrbEPqwfDu6rQ3i67gnuu-dqBxwt7Y1l8wMIIEQHrjktrl";
+        e_fb_requesttime="AcJyIl-TWh4d9Tja35EzzsKuymstpA9MJvnWH7TwdVOPrd8sp6quRlTYAWRiV6NWZcpJ0BOrQA";
+        e_fb_requesthandler="AcIQvEGDHUt29f2TFzbi1nFUOs_0NX42e-qLWGH5DAgipsbbCPYcgKSPdpIisJtwuvYQeZx01zQ";
+        e_fb_hostheader="AcKx7jnv0T2R6QAY9UyWswStIsBsNih_xKc7N386nkQE8sucEtpiKMGDYuLqvC5uZ7ISY80YLTWESU5W";
+        e_fb_requestsequencenumber="AcJIlEJm7HW9AfKevY2NSEWa3g4XX2wXI-hbFRhgd9T3IfTvW4vCR55_Yg";
+        e_upip="AcIlJJSLtRgeW8z0BLwCdp0v9uAPFTAcWzmIxyQTjB_p18GBYhwz_puGWna469HBiVFkUflbFbcTrO7ohWe1dX02eRtUcNtEhQ";
+        e_fb_builduser="AcKaDphtEkpES9YCD74VVrLqOJpLWKHy30TohGDB6hFipaV_R6Ds6GpI1XwYSv6_BxU";
+        e_fb_vipport="AcJ2ooIk1ALMVX2qE1iWjQnLlIXsAUjiAWu8f6ZRgJjzoIe7HCoANECT64YK";
+        e_clientaddr="AcI3USM2xYB8QEDJRcdMpRQw8UiUfYsvp8S8jrSz1YUqyIFWRCxT9nNNKMLHvlKwTz8ihBBDfXmVaOzv-w";
+        e_fb_vipaddr="AcJ7VzG3uPbTlUionLTPupdXIzy9l3aQ2bbMuqIsPdrku3Dg38M3HMvTPieikNxb8N7AZQ";
+        e_fb_configversion="AcIUucdxArDCXf3K3opk7rxJH2kUWzq27lreJqDHwu-6whajdThvdC0RbR-51g"
+      X-Fb-Connection-Quality:
+      - EXCELLENT; q=0.9, rtt=28, rtx=0, c=10, mss=1380, tbw=3370, tp=-1, tpl=-1,
+        uplat=157, ullat=0
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '130'
+    body:
+      encoding: UTF-8
+      string: '{"error":{"message":"(#100) Invalid post_id parameter","type":"OAuthException","code":100,"fbtrace_id":"AIejXf67At-GZg4mX_Cs-Md"}}'
+  recorded_at: Mon, 14 Oct 2024 11:15:27 GMT
+recorded_with: VCR 6.3.1

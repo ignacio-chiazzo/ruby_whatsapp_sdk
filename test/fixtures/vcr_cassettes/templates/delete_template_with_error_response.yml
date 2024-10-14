@@ -1,0 +1,100 @@
+---
+http_interactions:
+- request:
+    method: delete
+    uri: https://graph.facebook.com/v19.0/114503234599312/message_templates?name=fake%20name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <ACCESS_TOKEN>
+      User-Agent:
+      - Faraday v2.12.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Vary:
+      - Accept-Encoding
+      - Origin
+      X-Ad-Api-Version-Warning:
+      - The call has been auto-upgraded to v20.0 as v19.0 will be deprecated.
+      X-Business-Use-Case-Usage:
+      - '{"114503234599312":[{"type":"whatsapp_business_management","call_count":1,"total_cputime":1,"total_time":1,"estimated_time_to_regain_access":0}]}'
+      Content-Type:
+      - application/json; charset=UTF-8
+      Www-Authenticate:
+      - OAuth "Facebook Platform" "invalid_request" "Invalid parameter"
+      Access-Control-Allow-Origin:
+      - "*"
+      Facebook-Api-Version:
+      - v20.0
+      Strict-Transport-Security:
+      - max-age=15552000; preload
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Request-Id:
+      - Ax5tIkALJCP4l5S8jbPvW2n
+      X-Fb-Trace-Id:
+      - HvSjqzfve0J
+      X-Fb-Rev:
+      - '1017309290'
+      X-Fb-Debug:
+      - xNSNYpudMX+evX2mmBWx+8GD30ymRAss/1ck7/eQdc+8MEQszDOvsPjKqDTVlIPP+81GzBNSI19npKpWTvFNXg==
+      Date:
+      - Mon, 14 Oct 2024 02:59:47 GMT
+      Proxy-Status:
+      - http_request_error; e_proxy="AcKNFgas1gl5xTZjoHefTs_iDSJV7CNMLSclIlkgoYF0s3dcY9mbTSI_GSd7PSnrjk8S6BHn3V8HXOexlJ5t";
+        e_fb_binaryversion="AcI-vzOjDgbcNIk3AbJ0dY4613HaqZozbWi9ucRlBDvQkofY8cYvxHovwj9yyPF-5FlqJRVW-rfAG06eoKW8mbuZiUtVIvjabF0";
+        e_fb_httpversion="AcIgMpNiDGbszYI20ttf6easwNE-ZAhkbWJGbn0RkrI8l8SItSy_VLK-UT2l";
+        e_fb_responsebytes="AcLe7xGmyxWEc2aCNoCXZw1M45nWbOTc62Z8ayX8xMoq-PXWafV4gjj866N5";
+        e_fb_requesttime="AcI2d0We6BdKeM1kxjtDdylQKfXk4w1sNrCAIiaKTcfPOj7I0x_fzeNnRQe_Q_CrJwPK057bog";
+        e_fb_requesthandler="AcJEE3_TVspZ1sWt94O2gqpns3-u8BBfdq9V9i-dN1cHuIVpFIenXL8npwo1nK3itGKMRJXTOA4";
+        e_fb_hostheader="AcJ-sDiAD9ZonCBXhwzNe_iMs559ft4d2u1gw7IZrzIoRRdOOr5MxPo_z8mI_s7vu9QK6Eiy-rOsSSRn";
+        e_fb_requestsequencenumber="AcJowYZ_s6WtGsKv60BJjsUo_rM1HJW-qzyJDN0kTIrd9Pz9ioMM3WtH-iZL";
+        e_upip="AcLud7n9Xdq5CIGU8U_39vNulPASDTI7Alh8qjuJ06ttaOXQYoD6Ondf-vJEyc2pIq6dafd5mZnAhPjriS4bQKrKwMk1pRo7JRhGSJk";
+        e_fb_builduser="AcLNhm7B5S85hhP5eB0vNArIs06ZIrRZheNNf0sgyYd99lHAktC16nQGrhJ1hFmuhqY";
+        e_fb_vipport="AcKBUnGaPNjS7_XZJ4SEjdvMXli3921sZNzA_kK6Fn_XleWQcLlYtg04bm1M";
+        e_clientaddr="AcK000IftPd_62rERb7oYAFK_uhleeWagJikfiIrMha7bY4BxtZ10ofKeW0MEmNeBBeqocXH7l-WSomClb4Wyrgtemzwx03JuKuZT1cQOe9S1GifKg";
+        e_fb_vipaddr="AcKy04NOI5qIzshr7lwnxGYbN8e-S9ro7w6HicbTtNRew5tsUdssv7UN96c0J-PkJeIR9eiZPzMQI-WvK7zaXhQTd-Q_5Nf3iw";
+        e_fb_configversion="AcLPzBA7uzftptqboaKdnBcl2Pya_KOaAigkiCtcsVzuOMkRuuZnHn3YIAbXcQ",
+        http_request_error; e_proxy="AcI-YphE286Ah97R4sGNPdm5Y-6G1D6isglBX1oiyfcDuEQi2JmTVsvjjD1dlZOr7PX1mDJpweQkcFVD";
+        e_fb_binaryversion="AcJV7UgKTW6lSFW_cBoRzK449FBOQlSCSgr4uN9rAZJs5Ou4ktJO4_OCmmHMSsw5j0e-HA3SMXO9kLFcabL6q23r-R9xUizOnvs";
+        e_fb_httpversion="AcISe6fzQr4YKQFltcywHUA9lhICuVBlwkcBx0TLNzhfkeRaogqRb2SVxmym";
+        e_fb_responsebytes="AcJbOMM6Rw6sGitmy2vHqhdM9Oei9dlPDfbCowV4B4WFjVihCbssL5mGqv6d";
+        e_fb_requesttime="AcLUhOZ4wqB1flNC9ghWG2BjKICcYVhc4qFnVLIRCgOKzGnpI0DC8RdNkVdiiErn2cKfX6TUPA";
+        e_fb_requesthandler="AcIf51i0tESWupwvx81WF9_XRWJXV0PkJWdH1oWFhUzoueE5OHt2c8tguL3NVvJRvwdPm0NY5lw";
+        e_fb_hostheader="AcKUrLox9fNVIZ2EhVrwZ53PhVy4SKKW2IgAIYY4n-i0Is76G066hxONK_JQA731FAfK0BZ-oJj11LOw";
+        e_fb_requestsequencenumber="AcLkQlg7B9erPimYWpmC4gLbE57J0HrkxgOAHEzhr4bW57j0coyUl24KPw";
+        e_upip="AcLXAMgQCzcuHyOa2BZ0GeQ_r-bhSG5Sg-jQTfIa09ZYhqYiWYb7odzLRM_V9CwE5Na8jESnD8fdRaphzGbfhTBiTbQvLvYHNA";
+        e_fb_builduser="AcIOEuNintGQ5oA3HrawanPEAXk1dahtHIM647r7AASEj8kOlAI9ibB36QyEr6FOdGM";
+        e_fb_vipport="AcKWwAJ1gtODZT-oTybX2zs2lODKz5ooLO6OZ-JAZYMutc044LOqHhYdesRP";
+        e_clientaddr="AcKhU8c-3O1-hyGPJTRo01LxPLQ6Q9KdhoXdfNugRCJ5GFE9Ih8nGmAx7CTqt8vF8Kaq2u6_oswpx7bV-w";
+        e_fb_vipaddr="AcI_qQrB25X98almSWTFJm7ye3PZhXXpr0zK0Vkb5lIG2j3v2r9YgGK8Ugh3JZRoc_vjzrlfmg";
+        e_fb_configversion="AcLkZkynJtZBIGsNA9iKqRYTSkafNVkZu1b9wqSCJlwwS-kAR-K9ZWXBR-gZag"
+      X-Fb-Connection-Quality:
+      - EXCELLENT; q=0.9, rtt=28, rtx=0, c=10, mss=1380, tbw=3368, tp=-1, tpl=-1,
+        uplat=228, ullat=0
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '289'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"message":"Invalid parameter","type":"OAuthException","code":100,"error_subcode":2593002,"is_transient":false,"error_user_title":"Message
+        Template Not Found","error_user_msg":"The message template fake name wasn''t
+        found for this account.","fbtrace_id":"Ax5tIkALJCP4l5S8jbPvW2n"}}'
+  recorded_at: Mon, 14 Oct 2024 02:59:46 GMT
+recorded_with: VCR 6.3.1

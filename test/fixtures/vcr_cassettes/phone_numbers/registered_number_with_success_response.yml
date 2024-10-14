@@ -1,0 +1,70 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://graph.facebook.com/v19.0/107878721936019?fields=id,is_official_business_account,display_phone_number,verified_name,account_mode,quality_rating,certificate,code_verification_status,eligibility_for_api_business_global_search,is_pin_enabled,name_status,new_name_status,status,search_visibility,messaging_limit_tier
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <ACCESS_TOKEN>
+      User-Agent:
+      - Faraday v2.12.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Etag:
+      - '"b7df8af1d8d8d98c9f8761a6d3111819328c13d4"'
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Accept-Encoding
+      - Origin
+      X-Ad-Api-Version-Warning:
+      - The call has been auto-upgraded to v20.0 as v19.0 will be deprecated.
+      X-Business-Use-Case-Usage:
+      - '{"114503234599312":[{"type":"whatsapp_business_management","call_count":0,"total_cputime":0,"total_time":0,"estimated_time_to_regain_access":0}]}'
+      Access-Control-Allow-Origin:
+      - "*"
+      Facebook-Api-Version:
+      - v20.0
+      Strict-Transport-Security:
+      - max-age=15552000; preload
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Request-Id:
+      - AWMGpLmEV3SYnWWe6rCWNYv
+      X-Fb-Trace-Id:
+      - GvUiSaM20TV
+      X-Fb-Rev:
+      - '1017308921'
+      X-Fb-Debug:
+      - 7YQ7pJ9Hy0zskygRnvlmZKEI3+4FPXnC/l5xFFpH8OOfG0z4z/FEkzN+b2jst+gmXizJPtceYv9A6siY1XWFaQ==
+      Date:
+      - Mon, 14 Oct 2024 00:52:27 GMT
+      X-Fb-Connection-Quality:
+      - EXCELLENT; q=0.9, rtt=28, rtx=0, c=10, mss=1380, tbw=3370, tp=-1, tpl=-1,
+        uplat=524, ullat=0
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '479'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"107878721936019","is_official_business_account":false,"display_phone_number":"+1
+        555-093-4873","verified_name":"Test Number","account_mode":"SANDBOX","quality_rating":"GREEN","code_verification_status":"NOT_VERIFIED","eligibility_for_api_business_global_search":"NON_ELIGIBLE_VERIFIED_LEVEL","is_pin_enabled":true,"name_status":"AVAILABLE_WITHOUT_REVIEW","new_name_status":"NONE","status":"DISCONNECTED","search_visibility":"NON_VISIBLE","messaging_limit_tier":"TIER_250"}'
+  recorded_at: Mon, 14 Oct 2024 00:52:27 GMT
+recorded_with: VCR 6.3.1

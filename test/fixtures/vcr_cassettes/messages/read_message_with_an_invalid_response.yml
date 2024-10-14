@@ -1,0 +1,100 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://graph.facebook.com/v19.0/107878721936019/messages
+    body:
+      encoding: UTF-8
+      string: '{"messaging_product":"whatsapp","status":"read","message_id":"12345"}'
+    headers:
+      Authorization:
+      - Bearer <ACCESS_TOKEN>
+      User-Agent:
+      - Faraday v2.12.0
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Vary:
+      - Origin
+      X-Ad-Api-Version-Warning:
+      - The call has been auto-upgraded to v20.0 as v19.0 will be deprecated.
+      X-Business-Use-Case-Usage:
+      - '{"114503234599312":[{"type":"whatsapp","call_count":1,"total_cputime":1,"total_time":1,"estimated_time_to_regain_access":0}]}'
+      Content-Type:
+      - application/json; charset=UTF-8
+      Www-Authenticate:
+      - OAuth "Facebook Platform" "invalid_request" "(#100) Invalid parameter"
+      Access-Control-Allow-Origin:
+      - "*"
+      Facebook-Api-Version:
+      - v20.0
+      Strict-Transport-Security:
+      - max-age=15552000; preload
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Request-Id:
+      - A3PJ2-1aODhbAGAh66zQkwf
+      X-Fb-Trace-Id:
+      - Fm1hWpa7SM3
+      X-Fb-Rev:
+      - '1017314811'
+      X-Fb-Debug:
+      - qp1+Y8fBWbTfRSJ9aiNUp61fy/jR+jzcEps2NgOcY0l98A3Wr7S62DIsEOEHOZpLmAMIlT70709sODbsUCwrDg==
+      Date:
+      - Mon, 14 Oct 2024 14:23:33 GMT
+      Proxy-Status:
+      - http_request_error; e_proxy="AcKYFED7mULZpCbB54u7k-6B1vM0DN_2uZzjCN_UrtjhOnjruP1O2DmmeQWxUpIl9Rb2RPDvv9564arI8uI";
+        e_fb_binaryversion="AcKngF77cwoq7TH4Ugl8XJtYJ2MUpZZAUP-vIEJHzAqYiIOGbQDUNizrRkqIsjIYp9gx7J8dy9ZVZWCgKH4t3BeJunEmiOAFNnw";
+        e_fb_httpversion="AcKf4WXLnRIkaY3J2lVyvoAuvNBgSo8hNiFaeCAfYcKCG-c-rv4bTAI5qJy0";
+        e_fb_responsebytes="AcKdFHQhLnh9ODUEOyHFBH5mpzPKgKqs10-tMAPI5lA6nh8sZHPZBn89Qs9Z";
+        e_fb_requesttime="AcKrgHV-IlM5M5qXyjCkb-PWvjkELi_Y2LzFO4QV55IVM2_w6KXtCdVa58hkfgWv3KAZ81o0aQ";
+        e_fb_requesthandler="AcI4zoozo1h02mQyNRaohCZNhY4nrX576LNwqI6jWZ9CiZWJ7pq7az6raOIl0tH2MDLL1u5amGs";
+        e_fb_hostheader="AcJSQdxlKcZW_qP2kQH8vkB1KWEGxdefbD60vbzYkMgN0QhY_ZB8DggG4ovLHpv_Qu9THSRJ-IR8rw-r";
+        e_fb_requestsequencenumber="AcJkQ0dl0cTlHVuntN-mr4cQ4PCPBymRyw0LSNde_6LC_4d4-iqFcmmm4sMe";
+        e_upip="AcIJaJ7qonu6G6tYQNkbro99o8LloPFlqU5_rvuMNw9KR8uHvVMv5lKj_M6SLcIhh80Bs3IWgjeF86AVqxvgy8N2irt1GxNa1-ccgQ";
+        e_fb_builduser="AcIgJwkJp_HG1KTnbOZwQly628lGHwMyvUnemkJYlZj00CtYR3MrRVNfjC8ANZxhago";
+        e_fb_vipport="AcLEGIoUeCdlnG64jtNF67wHEaPdLEHmBO0sMgwlzRGeUiJEfQSaRGFhCwGl";
+        e_clientaddr="AcJRkuzKkuCa0-ylGB7xSVrTgFu5JwLapJ1pAdqWlBDVi-I1ruVoIplDpQwdU1uxZcQfhw2l3fiRDkQ5TbYbBa_7NwG27dIfB8NkvO9SG0wECfgryQ";
+        e_fb_vipaddr="AcJHCzG6D6_kTO6r-mPEkLxRoMcFCOvHr65BYPVuAFPVJChmtvBuysbkdaTyMJo-w599eiRcAX9OKg2feUdhtvWwpuW_LqpL";
+        e_fb_configversion="AcKkY1huF1Aq9lUyn74rmT-KyNDNmREK_uNEiqCAJJi2gDq4726h1lZmT4FrPA",
+        http_request_error; e_proxy="AcLvdBbbxqA185RfhOxlxNkx1NHT36zXvLy7gOpBdJXhW2R_Qg5iwOCdnh7NF8JIv-24NhwSIfFyT_qe";
+        e_fb_binaryversion="AcIrotJ6VpjIPt3g-iUZd85DYS254dR0gPgSJLTllYVz9zYCdiIedPTmD_5yX3m7vQ4k2OPwttjAGYNgOHzc5lJOKThtYS_sU0s";
+        e_fb_httpversion="AcIX5ZD2VbiIgojnel2wXtbeEcTeFF5qi4dHq0Nri9GWq8LkzFZp6VqjceO6";
+        e_fb_responsebytes="AcKniYidnEW0J0farLIrdUUkPjBNcjOwe8PGH8_4R3DLUji87nSjBzAKOW0U";
+        e_fb_requesttime="AcI2z42KB4Hh6BGj5Q7FIxTzxb_Bfo6PzL9sMZvdBx301LrP1N-QgCvn9eeA-XJtbHWvkt3MNg";
+        e_fb_requesthandler="AcLvwAcnI0VOFagcyS_LHC94AavDp7xSkNbC2B9EcPr2V2ndZu0US4h4Lyjv4AXEnSQ4nf6Pxv4";
+        e_fb_hostheader="AcIxBvcgdMq9VVhIAA3KqkxYLx8F_TBWwKn2O8qLLw947zRKCh84FNlLZk7urguEp42qLVPojAtW8SXH";
+        e_fb_requestsequencenumber="AcJDF6zBUuUMOXFGoTfDfON7avtrZlVkpVBdWmBQS80XxNj3xemdc2-SYw";
+        e_upip="AcLuYEePwU6FDA6sB7TWJEUiHCG8tYSYTBNLaM3lwG9x_rCgMZVTAL4KOg_yazjCnLKLgIh4lDVMFzDSAzECiHhUknC2SetG";
+        e_fb_builduser="AcJIoNb6maSruNbEy5fjBGBmyQEIxqDeo6UffiS6Ltus4X-FkS3PYx33QVCCO_E8wwc";
+        e_fb_vipport="AcIdoz0_U_MXWq0qNATPb2EIbd8pKpUDTWMMhYJwT9qGIBsx3LvunrUcZQR9";
+        e_clientaddr="AcJ-EAvl975LzgfwLbDLNI98hZhNE3sUtsElY1JcdMb5OsBr5fBa9eFX06lE3nmMPAa8ITzAZMZTZ6G34w";
+        e_fb_vipaddr="AcJcaKhT9uGf_OUZE6giGcUmwWygja0UKuxnfZ5dvohgOFclMssl7iqD8-Ho9XoVfDaOyNgmfA";
+        e_fb_configversion="AcIbpgkBi-n2rxdXDnYws9l6a1crRaLJIv-bjaxSFucGuXySRwx8xwBX8wVtog"
+      X-Fb-Connection-Quality:
+      - EXCELLENT; q=0.9, rtt=27, rtx=0, c=10, mss=1380, tbw=3369, tp=-1, tpl=-1,
+        uplat=398, ullat=0
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '227'
+    body:
+      encoding: UTF-8
+      string: '{"error":{"message":"(#100) Invalid parameter","type":"OAuthException","code":100,"error_data":{"messaging_product":"whatsapp","details":"Please
+        check the message ID you have provided."},"fbtrace_id":"A3PJ2-1aODhbAGAh66zQkwf"}}'
+  recorded_at: Mon, 14 Oct 2024 14:23:33 GMT
+recorded_with: VCR 6.3.1

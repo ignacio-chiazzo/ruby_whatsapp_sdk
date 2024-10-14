@@ -1,0 +1,107 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://graph.facebook.com/v19.0/123123/whatsapp_business_profile
+    body:
+      encoding: UTF-8
+      string: about=Hey+there%21+I+am+using+WhatsApp.&messaging_product=whatsapp
+    headers:
+      Authorization:
+      - Bearer <ACCESS_TOKEN>
+      User-Agent:
+      - Faraday v2.12.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Vary:
+      - Accept-Encoding
+      - Origin
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Ad-Api-Version-Warning:
+      - The call has been auto-upgraded to v20.0 as v19.0 will be deprecated.
+      Cross-Origin-Resource-Policy:
+      - cross-origin
+      X-App-Usage:
+      - '{"call_count":0,"total_cputime":0,"total_time":0}'
+      Content-Type:
+      - application/json; charset=UTF-8
+      Www-Authenticate:
+      - OAuth "Facebook Platform" "invalid_request" "Unsupported post request. Object
+        with ID '123123' does not exist, cannot be loaded due to missing permissions,
+        or does not support this operation. Please read the Graph API documentation
+        at https://developers.facebook.com/docs/graph-api"
+      Facebook-Api-Version:
+      - v20.0
+      Strict-Transport-Security:
+      - max-age=15552000; preload
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Request-Id:
+      - Aqsz-RxXL8YZKhl3wBpoStg
+      X-Fb-Trace-Id:
+      - AUmCzQE/fUG
+      X-Fb-Rev:
+      - '1017309649'
+      X-Fb-Debug:
+      - ite552pLF8ghNxIhQMXdq91E/UPt7YZlQ9qLnxNCLUvakYUuK15JBDRxzP2rMWG/5LeHjDJZctwlPLFOhgukSw==
+      Date:
+      - Mon, 14 Oct 2024 03:49:44 GMT
+      Proxy-Status:
+      - http_request_error; e_proxy="AcIg4lrypEn4Hdcc98DIxDTfBbJvLyKsikIuM_FKP_R1fay0wcFGBgUQ1TwK2ffYFE30LfDDTcZWJb2jDpkz";
+        e_fb_binaryversion="AcJiB5hBR4kmdxfjTSjBdrsjna5IU3a4rUBw2wb1tCrsBa-IgfV8l5XB62BXXG6jXRV--WB8DWJiOzU_NSOpeV-TnEyClQ5W3m0";
+        e_fb_httpversion="AcKecBQQvbLsZepxw1yDZeogistpdIDg1fsnnbxtUqOg609ia_bJSJ98OuFx";
+        e_fb_responsebytes="AcJW7d3LZf1nHDOl-CcAeCCWhB7NbEv78ngVWGevi0N4F3ITjK-UIVtIXRtl";
+        e_fb_requesttime="AcI5JOCbFkKw2hGDi351LztCitBWZ3SoPKMPZRvJ8ZxL4ZDCGhf7c_nABkV58KuDyX5JSFe6sA";
+        e_fb_requesthandler="AcI7dt7PbzGTx2uRmDnGLbY3AD9UDD3z_4_eVd8znZTQidDwGF4gSv4X_XFhBYhnjpO46wqsF8M";
+        e_fb_hostheader="AcKV0ZY8_jRIEkYW_xoPJHwTSs1RqxwJ5N4I_N9we0cj-Z7MyDtoEXOBT6nnkwUyNuDHdwC537tAxLGY";
+        e_fb_requestsequencenumber="AcJfc8mOtIbCe32nrQb4scdkFjYciuR8BTIBQJalYWWHUb3aUUiUD-r1BFc";
+        e_upip="AcJwfuyoHKLwYsS_sRO4DmJWJAZFb9M2yjEZgUnZkR8bHZgj-9UidDRJEV5SttGth8Ml9zX6xuRGCp3QS0L97Z2BbmXEq3ZWxFnmAKE";
+        e_fb_builduser="AcIkOAjukKUJ3fPOV2jDzhJX7uEP4Ji04Gge6z2KeQ47GOOEb_ju_idOiEKeoZR0Nrg";
+        e_fb_vipport="AcLgs_GyXFtH3vqDOSYT0kQ3UB2_fXc9BS63T8LTtSuklNQOJc64hkdXx3qG";
+        e_clientaddr="AcKNA5RTc0gt7laxhaTjxXQajMndf1OnPKsYhqlFSXPqjY5PWFcASc_yKqtTHqrMRv4anq9AMvbmUIQnjMq_ny506iEo7I6sBKfWmJcKBcDDt4SVmw";
+        e_fb_vipaddr="AcJ5IctVMQwRQnaCXw8e0vvuE7iQc4w7j73wtxa3yKQrf-0M7Mr9t2Y9OKPFJ6BHXNggMK0nYb9MuZ_qY1xeaEW3QjhWjFBr_w";
+        e_fb_configversion="AcJT669S8qeIYNDQTynl79JaVMur-Cm_HMdBfPr6GE-IeLju60x-k2uJ-Z2LYP_EnMoDUWNuA9B8UogYbjbdvMSFleYJ-HGDEAA",
+        http_request_error; e_proxy="AcKNl9S70H19ZWIZLM-3z9VAQDCYz4e6TbfReMjcM03eFqxceYohc3dt_gFRo2g25uKeR1h3UgZp6oM";
+        e_fb_binaryversion="AcKiYdfl8fdFv6fvOOyCrJNyjA9ZaME4-PWaxXzl8-lSkTHoqiMWhygFX0D6wkpymlyF-sATVnDDSrCjLWrsXg8QOoh8ilNt224";
+        e_fb_httpversion="AcKi-Sy4hI-V5BLGTuce8B2sR-6l6j7ihkJge8kD3SUtSlDtSPpumaqo_ia8";
+        e_fb_responsebytes="AcJrBdsec0MvngFdZeN2WGEtcSjRDM8idFbew2PHS53WmJim8RY_gQoNZ03B";
+        e_fb_requesttime="AcLYDtMAfijTtqdFebzL3SNiLl5Fz8c92XFTw6pW7UvKf7pkRgXX_1IbP78EyeiWTc-nRqLmWw";
+        e_fb_requesthandler="AcIGtorOCbXPuzJx7ZDsLmHWkyu4bfYOKmjePXmrG1nqwNjmrKQIq31azV2kUT5VsgLcCBJq0DM";
+        e_fb_hostheader="AcIWErCPVjFVhQcXVvMlaV0SPzjtbiHWyMxWizyahj-SZmh495X0Gk4Gr3PB3gqFK8PjYW66-EjoagRz";
+        e_fb_requestsequencenumber="AcJhkKcIayvUNI-zhtXOw7mNbHqTBX5UjWzMRM9oD_wo_8GE873QraGW7Q";
+        e_upip="AcIhX7G-ZfLG6iAuq9FVYkFSI6zmUdNS7BtKg8wby3_l7tD9XDHkmCuQ7NOq-cjycJ6zoMbxN_l21a3bW7NIllm7d-f-XWXeKA";
+        e_fb_builduser="AcLxD77YGSRNSD5U16_-_Bm2wGuF6jsIwELQONmgKaoRcUAiyq-mAySooxPY7NaHl34";
+        e_fb_vipport="AcI8fymTcU4A_xI3vbbbi8pA1KHS4svzQmz_fHzXcXYKf8-aMnHFy02A1PAr";
+        e_clientaddr="AcJzO2YAyQwyv6_rNcK620YhVaknep7uiYYn64LSm_BpAXgDBExlMZj5wGoWu2TzkO_zP_bIs5xVOZdIRA";
+        e_fb_vipaddr="AcIl_inzr0GuFQQ_qAZQfxsaAnuVCl9EHxDPllt8QIC0976piCzWUmnL3k82RHW0g0NIVA";
+        e_fb_configversion="AcJSh1cjLvPL1TCMOsditozO1ohBvlaZYdkOsQIZQURz-W21z9QVsNfGB3JXGw"
+      X-Fb-Connection-Quality:
+      - EXCELLENT; q=0.9, rtt=28, rtx=0, c=10, mss=1380, tbw=3370, tp=-1, tpl=-1,
+        uplat=172, ullat=0
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '363'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"message":"Unsupported post request. Object with ID ''123123''
+        does not exist, cannot be loaded due to missing permissions, or does not support
+        this operation. Please read the Graph API documentation at https:\/\/developers.facebook.com\/docs\/graph-api","type":"GraphMethodException","code":100,"error_subcode":33,"fbtrace_id":"Aqsz-RxXL8YZKhl3wBpoStg"}}'
+  recorded_at: Mon, 14 Oct 2024 03:49:43 GMT
+recorded_with: VCR 6.3.1
