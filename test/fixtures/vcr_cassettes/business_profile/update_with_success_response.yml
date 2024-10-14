@@ -1,0 +1,68 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://graph.facebook.com/v19.0/107878721936019/whatsapp_business_profile
+    body:
+      encoding: UTF-8
+      string: address=123%2C+Main+Street%2C+New+York%2C+NY%2C+10001&description=This+is+a+description&email=testing%40gmail.com&messaging_product=whatsapp&vertical=EDU&websites%5B%5D=https%3A%2F%2Fwww.google.com
+    headers:
+      Authorization:
+      - Bearer <ACCESS_TOKEN>
+      User-Agent:
+      - Faraday v2.12.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Origin
+      X-Ad-Api-Version-Warning:
+      - The call has been auto-upgraded to v20.0 as v19.0 will be deprecated.
+      X-Business-Use-Case-Usage:
+      - '{"114503234599312":[{"type":"whatsapp_business_management","call_count":1,"total_cputime":1,"total_time":1,"estimated_time_to_regain_access":0}]}'
+      Access-Control-Allow-Origin:
+      - "*"
+      Facebook-Api-Version:
+      - v20.0
+      Strict-Transport-Security:
+      - max-age=15552000; preload
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Request-Id:
+      - AjJlwUII-BXC7cfm4bfrJLD
+      X-Fb-Trace-Id:
+      - AtOAQJI71Hy
+      X-Fb-Rev:
+      - '1017309649'
+      X-Fb-Debug:
+      - yrh5E2GD/ASaYCuOtt4arSEMfnY5CITzPL3YCk9AZzDLzYPV9AzQFQyOF1YZWdG1PptMpWdttzJLpKx8STD4Ww==
+      Date:
+      - Mon, 14 Oct 2024 03:54:21 GMT
+      X-Fb-Connection-Quality:
+      - EXCELLENT; q=0.9, rtt=27, rtx=0, c=10, mss=1380, tbw=3369, tp=-1, tpl=-1,
+        uplat=538, ullat=0
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '16'
+    body:
+      encoding: UTF-8
+      string: '{"success":true}'
+  recorded_at: Mon, 14 Oct 2024 03:54:21 GMT
+recorded_with: VCR 6.3.1
