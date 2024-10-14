@@ -12,7 +12,7 @@ module WhatsappSdk
       include(ApiResponseHelper)
 
       def setup
-        client = Client.new(ENV["WHATSAPP_ACCESS_TOKEN"])
+        client = Client.new(ENV.fetch("WHATSAPP_ACCESS_TOKEN", nil))
         @medias_api = Medias.new(client)
         @sender_id = 107_878_721_936_019
       end
@@ -29,13 +29,13 @@ module WhatsappSdk
           response = @medias_api.media(media_id: "1761991787669262")
 
           assert_media_response({
-            url: "https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=1761991787669262&ext=1728904986&hash=ATta-PkMyBz0aTF9b0CVDimLtAkAgpdXQa6t5x1KgUOu-Q",
-            mime_type: "image/png",
-            sha256: "c86c28d437534f7367e73b283155c083dddfdaf7f9b4dfae27e140f880035141",
-            file_size: 182859,
-            id: "1761991787669262",
-            messaging_product: "whatsapp"
-          }, response)
+                                  url: "https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=1761991787669262&ext=1728904986&hash=ATta-PkMyBz0aTF9b0CVDimLtAkAgpdXQa6t5x1KgUOu-Q",
+                                  mime_type: "image/png",
+                                  sha256: "c86c28d437534f7367e73b283155c083dddfdaf7f9b4dfae27e140f880035141",
+                                  file_size: 182_859,
+                                  id: "1761991787669262",
+                                  messaging_product: "whatsapp"
+                                }, response)
         end
       end
 
@@ -83,7 +83,8 @@ module WhatsappSdk
 
       def test_upload_media_handles_error_response
         VCR.use_cassette("medias/upload_media_handles_error_response") do
-          response = @medias_api.upload(sender_id: "1234567", file_path: "test/fixtures/assets/whatsapp.png", type: "image/png")
+          response = @medias_api.upload(sender_id: "1234567", file_path: "test/fixtures/assets/whatsapp.png",
+                                        type: "image/png")
 
           assert_unsupported_request_error("post", response, "1234567", "AntlLyAlE6ZvA8AWFzcRYzZ")
         end
@@ -91,7 +92,8 @@ module WhatsappSdk
 
       def test_upload_image_media_with_success_response
         VCR.use_cassette("medias/upload_media_with_success_response") do
-          response = @medias_api.upload(sender_id: @sender_id, file_path: "test/fixtures/assets/whatsapp.png", type: "image/png")
+          response = @medias_api.upload(sender_id: @sender_id, file_path: "test/fixtures/assets/whatsapp.png",
+                                        type: "image/png")
 
           assert_ok_response(response)
           assert_equal(Responses::MediaDataResponse, response.data.class)
@@ -101,7 +103,8 @@ module WhatsappSdk
 
       def test_upload_audio_media_with_success_response
         VCR.use_cassette("medias/upload_audio_media_with_success_response") do
-          response = @medias_api.upload(sender_id: @sender_id, file_path: "test/fixtures/assets/downloaded_audio.ogg", type: "audio/ogg")
+          response = @medias_api.upload(sender_id: @sender_id, file_path: "test/fixtures/assets/downloaded_audio.ogg",
+                                        type: "audio/ogg")
 
           assert_ok_response(response)
           assert_equal(Responses::MediaDataResponse, response.data.class)
@@ -111,7 +114,8 @@ module WhatsappSdk
 
       def test_upload_video_media_with_success_response
         VCR.use_cassette("medias/upload_video_media_with_success_response") do
-          response = @medias_api.upload(sender_id: @sender_id, file_path: "test/fixtures/assets/riquelme.mp4", type: "video/mp4")
+          response = @medias_api.upload(sender_id: @sender_id, file_path: "test/fixtures/assets/riquelme.mp4",
+                                        type: "video/mp4")
 
           assert_ok_response(response)
           assert_equal(Responses::MediaDataResponse, response.data.class)
@@ -121,7 +125,8 @@ module WhatsappSdk
 
       def test_upload_document_media_with_success_response
         VCR.use_cassette("medias/upload_document_media_with_success_response") do
-          response = @medias_api.upload(sender_id: @sender_id, file_path: "test/fixtures/assets/document.pdf", type: "application/pdf")
+          response = @medias_api.upload(sender_id: @sender_id, file_path: "test/fixtures/assets/document.pdf",
+                                        type: "application/pdf")
 
           assert_ok_response(response)
           assert_equal(Responses::MediaDataResponse, response.data.class)
@@ -131,7 +136,8 @@ module WhatsappSdk
 
       def test_upload_sticker_media_with_success_response
         VCR.use_cassette("medias/upload_sticker_media_with_success_response") do
-          response = @medias_api.upload(sender_id: @sender_id, file_path: "test/fixtures/assets/sticker.webp", type: "image/webp")
+          response = @medias_api.upload(sender_id: @sender_id, file_path: "test/fixtures/assets/sticker.webp",
+                                        type: "image/webp")
 
           assert_ok_response(response)
           assert_equal(Responses::MediaDataResponse, response.data.class)
@@ -174,7 +180,8 @@ module WhatsappSdk
 
       def test_download_media_handles_error_response
         VCR.use_cassette("medias/download_media_handles_error_response") do
-          response = @medias_api.download(url: url_example, media_type: "image/png", file_path: "test/fixtures/assets/testing.png")
+          response = @medias_api.download(url: url_example, media_type: "image/png",
+                                          file_path: "test/fixtures/assets/testing.png")
 
           assert_predicate(response, :error?)
           assert_equal(Responses::ErrorResponse, response.error.class)
@@ -205,7 +212,8 @@ module WhatsappSdk
       def test_download_media_success_response
         VCR.use_cassette("medias/download_media_success_response") do
           url = "https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=1761991787669262&ext=1728905510&hash=ATsz9FvlFt63X6Vj00u7PY7SNVCDtCYDeyUqClaX8b5rAg"
-          response = @medias_api.download(url: url, file_path: "test/fixtures/assets/testing.png", media_type: "image/png")
+          response = @medias_api.download(url: url, file_path: "test/fixtures/assets/testing.png",
+                                          media_type: "image/png")
           assert_ok_success_response(response)
         end
       end

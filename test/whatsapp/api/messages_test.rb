@@ -31,10 +31,10 @@ module WhatsappSdk
       include(ApiResponseHelper)
 
       def setup
-        client = Client.new(ENV["WHATSAPP_ACCESS_TOKEN"])
+        client = Client.new(ENV.fetch("WHATSAPP_ACCESS_TOKEN", nil))
         @messages_api = Messages.new(client)
-        @sender_id = 107878721936019
-        @recipient_number = 13437772910
+        @sender_id = 107_878_721_936_019
+        @recipient_number = 13_437_772_910
       end
 
       def test_send_text_handles_error_response
@@ -54,9 +54,9 @@ module WhatsappSdk
           )
 
           assert_message_response({
-            contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
-            messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBIyQzU4M0Q4MDc2NDY4ODgwNjUA" }]
-          }, response)
+                                    contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
+                                    messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBIyQzU4M0Q4MDc2NDY4ODgwNjUA" }]
+                                  }, response)
         end
       end
 
@@ -70,9 +70,9 @@ module WhatsappSdk
           )
 
           assert_message_response({
-            contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
-            messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBI1NEJFQkEzNzg0QURCMUI5MkEA" }]
-          }, response)
+                                    contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
+                                    messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBI1NEJFQkEzNzg0QURCMUI5MkEA" }]
+                                  }, response)
         end
       end
 
@@ -84,9 +84,9 @@ module WhatsappSdk
           )
 
           assert_message_response({
-            contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
-            messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBJBNzIyQjU0ODNGNkY2MUIzNDcA" }]
-          }, response)
+                                    contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
+                                    messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBJBNzIyQjU0ODNGNkY2MUIzNDcA" }]
+                                  }, response)
         end
       end
 
@@ -138,9 +138,9 @@ module WhatsappSdk
           )
 
           assert_message_response({
-            contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
-            messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBI3OTU0MDYzN0QyNzdCRDlENEYA" }]
-          }, response)
+                                    contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
+                                    messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBI3OTU0MDYzN0QyNzdCRDlENEYA" }]
+                                  }, response)
         end
       end
 
@@ -153,9 +153,9 @@ module WhatsappSdk
           )
 
           assert_message_response({
-            contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
-            messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBJFOTU0Mzg1NTBBQjI5NkE3OUMA" }]
-          }, response)
+                                    contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
+                                    messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBJFOTU0Mzg1NTBBQjI5NkE3OUMA" }]
+                                  }, response)
         end
       end
 
@@ -167,9 +167,9 @@ module WhatsappSdk
           )
 
           assert_message_response({
-            contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
-            messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBIyM0NGQkQ5RDA3NkRDNjREODMA" }]
-          }, message_response)
+                                    contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
+                                    messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBIyM0NGQkQ5RDA3NkRDNjREODMA" }]
+                                  }, message_response)
         end
       end
 
@@ -180,9 +180,9 @@ module WhatsappSdk
           )
 
           assert_message_response({
-            contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
-            messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBJDOEE3RTMxOEIzMzhCQTU4OTYA" }]
-          }, message_response)
+                                    contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
+                                    messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBJDOEE3RTMxOEIzMzhCQTU4OTYA" }]
+                                  }, message_response)
         end
       end
 
@@ -197,15 +197,15 @@ module WhatsappSdk
       def test_send_audio_message_with_a_link
         VCR.use_cassette("messages/send_audio_message_with_success_response") do
           link = "https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=914268667232441&" \
-            "ext=1728913145&hash=ATtV69tQN8OKiNmN_0SYR73eo3kshm76rQwUvIpfbVAHrA"
+                 "ext=1728913145&hash=ATtV69tQN8OKiNmN_0SYR73eo3kshm76rQwUvIpfbVAHrA"
           message_response = @messages_api.send_audio(
             sender_id: @sender_id, recipient_number: @recipient_number, link: link
           )
 
           assert_message_response({
-            contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
-            messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBJDOEE3RTMxOEIzMzhCQTU4OTYA" }]
-          }, message_response)
+                                    contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
+                                    messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBJDOEE3RTMxOEIzMzhCQTU4OTYA" }]
+                                  }, message_response)
         end
       end
 
@@ -216,9 +216,9 @@ module WhatsappSdk
           )
 
           assert_message_response({
-            contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
-            messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBJDOEE3RTMxOEIzMzhCQTU4OTYA" }]
-          }, message_response)
+                                    contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
+                                    messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBJDOEE3RTMxOEIzMzhCQTU4OTYA" }]
+                                  }, message_response)
         end
       end
 
@@ -238,16 +238,16 @@ module WhatsappSdk
           )
 
           assert_message_response({
-            contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
-            messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBIxMTJCOUFEQTAyNjUxQTZBQ0QA" }]
-          }, message_response)
+                                    contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
+                                    messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBIxMTJCOUFEQTAyNjUxQTZBQ0QA" }]
+                                  }, message_response)
         end
       end
 
       def test_send_video_message_with_a_link
         VCR.use_cassette("messages/send_video_message_with_a_link") do
           video_link = "https://lookaside.fbsbx.com/whatsapp_business/attachments/" \
-            "?mid=535689082735659&ext=1728914425&hash=ATsJzdzBhUZo3p6_XWI6MH2zzIyaatYIMQrySbaG-93Z3g"
+                       "?mid=535689082735659&ext=1728914425&hash=ATsJzdzBhUZo3p6_XWI6MH2zzIyaatYIMQrySbaG-93Z3g"
           message_response = @messages_api.send_video(
             sender_id: @sender_id, recipient_number: @recipient_number,
             link: video_link, caption: "Juan Roman"
@@ -279,16 +279,16 @@ module WhatsappSdk
           )
 
           assert_message_response({
-            contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
-            messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBJCNUMzMDcxMjgyMzVGQTYwOEIA" }]
-          }, message_response)
+                                    contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
+                                    messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBJCNUMzMDcxMjgyMzVGQTYwOEIA" }]
+                                  }, message_response)
         end
       end
 
       def test_send_document_message_with_a_link
         VCR.use_cassette("messages/send_document_message_with_a_link") do
           document_link = "https://lookaside.fbsbx.com/whatsapp_business/attachments/" \
-            "?mid=1753306975419607&ext=1728915089&hash=ATvwReL_PLDHz6DWxvpaf6bNc1FGIwvIBTvDdxlnyn_ZXw"
+                          "?mid=1753306975419607&ext=1728915089&hash=ATvwReL_PLDHz6DWxvpaf6bNc1FGIwvIBTvDdxlnyn_ZXw"
 
           message_response = @messages_api.send_document(
             sender_id: @sender_id, recipient_number: @recipient_number,
@@ -296,9 +296,9 @@ module WhatsappSdk
           )
 
           assert_message_response({
-            contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
-            messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBJBRDRBQjI0RjYxQzBCQzY3NDgA" }]
-          }, message_response)
+                                    contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
+                                    messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBJBRDRBQjI0RjYxQzBCQzY3NDgA" }]
+                                  }, message_response)
         end
       end
 
@@ -310,9 +310,9 @@ module WhatsappSdk
           )
 
           assert_message_response({
-            contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
-            messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBIyN0U4Q0FEN0Y1NzU0RkMxOTMA" }]
-          }, message_response)
+                                    contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
+                                    messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBIyN0U4Q0FEN0Y1NzU0RkMxOTMA" }]
+                                  }, message_response)
         end
       end
 
@@ -332,16 +332,16 @@ module WhatsappSdk
           )
 
           assert_message_response({
-            contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
-            messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBIwNUYzQzZGM0NEOTQ5MkM4NUQA" }]
-          }, message_response)
+                                    contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
+                                    messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBIwNUYzQzZGM0NEOTQ5MkM4NUQA" }]
+                                  }, message_response)
         end
       end
 
       def test_send_sticker_message_with_a_link
         VCR.use_cassette("messages/send_sticker_message_with_a_link") do
           sticker_link = "https://lookaside.fbsbx.com/whatsapp_business/attachments/" \
-            "?mid=503335829198997&ext=1728915786&hash=ATtVD-s23cG7a-A68fi7ZOjufIMjge89SIvw9wv9cvjIOg"
+                         "?mid=503335829198997&ext=1728915786&hash=ATtVD-s23cG7a-A68fi7ZOjufIMjge89SIvw9wv9cvjIOg"
 
           message_response = @messages_api.send_sticker(
             sender_id: @sender_id, recipient_number: @recipient_number,
@@ -349,9 +349,9 @@ module WhatsappSdk
           )
 
           assert_message_response({
-            contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
-            messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBI4MzdCOUM2RUEyRUM5MzQxMDkA" }]
-          }, message_response)
+                                    contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
+                                    messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBI4MzdCOUM2RUEyRUM5MzQxMDkA" }]
+                                  }, message_response)
         end
       end
 
@@ -362,9 +362,9 @@ module WhatsappSdk
           )
 
           assert_message_response({
-            contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
-            messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBJDRDhCNTAwRkU0MTdCNkI3OUMA" }]
-          }, message_response)
+                                    contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
+                                    messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBJDRDhCNTAwRkU0MTdCNkI3OUMA" }]
+                                  }, message_response)
         end
       end
 
@@ -408,9 +408,9 @@ module WhatsappSdk
           )
 
           assert_message_response({
-            contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
-            messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBI5REM5RkFGRjYwN0YwRUFFQkMA" }]
-          }, message_response)
+                                    contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
+                                    messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBI5REM5RkFGRjYwN0YwRUFFQkMA" }]
+                                  }, message_response)
         end
       end
 
@@ -450,9 +450,9 @@ module WhatsappSdk
           )
 
           assert_message_response({
-            contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
-            messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBI2REE3M0I0NEYzQjM1NkI2MDcA" }]
-          }, message_response)
+                                    contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
+                                    messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBI2REE3M0I0NEYzQjM1NkI2MDcA" }]
+                                  }, message_response)
         end
       end
 
@@ -649,9 +649,9 @@ module WhatsappSdk
           )
 
           assert_message_response({
-            contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
-            messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBI4MUQwRUE5NEZGRjFDNzA0QTkA" }]
-          }, message_response)
+                                    contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
+                                    messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBI4MUQwRUE5NEZGRjFDNzA0QTkA" }]
+                                  }, message_response)
         end
       end
 
@@ -705,9 +705,9 @@ module WhatsappSdk
           )
 
           assert_message_response({
-            contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
-            messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBJDOTkyMDUzODY3RTE0OTA4ODkA" }]
-          }, message_response)
+                                    contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
+                                    messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBJDOTkyMDUzODY3RTE0OTA4ODkA" }]
+                                  }, message_response)
         end
       end
 
