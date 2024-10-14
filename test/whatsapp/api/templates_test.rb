@@ -7,6 +7,7 @@ require 'api/client'
 require 'api/messages'
 require 'api/responses/template_data_response'
 require 'resource/errors'
+require 'api_response_helper'
 
 module WhatsappSdk
   module Api
@@ -152,12 +153,6 @@ module WhatsappSdk
       end
 
       private
-
-      def assert_ok_success_response(response)
-        assert_ok_response(response)
-        assert_equal(Responses::SuccessResponse, response.data.class)
-        assert_predicate(response.data, :success?)
-      end
 
       def basic_components_json
         [
