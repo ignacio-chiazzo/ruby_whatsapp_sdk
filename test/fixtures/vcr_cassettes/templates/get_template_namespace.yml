@@ -1,0 +1,68 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://graph.facebook.com/v19.0/114503234599312?fields=message_template_namespace
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <ACCESS_TOKEN>
+      User-Agent:
+      - Faraday v2.12.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Etag:
+      - '"cea490a39da066c8a5a0fc7e8342ee2abcd8b3a1"'
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Origin
+      X-Ad-Api-Version-Warning:
+      - The call has been auto-upgraded to v20.0 as v19.0 will be deprecated.
+      X-Business-Use-Case-Usage:
+      - '{"114503234599312":[{"type":"whatsapp_business_management","call_count":1,"total_cputime":1,"total_time":1,"estimated_time_to_regain_access":0}]}'
+      Access-Control-Allow-Origin:
+      - "*"
+      Facebook-Api-Version:
+      - v20.0
+      Strict-Transport-Security:
+      - max-age=15552000; preload
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Request-Id:
+      - AH3_2hiZpLv6enPQdfvz26I
+      X-Fb-Trace-Id:
+      - Ec1V9jDkZp7
+      X-Fb-Rev:
+      - '1017309290'
+      X-Fb-Debug:
+      - 5e7bT2twdb+jb6IyPRyG6qMsFpkWGH1LuU9UKH/FO0cJjE+E/5u0YalsT5Db5rtHbbihPiCuRpJ6y6Lwz/tsjQ==
+      Date:
+      - Mon, 14 Oct 2024 01:52:18 GMT
+      X-Fb-Connection-Quality:
+      - EXCELLENT; q=0.9, rtt=27, rtx=0, c=10, mss=1380, tbw=3368, tp=-1, tpl=-1,
+        uplat=257, ullat=0
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '92'
+    body:
+      encoding: UTF-8
+      string: '{"message_template_namespace":"ffac72fb_6591_4cb3_bb24_0c33a6633999","id":"114503234599312"}'
+  recorded_at: Mon, 14 Oct 2024 01:52:18 GMT
+recorded_with: VCR 6.3.1

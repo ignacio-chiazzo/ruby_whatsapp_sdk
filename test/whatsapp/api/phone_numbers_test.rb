@@ -19,17 +19,7 @@ module WhatsappSdk
       def test_registered_numbers_handles_error_response
         VCR.use_cassette('phone_numbers/registered_numbers_handles_error_response') do
           response = @phone_numbers_api.registered_numbers(123_123)
-          assert_error_response(
-            {
-              code: 100,
-              error_subcode: 33,
-              message: "Unsupported get request. Object with ID '123123' does not exist, cannot be loaded due to " \
-                       "missing permissions, or does not support this operation. Please read the Graph API " \
-                       "documentation at https://developers.facebook.com/docs/graph-api",
-              fbtrace_id: "AFZgW89DkR0hLRFJP40NTd6"
-            },
-            response
-          )
+          assert_unsupported_request_error("get", response, "123123", "AFZgW89DkR0hLRFJP40NTd6")
         end
       end
 
@@ -59,17 +49,7 @@ module WhatsappSdk
       def test_registered_number_handles_error_response
         VCR.use_cassette('phone_numbers/registered_number_handles_error_response') do
           response = @phone_numbers_api.registered_number(123_123)
-          assert_error_response(
-            {
-              code: 100,
-              error_subcode: 33,
-              message: "Unsupported get request. Object with ID '123123' does not exist, cannot be loaded due to " \
-                       "missing permissions, or does not support this operation. Please read the Graph API " \
-                       "documentation at https://developers.facebook.com/docs/graph-api",
-              fbtrace_id: "AlicHjOpoShf8TV_iXRm1pW"
-            },
-            response
-          )
+          assert_unsupported_request_error("get", response, "123123", "AlicHjOpoShf8TV_iXRm1pW")
         end
       end
 
@@ -94,17 +74,7 @@ module WhatsappSdk
       def test_register_number_handles_error_response
         VCR.use_cassette('phone_numbers/register_number_handles_error_response') do
           response = @phone_numbers_api.register_number(123_123, 123)
-          assert_error_response(
-            {
-              code: 100,
-              error_subcode: 33,
-              message: "Unsupported post request. Object with ID '123123' does not exist, cannot be loaded due to " \
-                       "missing permissions, or does not support this operation. Please read the Graph API " \
-                       "documentation at https://developers.facebook.com/docs/graph-api",
-              fbtrace_id: "AsINUN3wXWCUKt1M4Uyn7Pc"
-            },
-            response
-          )
+          assert_unsupported_request_error("post", response, "123123", "AsINUN3wXWCUKt1M4Uyn7Pc")
         end
       end
 
@@ -131,17 +101,7 @@ module WhatsappSdk
       def test_deregister_number_handles_error_response
         VCR.use_cassette('phone_numbers/deregister_number_handles_error_response') do
           response = @phone_numbers_api.deregister_number(123_123)
-          assert_error_response(
-            {
-              code: 100,
-              error_subcode: 33,
-              message: "Unsupported post request. Object with ID '123123' does not exist, cannot be loaded due to " \
-                       "missing permissions, or does not support this operation. Please read the Graph API " \
-                       "documentation at https://developers.facebook.com/docs/graph-api",
-              fbtrace_id: "AFeF4zcpff3iqz4VbpBO2Yj"
-            },
-            response
-          )
+          assert_unsupported_request_error("post", response, "123123", "AFeF4zcpff3iqz4VbpBO2Yj")
         end
       end
 

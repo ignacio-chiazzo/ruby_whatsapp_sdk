@@ -1,0 +1,134 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://graph.facebook.com/v19.0/114503234599312/message_templates?limit=100
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <ACCESS_TOKEN>
+      User-Agent:
+      - Faraday v2.12.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Etag:
+      - '"4dd62f096f20a4f6e8799225e0291055ce33a022"'
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Accept-Encoding
+      - Origin
+      X-Ad-Api-Version-Warning:
+      - The call has been auto-upgraded to v20.0 as v19.0 will be deprecated.
+      X-Business-Use-Case-Usage:
+      - '{"114503234599312":[{"type":"whatsapp_business_management","call_count":1,"total_cputime":1,"total_time":1,"estimated_time_to_regain_access":0}]}'
+      Access-Control-Allow-Origin:
+      - "*"
+      Facebook-Api-Version:
+      - v20.0
+      Strict-Transport-Security:
+      - max-age=15552000; preload
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Request-Id:
+      - AtWrAbpt5diIlVGvXfczqaP
+      X-Fb-Trace-Id:
+      - Be8reos+kWr
+      X-Fb-Rev:
+      - '1017309290'
+      X-Fb-Debug:
+      - 7xvfsuFy09tyFZei88dKO2U94gqKpz4GwkWLKWauxJr9IhcsjUIEJySGr/JZrpXwFspvUgcEaLcZp9XISo5QQg==
+      Date:
+      - Mon, 14 Oct 2024 01:49:17 GMT
+      X-Fb-Connection-Quality:
+      - EXCELLENT; q=0.9, rtt=27, rtx=0, c=10, mss=1380, tbw=3369, tp=-1, tpl=-1,
+        uplat=799, ullat=0
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '10811'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"data":[{"name":"hello_world","components":[{"type":"HEADER","format":"TEXT","text":"Hello
+        World"},{"type":"BODY","text":"Welcome and congratulations!! This message
+        demonstrates your ability to send a message notification from WhatsApp Business
+        Platform\u2019s Cloud API. Thank you for taking the time to test with us."},{"type":"FOOTER","text":"WhatsApp
+        Business API Team"}],"language":"en_US","status":"APPROVED","category":"MARKETING","id":"711633970112948"},{"name":"sample_purchase_feedback","previous_category":"ISSUE_RESOLUTION","components":[{"type":"HEADER","format":"IMAGE"},{"type":"BODY","text":"Thank
+        you for purchasing {{1}}! We value your feedback and would like to learn more
+        about your experience."},{"type":"FOOTER","text":"This message is from an
+        unverified business."},{"type":"BUTTONS","buttons":[{"type":"URL","text":"Take
+        Survey","url":"https:\/\/www.example.com\/"}]}],"language":"en_US","status":"APPROVED","category":"MARKETING","id":"1350788845398345"},{"name":"sample_purchase_feedback","previous_category":"ISSUE_RESOLUTION","components":[{"type":"HEADER","format":"IMAGE"},{"type":"BODY","text":"Agradecemos
+        a aquisi\u00e7\u00e3o de {{1}}! Valorizamos seu feedback e gostar\u00edamos
+        de saber mais sobre sua experi\u00eancia."},{"type":"FOOTER","text":"Esta
+        mensagem \u00e9 de uma empresa n\u00e3o verificada."},{"type":"BUTTONS","buttons":[{"type":"URL","text":"Participe
+        da pesquisa","url":"https:\/\/www.example.com\/"}]}],"language":"pt_BR","status":"APPROVED","category":"MARKETING","id":"4820664911376445"},{"name":"sample_purchase_feedback","previous_category":"ISSUE_RESOLUTION","components":[{"type":"HEADER","format":"IMAGE"},{"type":"BODY","text":"\u00a1Gracias
+        por comprar {{1}}! Valoramos tus comentarios y nos gustar\u00eda saber c\u00f3mo
+        fue tu experiencia."},{"type":"FOOTER","text":"Este mensaje proviene de un
+        negocio no verificado."},{"type":"BUTTONS","buttons":[{"type":"URL","text":"Responder
+        encuesta","url":"https:\/\/www.example.com\/"}]}],"language":"es","status":"APPROVED","category":"MARKETING","id":"709579543693851"},{"name":"sample_purchase_feedback","previous_category":"ISSUE_RESOLUTION","components":[{"type":"HEADER","format":"IMAGE"},{"type":"BODY","text":"Terima
+        kasih sudah membeli {{1}}! Kami menghargai masukan Anda dan ingin mempelajari
+        lebih lanjut terkait pengalaman Anda."},{"type":"FOOTER","text":"Pesan ini
+        berasal dari bisnis yang tidak terverifikasi."},{"type":"BUTTONS","buttons":[{"type":"URL","text":"Ikuti
+        survei","url":"https:\/\/www.example.com\/"}]}],"language":"id","status":"APPROVED","category":"MARKETING","id":"533961861738698"},{"name":"sample_happy_hour_announcement","previous_category":"APPOINTMENT_UPDATE","components":[{"type":"HEADER","format":"VIDEO"},{"type":"BODY","text":"O
+        happy hour chegou! \ud83c\udf7a\ud83d\ude00\ud83c\udf78\nSeja feliz e aproveite
+        o dia. \ud83c\udf89\nLocal: {{1}}\nHor\u00e1rio: {{2}}"},{"type":"FOOTER","text":"Esta
+        mensagem \u00e9 de uma empresa n\u00e3o verificada."}],"language":"pt_BR","status":"APPROVED","category":"MARKETING","id":"693982261821770"},{"name":"sample_happy_hour_announcement","previous_category":"APPOINTMENT_UPDATE","components":[{"type":"HEADER","format":"VIDEO"},{"type":"BODY","text":"Jam
+        diskon telah tiba! \ud83c\udf7a\ud83d\ude00\ud83c\udf78\nBergembiralah dan
+        nikmati hari Anda. \ud83c\udf89\nTempat: {{1}}\nWaktu: {{2}}"},{"type":"FOOTER","text":"Pesan
+        ini berasal dari bisnis yang tidak terverifikasi."}],"language":"id","status":"APPROVED","category":"MARKETING","id":"413472630634914"},{"name":"sample_happy_hour_announcement","previous_category":"APPOINTMENT_UPDATE","components":[{"type":"HEADER","format":"VIDEO"},{"type":"BODY","text":"\u00a1Lleg\u00f3
+        el happy hour! \ud83c\udf7a\ud83d\ude00\ud83c\udf78\nA divertirse y disfrutar.
+        \ud83c\udf89\nLugar: {{1}}\nHora: {{2}}"},{"type":"FOOTER","text":"Este mensaje
+        proviene de un negocio no verificado."}],"language":"es","status":"APPROVED","category":"MARKETING","id":"549158273461140"},{"name":"sample_happy_hour_announcement","previous_category":"APPOINTMENT_UPDATE","components":[{"type":"HEADER","format":"VIDEO"},{"type":"BODY","text":"Happy
+        hour is here! \ud83c\udf7a\ud83d\ude00\ud83c\udf78\nPlease be merry and enjoy
+        the day. \ud83c\udf89\nVenue: {{1}}\nTime: {{2}}"},{"type":"FOOTER","text":"This
+        message is from an unverified business."}],"language":"en_US","status":"APPROVED","category":"MARKETING","id":"722819808924334"},{"name":"sample_issue_resolution","previous_category":"ISSUE_RESOLUTION","components":[{"type":"BODY","text":"Halo
+        {{1}}, apakah kami bisa mengatasi masalah yang sedang Anda hadapi?"},{"type":"FOOTER","text":"Pesan
+        ini berasal dari bisnis yang tidak terverifikasi."},{"type":"BUTTONS","buttons":[{"type":"QUICK_REPLY","text":"Ya"},{"type":"QUICK_REPLY","text":"Tidak"}]}],"language":"id","status":"APPROVED","category":"MARKETING","id":"311661311153828"},{"name":"sample_issue_resolution","previous_category":"ISSUE_RESOLUTION","components":[{"type":"BODY","text":"Oi,
+        {{1}}. N\u00f3s conseguimos resolver o problema que voc\u00ea estava enfrentando?"},{"type":"FOOTER","text":"Esta
+        mensagem \u00e9 de uma empresa n\u00e3o verificada."},{"type":"BUTTONS","buttons":[{"type":"QUICK_REPLY","text":"Sim"},{"type":"QUICK_REPLY","text":"N\u00e3o"}]}],"language":"pt_BR","status":"APPROVED","category":"MARKETING","id":"1184126355691414"},{"name":"sample_issue_resolution","previous_category":"ISSUE_RESOLUTION","components":[{"type":"BODY","text":"Hi
+        {{1}}, were we able to solve the issue that you were facing?"},{"type":"FOOTER","text":"This
+        message is from an unverified business."},{"type":"BUTTONS","buttons":[{"type":"QUICK_REPLY","text":"Yes"},{"type":"QUICK_REPLY","text":"No"}]}],"language":"en_US","status":"APPROVED","category":"UTILITY","id":"5367414413280831"},{"name":"sample_issue_resolution","previous_category":"ISSUE_RESOLUTION","components":[{"type":"BODY","text":"Hola,
+        {{1}}. \u00bfPudiste solucionar el problema que ten\u00edas?"},{"type":"FOOTER","text":"Este
+        mensaje proviene de un negocio no verificado."},{"type":"BUTTONS","buttons":[{"type":"QUICK_REPLY","text":"S\u00ed"},{"type":"QUICK_REPLY","text":"No"}]}],"language":"es","status":"APPROVED","category":"MARKETING","id":"413970837002183"},{"name":"sample_shipping_confirmation","previous_category":"SHIPPING_UPDATE","components":[{"type":"BODY","text":"Seu
+        pacote foi enviado. Ele ser\u00e1 entregue em {{1}} dias \u00fateis."},{"type":"FOOTER","text":"Esta
+        mensagem \u00e9 de uma empresa n\u00e3o verificada."}],"language":"pt_BR","status":"APPROVED","category":"UTILITY","id":"1050753025844917"},{"name":"sample_shipping_confirmation","previous_category":"SHIPPING_UPDATE","components":[{"type":"BODY","text":"\u00f3
+        tu paquete. La entrega se realizar\u00e1 en {{1}} d\u00ed."},{"type":"FOOTER","text":"Este
+        mensaje proviene de un negocio no verificado."}],"language":"es","status":"APPROVED","category":"UTILITY","id":"748773016154942"},{"name":"sample_shipping_confirmation","previous_category":"SHIPPING_UPDATE","components":[{"type":"BODY","text":"Your
+        package has been shipped. It will be delivered in {{1}} business days."},{"type":"FOOTER","text":"This
+        message is from an unverified business."}],"language":"en_US","status":"APPROVED","category":"UTILITY","id":"419824263320619"},{"name":"sample_shipping_confirmation","previous_category":"SHIPPING_UPDATE","components":[{"type":"BODY","text":"Paket
+        Anda sudah dikirim. Paket akan sampai dalam {{1}} hari kerja."},{"type":"FOOTER","text":"Pesan
+        ini berasal dari bisnis yang tidak terverifikasi."}],"language":"id","status":"APPROVED","category":"UTILITY","id":"1396305831190950"},{"name":"sample_movie_ticket_confirmation","previous_category":"TICKET_UPDATE","components":[{"type":"HEADER","format":"IMAGE"},{"type":"BODY","text":"Seu
+        ingresso para *{{1}}*\n*Hor\u00e1rio* - {{2}}\n*Local* - {{3}}\n*Assentos*
+        - {{4}}"},{"type":"FOOTER","text":"Esta mensagem \u00e9 de uma empresa n\u00e3o
+        verificada."}],"language":"pt_BR","status":"APPROVED","category":"UTILITY","id":"326903159558831"},{"name":"sample_movie_ticket_confirmation","previous_category":"TICKET_UPDATE","components":[{"type":"HEADER","format":"IMAGE"},{"type":"BODY","text":"Your
+        ticket for *{{1}}*\n*Time* - {{2}}\n*Venue* - {{3}}\n*Seats* - {{4}}"},{"type":"FOOTER","text":"This
+        message is from an unverified business."}],"language":"en_US","status":"APPROVED","category":"UTILITY","id":"1407073629760398"},{"name":"sample_movie_ticket_confirmation","previous_category":"TICKET_UPDATE","components":[{"type":"HEADER","format":"IMAGE"},{"type":"BODY","text":"Tiket
+        Anda untuk *{{1}}*\n*Waktu* - {{2}}\n*Tempat* - {{3}}\n*Kursi* - {{4}}"},{"type":"FOOTER","text":"Pesan
+        ini berasal dari bisnis yang tidak terverifikasi."}],"language":"id","status":"APPROVED","category":"UTILITY","id":"310102224664039"},{"name":"sample_movie_ticket_confirmation","previous_category":"TICKET_UPDATE","components":[{"type":"HEADER","format":"IMAGE"},{"type":"BODY","text":"Tu
+        entrada para *{{1}}*\n*Hora* - {{2}}\n*Lugar* - {{3}}\n*Asientos* - {{4}}"},{"type":"FOOTER","text":"Este
+        mensaje proviene de un negocio no verificado."}],"language":"es","status":"APPROVED","category":"UTILITY","id":"1169918700498807"},{"name":"sample_flight_confirmation","previous_category":"TICKET_UPDATE","components":[{"type":"HEADER","format":"DOCUMENT"},{"type":"BODY","text":"This
+        is your flight confirmation for {{1}}-{{2}} on {{3}}."},{"type":"FOOTER","text":"This
+        message is from an unverified business."}],"language":"en_US","status":"APPROVED","category":"UTILITY","id":"532747684922744"},{"name":"sample_flight_confirmation","previous_category":"TICKET_UPDATE","components":[{"type":"HEADER","format":"DOCUMENT"},{"type":"BODY","text":"Ini
+        merupakan konfirmasi penerbangan Anda untuk {{1}}-{{2}} di {{3}}."},{"type":"FOOTER","text":"Pesan
+        ini berasal dari bisnis yang tidak terverifikasi."}],"language":"id","status":"APPROVED","category":"UTILITY","id":"1001479780736331"},{"name":"sample_flight_confirmation","previous_category":"TICKET_UPDATE","components":[{"type":"HEADER","format":"DOCUMENT"},{"type":"BODY","text":"Confirmamos
+        tu vuelo a {{1}}-{{2}} para el {{3}}."},{"type":"FOOTER","text":"Este mensaje
+        proviene de un negocio no verificado."}],"language":"es","status":"APPROVED","category":"UTILITY","id":"1472766123126458"},{"name":"sample_flight_confirmation","previous_category":"TICKET_UPDATE","components":[{"type":"HEADER","format":"DOCUMENT"},{"type":"BODY","text":"Esta
+        \u00e9 a sua confirma\u00e7\u00e3o de voo para {{1}}-{{2}} em {{3}}."},{"type":"FOOTER","text":"Esta
+        mensagem \u00e9 de uma empresa n\u00e3o verificada."}],"language":"pt_BR","status":"APPROVED","category":"UTILITY","id":"1294768814680083"}],"paging":{"cursors":{"before":"MAZDZD","after":"OTkZD"}}}'
+  recorded_at: Mon, 14 Oct 2024 01:49:17 GMT
+recorded_with: VCR 6.3.1
