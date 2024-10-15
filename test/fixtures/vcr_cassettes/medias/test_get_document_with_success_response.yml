@@ -1,0 +1,67 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://graph.facebook.com/396305933546205
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <ACCESS_TOKEN>
+      User-Agent:
+      - Faraday v2.12.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Etag:
+      - '"1f30aa67e648d76daa8041643b4bde9ee2ea0660"'
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Accept-Encoding
+      - Origin
+      X-Business-Use-Case-Usage:
+      - '{"114503234599312":[{"type":"whatsapp","call_count":1,"total_cputime":1,"total_time":1,"estimated_time_to_regain_access":0}]}'
+      Access-Control-Allow-Origin:
+      - "*"
+      Facebook-Api-Version:
+      - v20.0
+      Strict-Transport-Security:
+      - max-age=15552000; preload
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Request-Id:
+      - A-l5uxzCbPjsOvkwjPWUuw1
+      X-Fb-Trace-Id:
+      - H9iBWKx8Ubk
+      X-Fb-Rev:
+      - '1017354952'
+      X-Fb-Debug:
+      - q//NlAA3wFkAgZadAKxj5IjY7lLfj43Sj5JOjLUWIlJ51h1dw3XT2jMvB1M9Y10TPaS+ZgAa5mYIs1w5zMPejg==
+      Date:
+      - Tue, 15 Oct 2024 21:31:03 GMT
+      X-Fb-Connection-Quality:
+      - EXCELLENT; q=0.9, rtt=27, rtx=0, c=10, mss=1380, tbw=3364, tp=-1, tpl=-1,
+        uplat=374, ullat=0
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '339'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"url":"https:\/\/lookaside.fbsbx.com\/whatsapp_business\/attachments\/?mid=396305933546205&ext=1729028163&hash=ATv4PO2ix3ThulGe8hhrFCZTXSypEC6t51V6UBDSvRdwRw","mime_type":"application\/pdf","sha256":"9c0ec015ef2ec004c152dfa72cd07929f9fcb775d8d38aa1e9bf216ecfc003d7","file_size":14254,"id":"396305933546205","messaging_product":"whatsapp"}'
+  recorded_at: Tue, 15 Oct 2024 21:31:03 GMT
+recorded_with: VCR 6.3.1

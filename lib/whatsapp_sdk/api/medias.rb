@@ -5,8 +5,6 @@ require "faraday/multipart"
 
 require_relative "request"
 require_relative "response"
-require_relative 'responses/media_data_response'
-require_relative 'responses/success_response'
 require_relative '../resource/media_types'
 
 module WhatsappSdk
@@ -37,17 +35,14 @@ module WhatsappSdk
       # Get Media by ID.
       #
       # @param media_id [String] Media Id.
-      # @return [Api::Response] Response object.
+      # @return [Resource::Media] Media object.
       def get(media_id:)
         response = send_request(
           http_method: "get",
           endpoint: "/#{media_id}"
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MediaDataResponse
-        )
+        Resource::Media.from_hash(response)
       end
 
       def media(media_id:)
@@ -62,7 +57,7 @@ module WhatsappSdk
       # @param media_type [String] The media type e.g. "audio/mp4". See possible types in the official
       #  documentation https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media#supported-media-types,
       #  but note that the API may allow more depending on the client.
-      # @return [Api::Response] Response object.
+      # @return [Boolean] Whether the media was downloaded successfully.
       def download(url:, file_path:, media_type:)
         # Allow download of unsupported media types, since Cloud API may decide to let it through.
         #   https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/discussions/127
@@ -71,17 +66,16 @@ module WhatsappSdk
         content_type_header = map_media_type_to_content_type_header(media_type)
 
         response = download_file(url: url, file_path: file_path, content_type_header: content_type_header)
-        response = if response.code.to_i == 200
-                     { "success" => true }
-                   else
-                     { "error" => true, "status" => response.code }
-                   end
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::SuccessResponse,
-          error_class_type: Api::Responses::ErrorResponse
-        )
+        return true if response.code.to_i == 200
+
+        begin
+          body = JSON.parse(response.body)
+        rescue JSON::ParserError
+          body = { "message" => response.body }
+        end
+
+        raise Api::Responses::HttpResponseError.new(http_status: response.code, body: body)
       end
 
       # Upload a media.
@@ -90,7 +84,7 @@ module WhatsappSdk
       # @param type [String] Media type e.g. text/plain, video/3gp, image/jpeg, image/png. For more information,
       # see the official documentation https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media#supported-media-types.
       #
-      # @return [Api::Response] Response object.
+      # @return [Api::Responses::IdResponse] IdResponse object.
       def upload(sender_id:, file_path:, type:, headers: {})
         raise FileNotFoundError.new(file_path: file_path) unless File.file?(file_path)
 
@@ -108,26 +102,20 @@ module WhatsappSdk
           multipart: true
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MediaDataResponse
-        )
+        return Api::Responses::IdResponse.new(response["id"])
       end
 
       # Delete a Media by ID.
       #
       # @param media_id [String] Media Id.
-      # @return [Api::Response] Response object.
+      # @return [Boolean] Whether the media was deleted successfully.
       def delete(media_id:)
         response = send_request(
           http_method: "delete",
           endpoint: "/#{media_id}"
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::SuccessResponse
-        )
+        Api::Responses::SuccessResponse.success_response?(response: response)
       end
 
       private

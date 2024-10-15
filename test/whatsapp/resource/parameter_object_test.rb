@@ -15,11 +15,11 @@ module WhatsappSdk
     module Resource
       class ParameterObjectTest < Minitest::Test
         def setup
-          @image_media = Media.new(type: Media::Type::IMAGE,
+          @image_media = MediaComponent.new(type: MediaComponent::Type::IMAGE,
                                    link: "http(s)://URL", caption: "caption")
-          @document_media = Media.new(type: Media::Type::DOCUMENT,
+          @document_media = MediaComponent.new(type: MediaComponent::Type::DOCUMENT,
                                       link: "http://URL", filename: "txt.rb")
-          @video_media = Media.new(type: Media::Type::VIDEO, id: "123")
+          @video_media = MediaComponent.new(type: MediaComponent::Type::VIDEO, id: "123")
           @currency = Currency.new(code: "USD", amount: 1000, fallback_value: "USD")
           @date_time = DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
           @location = Location.new(latitude: 25.779510, longitude: -80.338631, name: "Miami Store",
