@@ -17,55 +17,30 @@ module WhatsappSdk
 
       def test_get_handles_error_response
         VCR.use_cassette('business_profile/details_handles_error_response') do
-          response = @business_profile_api.get(123_123)
-          assert_unsupported_request_error("get", response, "123123", "AYMXgC3SR8dC_HM7lrwoPOZ")
+          http_error = assert_raises(Api::Responses::HttpResponseError) do
+            @business_profile_api.get(123_123)
+          end
+
+          assert_equal(400, http_error.http_status)
+          assert_unsupported_request_error_v2("get", "123123", "AYMXgC3SR8dC_HM7lrwoPOZ", http_error.error_info)
         end
       end
 
       def test_get_accepts_fields
         fields = %w[vertical]
         VCR.use_cassette('business_profile/details_accepts_fields') do
-          response = @business_profile_api.get(107_878_721_936_019, fields: fields)
+          business_profile = @business_profile_api.get(107_878_721_936_019, fields: fields)
 
-          assert_ok_response(response)
-          assert_equal(%w[vertical messaging_product], response.raw_response["data"][0].keys)
+          assert_equal("UNDEFINED", business_profile.vertical)
+          assert_nil(business_profile.address)
         end
       end
 
-      def test_get_sends_all_fields_by_default
-        VCR.use_cassette('business_profile/details_sends_all_fields_by_default') do
-          response = @business_profile_api.get(107_878_721_936_019)
+      def test_get_queries_all_fields_by_default
+        VCR.use_cassette('business_profile/details_queries_all_fields_by_default') do
+          business_profile = @business_profile_api.get(107_878_721_936_019)
 
-          assert_business_details_response(
-            {
-              about: nil,
-              messaging_product: "whatsapp",
-              address: nil,
-              description: nil,
-              email: nil,
-              profile_picture_url: nil,
-              websites: nil,
-              vertical: "UNDEFINED"
-            }, response
-          )
-        end
-      end
-
-      def test_get_with_success_response
-        VCR.use_cassette('business_profile/details_with_success_response') do
-          response = @business_profile_api.get(107_878_721_936_019)
-
-          assert_business_details_response(
-            {
-              messaging_product: "whatsapp",
-              address: "123, Main Street, New York, NY, 10001",
-              description: "This is a description",
-              email: "testing@gmail.com",
-              profile_picture_url: nil,
-              websites: ["https://www.google.com/"],
-              vertical: "EDU"
-            }, response
-          )
+          assert_equal(business_profile_saved, business_profile)
         end
       end
 
@@ -78,11 +53,12 @@ module WhatsappSdk
 
       def test_update_handles_error_response
         VCR.use_cassette('business_profile/update_handles_error_response') do
-          response = @business_profile_api.update(
-            phone_number_id: 123_123, params: { about: "Hey there! I am using WhatsApp." }
-          )
+          http_error = assert_raises(Api::Responses::HttpResponseError) do
+            @business_profile_api.update(phone_number_id: 123_123, params: { about: "Hey there! I am using WhatsApp." })
+          end
 
-          assert_unsupported_request_error("post", response, "123123", "Aqsz-RxXL8YZKhl3wBpoStg")
+          assert_equal(400, http_error.http_status)
+          assert_unsupported_request_error_v2("post", "123123", "Aqsz-RxXL8YZKhl3wBpoStg", http_error.error_info)
         end
       end
 
@@ -96,32 +72,27 @@ module WhatsappSdk
             websites: ["https://www.google.com"],
             vertical: "EDU"
           }
-          response = @business_profile_api.update(phone_number_id: 107_878_721_936_019, params: params)
-
-          assert_ok_success_response(response)
+          assert_equal(true, @business_profile_api.update(phone_number_id: 107_878_721_936_019, params: params))
         end
       end
 
       private
 
-      def assert_business_details_response(expected_business_profile, response)
-        assert_ok_response(response)
+      def business_profile_saved
+        Resource::BusinessProfile.from_hash(business_profile_saved_hash)
+      end
 
-        [
-          [expected_business_profile[:about], response.data.about],
-          [expected_business_profile[:messaging_product], response.data.messaging_product],
-          [expected_business_profile[:address], response.data.address],
-          [expected_business_profile[:description], response.data.description],
-          [expected_business_profile[:email], response.data.email],
-          [expected_business_profile[:websites], response.data.websites],
-          [expected_business_profile[:vertical], response.data.vertical]
-        ].each do |expected_value, actual_value|
-          if expected_value.nil?
-            assert_nil(actual_value)
-          else
-            assert_equal(expected_value, actual_value)
-          end
-        end
+      def business_profile_saved_hash
+        {
+          "about" => "A very cool business",
+          "messaging_product" => "whatsapp",
+          "address" => "123, Main Street, New York, NY, 10001",
+          "description" => "This is a description",
+          "email" => "testing@gmail.com",
+          "profile_picture_url" => nil,
+          "websites" => ["https://www.google.com/"],
+          "vertical" => "EDU"
+        }
       end
     end
   end

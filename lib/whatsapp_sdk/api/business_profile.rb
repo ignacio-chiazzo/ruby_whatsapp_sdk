@@ -22,7 +22,7 @@ module WhatsappSdk
       # Get the details of business profile.
       #
       # @param phone_number_id [Integer] Phone Number Id.
-      # @return [Api::Response] Response object.
+      # @return [Resource::BusinessProfile] Response object.
       def get(phone_number_id, fields: nil)
         fields = if fields
                    fields.join(',')
@@ -35,10 +35,8 @@ module WhatsappSdk
           endpoint: "#{phone_number_id}/whatsapp_business_profile?fields=#{fields}"
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::BusinessProfileDataResponse
-        )
+        # In the future it might have multiple business profiles.
+        Resource::BusinessProfile.from_hash(response["data"][0])
       end
 
       def details(phone_number_id, fields: nil)
@@ -50,10 +48,9 @@ module WhatsappSdk
       #
       # @param phone_number_id [Integer] Phone Number Id.
       # @param params [Hash] Params to update.
-      # @return [Api::Response] Response object.
+      # @return [Boolean] Whether the update was successful.
       def update(phone_number_id:, params:)
-        # this is a required field
-        params[:messaging_product] = 'whatsapp'
+        params[:messaging_product] = 'whatsapp' # messaging_products is a required field
         return raise InvalidVertical.new(vertical: params[:vertical]) unless valid_vertical?(params)
 
         response = send_request(
@@ -62,10 +59,7 @@ module WhatsappSdk
           params: params
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::SuccessResponse
-        )
+        Api::Responses::SuccessResponse.success_response?(response: response)
       end
 
       private
