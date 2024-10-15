@@ -38,7 +38,7 @@ module WhatsappSdk
       #
       # @param media_id [String] Media Id.
       # @return [Api::Response] Response object.
-      def media(media_id:)
+      def get(media_id:)
         response = send_request(
           http_method: "get",
           endpoint: "/#{media_id}"
@@ -48,6 +48,11 @@ module WhatsappSdk
           response: response,
           data_class_type: Api::Responses::MediaDataResponse
         )
+      end
+
+      def media(media_id:)
+        warn "[DEPRECATION] `media` is deprecated. Please use `get` instead."
+        get(media_id: media_id)
       end
 
       # Download Media by URL.
