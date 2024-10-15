@@ -17,16 +17,16 @@ module WhatsappSdk
         @sender_id = 107_878_721_936_019
       end
 
-      def test_media_handles_error_response
+      def test_get_handles_error_response
         VCR.use_cassette("medias/media_handles_error_response") do
-          response = @medias_api.media(media_id: "123_123")
+          response = @medias_api.get(media_id: "123_123")
           assert_unsupported_request_error("get", response, "123_123", "ATf5-CLoxGyJeSu2vrRDOZR")
         end
       end
 
-      def test_media_with_success_response
+      def test_get_with_success_response
         VCR.use_cassette("medias/media_with_success_response") do
-          response = @medias_api.media(media_id: "1761991787669262")
+          response = @medias_api.get(media_id: "1761991787669262")
 
           assert_media_response({
                                   url: "https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=1761991787669262&ext=1728904986&hash=ATta-PkMyBz0aTF9b0CVDimLtAkAgpdXQa6t5x1KgUOu-Q",

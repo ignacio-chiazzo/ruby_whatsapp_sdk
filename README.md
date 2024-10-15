@@ -141,10 +141,14 @@ Check the [example.rb file](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk
 
 ```ruby
 # Get list of templates
-client.templates.templates(business_id: BUSINESS_ID)
+client.templates.list(business_id: BUSINESS_ID)
+
+# Get Message Template Namespace
+# The message template namespace is required to send messages using the message templates.
+client.templates.get_message_template_namespace(business_id: BUSINESS_ID)
 
 # Create a template
-new_template = client.templates.create(
+client.templates.create(
   business_id: BUSINESS_ID, name: "seasonal_promotion", language: "en_US", category: "MARKETING",
   components_json: components_json, allow_category_change: true
 )
@@ -160,7 +164,7 @@ client.templates.delete(business_id: BUSINESS_ID, name: "my_name") # delete by n
 
 ```ruby
 # Get the details of your business
-business_profile = client.business_profiles.details(123456)
+client.business_profiles.get(phone_number_id)
 
 # Update the details of your business
 client.business_profiles.update(phone_number_id: SENDER_ID, params: { about: "A very cool business" } )
@@ -173,10 +177,10 @@ client.business_profiles.update(phone_number_id: SENDER_ID, params: { about: "A 
 
 ```ruby
 # Get the list of phone numbers registered
-client.phone_numbers.registered_numbers(business_id)
+client.phone_numbers.list(business_id)
 
 # Get the a phone number by id
-client.phone_numbers.registered_numbers(phone_number_id)
+client.phone_numbers.get(phone_number_id)
 
 # Register a phone number
 client.phone_numbers.register_number(phone_number_id, pin)

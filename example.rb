@@ -65,7 +65,7 @@ client = WhatsappSdk::Api::Client.new
 puts "\n\n ------------------ Testing Templates API ------------------------"
 
 ## Get list of templates
-templates = client.templates.templates(business_id: BUSINESS_ID)
+templates = client.templates.list(business_id: BUSINESS_ID)
 puts "GET Templates list : #{print_data_or_error(templates, templates.data&.templates.map { |r| r.template.name })}"
 
 ## Get message templates namespace
@@ -139,7 +139,7 @@ puts "Delete template by id: #{print_data_or_error(delete_template, delete_templ
 ############################## Business API ##############################
 puts "\n\n\n ------------------ Testing Business API -----------------------"
 
-business_profile = client.business_profiles.details(SENDER_ID)
+business_profile = client.business_profiles.get(SENDER_ID)
 puts "DELETE Business Profile by id: #{print_data_or_error(delete_template, business_profile.data&.about) }"
 
 updated_bp = client.business_profiles.update(phone_number_id: SENDER_ID, params: { about: "A very cool business" } )
@@ -148,10 +148,10 @@ puts "UPDATE Business Profile by id: #{print_data_or_error(updated_bp, updated_b
 
 ############################## Phone Numbers API ##############################
 puts "\n\n\n ------------------ Testing Phone Numbers API -----------------------"
-registered_number = client.phone_numbers.registered_number(SENDER_ID)
+registered_number = client.phone_numbers.get(SENDER_ID)
 puts "GET Registered number: #{print_data_or_error(registered_number, registered_number.data&.id)}"
 
-registered_numbers = client.phone_numbers.registered_numbers(BUSINESS_ID)
+registered_numbers = client.phone_numbers.list(BUSINESS_ID)
 puts "GET Registered numbers: #{print_data_or_error(registered_number, registered_numbers.data&.phone_numbers.map(&:id))}"
 
 ############################## Media API ##############################
