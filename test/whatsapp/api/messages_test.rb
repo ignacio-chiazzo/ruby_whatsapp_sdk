@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require 'api/responses/read_message_data_response'
 require 'api/messages'
 require 'resource/address_type'
 require 'resource/address'
@@ -39,11 +38,11 @@ module WhatsappSdk
 
       def test_send_text_handles_error_response
         VCR.use_cassette("messages/send_text_handles_error_response") do
-          response = @messages_api.send_text(
-            sender_id: 123_123, recipient_number: 56_789, message: "hola"
-          )
+          http_error = assert_raises(Api::Responses::HttpResponseError) do
+            @messages_api.send_text(sender_id: 123_123, recipient_number: 56_789, message: "hola")
+          end
 
-          assert_unsupported_request_error("post", response, "123123", "AzJYAMZdf4WaDlLDXeqjTr9")
+          assert_unsupported_request_error_v2("post", "123123", "AzJYAMZdf4WaDlLDXeqjTr9", http_error.error_info)
         end
       end
 
@@ -118,7 +117,10 @@ module WhatsappSdk
           longitude: longitude, latitude: latitude, name: name, address: address
         )
 
-        assert_ok_response(message_response)
+        assert_message_response({
+                                    contacts: [{ "input" => "1234", "wa_id" => "1234" }],
+                                    messages: [{ "id" => "9876" }]
+                                  }, message_response)
       end
 
       def test_send_image_raises_an_error_if_link_and_image_are_not_provided
@@ -384,16 +386,20 @@ module WhatsappSdk
 
       def test_read_message_with_an_invalid_response
         VCR.use_cassette("messages/read_message_with_an_invalid_response") do
-          response = @messages_api.read_message(sender_id: @sender_id, message_id: "12345")
+          http_error = assert_raises(Api::Responses::HttpResponseError) do
+            @messages_api.read_message(sender_id: @sender_id, message_id: "12345")
+          end
 
-          assert_error_response(
+          assert_equal(400, http_error.http_status)
+          assert_error_info(
             {
-              message: "(#100) Invalid parameter",
-              type: "OAuthException",
               code: 100,
+              error_subcode: nil,
+              type: "OAuthException",
+              message: "(#100) Invalid parameter",
               fbtrace_id: "A3PJ2-1aODhbAGAh66zQkwf"
             },
-            response
+            http_error.error_info
           )
         end
       end
@@ -459,7 +465,7 @@ module WhatsappSdk
       def test_send_template_with_success_response_by_passing_components_sends_the_correct_params
         currency = Resource::Currency.new(code: "USD", amount: 1000, fallback_value: "1000")
         date_time = Resource::DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
-        image = Resource::Media.new(type: Resource::Media::Type::IMAGE, link: "http(s)://URL")
+        image = Resource::MediaComponent.new(type: Resource::MediaComponent::Type::IMAGE, link: "http(s)://URL")
         location = Resource::Location.new(latitude: 25.779510, longitude: -80.338631, name: "miami store",
                                           address: "820 nw 87th ave, miami, fl")
 
@@ -611,7 +617,10 @@ module WhatsappSdk
           components: [header_component, body_component, button_component1, button_component2, location_component]
         )
 
-        assert_predicate(message_response, :ok?)
+        assert_message_response({
+          contacts: [{ "input" => "1234", "wa_id" => "1234" }],
+          messages: [{ "id" => "9876" }]
+        }, message_response)
       end
 
       def test_send_interactive_reply_buttons_with_success_response_by_passing_interactive_json
@@ -722,13 +731,11 @@ module WhatsappSdk
       end
 
       def assert_message_response(expected_message, response)
-        assert_ok_response(response)
-        assert_instance_of(Response, response)
-        assert_instance_of(Responses::MessageDataResponse, response.data)
+        assert_instance_of(Api::Responses::MessageDataResponse, response)
 
-        assert_equal(1, response.data.contacts.size)
-        assert_contacts(expected_message[:contacts], response.data.contacts)
-        assert_messages(expected_message[:messages], response.data.messages)
+        assert_equal(1, response.contacts.size)
+        assert_contacts(expected_message[:contacts], response.contacts)
+        assert_messages(expected_message[:messages], response.messages)
       end
 
       def assert_messages(expected_messages, messages)

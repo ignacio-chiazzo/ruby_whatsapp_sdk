@@ -31,10 +31,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       # Send location.
@@ -70,10 +67,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       # Send an image.
@@ -109,10 +103,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       # Send an audio.
@@ -142,10 +133,7 @@ module WhatsappSdk
           multipart: true
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       # Send a video.
@@ -181,10 +169,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       # Send a document.
@@ -224,10 +209,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       # Send a document.
@@ -256,10 +238,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       # Send contacts.
@@ -289,10 +268,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       # def send_interactive_button
@@ -338,10 +314,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       alias send_interactive_reply_buttons send_interactive_message
@@ -365,10 +338,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::ReadMessageDataResponse
-        )
+        Api::Responses::SuccessResponse.success_response?(response: response)
       end
 
       # Send template
@@ -411,10 +381,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       # Send reaction
@@ -442,10 +409,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       private

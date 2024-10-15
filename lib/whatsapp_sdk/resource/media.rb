@@ -3,11 +3,6 @@
 module WhatsappSdk
   module Resource
     class Media
-      # Returns media id.
-      #
-      # @returns id [String].
-      attr_accessor :id
-
       module Type
         AUDIO = 'audio'
         DOCUMENT = 'document'
