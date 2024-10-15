@@ -1,5 +1,7 @@
 # Unreleased
+- Implement a Better API for calling the Cloud API [156](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/156)
 - Used [VCR gem]() for tests @igacio-chiazzo [153](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/153)
+- Added support for  API v20.0 and v21.0 @guizaols [152](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/152)
 - Increased minimum required Ruby version to 2.7.0 @ignacio-chiazzo [151](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/151)
 
 # v 0.13.0
