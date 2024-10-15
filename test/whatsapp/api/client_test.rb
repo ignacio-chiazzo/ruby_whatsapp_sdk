@@ -122,10 +122,6 @@ module WhatsappSdk
         assert_equal(WhatsappSdk::Api::Templates, @client.templates.class)
       end
 
-      def test_users
-        assert_equal(WhatsappSdk::Api::Users, @client.users.class)
-      end
-
       private
 
       def stub_test_request(method_name, body: {}, headers: {}, response_status: 200, response_body: { success: true },

@@ -35,11 +35,7 @@ There are three primary resources, `Messages`, `Media` and `PhoneNumbers`. `Mess
 
 To use `Messages`, `Media` or `PhoneNumbers`, you need to initialize the `Client` that contains auth information. There are two ways to do it.
 
-1. Use an initializer
-
-Note:
-Optionally, you can specify the desired API version to use (defaults to the latest version if omitted).
-Available API version can be found [here](https://developers.facebook.com/docs/graph-api/changelog/versions).
+#### Option 1) Use an initializer
 
 ```ruby
 # config/initializers/whatsapp_sdk.rb
@@ -50,22 +46,26 @@ WhatsappSdk.configure do |config|
   config.logger_options = { bodies: true } # optional, they are all valid logger_options for Faraday
 end
 ```
-More Details on Faraday Logger Options are [here](https://lostisland.github.io/faraday/#/middleware/included/logging?id=logging).
 
-OR 2) Create a `Client` instance and pass it to the `Messages`, `Medias` or `PhoneNumbers` instance like this:
+Notes:
+- Optionally, you can specify the desired API version to use (defaults to the latest version if omitted).
+Available API version can be found [here](https://developers.facebook.com/docs/graph-api/changelog/versions).
+- You can attach a logger. More Details on Faraday Logger Options are [here](https://lostisland.github.io/faraday/#/middleware/included/logging?id=logging).
 
-**Without Logger:**
+
+#### Option 2) Create a `Client` instance :
+
 ```ruby
+
+# without
 client = WhatsappSdk::Api::Client.new("<ACCESS TOKEN>") # replace this with a valid access token
-messages_api = WhatsappSdk::Api::Messages.new(client)
-```
-**With Logger:**
-```ruby
+
+# OR optionally use a logger, api_version and
 logger = Logger.new(STDOUT)
 logger_options = { bodies: true }
-client = WhatsappSdk::Api::Client.new("<ACCESS TOKEN>", "<API VERSION>", logger, logger_options) # replace this with a valid access token
-messages_api = WhatsappSdk::Api::Messages.new(client)
+client = WhatsappSdk::Api::Client.new("<ACCESS TOKEN>", "<API VERSION>", logger, logger_options)
 ```
+
 Each API operation returns a `WhatsappSdk::Api::Response` that contains `data` and `error` and a couple of helpful functions such as `ok?` and `error?`. There are three types of responses `WhatsappSdk::Api::MessageDataResponse`, `WhatsappSdk::Api::PhoneNumberDataResponse` and `WhatsappSdk::Api::PhoneNumbersDataResponse`. Each of them contains different attributes.
 
 ## Set up a Meta app
@@ -119,35 +119,19 @@ end
 Phone Numbers API
 
 ```ruby
-phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new
-registered_number = phone_numbers_api.registered_number(SENDER_ID)
+registered_number = client.phone_numbers.registered_number(SENDER_ID)
 ```
 
 Messages API
 
 ```ruby
-messages_api = WhatsappSdk::Api::Messages.new
-message_sent = messages_api.send_text(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
+message_sent = client.messages.send_text(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
                                       message: "Hey there! it's Whatsapp Ruby SDK")
 ```
 
 Check the [example.rb file](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/blob/main/example.rb) for more examples.
 
 </details>
-
-## Operations
-
-First, create the client and then create an instance `WhatsappSdk::Api::Messages` that requires a client as a param like this:
-
-```ruby
-messages_api = WhatsappSdk::Api::Messages.new
-phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new
-medias_api = WhatsappSdk::Api::Medias.new
-business_profile_api = WhatsappSdk::Api::BusinessProfile.new
-templates_api = WhatsappSdk::Api::Templates.new
-```
-
-Note: Remember to initialize the client first!
 
 ## APIs
 
@@ -157,64 +141,48 @@ Note: Remember to initialize the client first!
 
 ```ruby
 # Get list of templates
-templates_api.templates(business_id: BUSINESS_ID)
+client.templates.templates(business_id: BUSINESS_ID)
 
 # Create a template
-new_template = templates_api.create(
+new_template = client.templates.create(
   business_id: BUSINESS_ID, name: "seasonal_promotion", language: "en_US", category: "MARKETING",
   components_json: components_json, allow_category_change: true
 )
 
 # Delete a template
-templates_api.delete(business_id: BUSINESS_ID, name: "my_name") # delete by name
+client.templates.delete(business_id: BUSINESS_ID, name: "my_name") # delete by name
 ```
-
 </details>
 
 ### Business Profile API
 
 <details>
 
-Get the details of your business
-
 ```ruby
-business_profile = business_profile_api.details(123456)
+# Get the details of your business
+business_profile = client.business_profiles.details(123456)
+
+# Update the details of your business
+client.business_profiles.update(phone_number_id: SENDER_ID, params: { about: "A very cool business" } )
 ```
-
-Update the details of your business
-
-```ruby
-business_profile_api.update(phone_number_id: SENDER_ID, params: { about: "A very cool business" } )
-```
-
 </details>
 
 ### Phone numbers API
 
 <details>
 
-Get the list of phone numbers registered
-
 ```ruby
-phone_numbers_api.registered_numbers(123456) # accepts a business_id
-```
+# Get the list of phone numbers registered
+client.phone_numbers.registered_numbers(business_id)
 
-Get the a phone number by id
+# Get the a phone number by id
+client.phone_numbers.registered_numbers(phone_number_id)
 
-```ruby
-phone_numbers_api.registered_numbers(123456) # accepts a phone_number_id
-```
+# Register a phone number
+client.phone_numbers.register_number(phone_number_id, pin)
 
-Register a phone number
-
-```ruby
-phone_numbers_api.register_number(phone_number_id, pin)
-```
-
-Deregister a phone number
-
-```ruby
-phone_numbers_api.deregister_number(phone_number_id)
+# Deregister a phone number
+client.phone_numbers.deregister_number(phone_number_id)
 ```
 
 </details>
@@ -223,147 +191,95 @@ phone_numbers_api.deregister_number(phone_number_id)
 
 <details>
 
-Upload a media
-
 ```ruby
-medias_api.upload(sender_id: SENDER_ID, file_path: "tmp/whatsapp.png", type: "image/png")
+# Upload a media
+client.media.upload(sender_id: SENDER_ID, file_path: "tmp/whatsapp.png", type: "image/png")
+
+# Get a media
+media = client.media.get(media_id: MEDIA_ID)
+
+# Download media
+client.media.download(url: MEDIA_URL, file_path: 'tmp/downloaded_whatsapp.png', media_type: "image/png")
+
+# Delete a media
+client.media.delete(media_id: MEDIA_ID)
 ```
-
-Get a media
-
-```ruby
-media = medias_api.media(media_id: MEDIA_ID)
-```
-
-Download media
-
-```ruby
-medias_api.download(url: MEDIA_URL, file_path: 'tmp/downloaded_whatsapp.png', media_type: "image/png")
-```
-
-Delete a media
-
-```ruby
-medias_api.delete(media_id: MEDIA_ID)
-```
-
 </details>
 
 ### Messages API
 
 <details>
 
-**Send a text message**
-
 ```ruby
-messages_api.send_text(sender_id: 1234, recipient_number: 112345678, message: "hola")
-```
+# Send a text message
+client.messages.send_text(sender_id: 1234, recipient_number: 112345678, message: "hola")
 
-**Read a message**
+# Read a message
+client.messages.read_message(sender_id: 1234, message_id: "wamid.HBgLMTM0M12345678910=")
 
-```ruby
-messages_api.read_message(sender_id: 1234, message_id: "wamid.HBgLMTM0M12345678910=")
-```
+# Note: To get the `message_id` you can set up [Webhooks](https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/components) that will listen and fire an event when a message is received.
 
-Note: To get the `message_id` you can set up [Webhooks](https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/components) that will listen and fire an event when a message is received.
+# Send a reaction to message
+#   To send a reaction to a message, you need to obtain the message id and look for the emoji's unicode you want to use.
+client.messages.send_reaction(sender_id: 123_123, recipient_number: 56_789, message_id: "12345", emoji: "\u{1f550}")
+client.messages.send_reaction(sender_id: 123_123, recipient_number: 56_789, message_id: "12345", emoji: "⛄️")
 
-**Send a reaction to message**
-To send a reaction to a message, you need to obtain the message id and look for the emoji's unicode you want to use.
+# Reply to a message
+# To reply to a message, just include the id of the message in the `client.messages` methods. For example, to reply to a text message include the following:
+client.messages.send_text(sender_id: 123_123, recipient_number: 56_789, message: "I'm a reply", message_id: "wamid.1234")
 
-```ruby
-messages_api.send_reaction(sender_id: 123_123, recipient_number: 56_789, message_id: "12345", emoji: "\u{1f550}")
-
-messages_api.send_reaction(sender_id: 123_123, recipient_number: 56_789, message_id: "12345", emoji: "⛄️")
-```
-
-**Reply to a message**
-To reply to a message, just include the id of the message in the `messages_api` methods. For example, to reply to a text message include the following:
-
-```ruby
-messages_api.send_text(sender_id: 123_123, recipient_number: 56_789, message: "I'm a reply", message_id: "wamid.1234")
-```
-
-**Send a location message**
-
-```ruby
-messages_api.send_location(
+# Send a location message
+client.messages.send_location(
   sender_id: 123123, recipient_number: 56789,
   longitude: 45.4215, latitude: 75.6972, name: "nacho", address: "141 cooper street"
 )
-```
 
-**Send an image message**
-It could use a link or an image_id.
-
-```ruby
-# with a link
-messages_api.send_image(
-  sender_id: 123123, recipient_number: 56789, link: "image_link", caption: "Ignacio Chiazzo Profile"
-)
+# Send an image message
+#  It uses a link or an image_id.
+#  with a link
+client.messages.send_image(sender_id: 123123, recipient_number: 56789, link: "image_link", caption: "Ignacio Chiazzo Profile")
 
 # with an image id
-messages_api.send_image(
-  sender_id: 123123, recipient_number: 56789, image_id: "1234", caption: "Ignacio Chiazzo Profile"
-)
-```
+client.messages.send_image(sender_id: 123123, recipient_number: 56789, image_id: "1234", caption: "Ignacio Chiazzo Profile")
 
-**Send an audio message**
-It could use a link or an audio_id.
 
-```ruby
+# Send an audio message
+# It uses a link or an audio_id.
 # with a link
-messages_api.send_audio(sender_id: 123123, recipient_number: 56789, link: "audio_link")
+client.messages.send_audio(sender_id: 123123, recipient_number: 56789, link: "audio_link")
 
 # with an audio id
-messages_api.send_audio(sender_id: 123123, recipient_number: 56789, audio_id: "1234")
-```
+client.messages.send_audio(sender_id: 123123, recipient_number: 56789, audio_id: "1234")
 
-**Send a document message**
-It could use a link or a document_id.
-
-```ruby
+# Send a document message
+# It uses a link or a document_id.
 # with a link
-messages_api.send_document(
-  sender_id: 123123, recipient_number: 56789, link: "document_link", caption: "Ignacio Chiazzo"
-)
+client.messages.send_document(sender_id: 123123, recipient_number: 56789, link: "document_link", caption: "Ignacio Chiazzo")
 
 # with a document id
-messages_api.send_document(
-  sender_id: 123123, recipient_number: 56789, document_id: "1234", caption: "Ignacio Chiazzo"
-)
-```
+client.messages.send_document(sender_id: 123123, recipient_number: 56789, document_id: "1234", caption: "Ignacio Chiazzo")
+# Note, you can specify the filename via argument [`filename`](https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages). 
 
-Note, you can specify the filename via file [`filename` argument](https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages). 
-
-**Send a sticker message**
-It could use a link or a sticker_id.
-
-```ruby
-# with a link
-messages_api.send_sticker(sender_id: 123123, recipient_number: 56789, link: "link")
+# Send a sticker message
+#  It could use a link or a sticker_id.
+#  with a link
+client.messages.send_sticker(sender_id: 123123, recipient_number: 56789, link: "link")
 
 # with a sticker_id
-messages_api.send_sticker(sender_id: 123123, recipient_number: 56789, sticker_id: "1234")
+client.messages.send_sticker(sender_id: 123123, recipient_number: 56789, sticker_id: "1234")
+
+# Send contacts message
+# To send a contact, you need to create a Contact instance object that contain objects embedded like `addresses`, `birthday`, `emails`, `name`, `org`. See this [guide](/test/contact_helper.rb) to learn how to create contacts objects.
+client.messages.send_contacts(sender_id: 123123, recipient_number: 56789, contacts: [create_contact(params)])
+
+# Alternatively, you could pass a plain json like this:
+client.messages.send_contacts(sender_id: 123123, recipient_number: 56789, contacts_json: {...})
+
+# Send a template message
+# WhatsApp message templates are specific message formats that businesses use to send out notifications or customer care messages to people that have opted in to notifications. Messages can include appointment reminders, shipping information, issue resolution or payment updates.
+
+# Before sending a message template, you need to create one. visit the [Official API Documentation](https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-message-templates)
 ```
-
-**Send contacts message**
-To send a contact, you need to create a Contact instance object that contain objects embedded like `addresses`, `birthday`, `emails`, `name`, `org`. See this [guide](/test/contact_helper.rb) to learn how to create contacts objects.
-
-```ruby
-contacts = [create_contact(params)]
-messages_api.send_contacts(sender_id: 123123, recipient_number: 56789, contacts: contacts)
-```
-
-Alternatively, you could pass a plain json like this:
-
-```ruby
-messages_api.send_contacts(sender_id: 123123, recipient_number: 56789, contacts_json: {...})
-```
-
-**Send a template message**
-WhatsApp message templates are specific message formats that businesses use to send out notifications or customer care messages to people that have opted in to notifications. Messages can include appointment reminders, shipping information, issue resolution or payment updates.
-
-**Before sending a message template, you need to create one.** visit the [Official API Documentation](https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-message-templates)
 
 <details> <summary>Component's example</summary>
 
@@ -407,7 +323,7 @@ button_component2 = WhatsappSdk::Resource::Component.new(
 )
 
 location_component = WhatsappSdk::Resource::Component.new(type: "header", parameters: [parameter_location])
-@messages_api.send_template(sender_id: 12_345, recipient_number: 12345678, name: "hello_world", language: "en_US", components_json: [component_1])
+client.messages.send_template(sender_id: 12_345, recipient_number: 12345678, name: "hello_world", language: "en_US", components_json: [component_1])
 ```
 
 </details>
@@ -415,7 +331,7 @@ location_component = WhatsappSdk::Resource::Component.new(type: "header", parame
 Alternatively, you could pass a plain json like this:
 
 ```ruby
-@messages_api.send_template(sender_id: 12_345, recipient_number: 12345678, name: "hello_world", language: "en_US", components_json: [{...}])
+client.messages.send_template(sender_id: 12_345, recipient_number: 12345678, name: "hello_world", language: "en_US", components_json: [{...}])
 ```
 
 **Send interactive messages**
@@ -449,7 +365,7 @@ interactive_list_messages = WhatsappSdk::Resource::Interactive.new(
   action: interactive_action
 )
 
-messages_api.send_interactive_list_messages(
+client.messages.send_interactive_list_messages(
   sender_id: 12_345, recipient_number: 1234567890,
   interactive: interactive_list_messages
 )
@@ -460,7 +376,7 @@ messages_api.send_interactive_list_messages(
 Alternatively, you could pass a plain json like this:
 
 ```ruby
-messages_api.send_interactive_list_messages(
+client.messages.send_interactive_list_messages(
   sender_id: 12_345, recipient_number: 1234567890
   interactive_json: {...}
 )
@@ -495,7 +411,7 @@ interactive_reply_buttons = WhatsappSdk::Resource::Interactive.new(
   action: interactive_action
 )
 
-messages_api.send_interactive_reply_buttons(
+client.messages.send_interactive_reply_buttons(
   sender_id: 12_345, recipient_number: 1234567890,
   interactive: interactive_reply_buttons
 )
@@ -506,7 +422,7 @@ messages_api.send_interactive_reply_buttons(
 Alternative, you could pass a plain json like this:
 
 ```ruby
-messages_api.send_interactive_reply_buttons(
+client.messages.send_interactive_reply_buttons(
   sender_id: 12_345, recipient_number: 1234567890
   interactive_json: {...}
 )
