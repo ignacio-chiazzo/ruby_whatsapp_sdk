@@ -15,26 +15,26 @@ module WhatsappSdk
         @business_profile_api = BusinessProfile.new(client)
       end
 
-      def test_details_handles_error_response
+      def test_get_handles_error_response
         VCR.use_cassette('business_profile/details_handles_error_response') do
-          response = @business_profile_api.details(123_123)
+          response = @business_profile_api.get(123_123)
           assert_unsupported_request_error("get", response, "123123", "AYMXgC3SR8dC_HM7lrwoPOZ")
         end
       end
 
-      def test_details_accepts_fields
+      def test_get_accepts_fields
         fields = %w[vertical]
         VCR.use_cassette('business_profile/details_accepts_fields') do
-          response = @business_profile_api.details(107_878_721_936_019, fields: fields)
+          response = @business_profile_api.get(107_878_721_936_019, fields: fields)
 
           assert_ok_response(response)
           assert_equal(%w[vertical messaging_product], response.raw_response["data"][0].keys)
         end
       end
 
-      def test_details_sends_all_fields_by_default
+      def test_get_sends_all_fields_by_default
         VCR.use_cassette('business_profile/details_sends_all_fields_by_default') do
-          response = @business_profile_api.details(107_878_721_936_019)
+          response = @business_profile_api.get(107_878_721_936_019)
 
           assert_business_details_response(
             {
@@ -51,9 +51,9 @@ module WhatsappSdk
         end
       end
 
-      def test_details_with_success_response
+      def test_get_with_success_response
         VCR.use_cassette('business_profile/details_with_success_response') do
-          response = @business_profile_api.details(107_878_721_936_019)
+          response = @business_profile_api.get(107_878_721_936_019)
 
           assert_business_details_response(
             {

@@ -16,23 +16,23 @@ module WhatsappSdk
         @phone_numbers_api = PhoneNumbers.new(client)
       end
 
-      def test_registered_numbers_handles_error_response
+      def test_list_handles_error_response
         VCR.use_cassette('phone_numbers/registered_numbers_handles_error_response') do
-          response = @phone_numbers_api.registered_numbers(123_123)
+          response = @phone_numbers_api.list(123_123)
           assert_unsupported_request_error("get", response, "123123", "AFZgW89DkR0hLRFJP40NTd6")
         end
       end
 
-      def test_registered_numbers_with_success_response
+      def test_list_with_success_response
         VCR.use_cassette('phone_numbers/registered_numbers_with_success_response') do
-          response = @phone_numbers_api.registered_numbers(114_503_234_599_312)
+          response = @phone_numbers_api.list(114_503_234_599_312)
 
           expected_phone_numbers = [registered_phone_number]
           assert_phone_numbers_success_response(expected_phone_numbers, response)
         end
       end
 
-      def test_registered_numbers_sends_valid_params
+      def test_list_sends_valid_params
         @phone_numbers_api.expects(:send_request).with(
           http_method: "get",
           endpoint: "123123/phone_numbers?fields=#{PhoneNumbers::DEFAULT_FIELDS}"
@@ -43,24 +43,24 @@ module WhatsappSdk
           }
         )
 
-        @phone_numbers_api.registered_numbers(123_123)
+        @phone_numbers_api.list(123_123)
       end
 
-      def test_registered_number_handles_error_response
+      def test_get_handles_error_response
         VCR.use_cassette('phone_numbers/registered_number_handles_error_response') do
-          response = @phone_numbers_api.registered_number(123_123)
+          response = @phone_numbers_api.get(123_123)
           assert_unsupported_request_error("get", response, "123123", "AlicHjOpoShf8TV_iXRm1pW")
         end
       end
 
-      def test_registered_number_with_success_response
+      def test_get_with_success_response
         VCR.use_cassette('phone_numbers/registered_number_with_success_response') do
-          response = @phone_numbers_api.registered_number(107_878_721_936_019)
+          response = @phone_numbers_api.get(107_878_721_936_019)
           assert_phone_number_success_response(registered_phone_number, response)
         end
       end
 
-      def test_registered_number_sends_valid_params
+      def test_get_sends_valid_params
         @phone_numbers_api.expects(:send_request).with(
           http_method: "get",
           endpoint: "123123?fields=#{PhoneNumbers::DEFAULT_FIELDS}"
@@ -68,7 +68,7 @@ module WhatsappSdk
           { "data" => [registered_phone_number] }
         )
 
-        @phone_numbers_api.registered_number(123_123)
+        @phone_numbers_api.get(123_123)
       end
 
       def test_register_number_handles_error_response
