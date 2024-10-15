@@ -11,6 +11,10 @@ module WhatsappSdk
           super(response)
         end
 
+        def self.success_response?(response:)
+          response["success"] == true
+        end
+
         def self.build_from_response(response:)
           return unless response["success"]
 

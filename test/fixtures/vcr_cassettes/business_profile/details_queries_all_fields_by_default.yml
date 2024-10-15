@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Etag:
-      - '"ff7e3a480c4940bc7cd930619b52da7eab33e5a9"'
+      - '"639f2b55e7e775a81f9ac478c53bda9d7b9cf42a"'
       Content-Type:
       - application/json; charset=UTF-8
       Vary:
@@ -43,26 +43,27 @@ http_interactions:
       Expires:
       - Sat, 01 Jan 2000 00:00:00 GMT
       X-Fb-Request-Id:
-      - AREiev3zf-tBxuxOEg8tkSA
+      - AHV5GRs2FxI8_C0081bLMIG
       X-Fb-Trace-Id:
-      - FulkE3XEytI
+      - E2/ARmWJl6n
       X-Fb-Rev:
-      - '1017309649'
+      - '1017351937'
       X-Fb-Debug:
-      - G++E9iMjpovfb0Dl76MJvQQeyaaNpZE172ifAnGqPkqp6OGDPTFwBUzpqqC8ba9URE5zYBwJ36FHCZ5FSRSvXg==
+      - myju4daJEQ0FHTPgSVRJ/ZgHoXFy1o3lCtYgp3HrYLYvA98PQ7ChfkhZgb16ivfMJ8va4mTjebos8ho6ny2A5Q==
       Date:
-      - Mon, 14 Oct 2024 03:39:48 GMT
+      - Tue, 15 Oct 2024 17:04:02 GMT
       X-Fb-Connection-Quality:
-      - EXCELLENT; q=0.9, rtt=27, rtx=0, c=10, mss=1380, tbw=3370, tp=-1, tpl=-1,
-        uplat=244, ullat=0
+      - EXCELLENT; q=0.9, rtt=30, rtx=0, c=10, mss=1380, tbw=3367, tp=-1, tpl=-1,
+        uplat=463, ullat=0
       Alt-Svc:
       - h3=":443"; ma=86400
       Connection:
       - keep-alive
       Content-Length:
-      - '66'
+      - '254'
     body:
       encoding: UTF-8
-      string: '{"data":[{"vertical":"UNDEFINED","messaging_product":"whatsapp"}]}'
-  recorded_at: Mon, 14 Oct 2024 03:39:48 GMT
+      string: '{"data":[{"about":"A very cool business","address":"123, Main Street,
+        New York, NY, 10001","description":"This is a description","email":"testing\u0040gmail.com","websites":["https:\/\/www.google.com\/"],"vertical":"EDU","messaging_product":"whatsapp"}]}'
+  recorded_at: Tue, 15 Oct 2024 17:04:02 GMT
 recorded_with: VCR 6.3.1
