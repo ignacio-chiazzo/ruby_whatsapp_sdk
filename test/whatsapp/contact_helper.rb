@@ -69,7 +69,7 @@ module WhatsappSdk
         emails: create_emails,
         name: create_name,
         org: create_org,
-        phones: create_phone_numbers,
+        phones: create_phone_numbers, # fix me
         urls: create_urls
       )
     end

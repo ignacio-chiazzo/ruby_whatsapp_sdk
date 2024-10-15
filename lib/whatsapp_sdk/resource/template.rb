@@ -46,6 +46,26 @@ module WhatsappSdk
         @name = name
         @components_json = components_json
       end
+
+      def self.from_hash(hash)
+        new(
+          id: hash["id"],
+          status: hash["status"],
+          category: hash["category"],
+          language: hash["language"],
+          name: hash["name"],
+          components_json: hash["components"]
+        )
+      end
+
+      def ==(other)
+        self.id == other.id &&
+          self.status == other.status &&
+          self.category == other.category &&
+          self.language == other.language &&
+          self.name == other.name &&
+          self.components_json == other.components_json
+      end
     end
   end
 end

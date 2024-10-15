@@ -3,10 +3,7 @@
 require_relative "request"
 require_relative "response"
 require_relative 'responses/success_response'
-require_relative 'responses/message_template_namespace_data_response'
 require_relative 'responses/generic_error_response'
-require_relative 'responses/template_data_response'
-require_relative 'responses/templates_data_response'
 require_relative "../resource/languages"
 
 module WhatsappSdk
@@ -36,7 +33,7 @@ module WhatsappSdk
       # @param allow_category_change [Boolean] Optional Allow category change.
       # Set to true to allow us to assign a category based on the template guidelines and the template's contents.
       #   This can prevent your template from being rejected for miscategorization.
-      # @return [Response] Response object.
+      # @return [Template] Template object.
       def create(
         business_id:, name:, category:, language:, components_json: nil, allow_category_change: nil
       )
@@ -63,18 +60,14 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Response.new(
-          response: response,
-          data_class_type: Responses::TemplateDataResponse,
-          error_class_type: Responses::GenericErrorResponse
-        )
+        Resource::Template.from_hash(response)
       end
 
       # Get templates
       #
       # @param business_id [Integer] The business ID.
       # @param limit [Integer] Optional. Number of templates to return in a single page.
-      # @return [Response] Response object.
+      # @return [Template] Pagination Record containing an array of Template objects.
       def list(business_id:, limit: 100)
         params = {}
         params["limit"] = limit if limit
@@ -85,10 +78,10 @@ module WhatsappSdk
           params: params
         )
 
-        Response.new(
-          response: response,
-          data_class_type: Responses::TemplatesDataResponse,
-          error_class_type: Responses::GenericErrorResponse
+        Api::Responses::PaginationRecords.new(
+          records: parse_templates(response['data']),
+          before: response['paging']['cursors']['before'],
+          after: response['paging']['cursors']['after']
         )
       end
 
@@ -101,7 +94,7 @@ module WhatsappSdk
       # The message template namespace is required to send messages using the message templates.
       #
       # @param business_id [Integer] The business ID.
-      # @return [Response] Response object.
+      # @return [MessageTemplateNamespace] MessageTemplateNamespace object.
       def get_message_template_namespace(business_id:)
         response = send_request(
           endpoint: business_id.to_s,
@@ -109,11 +102,7 @@ module WhatsappSdk
           params: { "fields" => "message_template_namespace" }
         )
 
-        Response.new(
-          response: response,
-          data_class_type: Responses::MessageTemplateNamespaceDataResponse,
-          error_class_type: Responses::GenericErrorResponse
-        )
+        WhatsappSdk::Resource::MessageTemplateNamespace.from_hash(response)
       end
 
       # Edit Template
@@ -125,7 +114,7 @@ module WhatsappSdk
       #
       # @param id [String] Required. The message_template-id.
       # @param components_json [Json] Components that make up the template..
-      # return [Response] Response object.
+      # @return [Boolean] Whether the update was successful.
       def update(template_id:, category: nil, components_json: nil)
         if category && !WhatsappSdk::Resource::Template::Category.valid?(category)
           raise InvalidCategoryError.new(category: category)
@@ -142,11 +131,7 @@ module WhatsappSdk
           headers: { "Content-Type" => "application/json" }
         )
 
-        Response.new(
-          response: response,
-          data_class_type: Responses::SuccessResponse,
-          error_class_type: Responses::GenericErrorResponse
-        )
+        Api::Responses::SuccessResponse.success_response?(response: response)
       end
 
       # Delete Template
@@ -160,7 +145,7 @@ module WhatsappSdk
       # @param name [String] Required. The template's name.
       # @param hsm_id [String] Optional. The template's id.
       #
-      # @return [Response] Response object.
+      # @return [Boolean] Whether the deletion was successful.
       def delete(business_id:, name:, hsm_id: nil)
         params = { name: name }
         params[:hsm_id] = hsm_id if hsm_id
@@ -171,11 +156,15 @@ module WhatsappSdk
           params: params
         )
 
-        Response.new(
-          response: response,
-          data_class_type: Responses::SuccessResponse,
-          error_class_type: Responses::GenericErrorResponse
-        )
+        Api::Responses::SuccessResponse.success_response?(response: response)
+      end
+
+      private
+
+      def parse_templates(templates_data)
+        templates_data.map do |template|
+          Resource::Template.from_hash(template)
+        end
       end
     end
   end
