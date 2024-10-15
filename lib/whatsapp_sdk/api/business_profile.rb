@@ -23,7 +23,7 @@ module WhatsappSdk
       #
       # @param phone_number_id [Integer] Phone Number Id.
       # @return [Api::Response] Response object.
-      def details(phone_number_id, fields: nil)
+      def get(phone_number_id, fields: nil)
         fields = if fields
                    fields.join(',')
                  else
@@ -39,6 +39,11 @@ module WhatsappSdk
           response: response,
           data_class_type: Api::Responses::BusinessProfileDataResponse
         )
+      end
+
+      def details(phone_number_id, fields: nil)
+        warn "[DEPRECATION] `details` is deprecated. Please use `get` instead."
+        get(phone_number_id, fields: fields)
       end
 
       # Update the details of business profile.

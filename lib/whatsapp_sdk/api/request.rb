@@ -1,6 +1,8 @@
 # typed: true
 # frozen_string_literal: true
 
+require_relative "../../whatsapp_sdk"
+
 module WhatsappSdk
   module Api
     class Request

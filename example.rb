@@ -33,7 +33,7 @@ if ACCESS_TOKEN == "<TODO replace>"
   exit
 end
 
-puts "\n\n\n\n\n\n ***************    Starting calling the Cloud API    *************** \n"
+puts "\n\n\n\ ------------------ Starting calling the Cloud API -------------------\n"
 
 ################# Initialize Client #################
 WhatsappSdk.configure do |config|
@@ -41,11 +41,11 @@ WhatsappSdk.configure do |config|
 end
 
 ################# HELPERS ########################
-def print_message_sent(message_response)
+def print_message_sent(message_response, type = "")
   if message_response.ok?
-    puts "Message sent to: #{message_response.data.contacts.first.input}"
+    puts "Message #{type} sent to: #{message_response.data.contacts.first.input}"
   else
-    puts "Error: #{message_response.error&.to_s}"
+    puts "Error: #{message_response.error.message}"
   end
 end
 
@@ -57,21 +57,19 @@ def print_data_or_error(response, identifier)
   return identifier
 end
 ##################################################
+client = WhatsappSdk::Api::Client.new
 
 
-medias_api = WhatsappSdk::Api::Medias.new
-messages_api = WhatsappSdk::Api::Messages.new
-phone_numbers_api = WhatsappSdk::Api::PhoneNumbers.new
-business_profile_api = WhatsappSdk::Api::BusinessProfile.new
-templates_api = WhatsappSdk::Api::Templates.new
 
 ############################## Templates API ##############################
+puts "\n\n ------------------ Testing Templates API ------------------------"
+
 ## Get list of templates
-templates = templates_api.templates(business_id: BUSINESS_ID)
+templates = client.templates.list(business_id: BUSINESS_ID)
 puts "GET Templates list : #{print_data_or_error(templates, templates.data&.templates.map { |r| r.template.name })}"
 
 ## Get message templates namespace
-template_namespace = templates_api.get_message_template_namespace(business_id: BUSINESS_ID)
+template_namespace = client.templates.get_message_template_namespace(business_id: BUSINESS_ID)
 puts "GET template by namespace: #{print_data_or_error(template_namespace, template_namespace.data&.id)}"
 
 # Create a template
@@ -104,7 +102,7 @@ components_json = [
   }
 ]
 
-new_template = templates_api.create(
+new_template = client.templates.create(
   business_id: BUSINESS_ID, name: "seasonal_promotion", language: "ka", category: "MARKETING",
   components_json: components_json, allow_category_change: true
 )
@@ -124,171 +122,200 @@ components_json = [
     ]
   }
 ]
-updated_template = templates_api.update(template_id: "1624560287967996", category: "UTILITY")
-puts "UPDATE template by id: #{print_data_or_error(updated_template, updated_template.data&.id)}"
+
+if new_template&.data&.id
+  updated_template = client.templates.update(template_id: new_template&.data.id, category: "UTILITY")
+  puts "UPDATE template by id: #{print_data_or_error(updated_template, updated_template.data&.id)}"
+end
 
 ## Delete a template
-delete_template = templates_api.delete(business_id: BUSINESS_ID, name: "seasonal_promotion") # delete by name
-puts "DELETE template by id: #{print_data_or_error(delete_template, delete_template.data&.id) }"
-# templates_api.delete(business_id: BUSINESS_ID, name: "name2", hsm_id: "243213188351928") # delete by name and id
+delete_template = client.templates.delete(business_id: BUSINESS_ID, name: "seasonal_promotion") # delete by name
+puts "Delete template by id: #{print_data_or_error(delete_template, delete_template.data&.id) }"
+
+# client.templates.delete(business_id: BUSINESS_ID, name: "name2", hsm_id: "243213188351928") # delete by name and id
+
+
 
 ############################## Business API ##############################
-business_profile = business_profile_api.details(SENDER_ID)
+puts "\n\n\n ------------------ Testing Business API -----------------------"
+
+business_profile = client.business_profiles.get(SENDER_ID)
 puts "DELETE Business Profile by id: #{print_data_or_error(delete_template, business_profile.data&.about) }"
 
-updated_bp = business_profile_api.update(phone_number_id: SENDER_ID, params: { about: "A very cool business" } )
+updated_bp = client.business_profiles.update(phone_number_id: SENDER_ID, params: { about: "A very cool business" } )
 puts "UPDATE Business Profile by id: #{print_data_or_error(updated_bp, updated_bp.data&.success?) }"
 
+
 ############################## Phone Numbers API ##############################
-registered_number = phone_numbers_api.registered_number(SENDER_ID)
+puts "\n\n\n ------------------ Testing Phone Numbers API -----------------------"
+registered_number = client.phone_numbers.get(SENDER_ID)
 puts "GET Registered number: #{print_data_or_error(registered_number, registered_number.data&.id)}"
 
-registered_numbers = phone_numbers_api.registered_numbers(BUSINESS_ID)
+registered_numbers = client.phone_numbers.list(BUSINESS_ID)
 puts "GET Registered numbers: #{print_data_or_error(registered_number, registered_numbers.data&.phone_numbers.map(&:id))}"
 
 ############################## Media API ##############################
-
+puts "\n\n\n ------------------ Testing Media API"
 ##### Image #####
 # upload a Image
-uploaded_media = medias_api.upload(sender_id: SENDER_ID, file_path: "test/fixtures/assets/whatsapp.png", type: "image/png")
-puts "Uploaded media id: #{print_data_or_error(uploaded_media, uploaded_media.data&.id)}"
+uploaded_media = client.media.upload(sender_id: SENDER_ID, file_path: "test/fixtures/assets/whatsapp.png", type: "image/png")
+puts "Uploaded image id: #{print_data_or_error(uploaded_media, uploaded_media.data&.id)}"
 
 # get a media Image
 if uploaded_media.data&.id
-  media = medias_api.media(media_id: 1753306975419607)
-  puts "GET Media id: #{print_data_or_error(media, media.data&.id)}"
+  image = client.media.get(media_id: uploaded_media.data&.id)
+  puts "GET image id: #{print_data_or_error(image, image.data&.id)}"
 
   # download media Image
-  download_image = medias_api.download(url: media.data.url, file_path: 'test/fixtures/assets/downloaded_image.png', media_type: "image/png")
-  puts "Downloaded: #{print_data_or_error(download_image, download_image.data.success?)}"
+  download_image = client.media.download(url: image.data.url, file_path: 'test/fixtures/assets/downloaded_image.png', media_type: "image/png")
+  puts "Downloaded Image: #{print_data_or_error(download_image, download_image.data.success?)}"
 
+  uploaded_media = client.media.upload(sender_id: SENDER_ID, file_path: "test/fixtures/assets/whatsapp.png", type: "image/png")
   # delete a media
-  deleted_media = medias_api.delete(media_id: media.data.id)
-  puts "DELETE: #{print_data_or_error(deleted_media, deleted_media.data.success?)}"
+  deleted_media = client.media.delete(media_id: uploaded_media.data.id)
+  puts "Delete image: #{print_data_or_error(deleted_media, deleted_media.data.success?)}"
 else
   puts "No media to download and delete"
 end
 
 #### Video ####
 # upload a video
-uploaded_media = medias_api.upload(sender_id: SENDER_ID, file_path: "test/fixtures/assets/riquelme.mp4", type: "video/mp4")
-puts "Uploaded media id: #{print_data_or_error(uploaded_media, uploaded_media.data&.id)}"
+uploaded_video = client.media.upload(sender_id: SENDER_ID, file_path: "test/fixtures/assets/riquelme.mp4", type: "video/mp4")
+puts "Uploaded video: #{print_data_or_error(uploaded_media, uploaded_video.data&.id)}"
 
-media = medias_api.media(media_id: "535689082735659")
+video = client.media.get(media_id: uploaded_video.data&.id)
 
 # upload a video
-uploaded_video = medias_api.upload(sender_id: SENDER_ID, file_path: "test/fixtures/assets/riquelme.mp4", type: "video/mp4")
-puts "Uploaded media id: #{print_data_or_error(uploaded_media, uploaded_media.data&.id)}"
-
-media = medias_api.media(media_id: "535689082735659")
+uploaded_video = client.media.upload(sender_id: SENDER_ID, file_path: "test/fixtures/assets/riquelme.mp4", type: "video/mp4")
+puts "Uploaded video id: #{print_data_or_error(uploaded_media, video.data&.id)}"
 
 #### Audio ####
 # upload an audio
-uploaded_media = medias_api.upload(sender_id: SENDER_ID, file_path: "test/fixtures/assets/downloaded_audio.ogg", type: "audio/ogg")
-puts "Uploaded media id: #{print_data_or_error(uploaded_media, uploaded_media.data&.id)}"
+audio_response = client.media.upload(sender_id: SENDER_ID, file_path: "test/fixtures/assets/downloaded_audio.ogg", type: "audio/ogg")
+puts "Uploaded audio id: #{print_data_or_error(audio_response, audio_response.data&.id)}"
 
-if uploaded_media.data&.id
-  media_id = uploaded_media.data&.id
-  puts "Uploaded media id: #{media_id}"
+if audio_response.data&.id
+  audio_id = audio_response.data&.id
+  # get a media audio
+  audio = client.media.get(media_id: audio_id)
+  puts "GET Audio id: #{print_data_or_error(audio, audio_id)}"
 
   # get a media audio
-  media = medias_api.media(media_id: media_id)
-  puts "GET Media id: #{print_data_or_error(media, media_id)}"
-
-  # get a media audio
-  audio_link = media.data.url
-  download_image = medias_api.download(url: audio_link, file_path: 'test/fixtures/assets/downloaded_audio2.ogg', media_type: "audio/ogg")
-  puts "Download Media Audio: #{print_data_or_error(download_image, download_image.data.success?)}"
+  audio_link = audio.data.url
+  download_image = client.media.download(url: audio_link, file_path: 'test/fixtures/assets/downloaded_audio2.ogg', media_type: "audio/ogg")
+  puts "Download Audio: #{print_data_or_error(download_image, download_image.data.success?)}"
 end
 
+# upload a document
+document_response = client.media.upload(sender_id: SENDER_ID, file_path: "test/fixtures/assets/document.pdf", type: "application/pdf")
+puts "Uploaded document id: #{print_data_or_error(document_response, document_response.data&.id)}"
+
+document = client.media.get(media_id: document_response.data&.id)
+puts "GET document id: #{print_data_or_error(document, document.data&.id)}"
+
+# upload a sticker
+sticker_response = client.media.upload(sender_id: SENDER_ID, file_path: "test/fixtures/assets/sticker.webp", type: "image/webp")
+puts "Uploaded sticker id: #{print_data_or_error(sticker_response, sticker_response.data&.id)}"
+
+sticker = client.media.get(media_id: sticker_response.data&.id)
+puts "GET Sticker id: #{print_data_or_error(sticker, sticker.data&.id)}"
+
+
+
 ############################## Messages API ##############################
+puts "\n\n\n ------------------ Testing Messages API -----------------------"
 
 ######### SEND A TEXT MESSAGE
-message_sent = messages_api.send_text(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
+message_sent = client.messages.send_text(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
                                       message: "Hey there! it's Whatsapp Ruby SDK")
-print_message_sent(message_sent)
+print_message_sent(message_sent, "text")
 
 ######### React to a message
-message_id = message_sent.data.messages.first.id
-reaction_1_sent = messages_api.send_reaction(
+message_id = message_sent.data&.messages.first.id
+reaction_1_sent = client.messages.send_reaction(
   sender_id: SENDER_ID,
   recipient_number: RECIPIENT_NUMBER,
   message_id: message_id,
   emoji: "\u{1f550}"
-  )
+) if message_id
 
-reaction_2_sent = messages_api.send_reaction(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
-                                             message_id: message_id, emoji: "⛄️")
+reaction_2_sent = client.messages.send_reaction(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
+                                             message_id: message_id, emoji: "⛄️") if message_id
 puts "Message Reaction 1: #{print_data_or_error(reaction_1_sent, reaction_1_sent.data&.messages.first&.id)}"
 puts "Message Reaction 2: #{print_data_or_error(reaction_2_sent, reaction_2_sent.data&.messages.first&.id)}"
 
 ######### Reply to a message
 message_to_reply_id = message_sent.data.messages.first.id
-reply = messages_api.send_text(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message: "I'm a reply",
+reply = client.messages.send_text(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, message: "I'm a reply",
                                message_id: message_to_reply_id)
-print_message_sent(reply)
+print_message_sent(reply, "reply")
 
 ######### Send location
-location_sent = messages_api.send_location(
+
+location_sent = client.messages.send_location(
   sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
   longitude: -75.6898604, latitude: 45.4192206, name: "Ignacio", address: "My house"
 )
-print_message_sent(location_sent)
+print_message_sent(location_sent, "location")
 
 ######### READ A MESSAGE
-# messages_api.read_message(sender_id: SENDER_ID, message_id: msg_id)
+# client.messages.read_message(sender_id: SENDER_ID, message_id: msg_id)
 
 ######### SEND AN IMAGE
 # Send an image with a link
-if media.data&.id
-  image_sent = messages_api.send_image(
-    sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: media.data.url, caption: "Ignacio Chiazzo Profile"
+if image.data&.id
+  image_sent = client.messages.send_image(
+    sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: image.data.url, caption: "Ignacio Chiazzo Profile"
   )
-  print_message_sent(image_sent)
+  print_message_sent(image_sent, "image via url")
 
   # Send an image with an id
-  messages_api.send_image(
-    sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, image_id: media.data.id, caption: "Ignacio Chiazzo Profile"
+  client.messages.send_image(
+    sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, image_id: image.data.id, caption: "Ignacio Chiazzo Profile"
   )
-  print_message_sent(image_sent)
+  print_message_sent(image_sent, "image via id")
 end
 
 ######### SEND AUDIOS
 ## with a link
-audio_sent = messages_api.send_audio(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: "audio_link")
-print_message_sent(audio_sent)
+audio_sent = client.messages.send_audio(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: audio.data.url)
+print_message_sent(audio_sent, "audio via url")
 
 ## with an audio id
-audio_sent = messages_api.send_audio(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, audio_id: "1234")
-print_message_sent(audio_sent)
+audio_sent = client.messages.send_audio(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, audio_id: audio.data.id)
+print_message_sent(audio_sent, "audio via id")
 
 ######### SEND DOCUMENTS
 ## with a link
-document_sent = messages_api.send_document(
-  sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: "document_link", caption: "Ignacio Chiazzo"
-)
-print_message_sent(document_sent)
+if document.data&.id
+  document_sent = client.messages.send_document(
+    sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: document.data&.url, caption: "Ignacio Chiazzo"
+  )
+  print_message_sent(document_sent, "document via url")
 
-## with a document id
-document_sent = messages_api.send_document(
-  sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, document_id: "1234", caption: "Ignacio Chiazzo"
-)
-print_message_sent(document_sent)
+  ## with a document id
+  document_sent = client.messages.send_document(
+    sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, document_id: document.data&.id, caption: "Ignacio Chiazzo"
+  ) # modify
+  print_message_sent(document_sent, "document via id")
+end
 
 ######### SEND STICKERS
-## with a link
-sticker_sent = messages_api.send_sticker(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: "link")
-print_message_sent(sticker_sent)
+if sticker.data&.id
+  ## with a link
+  sticker_sent = client.messages.send_sticker(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, link: sticker.data.url)
+  print_message_sent(sticker_sent, "sticker via url")
 
-## with a sticker_id
-sticker_sent = messages_api.send_sticker(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, sticker_id: "1234")
-print_message_sent(sticker_sent)
+  ## with a sticker_id
+  sticker_sent = client.messages.send_sticker(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, sticker_id: sticker.data.id)
+  print_message_sent(sticker_sent, "sticker via id")
+end
 
 ######### SEND A TEMPLATE
 # Note: The template must have been created previously.
 
 # Send a template with no component
-response_with_object = messages_api.send_template(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
+response_with_object = client.messages.send_template(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
                                                   name: "hello_world", language: "en_US", components: [])
 puts response_with_object
 
@@ -361,7 +388,7 @@ button_component_2 = WhatsappSdk::Resource::Component.new(
 )
 
 # Send a template with component_json
-response_with_json = messages_api.send_template(
+response_with_json = client.messages.send_template(
   sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, name: "hello_world", language: "en_US",
   components_json: [
     {
@@ -418,7 +445,7 @@ interactive_reply_buttons = WhatsappSdk::Resource::Interactive.new(
   action: interactive_action
 )
 
-messages_api.send_interactive_reply_buttons(
+client.messages.send_interactive_reply_buttons(
   sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
   interactive: interactive_reply_buttons
 )

@@ -67,7 +67,7 @@ module WhatsappSdk
       ##### GET Templates
       def test_get_templates
         VCR.use_cassette('templates/get_templates') do
-          templates_response = @templates_api.templates(business_id: 114_503_234_599_312)
+          templates_response = @templates_api.list(business_id: 114_503_234_599_312)
           assert_ok_response(templates_response)
           assert_equal(Responses::TemplatesDataResponse, templates_response.data.class)
           assert_equal(25, templates_response.data.templates.size)
@@ -77,7 +77,7 @@ module WhatsappSdk
 
       def test_get_templates_when_an_error_is_returned
         VCR.use_cassette('templates/get_templates_when_an_error_is_returned') do
-          templates_response = @templates_api.templates(business_id: 123_456)
+          templates_response = @templates_api.list(business_id: 123_456)
           assert_unsupported_request_error("get", templates_response, "123456", "AhvemSTIjTs-WJikZKj0mLu")
         end
       end

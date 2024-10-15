@@ -14,7 +14,7 @@ module WhatsappSdk
       ].freeze
 
       def initialize(
-        access_token,
+        access_token = WhatsappSdk.configuration.access_token,
         api_version = ApiConfiguration::DEFAULT_API_VERSION,
         logger = nil,
         logger_options = {}
@@ -25,6 +25,26 @@ module WhatsappSdk
 
         validate_api_version(api_version)
         @api_version = api_version
+      end
+
+      def media
+        @media ||= WhatsappSdk::Api::Medias.new
+      end
+
+      def messages
+        @messages ||= WhatsappSdk::Api::Messages.new
+      end
+
+      def phone_numbers
+        @phone_numbers ||= WhatsappSdk::Api::PhoneNumbers.new
+      end
+
+      def business_profiles
+        @business_profiles ||= WhatsappSdk::Api::BusinessProfile.new
+      end
+
+      def templates
+        @templates ||= WhatsappSdk::Api::Templates.new
       end
 
       def send_request(endpoint: "", full_url: nil, http_method: "post", params: {}, headers: {}, multipart: false)

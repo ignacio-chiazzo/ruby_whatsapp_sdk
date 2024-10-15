@@ -9,7 +9,9 @@ module WhatsappSdk
   module Api
     class ClientTest < Minitest::Test
       def setup(api_version: ApiConfiguration::DEFAULT_API_VERSION)
-        @client = Client.new('test_token', api_version)
+        @access_token = 'test_token'
+        @api_version = api_version
+        @client = Client.new(@access_token, @api_version)
       end
 
       def test_send_request_post_with_success_response
@@ -98,6 +100,26 @@ module WhatsappSdk
         # Validates whether the logger was configured into faraday or not
         middleware_handlers = faraday_middlewares(@client)
         refute_includes(middleware_handlers, Faraday::Response::Logger)
+      end
+
+      def test_media
+        assert_equal(WhatsappSdk::Api::Medias, @client.media.class)
+      end
+
+      def test_messages
+        assert_equal(WhatsappSdk::Api::Messages, @client.messages.class)
+      end
+
+      def test_phone_numbers
+        assert_equal(WhatsappSdk::Api::PhoneNumbers, @client.phone_numbers.class)
+      end
+
+      def test_business_profiles
+        assert_equal(WhatsappSdk::Api::BusinessProfile, @client.business_profiles.class)
+      end
+
+      def test_templates
+        assert_equal(WhatsappSdk::Api::Templates, @client.templates.class)
       end
 
       private

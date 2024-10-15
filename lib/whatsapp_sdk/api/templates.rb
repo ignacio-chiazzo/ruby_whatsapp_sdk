@@ -75,7 +75,7 @@ module WhatsappSdk
       # @param business_id [Integer] The business ID.
       # @param limit [Integer] Optional. Number of templates to return in a single page.
       # @return [Response] Response object.
-      def templates(business_id:, limit: 100)
+      def list(business_id:, limit: 100)
         params = {}
         params["limit"] = limit if limit
 
@@ -90,6 +90,11 @@ module WhatsappSdk
           data_class_type: Responses::TemplatesDataResponse,
           error_class_type: Responses::GenericErrorResponse
         )
+      end
+
+      def templates(business_id:)
+        warn "[DEPRECATION] `templates` is deprecated. Please use `list` instead."
+        list(business_id: business_id)
       end
 
       # Get Message Template Namespace

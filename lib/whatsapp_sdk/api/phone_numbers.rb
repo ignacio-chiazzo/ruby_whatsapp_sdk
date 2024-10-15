@@ -16,7 +16,7 @@ module WhatsappSdk
       #
       # @param business_id [Integer] Business Id.
       # @return [Api::Response] Response object.
-      def registered_numbers(business_id)
+      def list(business_id)
         response = send_request(
           http_method: "get",
           endpoint: "#{business_id}/phone_numbers?fields=#{DEFAULT_FIELDS}"
@@ -28,11 +28,11 @@ module WhatsappSdk
         )
       end
 
-      # Get the registered number id.
+      # Get the registered number.
       #
       # @param phone_number_id [Integer] The registered number we want to retrieve.
       # @return [Api::Response] Response object.
-      def registered_number(phone_number_id)
+      def get(phone_number_id)
         response = send_request(
           http_method: "get",
           endpoint: "#{phone_number_id}?fields=#{DEFAULT_FIELDS}"
@@ -77,6 +77,17 @@ module WhatsappSdk
           response: response,
           data_class_type: Api::Responses::PhoneNumberDataResponse
         )
+      end
+
+      # deprecated methods
+      def registered_numbers(business_id)
+        warn "[DEPRECATION] `registered_numbers` is deprecated. Please use `list` instead."
+        list(business_id)
+      end
+
+      def registered_number(phone_number_id)
+        warn "[DEPRECATION] `registered_number` is deprecated. Please use `get` instead."
+        get(phone_number_id)
       end
     end
   end
