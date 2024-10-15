@@ -33,9 +33,9 @@ module WhatsappSdk
 
         def test_add_parameters
           image = MediaComponent.new(type: MediaComponent::Type::IMAGE,
-                            link: "http(s)://URL", caption: "caption")
+                                     link: "http(s)://URL", caption: "caption")
           document = MediaComponent.new(type: MediaComponent::Type::DOCUMENT,
-                               link: "http(s)://URL", filename: "txt.rb")
+                                        link: "http(s)://URL", filename: "txt.rb")
           video = MediaComponent.new(type: MediaComponent::Type::VIDEO, id: "123")
           currency = Currency.new(code: "USD", amount: 1000, fallback_value: "1000")
           date_time = DateTime.new(fallback_value: "2020-01-01T00:00:00Z")

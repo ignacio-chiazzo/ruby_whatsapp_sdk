@@ -4,7 +4,6 @@ require "faraday"
 require "faraday/multipart"
 
 require_relative "request"
-require_relative "response"
 require_relative '../resource/media_types'
 
 module WhatsappSdk
@@ -102,7 +101,7 @@ module WhatsappSdk
           multipart: true
         )
 
-        return Api::Responses::IdResponse.new(response["id"])
+        Api::Responses::IdResponse.new(response["id"])
       end
 
       # Delete a Media by ID.

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative "request"
-require_relative "response"
 require_relative "../resource/business_profile"
 
 module WhatsappSdk

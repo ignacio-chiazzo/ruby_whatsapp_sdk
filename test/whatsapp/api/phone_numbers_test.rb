@@ -9,7 +9,6 @@ module WhatsappSdk
   module Api
     class PhoneNumbersTest < Minitest::Test
       include(ErrorsHelper)
-      include(ApiResponseHelper)
 
       def setup
         client = Client.new(ENV.fetch('WHATSAPP_ACCESS_TOKEN', nil))
@@ -19,7 +18,7 @@ module WhatsappSdk
       def test_list_handles_error_response
         VCR.use_cassette('phone_numbers/registered_numbers_handles_error_response') do
           http_error = assert_raises(Api::Responses::HttpResponseError) do
-             @phone_numbers_api.list(123_123)
+            @phone_numbers_api.list(123_123)
           end
 
           assert_equal(400, http_error.http_status)

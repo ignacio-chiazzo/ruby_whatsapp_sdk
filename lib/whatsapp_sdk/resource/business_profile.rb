@@ -9,7 +9,7 @@ module WhatsappSdk
       ].freeze
 
       attr_accessor :about, :address, :description, :email, :messaging_product,
-      :profile_picture_url, :vertical, :websites
+                    :profile_picture_url, :vertical, :websites
 
       def self.from_hash(hash)
         business_profile = BusinessProfile.new
@@ -26,14 +26,14 @@ module WhatsappSdk
       end
 
       def ==(other)
-        self.about == other.about &&
-          self.address == other.address &&
-          self.description == other.description &&
-          self.email == other.email &&
-          self.messaging_product == other.messaging_product &&
-          self.profile_picture_url == other.profile_picture_url &&
-          self.vertical == other.vertical &&
-          self.websites == other.websites
+        about == other.about &&
+          address == other.address &&
+          description == other.description &&
+          email == other.email &&
+          messaging_product == other.messaging_product &&
+          profile_picture_url == other.profile_picture_url &&
+          vertical == other.vertical &&
+          websites == other.websites
       end
     end
   end

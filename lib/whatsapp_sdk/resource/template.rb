@@ -59,12 +59,12 @@ module WhatsappSdk
       end
 
       def ==(other)
-        self.id == other.id &&
-          self.status == other.status &&
-          self.category == other.category &&
-          self.language == other.language &&
-          self.name == other.name &&
-          self.components_json == other.components_json
+        id == other.id &&
+          status == other.status &&
+          category == other.category &&
+          language == other.language &&
+          name == other.name &&
+          components_json == other.components_json
       end
     end
   end

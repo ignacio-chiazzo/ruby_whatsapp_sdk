@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 require_relative "request"
-require_relative "response"
-require_relative 'responses/success_response'
-require_relative 'responses/generic_error_response'
 require_relative "../resource/languages"
 
 module WhatsappSdk

@@ -5,13 +5,11 @@ require "test_helper"
 require 'api/templates'
 require 'api/client'
 require 'api/messages'
-require 'api_response_helper'
 
 module WhatsappSdk
   module Api
     class TemplatesTest < Minitest::Test
       include(ErrorsHelper)
-      include(ApiResponseHelper)
 
       def setup
         client = Client.new(ENV.fetch('WHATSAPP_ACCESS_TOKEN', nil))
@@ -78,11 +76,13 @@ module WhatsappSdk
           assert_equal("en_US", first_template.language)
           assert_equal("APPROVED", first_template.status)
           assert_equal(
-            [{"type"=>"HEADER", "format"=>"TEXT", "text"=>"Hello World"},
-            {"type"=>"BODY",
-             "text"=>
-              "Welcome and congratulations!! This message demonstrates your ability to send a message notification from WhatsApp Business Platform’s Cloud API. Thank you for taking the time to test with us."},
-            {"type"=>"FOOTER", "text"=>"WhatsApp Business API Team"}],
+            [{ "type" => "HEADER", "format" => "TEXT", "text" => "Hello World" },
+             { "type" => "BODY",
+               "text" =>
+               "Welcome and congratulations!! This message demonstrates your ability to send a message " \
+               "notification from WhatsApp Business Platform’s Cloud API. Thank you for taking the time "\
+               "to test with us." },
+             { "type" => "FOOTER", "text" => "WhatsApp Business API Team" }],
             first_template.components_json
           )
         end
@@ -132,8 +132,7 @@ module WhatsappSdk
 
       def test_update_a_template_with_components_and_category
         VCR.use_cassette('templates/update_a_template_with_components_and_category') do
-          assert_equal(
-            true,
+          assert(
             @templates_api.update(
               template_id: "1713674996085293", components_json: basic_components_json
             )
@@ -144,8 +143,7 @@ module WhatsappSdk
       ##### Delete Message Template
       def test_delete_template_by_name
         VCR.use_cassette('templates/delete_template_by_name') do
-          assert_equal(
-            true,
+          assert(
             @templates_api.delete(
               business_id: 114_503_234_599_312, name: "seasonal_promotion"
             )
@@ -155,8 +153,7 @@ module WhatsappSdk
 
       def test_delete_template_by_id
         VCR.use_cassette('templates/delete_template_by_id') do
-          assert_equal(
-            true,
+          assert(
             @templates_api.delete(
               business_id: 114_503_234_599_312, name: "seasonal_promotion", hsm_id: 1_075_472_707_447_727
             )
@@ -173,7 +170,7 @@ module WhatsappSdk
           assert_error_info(
             {
               code: 100,
-              error_subcode: 2593002,
+              error_subcode: 2_593_002,
               type: "OAuthException",
               message: "Invalid parameter",
               fbtrace_id: "Ax5tIkALJCP4l5S8jbPvW2n"

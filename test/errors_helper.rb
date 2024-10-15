@@ -16,7 +16,9 @@ module ErrorsHelper
     )
   end
 
-  def assert_unsupported_request_error_v2(http_method, object_id, fb_trace_id, error_info, type = "GraphMethodException")
+  def assert_unsupported_request_error_v2(
+    http_method, object_id, fb_trace_id, error_info, type = "GraphMethodException"
+  )
     assert_error_info(
       {
         code: 100,

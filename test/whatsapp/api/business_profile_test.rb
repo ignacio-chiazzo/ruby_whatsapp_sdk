@@ -3,12 +3,11 @@
 
 require 'api/business_profile'
 require 'api/client'
-require 'api_response_helper'
+
 module WhatsappSdk
   module Api
     class BusinessProfileTest < Minitest::Test
       include(ErrorsHelper)
-      include(ApiResponseHelper)
 
       def setup
         client = Client.new(ENV.fetch('WHATSAPP_ACCESS_TOKEN', nil))
@@ -72,7 +71,7 @@ module WhatsappSdk
             websites: ["https://www.google.com"],
             vertical: "EDU"
           }
-          assert_equal(true, @business_profile_api.update(phone_number_id: 107_878_721_936_019, params: params))
+          assert(@business_profile_api.update(phone_number_id: 107_878_721_936_019, params: params))
         end
       end
 

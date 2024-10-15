@@ -16,9 +16,9 @@ module WhatsappSdk
       class ParameterObjectTest < Minitest::Test
         def setup
           @image_media = MediaComponent.new(type: MediaComponent::Type::IMAGE,
-                                   link: "http(s)://URL", caption: "caption")
+                                            link: "http(s)://URL", caption: "caption")
           @document_media = MediaComponent.new(type: MediaComponent::Type::DOCUMENT,
-                                      link: "http://URL", filename: "txt.rb")
+                                               link: "http://URL", filename: "txt.rb")
           @video_media = MediaComponent.new(type: MediaComponent::Type::VIDEO, id: "123")
           @currency = Currency.new(code: "USD", amount: 1000, fallback_value: "USD")
           @date_time = DateTime.new(fallback_value: "2020-01-01T00:00:00Z")

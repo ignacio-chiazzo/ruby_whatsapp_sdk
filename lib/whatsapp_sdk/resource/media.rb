@@ -25,12 +25,12 @@ module WhatsappSdk
       end
 
       def ==(other)
-        self.id == other.id &&
-          self.file_size == other.file_size &&
-          self.messaging_product == other.messaging_product &&
-          self.mime_type == other.mime_type &&
-          self.sha256 == other.sha256 &&
-          self.url == other.url
+        id == other.id &&
+          file_size == other.file_size &&
+          messaging_product == other.messaging_product &&
+          mime_type == other.mime_type &&
+          sha256 == other.sha256 &&
+          url == other.url
       end
     end
   end

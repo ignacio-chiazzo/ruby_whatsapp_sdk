@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative "request"
-require_relative "response"
 
 module WhatsappSdk
   module Api

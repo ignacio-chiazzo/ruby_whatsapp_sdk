@@ -9,7 +9,6 @@ module WhatsappSdk
   module Api
     class MediasTest < Minitest::Test
       include(ErrorsHelper)
-      include(ApiResponseHelper)
 
       def setup
         client = Client.new(ENV.fetch("WHATSAPP_ACCESS_TOKEN", nil))
@@ -86,7 +85,7 @@ module WhatsappSdk
 
       def test_delete_media_with_success_response
         VCR.use_cassette("medias/delete_media_with_success_response") do
-          assert_equal(true, @medias_api.delete(media_id: "1953032278471180"))
+          assert(@medias_api.delete(media_id: "1953032278471180"))
         end
       end
 
@@ -96,7 +95,7 @@ module WhatsappSdk
           endpoint: "/1"
         ).returns({ "success" => true })
 
-        assert_equal(true, @medias_api.delete(media_id: "1"))
+        assert(@medias_api.delete(media_id: "1"))
       end
 
       def test_upload_media_raises_an_error_if_the_file_passed_does_not_exists
@@ -112,7 +111,7 @@ module WhatsappSdk
         VCR.use_cassette("medias/upload_media_handles_error_response") do
           http_error = assert_raises(Api::Responses::HttpResponseError) do
             @medias_api.upload(sender_id: "1234567", file_path: "test/fixtures/assets/whatsapp.png",
-                              type: "image/png")
+                               type: "image/png")
           end
 
           assert_equal(400, http_error.http_status)
@@ -206,7 +205,7 @@ module WhatsappSdk
         VCR.use_cassette("medias/download_media_handles_error_response") do
           http_error = assert_raises(Api::Responses::HttpResponseError) do
             @medias_api.download(url: url_example, media_type: "image/png",
-                                          file_path: "test/fixtures/assets/testing.png")
+                                 file_path: "test/fixtures/assets/testing.png")
           end
 
           assert_equal("301", http_error.http_status)
@@ -220,8 +219,7 @@ module WhatsappSdk
                    .with(url: url_example, content_type_header: "image/png", file_path: file_path)
                    .returns(Net::HTTPOK.new(true, 200, "OK"))
 
-        assert_equal(
-          true,
+        assert(
           @medias_api.download(url: url_example, file_path: file_path, media_type: "image/png")
         )
       end
@@ -237,8 +235,7 @@ module WhatsappSdk
                    .with(url: url_example, content_type_header: unsupported_media_type, file_path: file_path)
                    .returns(mock)
 
-        assert_equal(
-          true,
+        assert(
           @medias_api.download(url: url_example, file_path: file_path, media_type: unsupported_media_type)
         )
       end
@@ -246,8 +243,7 @@ module WhatsappSdk
       def test_download_media_success_response
         VCR.use_cassette("medias/download_media_success_response") do
           url = "https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=1761991787669262&ext=1728905510&hash=ATsz9FvlFt63X6Vj00u7PY7SNVCDtCYDeyUqClaX8b5rAg"
-          assert_equal(
-            true,
+          assert(
             @medias_api.download(
               url: url, file_path: "test/fixtures/assets/testing.png", media_type: "image/png"
             )

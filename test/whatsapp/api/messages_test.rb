@@ -27,7 +27,6 @@ module WhatsappSdk
     class MessagesTest < Minitest::Test
       include(ContactHelper)
       include(ErrorsHelper)
-      include(ApiResponseHelper)
 
       def setup
         client = Client.new(ENV.fetch("WHATSAPP_ACCESS_TOKEN", nil))
@@ -118,9 +117,9 @@ module WhatsappSdk
         )
 
         assert_message_response({
-                                    contacts: [{ "input" => "1234", "wa_id" => "1234" }],
-                                    messages: [{ "id" => "9876" }]
-                                  }, message_response)
+                                  contacts: [{ "input" => "1234", "wa_id" => "1234" }],
+                                  messages: [{ "id" => "9876" }]
+                                }, message_response)
       end
 
       def test_send_image_raises_an_error_if_link_and_image_are_not_provided
@@ -618,9 +617,9 @@ module WhatsappSdk
         )
 
         assert_message_response({
-          contacts: [{ "input" => "1234", "wa_id" => "1234" }],
-          messages: [{ "id" => "9876" }]
-        }, message_response)
+                                  contacts: [{ "input" => "1234", "wa_id" => "1234" }],
+                                  messages: [{ "id" => "9876" }]
+                                }, message_response)
       end
 
       def test_send_interactive_reply_buttons_with_success_response_by_passing_interactive_json
