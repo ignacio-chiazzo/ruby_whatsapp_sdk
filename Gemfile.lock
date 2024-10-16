@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    whatsapp_sdk (0.13.0)
+    whatsapp_sdk (1.0.0)
       faraday (~> 2)
       faraday-multipart (~> 1)
       zeitwerk (~> 2)
@@ -27,7 +27,7 @@ GEM
     method_source (1.0.0)
     minitest (5.16.1)
     mocha (1.14.0)
-    multipart-post (2.4.0)
+    multipart-post (2.4.1)
     parallel (1.22.1)
     parser (3.1.2.0)
       ast (~> 2.4.1)
@@ -68,7 +68,7 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    zeitwerk (2.6.13)
+    zeitwerk (2.6.18)
 
 PLATFORMS
   arm64-darwin-21
