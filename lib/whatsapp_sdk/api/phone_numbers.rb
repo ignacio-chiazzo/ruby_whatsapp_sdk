@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative "request"
-require_relative "response"
 
 module WhatsappSdk
   module Api
@@ -22,33 +21,31 @@ module WhatsappSdk
           endpoint: "#{business_id}/phone_numbers?fields=#{DEFAULT_FIELDS}"
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::PhoneNumbersDataResponse
+        Api::Responses::PaginationRecords.new(
+          records: parse_phone_numbers(response['data']),
+          before: response['paging']['cursors']['before'],
+          after: response['paging']['cursors']['after']
         )
       end
 
       # Get the registered number.
       #
       # @param phone_number_id [Integer] The registered number we want to retrieve.
-      # @return [Api::Response] Response object.
+      # @return [Resource::PhoneNumber] A PhoneNumber object.
       def get(phone_number_id)
         response = send_request(
           http_method: "get",
           endpoint: "#{phone_number_id}?fields=#{DEFAULT_FIELDS}"
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::PhoneNumberDataResponse
-        )
+        Resource::PhoneNumber.from_hash(response)
       end
 
       # Register a phone number.
       #
       # @param phone_number_id [Integer] The registered number we want to retrieve.
       # @param pin [Integer] Pin of 6 digits.
-      # @return [Api::Response] Response object.
+      # @return [Boolean] Whether the registration was successful.
       def register_number(phone_number_id, pin)
         response = send_request(
           http_method: "post",
@@ -56,16 +53,13 @@ module WhatsappSdk
           params: { messaging_product: 'whatsapp', pin: pin }
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::PhoneNumberDataResponse
-        )
+        Api::Responses::SuccessResponse.success_response?(response: response)
       end
 
       # Deregister a phone number.
       #
       # @param phone_number_id [Integer] The registered number we want to retrieve.
-      # @return [Api::Response] Response object.
+      # @return [Boolean] Whether the deregistration was successful.
       def deregister_number(phone_number_id)
         response = send_request(
           http_method: "post",
@@ -73,10 +67,7 @@ module WhatsappSdk
           params: {}
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::PhoneNumberDataResponse
-        )
+        Api::Responses::SuccessResponse.success_response?(response: response)
       end
 
       # deprecated methods
@@ -88,6 +79,14 @@ module WhatsappSdk
       def registered_number(phone_number_id)
         warn "[DEPRECATION] `registered_number` is deprecated. Please use `get` instead."
         get(phone_number_id)
+      end
+
+      private
+
+      def parse_phone_numbers(phone_numbers_data)
+        phone_numbers_data.map do |phone_number|
+          Resource::PhoneNumber.from_hash(phone_number)
+        end
       end
     end
   end

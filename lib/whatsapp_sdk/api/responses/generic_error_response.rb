@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-require_relative "error_response"
-
 module WhatsappSdk
   module Api
     module Responses
-      class GenericErrorResponse < ErrorResponse
+      class GenericErrorResponse
         attr_reader :code, :subcode, :message, :type, :data, :fbtrace_id
 
         def initialize(response:)
@@ -15,8 +13,10 @@ module WhatsappSdk
           @type = response["type"]
           @data = response["data"]
           @fbtrace_id = response["fbtrace_id"]
+        end
 
-          super(response: response)
+        def self.response_error?(response:)
+          response["error"]
         end
 
         def self.build_from_response(response:)

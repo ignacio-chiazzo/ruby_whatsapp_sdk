@@ -49,8 +49,8 @@ module WhatsappSdk
     end
 
     def create_phone_numbers
-      phone1 = Resource::PhoneNumber.new(phone: "1234567", type: Resource::AddressType::HOME, wa_id: "1234")
-      phone2 = Resource::PhoneNumber.new(phone: "9876543", type: Resource::AddressType::WORK, wa_id: "1234")
+      phone1 = Resource::PhoneNumberComponent.new(phone: "1234567", type: Resource::AddressType::HOME, wa_id: "1234")
+      phone2 = Resource::PhoneNumberComponent.new(phone: "9876543", type: Resource::AddressType::WORK, wa_id: "1234")
 
       [phone1, phone2]
     end
@@ -69,7 +69,7 @@ module WhatsappSdk
         emails: create_emails,
         name: create_name,
         org: create_org,
-        phones: create_phone_numbers,
+        phones: create_phone_numbers, # fix me
         urls: create_urls
       )
     end

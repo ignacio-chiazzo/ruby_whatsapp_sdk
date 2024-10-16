@@ -32,11 +32,11 @@ module WhatsappSdk
         end
 
         def test_add_parameters
-          image = Media.new(type: Media::Type::IMAGE,
-                            link: "http(s)://URL", caption: "caption")
-          document = Media.new(type: Media::Type::DOCUMENT,
-                               link: "http(s)://URL", filename: "txt.rb")
-          video = Media.new(type: Media::Type::VIDEO, id: "123")
+          image = MediaComponent.new(type: MediaComponent::Type::IMAGE,
+                                     link: "http(s)://URL", caption: "caption")
+          document = MediaComponent.new(type: MediaComponent::Type::DOCUMENT,
+                                        link: "http(s)://URL", filename: "txt.rb")
+          video = MediaComponent.new(type: MediaComponent::Type::VIDEO, id: "123")
           currency = Currency.new(code: "USD", amount: 1000, fallback_value: "1000")
           date_time = DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
 
@@ -67,7 +67,7 @@ module WhatsappSdk
         end
 
         def test_to_json_header_component
-          image = Media.new(type: Media::Type::IMAGE, link: "http(s)://URL", caption: "caption")
+          image = MediaComponent.new(type: MediaComponent::Type::IMAGE, link: "http(s)://URL", caption: "caption")
           parameter_image = ParameterObject.new(type: ParameterObject::Type::IMAGE, image: image)
 
           header_component = Component.new(

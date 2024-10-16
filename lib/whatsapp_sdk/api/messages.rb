@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative "request"
-require_relative "response"
 
 module WhatsappSdk
   module Api
@@ -14,7 +13,7 @@ module WhatsappSdk
       # @param recipient_number [Integer] Recipient' Phone number.
       # @param message [String] Text to send.
       # @param message_id [String] The id of the message to reply to.
-      # @return [Api::Response] Response object.
+      # @return [MessageDataResponse] Response object.
       def send_text(sender_id:, recipient_number:, message:, message_id: nil)
         params = {
           messaging_product: "whatsapp",
@@ -31,10 +30,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       # Send location.
@@ -46,7 +42,7 @@ module WhatsappSdk
       # @param name [String] Location name.
       # @param address [String] Location address.
       # @param message_id [String] The id of the message to reply to.
-      # @return [Api::Response] Response object.
+      # @return [MessageDataResponse] Response object.
       def send_location(
         sender_id:, recipient_number:, longitude:, latitude:, name:, address:, message_id: nil
       )
@@ -70,10 +66,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       # Send an image.
@@ -84,7 +77,7 @@ module WhatsappSdk
       # @param link [String] Image link.
       # @param caption [String] Image caption.
       # @param message_id [String] The id of the message to reply to.
-      # @return [Api::Response] Response object.
+      # @return [MessageDataResponse] Response object.
       def send_image(
         sender_id:, recipient_number:, image_id: nil, link: nil, caption: "", message_id: nil
       )
@@ -109,10 +102,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       # Send an audio.
@@ -122,7 +112,7 @@ module WhatsappSdk
       # @param audio_id [String] Audio ID.
       # @param link [String] Audio link.
       # @param message_id [String] The id of the message to reply to.
-      # @return [Api::Response] Response object.
+      # @return [MessageDataResponse] Response object.
       def send_audio(sender_id:, recipient_number:, audio_id: nil, link: nil, message_id: nil)
         raise Resource::Errors::MissingArgumentError, "audio_id or link is required" if !audio_id && !link
 
@@ -142,10 +132,7 @@ module WhatsappSdk
           multipart: true
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       # Send a video.
@@ -156,7 +143,7 @@ module WhatsappSdk
       # @param link [String] Image link.
       # @param caption [String] Image caption.
       # @param message_id [String] The id of the message to reply to.
-      # @return [Api::Response] Response object.
+      # @return [MessageDataResponse] Response object.
       def send_video(
         sender_id:, recipient_number:, video_id: nil, link: nil, caption: "", message_id: nil
       )
@@ -181,10 +168,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       # Send a document.
@@ -195,7 +179,7 @@ module WhatsappSdk
       # @param link [String] Image link.
       # @param caption [String] Image caption.
       # @param message_id [String] The id of the message to reply to.
-      # @return [Api::Response] Response object.
+      # @return [MessageDataResponse] Response object.
       def send_document(
         sender_id:, recipient_number:, document_id: nil, link: nil, caption: "", message_id: nil, filename: nil
       )
@@ -224,10 +208,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       # Send a document.
@@ -237,7 +218,7 @@ module WhatsappSdk
       # @param sticker_id [String] The sticker ID.
       # @param link [String] Image link.
       # @param message_id [String] The id of the message to reply to.
-      # @return [Api::Response] Response object.
+      # @return [MessageDataResponse] Response object.
       def send_sticker(sender_id:, recipient_number:, sticker_id: nil, link: nil, message_id: nil)
         raise Resource::Errors::MissingArgumentError, "sticker or link is required" if !sticker_id && !link
 
@@ -256,10 +237,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       # Send contacts.
@@ -270,7 +248,7 @@ module WhatsappSdk
       # @param contacts [Array<Contact>] Contacts.
       # @param contacts_json [Json] Contacts.
       # @param message_id [String] The id of the message to reply to.
-      # @return [Api::Response] Response object.
+      # @return [MessageDataResponse] Response object.
       def send_contacts(
         sender_id:, recipient_number:, contacts: nil, contacts_json: {}, message_id: nil
       )
@@ -289,10 +267,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       # def send_interactive_button
@@ -309,7 +284,7 @@ module WhatsappSdk
       # @param interactive_json [Json] The interactive object as a Json.
       #    If you pass interactive_json, you can't pass interactive.
       # @param message_id [String] The id of the message to reply to.
-      # @return [Api::Response] Response object.
+      # @return [MessageDataResponse] Response object.
       def send_interactive_message(
         sender_id:, recipient_number:, interactive: nil, interactive_json: nil, message_id: nil
       )
@@ -338,10 +313,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       alias send_interactive_reply_buttons send_interactive_message
@@ -351,7 +323,7 @@ module WhatsappSdk
       #
       # @param sender_id [Integer] Sender' phone number.
       # @param message_id [Integer] Message ID.
-      # @return [Api::Response] Response object.
+      # @return [Boolean] Whether the message was marked as read.
       def read_message(sender_id:, message_id:)
         params = {
           messaging_product: "whatsapp",
@@ -365,10 +337,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::ReadMessageDataResponse
-        )
+        Api::Responses::SuccessResponse.success_response?(response: response)
       end
 
       # Send template
@@ -379,7 +348,7 @@ module WhatsappSdk
       # @param language [String] template language.
       # @param components [Component] Component.
       # @param components_json [Json] The component as a Json. If you pass components_json, you can't pass components.
-      # @return [Api::Response] Response object.
+      # @return [MessageDataResponse] Response object.
       def send_template(
         sender_id:, recipient_number:, name:, language:, components: nil, components_json: nil
       )
@@ -411,10 +380,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       # Send reaction
@@ -423,7 +389,7 @@ module WhatsappSdk
       # @param recipient_number [Integer] Recipient' Phone number.
       # @param message_id [String] the id of the message to reaction.
       # @param emoji [String] unicode of the emoji to send.
-      # @return [Api::Response] Response object.
+      # @return [MessageDataResponse] Response object.
       def send_reaction(sender_id:, recipient_number:, message_id:, emoji:)
         params = {
           messaging_product: "whatsapp",
@@ -442,10 +408,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Response.new(
-          response: response,
-          data_class_type: Api::Responses::MessageDataResponse
-        )
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
       private

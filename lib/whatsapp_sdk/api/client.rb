@@ -54,6 +54,10 @@ module WhatsappSdk
 
         response = faraday_request.public_send(http_method, endpoint, request_params(params, headers), headers)
 
+        if response.status > 499 || Api::Responses::GenericErrorResponse.response_error?(response: response.body)
+          raise Api::Responses::HttpResponseError.new(http_status: response.status, body: JSON.parse(response.body))
+        end
+
         return nil if response.body == ""
 
         JSON.parse(response.body)

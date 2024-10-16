@@ -10,7 +10,6 @@ require "pry"
 require "pry-nav"
 require "webmock/minitest"
 require "errors_helper"
-require "api_response_helper"
 require 'vcr'
 
 VCR.configure do |config|
