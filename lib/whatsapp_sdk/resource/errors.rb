@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "../error"
+require_relative "../error"
 # require "lib/whatsapp_sdk/error"
 
 module WhatsappSdk
