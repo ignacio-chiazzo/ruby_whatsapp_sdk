@@ -133,6 +133,27 @@ Check the [example.rb file](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk
 
 </details>
 
+## Sneak Peek
+
+```ruby
+client = WhatsappSdk::Api::Client.new("<ACCESS TOKEN>") # replace this with a valid access token
+
+client.phone_numbers.register_number(SENDER_ID, 123456) # register the phone number to uplaod media and send message from.
+
+# send a text and a location
+client.messages.send_text(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,message: "Hey there! it's Whatsapp Ruby SDK")
+
+client.messages.send_location(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, longitude: -75.6898604, latitude: 45.4192206, name: "Ignacio", address: "My house")
+
+# upload a photo and send it
+image = client.media.upload(sender_id: SENDER_ID, file_path: "test/fixtures/assets/whatsapp.png", type: "image/png")image = client.media.get(media_id: uploaded_media.id)
+client.messages.send_image(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, image_id: image.id)
+
+# upload a sticker and send it
+sticker = client.media.upload(sender_id: SENDER_ID, file_path: "test/fixtures/assets/sticker.webp", type: "image/webp")
+client.messages.send_sticker(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, sticker_id: sticker.id)
+```
+
 ## APIs
 
 ### Templates
@@ -290,12 +311,12 @@ client.messages.send_contacts(sender_id: 123123, recipient_number: 56789, contac
 ```ruby
 currency = WhatsappSdk::Resource::Currency.new(code: "USD", amount: 1000, fallback_value: "1000")
 date_time = WhatsappSdk::Resource::DateTime.new(fallback_value: "2020-01-01T00:00:00Z")
-image = WhatsappSdk::Resource::Media.new(type: "image", link: "http(s)://URL")
+media_component = WhatsappSdk::Resource::MediaComponent.new(type: "image", link: "http(s)://URL")
 location = WhatsappSdk::Resource::Location.new(
   latitude: 25.779510, longitude: -80.338631, name: "miami store", address: "820 nw 87th ave, miami, fl"
 )
 
-parameter_image = WhatsappSdk::Resource::ParameterObject.new(type: "image", image: image)
+parameter_image = WhatsappSdk::Resource::ParameterObject.new(type: "image", image: media_component)
 parameter_text = WhatsappSdk::Resource::ParameterObject.new(type: "text", text: "TEXT_STRING")
 parameter_currency = WhatsappSdk::Resource::ParameterObject.new(type: "currency", currency: currency)
 parameter_date_time = WhatsappSdk::Resource::ParameterObject.new(type: "date_time", date_time: date_time)
@@ -327,7 +348,9 @@ button_component2 = WhatsappSdk::Resource::Component.new(
 )
 
 location_component = WhatsappSdk::Resource::Component.new(type: "header", parameters: [parameter_location])
-client.messages.send_template(sender_id: 12_345, recipient_number: 12345678, name: "hello_world", language: "en_US", components_json: [component_1])
+client.messages.send_template(
+  sender_id: 12_345, recipient_number: 12345678, name: "hello_world", language: "en_US", components: [...]
+)
 ```
 
 </details>
@@ -370,7 +393,7 @@ interactive_list_messages = WhatsappSdk::Resource::Interactive.new(
 )
 
 client.messages.send_interactive_list_messages(
-  sender_id: 12_345, recipient_number: 1234567890,
+  sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER,
   interactive: interactive_list_messages
 )
 ```
@@ -433,6 +456,10 @@ client.messages.send_interactive_reply_buttons(
 ```
 
 </details>
+
+### Errors
+
+If the API returns an error then an exception `WhatsappSdk::Api::Responses::HttpResponseError` is raised. The  object contains information returned by the Cloud API. For more information about the potential error check the [official documentation](https://developers.facebook.com/docs/whatsapp/cloud-api/support/error-codes/).
 
 ## Examples
 
