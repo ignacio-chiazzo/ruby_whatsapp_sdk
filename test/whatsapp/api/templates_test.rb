@@ -80,7 +80,7 @@ module WhatsappSdk
              { "type" => "BODY",
                "text" =>
                "Welcome and congratulations!! This message demonstrates your ability to send a message " \
-               "notification from WhatsApp Business Platform’s Cloud API. Thank you for taking the time "\
+               "notification from WhatsApp Business Platform’s Cloud API. Thank you for taking the time " \
                "to test with us." },
              { "type" => "FOOTER", "text" => "WhatsApp Business API Team" }],
             first_template.components_json
