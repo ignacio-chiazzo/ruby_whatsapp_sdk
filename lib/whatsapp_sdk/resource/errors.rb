@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "error"
+require_relative "../error"
 
 module WhatsappSdk
   module Resource
