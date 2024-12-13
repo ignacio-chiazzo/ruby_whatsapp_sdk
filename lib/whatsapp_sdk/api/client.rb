@@ -28,23 +28,23 @@ module WhatsappSdk
       end
 
       def media
-        @media ||= WhatsappSdk::Api::Medias.new
+        @media ||= WhatsappSdk::Api::Medias.new(self)
       end
 
       def messages
-        @messages ||= WhatsappSdk::Api::Messages.new
+        @messages ||= WhatsappSdk::Api::Messages.new(self)
       end
 
       def phone_numbers
-        @phone_numbers ||= WhatsappSdk::Api::PhoneNumbers.new
+        @phone_numbers ||= WhatsappSdk::Api::PhoneNumbers.new(self)
       end
 
       def business_profiles
-        @business_profiles ||= WhatsappSdk::Api::BusinessProfile.new
+        @business_profiles ||= WhatsappSdk::Api::BusinessProfile.new(self)
       end
 
       def templates
-        @templates ||= WhatsappSdk::Api::Templates.new
+        @templates ||= WhatsappSdk::Api::Templates.new(self)
       end
 
       def send_request(endpoint: "", full_url: nil, http_method: "post", params: {}, headers: {}, multipart: false)
