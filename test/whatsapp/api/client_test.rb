@@ -122,6 +122,29 @@ module WhatsappSdk
         assert_equal(WhatsappSdk::Api::Templates, @client.templates.class)
       end
 
+      %i[
+        media
+        messages
+        phone_numbers
+        business_profiles
+        templates
+      ].each do |api|
+        define_method("test_#{api}_keeps_same_client") do
+          api = @client.send(api)
+
+          @client.expects(:send_request).with(
+            http_method: "delete",
+            full_url: nil,
+            endpoint: "/1",
+            params: {},
+            headers: {},
+            multipart: false
+          ).returns({ "success" => true })
+
+          api.send_request(http_method: "delete", endpoint: "/1")
+        end
+      end
+
       private
 
       def stub_test_request(method_name, body: {}, headers: {}, response_status: 200, response_body: { success: true },
