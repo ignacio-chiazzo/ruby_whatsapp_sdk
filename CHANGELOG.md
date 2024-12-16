@@ -1,5 +1,9 @@
 # Unreleased
 
+# v 1.0.1
+-  Send the current client instance to the initializer of the client resource #165
+ [#165](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/165) @omarowns
+
 # v 1.0.0
 - Implement a Better response API [159](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/156)
 - Implement a Better API for calling the Cloud API [156](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/156)
