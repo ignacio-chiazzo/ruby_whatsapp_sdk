@@ -15,7 +15,7 @@ module WhatsappSdk
 
       def initialize(
         access_token = WhatsappSdk.configuration.access_token,
-        api_version = ApiConfiguration::DEFAULT_API_VERSION,
+        api_version = WhatsappSdk.configuration.api_version,
         logger = nil,
         logger_options = {}
       )
