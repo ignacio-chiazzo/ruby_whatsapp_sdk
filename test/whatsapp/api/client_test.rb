@@ -161,9 +161,9 @@ module WhatsappSdk
       def stub_test_request(method_name, body: {}, headers: {}, response_status: 200, response_body: { success: true },
                             api_version: ApiConfiguration::DEFAULT_API_VERSION)
         stub_request(method_name, "#{ApiConfiguration::API_URL}/#{api_version}/test")
-          .with(body: body, headers: { 'Accept' => '*/*',
-                                       'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-                                       'Authorization' => 'Bearer test_token' }.merge(headers))
+          .with(body:, headers: { 'Accept' => '*/*',
+                                  'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+                                  'Authorization' => 'Bearer test_token' }.merge(headers))
           .to_return(status: response_status, body: response_body.to_json, headers: {})
       end
 
