@@ -15,7 +15,7 @@ module WhatsappSdk
 
       def initialize(
         access_token = WhatsappSdk.configuration.access_token,
-        api_version = ApiConfiguration::DEFAULT_API_VERSION,
+        api_version = WhatsappSdk.configuration.api_version,
         logger = nil,
         logger_options = {}
       )
@@ -50,7 +50,7 @@ module WhatsappSdk
       def send_request(endpoint: "", full_url: nil, http_method: "post", params: {}, headers: {}, multipart: false)
         url = full_url || "#{ApiConfiguration::API_URL}/#{@api_version}/"
 
-        faraday_request = faraday(url: url, multipart: multipart)
+        faraday_request = faraday(url:, multipart:)
 
         response = faraday_request.public_send(http_method, endpoint, request_params(params, headers), headers)
 
