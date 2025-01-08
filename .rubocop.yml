@@ -8,6 +8,10 @@ AllCops:
     - 'example.rb'
     - 'tmp/*'
     - 'vendor/**/*'
+  TargetRubyVersion: 3.1
+
+Style/HashSyntax:
+  Enabled: false
 
 Lint/ToJSON:
   Enabled: false
