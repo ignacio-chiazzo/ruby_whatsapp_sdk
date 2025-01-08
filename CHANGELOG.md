@@ -1,8 +1,14 @@
 # Unreleased
 
-# v 1.0.1
--  Send the current client instance to the initializer of the client resource #165
+# v 1.0.3
+-  Fix configuration bug setting `api_version` on Configure. @frenesim [#168](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/168)
+
+# v 1.0.2
+- Send the current client instance to the initializer of the client resource #165
  [#165](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/165) @omarowns
+
+#v 1.0.1
+- Update `require error` @guizaols [162](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/162)
 
 # v 1.0.0
 - Implement a Better response API [159](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/156)
