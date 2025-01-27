@@ -4,6 +4,7 @@
 require 'test_helper'
 require 'api/client'
 require 'api/api_configuration'
+require 'whatsapp_sdk'
 
 module WhatsappSdk
   module Api
@@ -48,6 +49,16 @@ module WhatsappSdk
 
         response_body = @client.send_request(endpoint: 'test', http_method: 'delete')
         assert_nil(response_body)
+      end
+
+      def test_set_api_version_in_config
+        WhatsappSdk.configure do |config|
+          config.api_version = 'v16.0'
+        end
+        assert_match "v16.0", WhatsappSdk::Api::Client.new.inspect
+        WhatsappSdk.configure do |config|
+          config.api_version = Api::ApiConfiguration::DEFAULT_API_VERSION
+        end
       end
 
       def test_valid_api_version

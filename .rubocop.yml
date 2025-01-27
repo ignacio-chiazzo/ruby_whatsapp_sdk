@@ -9,6 +9,9 @@ AllCops:
     - 'tmp/*'
     - 'vendor/**/*'
 
+Style/HashSyntax:
+  Enabled: false
+
 Lint/ToJSON:
   Enabled: false
 
