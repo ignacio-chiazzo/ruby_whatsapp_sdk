@@ -144,7 +144,7 @@ client.messages.send_text(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMB
 client.messages.send_location(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, longitude: -75.6898604, latitude: 45.4192206, name: "Ignacio", address: "My house")
 
 # upload a photo and send it
-image = client.media.upload(sender_id: SENDER_ID, file_path: "test/fixtures/assets/whatsapp.png", type: "image/png")image = client.media.get(media_id: uploaded_media.id)
+image = client.media.upload(sender_id: SENDER_ID, file_path: "test/fixtures/assets/whatsapp.png", type: "image/png")
 client.messages.send_image(sender_id: SENDER_ID, recipient_number: RECIPIENT_NUMBER, image_id: image.id)
 
 # upload a sticker and send it
