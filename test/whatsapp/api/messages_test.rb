@@ -719,6 +719,21 @@ module WhatsappSdk
         end
       end
 
+      def test_send_typing_indicator_with_success_response
+        VCR.use_cassette("messages/send_typing_indicator_with_success_response") do
+          message_response = @messages_api.send_typing_indicator(
+            sender_id: @sender_id, message_id: "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBI2REVCOTdDQkIyMTcyQUQ1MkUA"
+          )
+
+          assert_message_response(
+            {
+              messages: [{ "id" => "wamid.HBgLMTM0Mzc3NzI5MTAVAgARGBI2REVCOTdDQkIyMTcyQUQ1MkUA" }]
+            },
+            message_response
+          )
+        end
+      end
+
       private
 
       def valid_response
