@@ -722,14 +722,13 @@ module WhatsappSdk
       def test_send_typing_indicator_with_success_response
         skip("TODO")
         VCR.use_cassette("messages/send_typing_indicator_with_success_response") do
-          msg_id = "TODO"
+          msg_id = "wamid.HBgMNTU0MTk2MTI3MzAwFQIAEhgWM0VCMEQ3OTQ5OTNBODkwMzg1QTZDRgA="
           message_response = @messages_api.send_typing_indicator(sender_id: @sender_id, message_id: msg_id)
 
-          assert_instance_of(Response, message_response)
-          assert_nil(message_response.error)
-          assert_predicate(message_response, :ok?)
-          assert_instance_of(Responses::ReadMessageDataResponse, message_response.data)
-          assert_predicate(message_response.data, :success?)
+          assert_message_response({
+                                    contacts: [{ "input" => "13437772910", "wa_id" => "13437772910" }],
+                                    messages: [{ "id" => msg_id }]
+                                  }, message_response)
         end
       end
 
