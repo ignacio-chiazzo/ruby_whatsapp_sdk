@@ -1,0 +1,113 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://graph.facebook.com/v19.0/107878721936019/messages
+    body:
+      encoding: UTF-8
+      string: '{"messaging_product":"whatsapp","recipient_type":"individual","status":"read","message_id":"wamid.HBgMNTU0MTk2MTI3MzAwFQIAERgSNjk5MDhBMUZEOEU5RDJGRUM0AA==","typing_indicator":{"type":"text"}}'
+    headers:
+      Authorization:
+      - Bearer <ACCESS_TOKEN>
+      User-Agent:
+      - Faraday v2.12.0
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Error-Mid:
+      - 1b58965a90b35b0e1d734ce192a458f9
+      Vary:
+      - Accept-Encoding
+      - Origin
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Ad-Api-Version-Warning:
+      - The call has been auto-upgraded to v22.0 as v19.0 has been deprecated.
+      Cross-Origin-Resource-Policy:
+      - cross-origin
+      X-App-Usage:
+      - '{"call_count":0,"total_cputime":0,"total_time":0}'
+      Content-Type:
+      - application/json; charset=UTF-8
+      Www-Authenticate:
+      - OAuth "Facebook Platform" "invalid_request" "Unsupported post request. Object
+        with ID '107878721936019' does not exist, cannot be loaded due to missing
+        permissions, or does not support this operation. Please read the Graph API
+        documentation at https://developers.facebook.com/docs/graph-api"
+      Facebook-Api-Version:
+      - v22.0
+      Strict-Transport-Security:
+      - max-age=15552000; preload
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Request-Id:
+      - AIXCkVBAndD2BcRZrvb1zzB
+      X-Fb-Trace-Id:
+      - Bsj7VMUnprC
+      X-Fb-Rev:
+      - '1022332540'
+      X-Fb-Debug:
+      - HZxY9ov7AEVeIQ/DnlJF8D+RbyBT7CB2gMWIpQIl+for581XaKUs3HYJcY3c1j2XpS6Tvf6XV4IK7WZABwOd6Q==
+      Date:
+      - Tue, 29 Apr 2025 11:51:57 GMT
+      Proxy-Status:
+      - http_request_error; e_fb_responsebytes="AcM3LaEf_GQo0vOyZXyxnbozVk42ArVGZOo-8Vjl6bPLNiy7JQPVVh9dFFA7";
+        e_fb_requesttime="AcPHodPyHUH5imfU0SW0jNOTWgxWsRkbPnDmTTwEgAkHm-ww7tkwwrlZW1wXSQ1gLZaEvwHIyQ";
+        e_proxy="AcOSyUbCzO1h54VdMjMURtSlz1QndnLWnDFbUhE-VgQorxAFvPEHAWG0F3BayiQCWErVtMr75_U73x61RaHD";
+        e_fb_twtaskhandle="AcPmFvEoaSnHy8tIfsDzpb9qyXhYr43SI7xK-NNAC0vQpqSFvYNzliLcx_uyDG3hf8KNbGiGcr_9DNRrUHVuTPNlokkkfl9DYhUxYRWPqlwC4A";
+        e_fb_requestsequencenumber="AcOQy3ZbcTtR5yKudEyjeyPDzO-M--O0TdRvLGdtKJ8_N8eNyPayQzP6dTIB";
+        e_upip="AcN23tq1xfUwC63rf74-cZEteTj42JC2zP640MNtvWEeqikQQgYVedeT_oF0Ho0Dh_SBhI6ar9Jzc8vf32SzdqXYGhXlDvCqO484Iw";
+        e_fb_zone="AcPcrztpmsQWXK-DOirVAHHxez6ERH0F1iU2yJYu53isI_V1LaECBnFeQYvS24i5";
+        e_fb_binaryversion="AcNY0gIfRZe0YjN7HwtWFZlduQg4cQY5CpQnYwzYzI-qRagkXTXM8gHyIQDpvxiOF_gHfpYbnv6K_pyY3PNECC2AQRy2_KwLxrc";
+        e_fb_httpversion="AcOv1sDnyCWWKKNA6_YeKPX3LM6SbooZAwdPwaM1w3RuG-XdgUg8A5iP5nZh";
+        e_fb_requesthandler="AcPQW6HBd9c4kXdDOBu6JJkAWgc5jPrXY_h2OGr-ialKzj-jwfP-Ji_uYs-_9_W7HODB0Y59iQg";
+        e_fb_configversion="AcMGTi2zF4Xay3ys4OnLhs8xBBQBHp2NzsUkFI_xuzdAcBYvLPVURPybYustZg";
+        e_fb_vipaddr="AcN4TP7o21yt7nDz4eARgyK5Ew9fwrX3p1mvC_D7g9J59NFreMhIvK06hNtx09mazGJW98k0VTusNO8euAnB5NYCRGMl75k4FQ";
+        e_fb_hostheader="AcO6r4WzlGXftzKJhDBsN7dM5Jaa_FiA87KAQk_Wf-weQlnSIy9hXGTMYjlnyLkAHOMYLns43Tb2GV8Q";
+        e_fb_builduser="AcMfQUw-1JITj-_yT1IogCgOirb8A53Zd8z_85-HYx5VEt6ala7Mxhg8EpAmFz98wTQ";
+        e_fb_vipport="AcPBjIE9X7u6BijhWQwoJRnGec8PTvS6DdyKcr2fgFNOCi-4uL9ypY8XKAFN";
+        e_clientaddr="AcP535WTnxvLoVzv4pp2IDpIc_B-UWCI0T8R9JzPibys5WLMUU1K7dMp_CKOnSYTLnG-ZBoWL_y5ow6s2QyJjsO4mUkNRIBIXeb1aMHIM-uLLaihLg",
+        http_request_error; e_fb_responsebytes="AcOPJTgBrj-1ULGou7v7RTEE517WOW2jzWrwRIpWx0dmWYu1uVtBuUEt_0x1";
+        e_fb_requesttime="AcNkTLpby3QqjrJgktGdIb-rH1piBm2VM9Z0Zb0Mw5x779QB6un4cU7yX_Bb0HstpnlRaq0G-g";
+        e_proxy="AcPvu2KLX9lz_NNFdssJOUe9P5BGQGG_Bint510ten1ATwkHF06Zjf5vpqZOCkHlgm_zazP8ccjlDfGe";
+        e_fb_twtaskhandle="AcOtq5Say4rAwgtOE-fciI-pn1W1icq6vc4HBgH7DH1CZ_eBSSUeN89LjAyewLYvKhpVn5_85Bw5w8IHkPFnMk_TtbMotY52TaWEOpg";
+        e_fb_requestsequencenumber="AcPyZ_afLscsIomxHOMPfhVpPpJMNCXAH80w2wYRtVa3C2OZvEpZpfZ9qQ";
+        e_upip="AcPK3_yxvUz_FIUc-uYjYU2nnjDD6o_rhV6GU2Ka2C0cq0zJn8Tvht3oirt5kWrWqz3o4096otuIU3gXg3K4idDp3PJihrgFeg";
+        e_fb_zone="AcMd6b-HSfG1fpdwAtZNkANoNnMKLTISfaqL3-d98DoWX8yOZWk4zLYRgdUDvA";
+        e_fb_binaryversion="AcMZ7qhapzcx4L83R3TwekTvfgYa0l2nGBR7yTwmZSH4i5SQJPajQk2DkEQHcgMvXLxevMZKeMo4vD_7a4pSEn0fegxneNVXzpY";
+        e_fb_httpversion="AcPS2jdLTys8VhqqQa47CRnHZMXHkqvXuR5CBxbsqHpORJ-_JZm_ZU_4nz3d";
+        e_fb_requesthandler="AcPrsCcuFktMXGkaVYU2nkq_ekvHVB4bRLKNQO_5RufywN-9xyLeo2aI81eebH1Lj7HPLZCsqQU";
+        e_fb_configversion="AcNDcjV-PRklGBLAs-aLMwqmtsZHRtxhXlzIQivDDQ1hxf3YS-X-kbip4QGjMg";
+        e_fb_vipaddr="AcPlYFkFjzeM1v-8ww-LAiZOop3mnPYT-7bcrMYk06D5AMCm8oSrX_nCd672dzukRKN4NQ7dEtrm04mOGE2lScBNSlY-IImpn90";
+        e_fb_hostheader="AcPRyPCS8iK5KVhRBmnicBum7f_k4QsXN-aA_zg2KKezu7h5nZP8891qVQc6tBlPF3z1ENpx9q_7NJ8A";
+        e_fb_builduser="AcOTTD5GWwvP_Q9SG7wVUdtz2waxVxRtCPBq-8yuqu-ILvccZct4lorGn91dLWyofNY";
+        e_fb_vipport="AcOIAaa1EwMKdHj2uvL87uwKKGk57psJI5VBWd4TEn5bRHmdeHqpeVdh4cdX";
+        e_clientaddr="AcNDZWL3V2M9hDpsYk8VWJzNHl5XVRo6-GdUTPw9zmJxTxhYT632lMeH2DHkSmYiOd5pRTQ9A5tmYyNJKG7X5Bthqs7si4UzyqchFQlgWlnWxFSui0M"
+      X-Fb-Connection-Quality:
+      - EXCELLENT; q=0.9, rtt=12, rtx=0, c=10, mss=1380, tbw=3367, tp=-1, tpl=-1,
+        uplat=302, ullat=0
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '372'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"message":"Unsupported post request. Object with ID ''107878721936019''
+        does not exist, cannot be loaded due to missing permissions, or does not support
+        this operation. Please read the Graph API documentation at https:\/\/developers.facebook.com\/docs\/graph-api","type":"GraphMethodException","code":100,"error_subcode":33,"fbtrace_id":"AIXCkVBAndD2BcRZrvb1zzB"}}'
+  recorded_at: Tue, 29 Apr 2025 11:51:57 GMT
+recorded_with: VCR 6.3.1
