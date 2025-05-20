@@ -1,0 +1,68 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://graph.facebook.com/v19.0/562412910296094/messages
+    body:
+      encoding: UTF-8
+      string: '{"messaging_product":"whatsapp","recipient_type":"individual","status":"read","message_id":"wamid.HBgMNTU0MTk2MTI3MzAwFQIAEhgWM0VCMEQ3OTQ5OTNBODkwMzg1QTZDRgA=","typing_indicator":{"type":"text"}}'
+    headers:
+      Authorization:
+      - Bearer <ACCESS_TOKEN>
+      User-Agent:
+      - Faraday v2.12.0
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Origin
+      X-Ad-Api-Version-Warning:
+      - The call has been auto-upgraded to v21.0 as v19.0 has been deprecated.
+      X-Business-Use-Case-Usage:
+      - '{"639297322149561":[{"type":"whatsapp","call_count":1,"total_cputime":1,"total_time":1,"estimated_time_to_regain_access":0}]}'
+      Access-Control-Allow-Origin:
+      - "*"
+      Facebook-Api-Version:
+      - v21.0
+      Strict-Transport-Security:
+      - max-age=15552000; preload
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Request-Id:
+      - AD40Ta3351DmWPMh8HmXH0o
+      X-Fb-Trace-Id:
+      - FpKo/2i9GVX
+      X-Fb-Rev:
+      - '1023010325'
+      X-Fb-Debug:
+      - pgIQ48gOyL8niMeVaM06ftpvZpd3oW45cbcR5k3YQVsSD3Yhwm5yRRmQhrpHf7nDLho7Ifksj0NEd12JdNS1zw==
+      Date:
+      - Tue, 20 May 2025 18:23:11 GMT
+      X-Fb-Connection-Quality:
+      - EXCELLENT; q=0.9, rtt=12, rtx=0, c=10, mss=1380, tbw=3365, tp=-1, tpl=-1,
+        uplat=352, ullat=0
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '16'
+    body:
+      encoding: UTF-8
+      string: '{"success":true}'
+  recorded_at: Tue, 20 May 2025 18:23:10 GMT
+recorded_with: VCR 6.3.1

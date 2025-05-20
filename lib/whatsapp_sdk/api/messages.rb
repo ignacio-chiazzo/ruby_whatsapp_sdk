@@ -411,6 +411,31 @@ module WhatsappSdk
         Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
 
+      # Send typing indicator
+      #
+      # @param sender_id [Integer] Sender' phone number.
+      # @param message_id [String] the id of the message received in the messages webhooks.
+      # @return [Hash] Response object with success status.
+      def send_typing_indicator(sender_id:, message_id:)
+        params = {
+          messaging_product: "whatsapp",
+          recipient_type: "individual",
+          status: "read",
+          message_id: message_id,
+          typing_indicator: {
+            type: "text"
+          }
+        }
+
+        response = send_request(
+          endpoint: endpoint(sender_id),
+          params: params,
+          headers: DEFAULT_HEADERS
+        )
+
+        Api::Responses::SuccessResponse.success_response?(response: response)
+      end
+
       private
 
       def endpoint(sender_id)

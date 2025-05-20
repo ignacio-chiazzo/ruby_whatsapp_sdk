@@ -281,7 +281,7 @@ client.messages.send_document(sender_id: 123123, recipient_number: 56789, link: 
 
 # with a document id
 client.messages.send_document(sender_id: 123123, recipient_number: 56789, document_id: "1234", caption: "Ignacio Chiazzo")
-# Note, you can specify the filename via argument [`filename`](https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages). 
+# Note, you can specify the filename via argument [`filename`](https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages).
 
 # Send a sticker message
 #  It could use a link or a sticker_id.
@@ -323,7 +323,7 @@ parameter_location = WhatsappSdk::Resource::ParameterObject.new(type: "location"
 header_component = WhatsappSdk::Resource::Component.new(type: "header", parameters: [parameter_image])
 
 body_component = WhatsappSdk::Resource::Component.new(
-  type: "body", 
+  type: "body",
   parameters: [parameter_text, parameter_currency, parameter_date_time]
 )
 
@@ -483,7 +483,7 @@ Note: Sometimes the messages are delayed; see [Meta documentation](https://devel
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests.
 
-Run ' bundle exec rake install' to install this gem onto your local machine. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+Run `bundle exec rake install` to install this gem onto your local machine. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ### Run all the tests
 
