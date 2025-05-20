@@ -64,7 +64,7 @@ GEM
       rubocop-ast (>= 0.4.0)
     ruby-progressbar (1.11.0)
     unicode-display_width (2.2.0)
-    uri (0.13.1)
+    uri (0.13.2)
     vcr (6.3.1)
       base64
     webmock (3.18.1)
