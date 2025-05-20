@@ -722,8 +722,8 @@ module WhatsappSdk
       def test_send_typing_indicator_with_success_response
         VCR.use_cassette("messages/send_typing_indicator_with_success_response") do
           msg_id = "wamid.HBgMNTU0MTk2MTI3MzAwFQIAEhgWM0VCMEQ3OTQ5OTNBODkwMzg1QTZDRgA="
-          response = @messages_api.send_typing_indicator(sender_id: 562412910296094, message_id: msg_id)
-          assert_equal({"success" => true}, response)
+          message_response = @messages_api.send_typing_indicator(sender_id: 562412910296094, message_id: msg_id)
+          assert_equal(message_response, true)
         end
       end
 

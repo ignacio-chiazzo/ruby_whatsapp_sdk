@@ -433,7 +433,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        response
+        Api::Responses::SuccessResponse.success_response?(response: response)
       end
 
       private
