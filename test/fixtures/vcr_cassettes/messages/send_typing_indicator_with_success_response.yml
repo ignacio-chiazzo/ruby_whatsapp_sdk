@@ -43,18 +43,18 @@ http_interactions:
       Expires:
       - Sat, 01 Jan 2000 00:00:00 GMT
       X-Fb-Request-Id:
-      - AU903JKqUWX1G6LYkIraeat
+      - AD40Ta3351DmWPMh8HmXH0o
       X-Fb-Trace-Id:
-      - DSC0LpjDnXh
+      - FpKo/2i9GVX
       X-Fb-Rev:
-      - '1022332540'
+      - '1023010325'
       X-Fb-Debug:
-      - dE/P84x+JjVnAtNIYCjSz/sQrxEXP/lwbOmKSZMiFMXVXm1B52p1o6yeZaQrzUThXrCll/SPrRli6Ka/H/PMrw==
+      - pgIQ48gOyL8niMeVaM06ftpvZpd3oW45cbcR5k3YQVsSD3Yhwm5yRRmQhrpHf7nDLho7Ifksj0NEd12JdNS1zw==
       Date:
-      - Tue, 29 Apr 2025 12:11:39 GMT
+      - Tue, 20 May 2025 18:23:11 GMT
       X-Fb-Connection-Quality:
-      - EXCELLENT; q=0.9, rtt=12, rtx=0, c=10, mss=1380, tbw=3366, tp=-1, tpl=-1,
-        uplat=417, ullat=0
+      - EXCELLENT; q=0.9, rtt=12, rtx=0, c=10, mss=1380, tbw=3365, tp=-1, tpl=-1,
+        uplat=352, ullat=0
       Alt-Svc:
       - h3=":443"; ma=86400
       Connection:
@@ -64,5 +64,5 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"success":true}'
-  recorded_at: Tue, 29 Apr 2025 12:11:39 GMT
+  recorded_at: Tue, 20 May 2025 18:23:10 GMT
 recorded_with: VCR 6.3.1

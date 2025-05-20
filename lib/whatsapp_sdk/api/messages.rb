@@ -415,7 +415,7 @@ module WhatsappSdk
       #
       # @param sender_id [Integer] Sender' phone number.
       # @param message_id [String] the id of the message received in the messages webhooks.
-      # @return [MessageDataResponse] Response object.
+      # @return [Hash] Response object with success status.
       def send_typing_indicator(sender_id:, message_id:)
         params = {
           messaging_product: "whatsapp",
@@ -433,7 +433,7 @@ module WhatsappSdk
           headers: DEFAULT_HEADERS
         )
 
-        Api::Responses::MessageDataResponse.build_from_response(response: response)
+        response
       end
 
       private
