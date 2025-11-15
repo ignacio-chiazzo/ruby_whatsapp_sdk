@@ -1,0 +1,24 @@
+version: 1
+swarm:
+  name: "Ruby Gem Builder developers"
+  main: lead_developer
+  instances:
+    lead_developer:
+      description: "Lead developer who coordinates the team and makes architectural decisions"
+      directory: .
+      model: sonnet
+      prompt: "You are the lead developer coordinating the team"
+      allowed_tools: [Read, Edit, Bash, Write]
+      connections: [backend_dev, content_writer]
+    backend_dev:
+      description: "Ruby on Rails developer expert on building Ruby gems"
+      directory: lib/
+      model: opus
+      prompt: "You specialize in building Ruby gems"
+      allowed_tools: [Read, Edit, Write, Bash]
+    content_writer:
+      description: "Content writer who writes content for the Ruby gem"
+      directory: .
+      model: opus
+      prompt: "You specialize in writing content for the Ruby gem. Specialized in API documentation and code examples."
+      allowed_tools: [Read, Edit, Write, Bash]
