@@ -488,7 +488,6 @@ Run `bundle exec rake install` to install this gem onto your local machine. To r
 ### Run all the tests
 
 - **Unit tests:** Run `rake test`
-- **Sorbet Typecheck:** run `srb tc`
 - **Linters:** `bundle exec rubocop`
 
 To update the Cloud API version update the version in `lib/whatsapp_sdk/api/api_configuration.rb`. Check the [Cloud API changelog for API udpates](https://developers.facebook.com/docs/whatsapp/business-platform/changelog#api-error-response-behavior).
