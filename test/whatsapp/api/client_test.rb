@@ -87,7 +87,7 @@ module WhatsappSdk
 
         assert_includes(middleware_handlers, Faraday::Response::Logger)
         assert_match_logger_output!(logged_string)
-        assert_match('INFO -- response: ', logged_string)
+        assert_match('INFO -- : response: ', logged_string)
       end
 
       def test_logs_http_requests_into_the_logger_with_response_body
@@ -104,7 +104,7 @@ module WhatsappSdk
 
         logged_string = logger_io.string
         assert_match_logger_output!(logged_string)
-        assert_match('INFO -- response: {"success":true}', logged_string)
+        assert_match('INFO -- : response: {"success":true}', logged_string)
       end
 
       def test_should_not_log_when_logger_not_configured
@@ -173,10 +173,10 @@ module WhatsappSdk
       end
 
       def assert_match_logger_output!(logged_string)
-        assert_match('INFO -- request: GET https://graph.facebook.com/v19.0/test', logged_string)
-        assert_match('INFO -- request: Authorization: "Bearer test_token"', logged_string)
+        assert_match('INFO -- : request: GET https://graph.facebook.com/v19.0/test', logged_string)
+        assert_match('INFO -- : request: Authorization: "Bearer test_token"', logged_string)
         assert_match('User-Agent: "Faraday', logged_string)
-        assert_match('INFO -- response: Status 200', logged_string)
+        assert_match('INFO -- : response: Status 200', logged_string)
       end
     end
   end
