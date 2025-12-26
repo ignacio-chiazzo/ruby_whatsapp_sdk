@@ -1,5 +1,8 @@
 # Unreleased
 
+# v 1.0.4
+- Support for version 23 and 24 API. [180](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/180)
+
 # v 1.0.3
 -  Fix configuration bug setting `api_version` on Configure. @frenesim [#168](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/168)
 
