@@ -99,6 +99,16 @@ module WhatsappSdk
         end
       end
 
+      def test_get_templates_when_empty_response_is_returned
+        VCR.use_cassette('templates/get_templates_when_empty_response_is_returned') do
+          templates = @templates_api.list(business_id: 114_503_234_599_312)
+
+          assert_equal(0, templates.records.size)
+          assert_nil(templates.before)
+          assert_nil(templates.after)
+        end
+      end
+
       ##### GET Message Template namespace
       def test_get_template_namespace
         VCR.use_cassette('templates/get_template_namespace') do

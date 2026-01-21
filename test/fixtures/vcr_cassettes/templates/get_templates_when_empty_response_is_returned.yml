@@ -1,0 +1,70 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://graph.facebook.com/v19.0/114503234599312/message_templates?limit=100
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <ACCESS_TOKEN>
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Etag:
+      - '"1050253aec7b29caff644806927dabfa81406eee"'
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Origin
+      X-Fb-Aed:
+      - '709'
+      X-Ad-Api-Version-Warning:
+      - The call has been auto-upgraded to v24.0 as v19.0 has been deprecated.
+      X-Business-Use-Case-Usage:
+      - '{"114503234599312":[{"type":"whatsapp_business_management","call_count":1,"total_cputime":1,"total_time":1,"estimated_time_to_regain_access":0}]}'
+      Access-Control-Allow-Origin:
+      - "*"
+      Facebook-Api-Version:
+      - v24.0
+      Strict-Transport-Security:
+      - max-age=15552000; preload
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Request-Id:
+      - Adj74e3qfuPCVjLT7fJWyQK
+      X-Fb-Trace-Id:
+      - HP8Gsf7vfyk
+      X-Fb-Rev:
+      - '1032248248'
+      X-Fb-Debug:
+      - vQCH5qdXcmb+ES0hrtmSvHeJjxA4hkdaMq7hmPN+MYdnpJK2ofa8yLF8kIHT5rbabYqBP7Jh211O/aEjL8NDdg==
+      Date:
+      - Wed, 21 Jan 2026 14:52:23 GMT
+      X-Fb-Connection-Quality:
+      - EXCELLENT; q=0.9, rtt=18, rtx=0, c=10, mss=1380, tbw=3447, tp=-1, tpl=-1,
+        uplat=390, ullat=0
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '11'
+    body:
+      encoding: UTF-8
+      string: '{"data":[]}'
+  recorded_at: Wed, 21 Jan 2026 14:52:23 GMT
+recorded_with: VCR 6.3.1
