@@ -42,6 +42,19 @@ module WhatsappSdk
         end
       end
 
+      module Format
+        NAMED = "named"
+        POSITIONAL = "positional"
+
+        FORMATS = [
+          NAMED,
+          POSITIONAL
+        ].freeze
+
+        def self.valid?(format)
+          FORMATS.include?(format)
+        end
+      end
       # Returns Text string if the parameter object type is text.
       # For the header component, the character limit is 60 characters.
       # For the body component, the character limit is 1024 characters.

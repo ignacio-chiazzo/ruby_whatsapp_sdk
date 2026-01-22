@@ -28,11 +28,13 @@ module WhatsappSdk
       # @param components_json [Component] Components that make up the template. See the list of possible components:
       #   https://developers.facebook.com/docs/whatsapp/business-management-api/message-templates/components
       # @param allow_category_change [Boolean] Optional Allow category change.
+      # @param parameter_format [String] Optional Parameter format. Possible values: named, positional.
       # Set to true to allow us to assign a category based on the template guidelines and the template's contents.
       #   This can prevent your template from being rejected for miscategorization.
       # @return [Template] Template object.
       def create(
-        business_id:, name:, category:, language:, components_json: nil, allow_category_change: nil
+        business_id:, name:, category:, language:, components_json: nil, allow_category_change: nil,
+        parameter_format: nil
       )
         unless WhatsappSdk::Resource::Template::Category.valid?(category)
           raise InvalidCategoryError.new(category: category)
@@ -42,6 +44,10 @@ module WhatsappSdk
           raise WhatsappSdk::Resource::Errors::InvalidLanguageError.new(language: language)
         end
 
+        if parameter_format && !WhatsappSdk::Resource::ParameterObject::Format.valid?(parameter_format)
+          raise WhatsappSdk::Resource::Errors::InvalidParameterFormatError.new(format: parameter_format)
+        end
+
         params = {
           name: name,
           category: category,
@@ -49,6 +55,7 @@ module WhatsappSdk
           components: components_json
         }
         params["allow_category_change"] = allow_category_change if allow_category_change
+        params["parameter_format"] = parameter_format if parameter_format
 
         response = send_request(
           endpoint: "#{business_id}/message_templates",
