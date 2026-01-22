@@ -23,8 +23,8 @@ module WhatsappSdk
           template = @templates_api.get(template_id: '1297883712183052')
 
           assert_equal(Resource::Template, template.class)
-          assert_equal(template.id, '1297883712183052')
-          assert_equal(template.category, 'MARKETING')
+          assert_equal('1297883712183052', template.id)
+          assert_equal('MARKETING', template.category)
         end
       end
 
