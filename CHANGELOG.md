@@ -1,4 +1,7 @@
 # Unreleased
+- Added GET template endpoint. @osvaldo-santos [185](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/185)
+- Adding support for named paremeters in Templates API. @osvaldo-santos [184](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/184)
+- Fixed bug for empty templates. @osvaldo-santos [183](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/183)
 
 # v 1.0.4
 - Support for version 23 and 24 API. [180](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/180)

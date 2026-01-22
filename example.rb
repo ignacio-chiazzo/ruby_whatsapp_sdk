@@ -14,6 +14,7 @@ gemfile(true) do
   gem "whatsapp_sdk", path: "../"
   gem "pry"
   gem "pry-nav"
+  gem "debug"
 end
 
 require 'whatsapp_sdk'
@@ -56,12 +57,8 @@ end
 
 client = WhatsappSdk::Api::Client.new
 
-
-
-
 # ############################## Templates API ##############################
 puts "\n\n ------------------ Testing Templates API ------------------------"
-
 # ## Get list of templates
 templates = client.templates.list(business_id: BUSINESS_ID)
 puts "GET Templates list : #{ templates.records.map(&:name) }"
@@ -69,6 +66,13 @@ puts "GET Templates list : #{ templates.records.map(&:name) }"
 ## Get message templates namespace
 template_namespace = client.templates.get_message_template_namespace(business_id: BUSINESS_ID)
 puts "GET template by namespace: #{template_namespace.id}"
+
+## GET
+id = templates.records.first.id
+if id
+  template = client.templates.get(template_id: id)
+  puts "GET template by id: #{template.id}"
+end
 
 # Create a template
 components_json = [
