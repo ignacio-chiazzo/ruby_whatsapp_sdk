@@ -17,6 +17,27 @@ module WhatsappSdk
         @templates_api = Templates.new(client)
       end
 
+      ##### GET
+      def test_get_a_template_by_id
+        VCR.use_cassette('templates/get_a_template_by_id') do
+          template = @templates_api.get(template_id: '1297883712183052')
+
+          assert_equal(Resource::Template, template.class)
+          assert_equal('1297883712183052', template.id)
+          assert_equal('MARKETING', template.category)
+        end
+      end
+
+      def test_get_a_template_when_not_exists_an_error_is_returned
+        VCR.use_cassette('templates/get_a_template_when_not_exists_an_error_is_returned') do
+          http_error = assert_raises(Api::Responses::HttpResponseError) do
+            @templates_api.get(template_id: '1297883712183060')
+          end
+
+          assert_equal(400, http_error.http_status)
+        end
+      end
+
       ##### CREATE
       def test_create_a_template_raises_an_error_when_category_is_invalid
         error = assert_raises(Templates::InvalidCategoryError) do

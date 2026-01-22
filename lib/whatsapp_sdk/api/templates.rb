@@ -18,6 +18,18 @@ module WhatsappSdk
         end
       end
 
+      # Get a template
+      # @param template_id [String] Required. The template ID.
+      # @return [Template] Template object.
+      def get(template_id:)
+        response = send_request(
+          endpoint: template_id,
+          http_method: "get"
+        )
+
+        Resource::Template.from_hash(response)
+      end
+
       # Create a template
       #
       # @param business_id [Integer] Business Id.
