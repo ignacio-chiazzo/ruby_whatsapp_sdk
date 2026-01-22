@@ -35,7 +35,7 @@ http_interactions:
       X-Ad-Api-Version-Warning:
       - The call has been auto-upgraded to v24.0 as v19.0 has been deprecated.
       X-Business-Use-Case-Usage:
-      - '{"901406135639897":[{"type":"whatsapp_business_management","call_count":0,"total_cputime":0,"total_time":0,"estimated_time_to_regain_access":0}]}'
+      - '{"114503234599312":[{"type":"whatsapp_business_management","call_count":0,"total_cputime":0,"total_time":0,"estimated_time_to_regain_access":0}]}'
       Access-Control-Allow-Origin:
       - "*"
       Facebook-Api-Version:
