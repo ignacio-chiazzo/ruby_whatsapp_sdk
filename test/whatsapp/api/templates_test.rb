@@ -56,7 +56,7 @@ module WhatsappSdk
           )
         end
 
-          assert_equal("Invalid Parameter Format. The possible values are: named and positional.", error.message)
+        assert_equal("Invalid Parameter Format. The possible values are: named and positional.", error.message)
       end
 
       def test_create_a_template_with_valid_params_and_components
@@ -236,41 +236,42 @@ module WhatsappSdk
           }
         ]
       end
-        def basic_named_components_json
-          [
-            {
-              type: "BODY",
-              text: "Thank you for your order, {{name}}! Your confirmation number is {{order_number}}. " \
-                "If you have any questions, please use the buttons below to contact support. " \
-                "Thank you for being a customer!",
-              example: { body_text_named_params: [
-                {
-                  param_name: 'name',
-                  example: 'Ignacio'
-                },
-                {
-                  param_name: 'order_number',
-                  example: '860198-230332'
-                }
-              ] }
-            },
-            {
-              type: "BUTTONS",
-              buttons: [
-                {
-                  type: "PHONE_NUMBER",
-                  text: "Call",
-                  phone_number: "59898400766"
-                },
-                {
-                  type: "URL",
-                  text: "Contact Support",
-                  url: "https://www.luckyshrub.com/support"
-                }
-              ]
-            }
-          ]
-        end
+
+      def basic_named_components_json
+        [
+          {
+            type: "BODY",
+            text: "Thank you for your order, {{name}}! Your confirmation number is {{order_number}}. " \
+                  "If you have any questions, please use the buttons below to contact support. " \
+                  "Thank you for being a customer!",
+            example: { body_text_named_params: [
+              {
+                param_name: 'name',
+                example: 'Ignacio'
+              },
+              {
+                param_name: 'order_number',
+                example: '860198-230332'
+              }
+            ] }
+          },
+          {
+            type: "BUTTONS",
+            buttons: [
+              {
+                type: "PHONE_NUMBER",
+                text: "Call",
+                phone_number: "59898400766"
+              },
+              {
+                type: "URL",
+                text: "Contact Support",
+                url: "https://www.luckyshrub.com/support"
+              }
+            ]
+          }
+        ]
+      end
     end
   end
 end

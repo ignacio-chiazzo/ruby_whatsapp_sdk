@@ -43,7 +43,7 @@ module WhatsappSdk
       end
 
       module Format
-        NAMED  = "named"
+        NAMED = "named"
         POSITIONAL = "positional"
 
         FORMATS = [
