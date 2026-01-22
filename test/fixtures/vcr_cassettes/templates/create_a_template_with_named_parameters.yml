@@ -5,11 +5,11 @@ http_interactions:
     uri: https://graph.facebook.com/v19.0/114503234599312/message_templates
     body:
       encoding: UTF-8
-      string: '{"name":"seasonal_promotion","category":"MARKETING","language":"nl","components":[{"type":"BODY","text":"Thank
-        you for your order, {{1}}! Your confirmation number is {{2}}. If you have
-        any questions, please use the buttons below to contact support. Thank you
-        for being a customer!","example":{"body_text":[["Ignacio","860198-230332"]]}},{"type":"BUTTONS","buttons":[{"type":"PHONE_NUMBER","text":"Call","phone_number":"59898400766"},{"type":"URL","text":"Contact
-        Support","url":"https://www.luckyshrub.com/support"}]}],"allow_category_change":true}'
+      string: '{"name":"seasonal_promotion","category":"MARKETING","language":"en","components":[{"type":"BODY","text":"Thank
+        you for your order, {{name}}! Your confirmation number is {{order_number}}.
+        If you have any questions, please use the buttons below to contact support.
+        Thank you for being a customer!","example":{"body_text_named_params":[{"param_name":"name","example":"Ignacio"},{"param_name":"order_number","example":"860198-230332"}]}},{"type":"BUTTONS","buttons":[{"type":"PHONE_NUMBER","text":"Call","phone_number":"59898400766"},{"type":"URL","text":"Contact
+        Support","url":"https://www.luckyshrub.com/support"}]}],"parameter_format":"named"}'
     headers:
       Authorization:
       - Bearer <ACCESS_TOKEN>
@@ -35,7 +35,7 @@ http_interactions:
       X-Ad-Api-Version-Warning:
       - The call has been auto-upgraded to v24.0 as v19.0 has been deprecated.
       X-Business-Use-Case-Usage:
-      - '{"901406135639897":[{"type":"whatsapp_business_management","call_count":1,"total_cputime":1,"total_time":1,"estimated_time_to_regain_access":0}]}'
+      - '{"901406135639897":[{"type":"whatsapp_business_management","call_count":0,"total_cputime":0,"total_time":0,"estimated_time_to_regain_access":0}]}'
       Access-Control-Allow-Origin:
       - "*"
       Facebook-Api-Version:
@@ -49,18 +49,18 @@ http_interactions:
       Expires:
       - Sat, 01 Jan 2000 00:00:00 GMT
       X-Fb-Request-Id:
-      - A-KIoP1ICxtwZKmVw2c-5mC
+      - AaNpyba1zdHxQyjVHzzEZzi
       X-Fb-Trace-Id:
-      - CKH3M+ZlVZJ
+      - EMt0+bRy2kh
       X-Fb-Rev:
-      - '1032274475'
+      - '1032307538'
       X-Fb-Debug:
-      - eELB9Cpb0K4ERuUwBw06obnCTml8y8EXz2mb/D9MMModLNurIZG5Th69A9WSJiRB+/Yw8mPCEpr3H0FVcfkmBA==
+      - 5AlKWdkLBTCOyULL3BSuaYXU56xKwGrNerA/KNSkpN0UDmkR0hXdVMLbYf0Puhlq/oeqCZCicJ2tccPeu7JtPA==
       Date:
-      - Thu, 22 Jan 2026 01:30:21 GMT
+      - Thu, 22 Jan 2026 13:05:38 GMT
       X-Fb-Connection-Quality:
-      - EXCELLENT; q=0.9, rtt=19, rtx=0, c=10, mss=1380, tbw=3420, tp=-1, tpl=-1,
-        uplat=6591, ullat=0
+      - EXCELLENT; q=0.9, rtt=17, rtx=0, c=10, mss=1380, tbw=3447, tp=-1, tpl=-1,
+        uplat=11140, ullat=0
       Alt-Svc:
       - h3=":443"; ma=86400
       Connection:
@@ -69,6 +69,6 @@ http_interactions:
       - '67'
     body:
       encoding: UTF-8
-      string: '{"id":"1297883712183052","status":"PENDING","category":"MARKETING"}'
-  recorded_at: Thu, 22 Jan 2026 01:30:21 GMT
+      string: '{"id":"1299189242256801","status":"PENDING","category":"MARKETING"}'
+  recorded_at: Thu, 22 Jan 2026 13:05:38 GMT
 recorded_with: VCR 6.3.1

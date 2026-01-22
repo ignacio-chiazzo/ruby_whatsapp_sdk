@@ -49,6 +49,16 @@ module WhatsappSdk
       class InvalidInteractiveActionSectionRow < Error; end
 
       class InvalidInteractiveFooter < Error; end
+
+      class InvalidParameterFormatError < StandardError
+        attr_reader :format
+
+        def initialize(format:)
+          @format = format
+
+          super("Invalid Parameter Format. The possible values are: named and positional.")
+        end
+      end
     end
   end
 end

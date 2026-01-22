@@ -45,11 +45,39 @@ module WhatsappSdk
         assert_equal("Invalid language. Check the available languages in #{url}.", error.message)
       end
 
+      def test_create_a_template_raises_an_error_when_the_parameter_format_is_invalid
+        error = assert_raises(WhatsappSdk::Resource::Errors::InvalidParameterFormatError) do
+          @templates_api.create(
+            business_id: 123_456,
+            name: "seasonal_promotion",
+            language: "en_US",
+            category: "MARKETING",
+            parameter_format: "invalid_parameter_format"
+          )
+        end
+
+          assert_equal("Invalid Parameter Format. The possible values are: named and positional.", error.message)
+      end
+
       def test_create_a_template_with_valid_params_and_components
         VCR.use_cassette('templates/create_a_template_with_valid_params_and_components') do
           new_template = @templates_api.create(
             business_id: 114_503_234_599_312, name: "seasonal_promotion", language: "nl", category: "MARKETING",
             components_json: basic_components_json, allow_category_change: true
+          )
+
+          assert_equal(Resource::Template, new_template.class)
+          assert_equal("MARKETING", new_template.category)
+          assert_equal("PENDING", new_template.status)
+          assert(new_template.id)
+        end
+      end
+
+      def test_create_a_template_with_named_parameters
+        VCR.use_cassette('templates/create_a_template_with_named_parameters') do
+          new_template = @templates_api.create(
+            business_id: 114_503_234_599_312, name: "seasonal_promotion", language: "en", category: "MARKETING",
+            components_json: basic_named_components_json, parameter_format: "named"
           )
 
           assert_equal(Resource::Template, new_template.class)
@@ -208,6 +236,41 @@ module WhatsappSdk
           }
         ]
       end
+        def basic_named_components_json
+          [
+            {
+              type: "BODY",
+              text: "Thank you for your order, {{name}}! Your confirmation number is {{order_number}}. " \
+                "If you have any questions, please use the buttons below to contact support. " \
+                "Thank you for being a customer!",
+              example: { body_text_named_params: [
+                {
+                  param_name: 'name',
+                  example: 'Ignacio'
+                },
+                {
+                  param_name: 'order_number',
+                  example: '860198-230332'
+                }
+              ] }
+            },
+            {
+              type: "BUTTONS",
+              buttons: [
+                {
+                  type: "PHONE_NUMBER",
+                  text: "Call",
+                  phone_number: "59898400766"
+                },
+                {
+                  type: "URL",
+                  text: "Contact Support",
+                  url: "https://www.luckyshrub.com/support"
+                }
+              ]
+            }
+          ]
+        end
     end
   end
 end
