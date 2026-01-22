@@ -196,6 +196,9 @@ client.templates.list(business_id: BUSINESS_ID)
 # The message template namespace is required to send messages using the message templates.
 client.templates.get_message_template_namespace(business_id: BUSINESS_ID)
 
+# Get template by id
+template = client.templates.get(template_id: id)
+
 # Create a template
 client.templates.create(
   business_id: BUSINESS_ID, name: "seasonal_promotion", language: "en_US", category: "MARKETING",

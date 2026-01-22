@@ -96,8 +96,8 @@ module WhatsappSdk
 
         Api::Responses::PaginationRecords.new(
           records: parse_templates(response['data']),
-          before: response.dig('paging','cursors','before'),
-          after: response.dig('paging','cursors','after')
+          before: response.dig('paging', 'cursors', 'before'),
+          after: response.dig('paging', 'cursors', 'after')
         )
       end
 
