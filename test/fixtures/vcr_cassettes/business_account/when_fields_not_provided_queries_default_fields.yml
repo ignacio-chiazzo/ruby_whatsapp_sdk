@@ -1,0 +1,70 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://graph.facebook.com/v19.0/114503234599312?fields=id,name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <ACCESS_TOKEN>
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Etag:
+      - '"938800470f63cde8ae5a3ea068762c800934d65d"'
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Origin
+      X-Fb-Aed:
+      - '729'
+      X-Ad-Api-Version-Warning:
+      - The call has been auto-upgraded to v24.0 as v19.0 has been deprecated.
+      X-Business-Use-Case-Usage:
+      - '{"114503234599312":[{"type":"whatsapp_business_management","call_count":3,"total_cputime":1,"total_time":1,"estimated_time_to_regain_access":0}]}'
+      Access-Control-Allow-Origin:
+      - "*"
+      Facebook-Api-Version:
+      - v24.0
+      Strict-Transport-Security:
+      - max-age=15552000; preload
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Request-Id:
+      - AA6hxnn-yYRS8f_Nm0E3wSL
+      X-Fb-Trace-Id:
+      - BKWA7JORnrJ
+      X-Fb-Rev:
+      - '1033214233'
+      X-Fb-Debug:
+      - 8DCvxM3Jz2vyo2tHI27f+4BJ1fWVEktFOy3DGrjr5uWgJEvU23Q/fMXXmkxuNZTP2vNNDchw8Di8tUz9VAGYCg==
+      Date:
+      - Tue, 10 Feb 2026 20:41:43 GMT
+      X-Fb-Connection-Quality:
+      - EXCELLENT; q=0.9, rtt=17, rtx=0, c=10, mss=1380, tbw=3419, tp=-1, tpl=-1,
+        uplat=349, ullat=0
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '46'
+    body:
+      encoding: UTF-8
+      string: '{"id":"114503234599312","name":"Test Business Account"}'
+  recorded_at: Tue, 10 Feb 2026 20:41:44 GMT
+recorded_with: VCR 6.3.1
