@@ -6,7 +6,10 @@ require_relative "../resource/business_account"
 module WhatsappSdk
   module Api
     class BusinessAccount < Request
-      DEFAULT_FIELDS = 'id,name'
+      DEFAULT_FIELDS = %w[id name timezone_id message_template_namespace account_review_status
+                          business_verification_status country ownership_type primary_business_location]
+                       .join(',')
+                       .freeze
 
       # Get the details of business account.
       #
@@ -37,7 +40,7 @@ module WhatsappSdk
         raise ArgumentError, "Params must be a hash." unless params.is_a?(Hash)
 
         # Only name and timezone_id can be updated. If other keys are present, they will be ignored.
-        filtered_params = params.slice(:name, :timezone_id, 'name', 'timezone_id')
+        filtered_params = params.transform_keys(&:to_sym).slice(:name, :timezone_id)
 
         if filtered_params.empty?
           raise ArgumentError, "No valid parameters provided. Only 'name' and 'timezone_id' can be updated."

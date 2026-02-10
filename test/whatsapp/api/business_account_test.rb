@@ -21,7 +21,7 @@ module WhatsappSdk
           end
 
           assert_equal(400, http_error.http_status)
-          assert_unsupported_request_error_v2("get", "123123", "A4G-g6Sm5WRgY9eXdaKGpLJ", http_error.error_info)
+          assert_unsupported_request_error_v2("get", "123123", "ACdd1FddvH-4zPiFGo69asF", http_error.error_info)
         end
       end
 
@@ -41,6 +41,7 @@ module WhatsappSdk
 
           assert_equal('114503234599312', business_account.id)
           assert_equal('Test Business Account', business_account.name)
+          assert_equal('9d1f930f_bea0_46c5_9099_bc3291e9d6b4', business_account.message_template_namespace)
         end
       end
 
