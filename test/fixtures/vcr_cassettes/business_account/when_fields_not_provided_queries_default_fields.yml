@@ -1,0 +1,70 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://graph.facebook.com/v19.0/114503234599312?fields=id,name,timezone_id,message_template_namespace,account_review_status,business_verification_status,country,ownership_type,primary_business_location
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <ACCESS_TOKEN>
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Etag:
+      - '"ba3606a3b6e623ef82692a08ce1357d9b8f2ba9a"'
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Origin
+      X-Fb-Aed:
+      - '729'
+      X-Ad-Api-Version-Warning:
+      - The call has been auto-upgraded to v24.0 as v19.0 has been deprecated.
+      X-Business-Use-Case-Usage:
+      - '{"114503234599312":[{"type":"whatsapp_business_management","call_count":0,"total_cputime":0,"total_time":0,"estimated_time_to_regain_access":0}]}'
+      Access-Control-Allow-Origin:
+      - "*"
+      Facebook-Api-Version:
+      - v24.0
+      Strict-Transport-Security:
+      - max-age=15552000; preload
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Request-Id:
+      - A5c50JN5towl9FW5iNxPmdf
+      X-Fb-Trace-Id:
+      - C0QEgXlb3lN
+      X-Fb-Rev:
+      - '1033235240'
+      X-Fb-Debug:
+      - axNYP3N5BEr0BBASktaL78AlU+3kPcCHHeAYUYLJAiVG7/DI6A2t1+zW0YoUyhS3P0Mq8deusoZFoEc1sIjB3w==
+      Date:
+      - Tue, 10 Feb 2026 22:09:59 GMT
+      X-Fb-Connection-Quality:
+      - EXCELLENT; q=0.9, rtt=17, rtx=0, c=10, mss=1380, tbw=3447, tp=-1, tpl=-1,
+        uplat=991, ullat=0
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '239'
+    body:
+      encoding: UTF-8
+      string: '{"id":"114503234599312","name":"Test Business Account","timezone_id":"138","message_template_namespace":"9d1f930f_bea0_46c5_9099_bc3291e9d6b4","account_review_status":"APPROVED","business_verification_status":"not_verified","ownership_type":"SELF"}'
+  recorded_at: Tue, 10 Feb 2026 22:09:59 GMT
+recorded_with: VCR 6.3.1
