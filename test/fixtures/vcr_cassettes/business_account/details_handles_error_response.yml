@@ -1,0 +1,95 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://graph.facebook.com/v19.0/123123?fields=id,name,timezone_id,message_template_namespace,account_review_status,business_verification_status,country,ownership_type,primary_business_location
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <ACCESS_TOKEN>
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Debug-Link:
+      - https://www.meta.com/debug/?mid=b39b09b1bdb1e7a7f98b3470549aae5b
+      Error-Mid:
+      - b39b09b1bdb1e7a7f98b3470549aae5b
+      Vary:
+      - Accept-Encoding
+      - Origin
+      X-Fb-Aed:
+      - '729'
+      X-Ad-Api-Version-Warning:
+      - The call has been auto-upgraded to v24.0 as v19.0 has been deprecated.
+      Cross-Origin-Resource-Policy:
+      - cross-origin
+      X-App-Usage:
+      - '{"call_count":0,"total_cputime":0,"total_time":0}'
+      Content-Type:
+      - application/json; charset=UTF-8
+      Www-Authenticate:
+      - OAuth "Facebook Platform" "invalid_request" "Unsupported get request. Object
+        with ID '123123' does not exist, cannot be loaded due to missing permissions,
+        or does not support this operation. Please read the Graph API documentation
+        at https://developers.facebook.com/docs/graph-api"
+      Access-Control-Allow-Origin:
+      - "*"
+      Facebook-Api-Version:
+      - v24.0
+      Strict-Transport-Security:
+      - max-age=15552000; preload
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Request-Id:
+      - ACdd1FddvH-4zPiFGo69asF
+      X-Fb-Trace-Id:
+      - CYBp97TP89z
+      X-Fb-Rev:
+      - '1033230726'
+      X-Fb-Debug:
+      - n0Evqeg6OFD5MU3y1WW3y2agnfkrKt8b3tNrSI6InQxZfcJGlPrqh3/4paMFUbo0K2NB8y5F6WoccNyE227bbA==
+      Date:
+      - Tue, 10 Feb 2026 22:11:52 GMT
+      Proxy-Status:
+      - http_request_error; e_fb_vipaddr="AcOYCKZMhzMGpTYC82DjyNUEwu5UquyBgNhFPyodMLc3KY_IxDIs3dRkiEgNPOfKYsY3J6DSFAKqUjobO6dzOy92wTO5ZVBSXo4";
+        e_clientaddr="AcN2M2wx7jQ05hbujUfvsrOBZyqoGo1TDAfC3w-WyOaLKvdew0a8coSqVmUMAjIoUTKwVjdN_s97EzT2zX1DlXf2V2lBASll2DsmsUp1H_ZrKbDNxQ";
+        e_upip="AcM29sMRY4ii4puwYsDOnphLXuz77F0oVQFXojPAxmi7_xKSoouJykIVfLarIG8E4qc0kGbSWEkHu6XDKaluHbhNlGPY4hlko4wBSz3JSWo";
+        e_fb_zone="AcOgSK35G9HaIKijwrNH66RADe8UrRCbHD0LRgXCZlXd4n1ijrVZ0bYXRg_rCj5b";
+        e_fb_twtaskhandle="AcNeDvs7YxCwpQJ1W4QNzMsPAJPOGH3sutSaUQBD50pXAKgsLLzWvb5Fpp3v0OwwfAMiTAsyVU8wQFyNQ_rV5S28-WyN-0T5q6dYBRCXiKJrLhQ";
+        e_proxy="AcMx-RjJM5dVlAcvX727_wm0dx4MF6pDkn61mFGTBU5dkDP6KIWuFxVMYUbGZn20j4A_gHux2dMuukqGnCI",
+        http_request_error; e_fb_vipaddr="AcNykaIzVv_5Q-cOD_TlZumKlk9u8B-Dr_GQoiKkH4YxO7VXpfm6ZT-ulmnOvQWPVCzcoMLxkRCMLzFfQ-ZQVhLqK-2qaXuDvQ";
+        e_clientaddr="AcN1N8KahOh9AxeeLsKgXSngnHgk_s2i5W3KO3WxAaR7uQyRB6O8kcpvGkTVerQNtiOKeL8Ne9fOZWcQK_ywLCYrksYzuUigyrousDKZ530pFpo8vd0";
+        e_upip="AcMd3B_cJ7YbjpvfSBXKF0UdwhgN8KxGajVG2aTmJyORZ4IkWc5rgdf0rmS82O5UxwksEuLUXdsSq1Lf_ogkM0dRYNWXpiuVLhI";
+        e_fb_zone="AcOb6jR-VouooGBatGieC_utI-1cOeIOLGaetyqmS9mEaIZWkRZmgpF2n8TZrg";
+        e_fb_twtaskhandle="AcNxMz7D7e0KkAXuqMTgrnSTuyiKqGHVkoD0N3vj-OTMR7DoBqG1o4sHtCjCIErJdErckQDV-9Df-qC5QFy4RP4H36meO4hGDKY";
+        e_proxy="AcPBZ33k6EnjDjy_vk1NqE9LuBhFUQsGi8uicNJnA8mDxrS4XghzD53bAYCdmA1IZ4kN1G7Duc9tbzI8"
+      X-Fb-Connection-Quality:
+      - EXCELLENT; q=0.9, rtt=17, rtx=0, c=10, mss=1380, tbw=3447, tp=-1, tpl=-1,
+        uplat=243, ullat=0
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '362'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"message":"Unsupported get request. Object with ID ''123123''
+        does not exist, cannot be loaded due to missing permissions, or does not support
+        this operation. Please read the Graph API documentation at https:\/\/developers.facebook.com\/docs\/graph-api","type":"GraphMethodException","code":100,"error_subcode":33,"fbtrace_id":"ACdd1FddvH-4zPiFGo69asF"}}'
+  recorded_at: Tue, 10 Feb 2026 22:11:52 GMT
+recorded_with: VCR 6.3.1

@@ -1,0 +1,70 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://graph.facebook.com/v19.0/114503234599312?fields=analytics.start(1770606000).end(1770692400).granularity(HALF_HOUR)
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <ACCESS_TOKEN>
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Etag:
+      - '"d87b3915abba01fab1244da5c1ae79127d74e098"'
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Origin
+      X-Fb-Aed:
+      - '729'
+      X-Ad-Api-Version-Warning:
+      - The call has been auto-upgraded to v24.0 as v19.0 has been deprecated.
+      X-Business-Use-Case-Usage:
+      - '{"114503234599312":[{"type":"whatsapp_business_management","call_count":2,"total_cputime":1,"total_time":1,"estimated_time_to_regain_access":0}]}'
+      Access-Control-Allow-Origin:
+      - "*"
+      Facebook-Api-Version:
+      - v24.0
+      Strict-Transport-Security:
+      - max-age=15552000; preload
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Request-Id:
+      - AqO1dOtITwxhA0Pycru4A4K
+      X-Fb-Trace-Id:
+      - ClP75PpFwkM
+      X-Fb-Rev:
+      - '1033214233'
+      X-Fb-Debug:
+      - 9/Iu1EByTLK105H040XnhppWP7tVIGwK2zZHAqxRcpOF0fWSV8G/xVHhlF08PfuIvY8SFGJb5W78jESoe0S6Iw==
+      Date:
+      - Tue, 10 Feb 2026 20:32:00 GMT
+      X-Fb-Connection-Quality:
+      - EXCELLENT; q=0.9, rtt=17, rtx=1, c=10, mss=1380, tbw=3447, tp=-1, tpl=-1,
+        uplat=363, ullat=0
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '64'
+    body:
+      encoding: UTF-8
+      string: '{"analytics":{"granularity":"HALF_HOUR"},"id":"114503234599312"}'
+  recorded_at: Tue, 10 Feb 2026 20:32:00 GMT
+recorded_with: VCR 6.3.1

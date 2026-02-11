@@ -43,6 +43,10 @@ module WhatsappSdk
         @business_profiles ||= WhatsappSdk::Api::BusinessProfile.new(self)
       end
 
+      def business_accounts
+        @business_accounts ||= WhatsappSdk::Api::BusinessAccount.new(self)
+      end
+
       def templates
         @templates ||= WhatsappSdk::Api::Templates.new(self)
       end

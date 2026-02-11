@@ -223,6 +223,22 @@ client.business_profiles.update(phone_number_id: SENDER_ID, params: { about: "A 
 ```
 </details>
 
+### Business Account API
+<details>
+
+```ruby
+# Get the details of your business account
+client.business_accounts.get(BUSINESS_ID)
+
+# Get some fields of your business account
+client.business_accounts.get(BUSINESS_ID, fields: ["id", "name"])
+
+# Update your business account
+# Note: You can only update the `name` and `timezone_id` fields of your business account.
+client.business_accounts.update(business_id: BUSINESS_ID, params: { name: "My new business name", timezone_id: "1" })
+```
+</details>
+
 ### Phone numbers API
 
 <details>

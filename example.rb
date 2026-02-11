@@ -158,6 +158,22 @@ run_and_catch_error("Update business profile") do
   updated_bp = client.business_profiles.update(phone_number_id: SENDER_ID, params: { about: "A cool business" } )
 end
 
+# ############################## Business Account API ##############################
+puts "\n\n\n ------------------ Testing Business Account API -----------------------"
+
+business_account = client.business_accounts.get(BUSINESS_ID)
+puts "GET Business Account by id: #{business_account.name}"
+
+business_account = client.business_accounts.get(BUSINESS_ID, fields: %w[id name account_review_status message_template_namespace] )
+puts "GET Business Account with fields by id: #{business_account.name}, #{business_account.account_review_status}, #{business_account.message_template_namespace}"
+
+updated_ba = client.business_accounts.update(business_id: BUSINESS_ID, params: { name: 'A cool updated business' } )
+puts "UPDATE Business Account by id: #{updated_ba} }"
+
+run_and_catch_error("Update business account") do
+  # message_template_namespace can't be set
+  client.business_accounts.update(business_id: BUSINESS_ID, params: { message_template_namespace: "namespace" } )
+end
 
 
 ############################## Phone Numbers API ##############################
