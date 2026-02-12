@@ -208,6 +208,12 @@ client.templates.create(
 
 # Delete a template
 client.templates.delete(business_id: BUSINESS_ID, name: "my_name") # delete by name
+
+# Get templates analytics
+client.templates.template_analytics(
+  business_id: BUSINESS_ID, start_timestamp: 1767236400,
+  end_timestamp: 1767322799, template_ids: [id]
+)
 ```
 </details>
 

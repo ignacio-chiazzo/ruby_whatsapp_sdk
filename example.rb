@@ -142,6 +142,12 @@ end
 
 # client.templates.delete(business_id: BUSINESS_ID, name: "name2", hsm_id: "243213188351928") # delete by name and id
 
+## Get template analytics
+analytics = client.templates.template_analytics(
+  business_id: BUSINESS_ID, start_timestamp: 1767236400,
+  end_timestamp: 1767322799, template_ids: [id, new_template.id]
+)
+puts "GET template analytics: #{analytics.records.first}"
 
 
 # ############################## Business API ##############################
