@@ -1,0 +1,91 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://graph.facebook.com/v19.0/123456/template_analytics?end=1767311999&granularity=DAILY&metric_types=&start=1767225600&template_ids=fake_id
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <ACCESS_TOKEN>
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Debug-Link:
+      - https://www.meta.com/debug/?mid=c0beb7fa49e59c7fe70b2abe7f8d7940
+      Error-Mid:
+      - c0beb7fa49e59c7fe70b2abe7f8d7940
+      Vary:
+      - Origin
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Fb-Aed:
+      - '730'
+      X-Ad-Api-Version-Warning:
+      - The call has been auto-upgraded to v24.0 as v19.0 has been deprecated.
+      Cross-Origin-Resource-Policy:
+      - cross-origin
+      X-App-Usage:
+      - '{"call_count":0,"total_cputime":0,"total_time":0}'
+      Content-Type:
+      - application/json; charset=UTF-8
+      Www-Authenticate:
+      - OAuth "Facebook Platform" "invalid_request" "(#100) Tried accessing nonexisting
+        field (template_analytics) on node type (User)"
+      Facebook-Api-Version:
+      - v24.0
+      Strict-Transport-Security:
+      - max-age=15552000; preload
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Request-Id:
+      - Ap_jHa0MyOXSzvzm2YfWV8L
+      X-Fb-Trace-Id:
+      - BVtSWSXOfsi
+      X-Fb-Rev:
+      - '1033307183'
+      X-Fb-Debug:
+      - V4R2aSwJy/EXuQXWo7QSIDB6vp72dAO5OTP3xNsSuAtSqdTXyRjAuxoRN7fGnuKOYZGhj6sDsC9RUVL+fHd9yA==
+      Date:
+      - Wed, 11 Feb 2026 23:36:53 GMT
+      Proxy-Status:
+      - http_request_error; e_fb_vipaddr="AcOrczf-JDAwX59lfs2jBGM3WdAdQMJa6KAkJAk1Yuxr3UEUxBn18wa8I-S8eX4k_Eji07DG9Gq3Ujr9BMh1vrRjIVgFPC9tRcWv";
+        e_clientaddr="AcNTBxoblSDZfoB8VIc311XkE3pOHGx2asFhmJB1Uj5rkzVgb9cdhd0UDRO27mCQAfaEJwvkq8Hlc3O7kvdtDCJc2AiNV2e2YZf-zknaezFgzQ1pSQ";
+        e_upip="AcNqUfhzyVEsg7X3So0v5i5WatpBYYIK7xgetXo4Llhs9pqhrPtEz61lFETpL0VP9Njfu8MsNDPUw7ZErVrkPoPDdn-3u0BG6ePH8XVbNR4";
+        e_fb_zone="AcOjjV-Qjd5yRsHVTsyfBKhym6v0z9Qzf_tZoFjza9A1MTPPpIeY3QbQTWWGu-Vd";
+        e_fb_twtaskhandle="AcNxVtWgqYGhzGPGZ5ZDvIDRJYCYcHKOxeNKctqR9nunm_Ro--eOv98gWL48fJB0AMhPHTHRagEn74Jqiq6CkK0EYsMbwDcjXC0KrJgUkFmkEjE";
+        e_proxy="AcNl5KWm2bRjiPx3f1788zwy-KII3VannFFGxT5w6as4X3bM0Py6xtHb7xXMtyvTwbq_5BjRJYAaZD5XWQff",
+        http_request_error; e_fb_vipaddr="AcNAmF9kX5tphYvWcBTnNOFUlYuUgzvxTIsKFaj-niLuXV00XG5ybqAVB8WTT5seTUvrDvGGYqsR3lmEhwfrxH6J6ZrfcAQEqQ";
+        e_clientaddr="AcMdmD3Ly9558tRUfzUSp5kTZpEWWdOvrfkw2f8S0qJWW8TYmH5tAY0jDRlQL6ZWFW6R--GoJVhhnV_OFueydvlTzJkIySlBuzPM4KJjvekh2pYJ7Dg";
+        e_upip="AcNp7a2E4cvJR4qmv5YCigoj85XaoxJw9akiNgEtQ1W4brobhOYW9OZQs6Eh_KJPFdfA1cq-v35uJsDHBjNksKQplRYsC_M3TJw1";
+        e_fb_zone="AcNNCDtlkqUS9_ger-LIZN8I_M_mhqCFN6LuPFKjTkdysE31XNY3QkxCQS_pUw";
+        e_fb_twtaskhandle="AcPX-iWAFnGM300lREt6qh6MY_nROScsPDsNrBSQB-sAHc5L0OdD3rutt1FZLKrxnWP54HrEq8Ag6Rm7coEkYE-6hSdj49WyTA";
+        e_proxy="AcN-20ofl5dKyw2vgqFL7NYFiWBatC4SYdh31MzR41mXtyI7h8oJcEd9k9nOZXjCBrgSTfETABrCxPAi"
+      X-Fb-Connection-Quality:
+      - EXCELLENT; q=0.9, rtt=16, rtx=0, c=10, mss=1380, tbw=3447, tp=-1, tpl=-1,
+        uplat=199, ullat=0
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '179'
+    body:
+      encoding: UTF-8
+      string: '{"error":{"message":"(#100) Tried accessing nonexisting field (template_analytics)
+        on node type (User)","type":"OAuthException","code":100,"fbtrace_id":"Ap_jHa0MyOXSzvzm2YfWV8L"}}'
+  recorded_at: Wed, 11 Feb 2026 23:36:53 GMT
+recorded_with: VCR 6.3.1

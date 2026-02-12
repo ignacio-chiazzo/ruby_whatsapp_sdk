@@ -175,11 +175,65 @@ module WhatsappSdk
         Api::Responses::SuccessResponse.success_response?(response: response)
       end
 
+      # Get Template Analytics
+      #
+      # Get analytics data for message templates over a specified time range.
+      # @param business_id [Integer] The business ID.
+      # @param start_timestamp [Integer] The start of the time range to retrieve analytics data, in Unix timestamp.
+      # @param end_timestamp [Integer] The end of the time range to retrieve analytics data, in Unix timestamp.
+      # @param template_ids [Array<String>] An array of template IDs for which to retrieve analytics data.
+      # @param metric_types [Array<String>] An array of metric types to retrieve.
+      def template_analytics(
+        business_id:, start_timestamp:, end_timestamp:, template_ids:, metric_types: [],
+        granularity: WhatsappSdk::Resource::TemplateAnalytic::Granularity::DAILY
+      )
+        if !metric_types.empty? && !valid_metric_types?(metric_types)
+          valid_types = WhatsappSdk::Resource::TemplateAnalytic::MetricType::METRIC_TYPES.join(', ')
+
+          raise ArgumentError, "Invalid metric type. Valid types are: #{valid_types}."
+        end
+
+        if granularity != WhatsappSdk::Resource::TemplateAnalytic::Granularity::DAILY
+          raise ArgumentError, "Invalid granularity. The only supported granularity is DAILY."
+        end
+
+        query_params = {
+          start: start_timestamp,
+          end: end_timestamp,
+          template_ids: template_ids.join(","),
+          metric_types: metric_types.join(","),
+          granularity: granularity
+        }
+
+        response = send_request(
+          endpoint: "#{business_id}/template_analytics?#{URI.encode_www_form(query_params)}",
+          http_method: "get"
+        )
+
+        Api::Responses::PaginationRecords.new(
+          records: parse_template_analytics(response['data']),
+          before: response.dig('paging', 'cursors', 'before'),
+          after: response.dig('paging', 'cursors', 'after')
+        )
+      end
+
       private
 
       def parse_templates(templates_data)
         templates_data.map do |template|
           Resource::Template.from_hash(template)
+        end
+      end
+
+      def parse_template_analytics(analytics_data)
+        analytics_data.map do |analytic|
+          Resource::TemplateAnalytic.from_hash(analytic)
+        end
+      end
+
+      def valid_metric_types?(metric_types)
+        metric_types.all? do |type|
+          WhatsappSdk::Resource::TemplateAnalytic::MetricType.valid?(type)
         end
       end
     end

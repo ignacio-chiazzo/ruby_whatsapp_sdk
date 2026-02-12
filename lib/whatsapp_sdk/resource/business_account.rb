@@ -5,8 +5,7 @@ module WhatsappSdk
     class BusinessAccount
       attr_accessor :id, :name, :timezone_id, :message_template_namespace, :account_review_status,
                     :business_verification_status, :country, :ownership_type, :primary_business_location,
-                    :analytics, :conversation_analytics, :pricing_analytics, :template_analytics,
-                    :template_group_analytics, :call_analytics
+                    :analytics, :conversation_analytics, :pricing_analytics, :call_analytics
 
       def self.from_hash(hash)
         business_account = BusinessAccount.new
@@ -22,8 +21,6 @@ module WhatsappSdk
         business_account.analytics = hash["analytics"]
         business_account.conversation_analytics = hash["conversation_analytics"]
         business_account.pricing_analytics = hash["pricing_analytics"]
-        business_account.template_analytics = hash["template_analytics"]
-        business_account.template_group_analytics = hash["template_group_analytics"]
         business_account.call_analytics = hash["call_analytics"]
 
         business_account
