@@ -17,6 +17,7 @@ Send stickers, messages, audio, videos, locations, react and reply to messages o
 - [APIs](#apis)
   - [Templates](#templates)
   - [Business Profile API](#business-profile-api)
+  - [Business Account API](#business-account-api)
   - [Phone numbers API](#phone-numbers-api)
   - [Media API](#media-api)
   - [Messages API](#messages-api)
