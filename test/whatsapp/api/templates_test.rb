@@ -416,6 +416,25 @@ module WhatsappSdk
         end
       end
 
+      def test_template_analytics_with_after_cursor
+        VCR.use_cassette('templates/template_analytics_with_after_cursor') do
+          start_time = Time.utc(2026, 1, 1).to_i
+          end_time = Time.utc(2026, 1, 1, 23, 59, 59).to_i
+
+          analytics_pagination = @templates_api.template_analytics(
+            business_id: 114_503_234_599_312,
+            start_timestamp: start_time,
+            end_timestamp: end_time,
+            template_ids: ['25979270448374156'],
+            after: 'MjQZD'
+          )
+
+          assert_equal(Api::Responses::PaginationRecords, analytics_pagination.class)
+          assert(analytics_pagination.records.is_a?(Array))
+          refute_empty(analytics_pagination.records)
+        end
+      end
+
       private
 
       def basic_components_json

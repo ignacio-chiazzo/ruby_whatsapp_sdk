@@ -1,0 +1,71 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://graph.facebook.com/v19.0/114503234599312/template_analytics?after=MjQZD&end=1767311999&granularity=DAILY&metric_types=&start=1767225600&template_ids=25979270448374156
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <ACCESS_TOKEN>
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Etag:
+      - '"d6195b6972c304fd18209b1f217f0db73a99f57d"'
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Accept-Encoding
+      - Origin
+      X-Fb-Aed:
+      - '748'
+      X-Ad-Api-Version-Warning:
+      - The call has been auto-upgraded to v24.0 as v19.0 has been deprecated.
+      X-Business-Use-Case-Usage:
+      - '{"114503234599312":[{"type":"whatsapp_business_management","call_count":10,"total_cputime":1,"total_time":1,"estimated_time_to_regain_access":0},{"type":"whatsapp_business_management","call_count":10,"total_cputime":1,"total_time":1,"estimated_time_to_regain_access":0}]}'
+      Access-Control-Allow-Origin:
+      - "*"
+      Facebook-Api-Version:
+      - v24.0
+      Strict-Transport-Security:
+      - max-age=15552000; preload
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Request-Id:
+      - AoSvF2C6Zs29j756wFJP__h
+      X-Fb-Trace-Id:
+      - AB9aCFUGE7R
+      X-Fb-Rev:
+      - '1033703022'
+      X-Fb-Debug:
+      - 2x00fw6cQJ/sl9woq7opQ4cDlnE2iY6ZFtV93+OJhR2QT3lJQffz1My+eoRsgnsLMIRyA+m0ErMRLWa8zjLTcQ==
+      Date:
+      - Thu, 19 Feb 2026 13:56:02 GMT
+      X-Fb-Connection-Quality:
+      - EXCELLENT; q=0.9, rtt=16, rtx=0, c=10, mss=1380, tbw=3447, tp=-1, tpl=-1,
+        uplat=781, ullat=0
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '320'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"data":[{"granularity":"DAILY","product_type":"cloud_api"}],"paging":{"cursors":{"before":"MjUZD","after":"NDkZD"},"previous":"https:\/\/graph.facebook.com\/v24.0\/901406135639897\/template_analytics?end=1767311999&granularity=DAILY&metric_types=&start=1767225600&template_ids=25979270448374156&limit=25&before=MjUZD"}}'
+  recorded_at: Thu, 19 Feb 2026 13:56:03 GMT
+recorded_with: VCR 6.3.1
