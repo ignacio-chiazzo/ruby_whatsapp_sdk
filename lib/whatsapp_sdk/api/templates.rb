@@ -185,7 +185,8 @@ module WhatsappSdk
       # @param metric_types [Array<String>] An array of metric types to retrieve.
       def template_analytics(
         business_id:, start_timestamp:, end_timestamp:, template_ids:, metric_types: [],
-        granularity: WhatsappSdk::Resource::TemplateAnalytic::Granularity::DAILY
+        granularity: WhatsappSdk::Resource::TemplateAnalytic::Granularity::DAILY,
+        after: nil
       )
         if !metric_types.empty? && !valid_metric_types?(metric_types)
           valid_types = WhatsappSdk::Resource::TemplateAnalytic::MetricType::METRIC_TYPES.join(', ')
@@ -204,6 +205,7 @@ module WhatsappSdk
           metric_types: metric_types.join(","),
           granularity: granularity
         }
+        query_params[:after] = after if after
 
         response = send_request(
           endpoint: "#{business_id}/template_analytics?#{URI.encode_www_form(query_params)}",
