@@ -1,5 +1,10 @@
 # Unreleased
 
+# v 1.1.0
+- Add support for pagination in template_analytics with 'after' cursor @osvaldo-santos [190](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/190) 
+- Add template_analytics feature @osvaldo-santos [189](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/189) 
+- Add Business Account API support @osvaldo-santos [187](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/187) 
+
 # v 1.0.5
 - Added GET template endpoint. @osvaldo-santos [185](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/185)
 - Adding support for named paremeters in Templates API. @osvaldo-santos [184](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/184)
