@@ -1,4 +1,5 @@
 # Unreleased
+- Add support for v25.0 API.
 
 # v 1.1.0
 - Add support for pagination in template_analytics with 'after' cursor @osvaldo-santos [190](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/190) 
