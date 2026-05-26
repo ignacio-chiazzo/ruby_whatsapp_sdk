@@ -58,13 +58,13 @@ module WhatsappSdk
 
         response = faraday_request.public_send(http_method, endpoint, request_params(params, headers), headers)
 
-        if response.status > 499 || Api::Responses::GenericErrorResponse.response_error?(response: response.body)
-          raise Api::Responses::HttpResponseError.new(http_status: response.status, body: JSON.parse(response.body))
+        parsed_body = parse_response_body(response.body)
+
+        if response.status > 499 || Api::Responses::GenericErrorResponse.response_error?(response: parsed_body)
+          raise Api::Responses::HttpResponseError.new(http_status: response.status, body: parsed_body)
         end
 
-        return nil if response.body == ""
-
-        JSON.parse(response.body)
+        parsed_body
       end
 
       def download_file(url:, content_type_header:, file_path: nil)
@@ -84,6 +84,12 @@ module WhatsappSdk
       end
 
       private
+
+      def parse_response_body(body)
+        return nil if body.nil? || body.empty?
+
+        JSON.parse(body)
+      end
 
       def request_params(params, headers)
         return params.to_json if params.is_a?(Hash) && headers['Content-Type'] == 'application/json'
