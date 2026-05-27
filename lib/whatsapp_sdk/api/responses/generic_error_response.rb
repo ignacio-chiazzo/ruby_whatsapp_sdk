@@ -16,6 +16,8 @@ module WhatsappSdk
         end
 
         def self.response_error?(response:)
+          return false unless response.is_a?(Hash)
+
           response["error"]
         end
 
