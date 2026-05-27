@@ -51,11 +51,6 @@ module WhatsappSdk
         assert_nil(response_body)
       end
 
-      # Regression: a 200 response whose body text contains the substring "error" (e.g.
-      # inside a WhatsApp template body) must not be treated as an error. Previously the
-      # client passed the raw body String to `response_error?`, which delegated to
-      # `String#[]` — a substring scan — and raised HttpResponseError for any body
-      # containing the word "error".
       def test_send_request_does_not_raise_when_body_text_contains_error_substring
         payload = {
           'data' => [{

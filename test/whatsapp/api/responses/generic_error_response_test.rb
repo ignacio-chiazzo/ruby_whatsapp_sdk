@@ -19,10 +19,6 @@ module WhatsappSdk
           assert_nil(GenericErrorResponse.response_error?(response: response))
         end
 
-        # Regression guard: a raw JSON string that happens to contain the substring "error"
-        # (e.g. inside a template body) must NOT trigger an error. Previously String#[] was
-        # used as a substring scan, causing false positives for any 200 response body
-        # mentioning the word "error".
         def test_response_error_returns_false_for_string_input
           body = '{"data":[{"text":"si tu cupón te da algún error, avísanos"}]}'
           assert_equal(false, GenericErrorResponse.response_error?(response: body))
