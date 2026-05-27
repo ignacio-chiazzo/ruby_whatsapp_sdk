@@ -22,6 +22,8 @@ module WhatsappSdk
         end
 
         def self.build_from_response(response:)
+          return unless response.is_a?(Hash)
+
           error_response = response["error"]
           return unless error_response
 
