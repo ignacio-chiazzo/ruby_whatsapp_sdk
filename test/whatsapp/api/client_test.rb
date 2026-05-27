@@ -88,6 +88,19 @@ module WhatsappSdk
         assert_equal(502, error.http_status)
       end
 
+      def test_send_request_raises_http_response_error_for_5xx_with_empty_body
+        stub_request(:get, "#{ApiConfiguration::API_URL}/#{ApiConfiguration::DEFAULT_API_VERSION}/test")
+          .to_return(status: 503, body: "", headers: {})
+
+        error = assert_raises(Api::Responses::HttpResponseError) do
+          @client.send_request(endpoint: 'test', http_method: 'get')
+        end
+
+        assert_equal(503, error.http_status)
+        assert_nil(error.body)
+        assert_nil(error.error_info)
+      end
+
       def test_set_api_version_in_config
         WhatsappSdk.configure do |config|
           config.api_version = 'v16.0'
