@@ -28,7 +28,7 @@ GEM
     json (2.19.9)
     logger (1.7.0)
     method_source (1.0.0)
-    minitest (5.16.1)
+    minitest (5.27.0)
     mocha (1.14.0)
     multipart-post (2.4.1)
     net-http (0.9.1)
@@ -78,6 +78,7 @@ PLATFORMS
   arm64-darwin-22
   arm64-darwin-23
   arm64-darwin-24
+  arm64-darwin-25
   x86_64-darwin-19
   x86_64-darwin-21
   x86_64-linux

@@ -1,5 +1,9 @@
 # Unreleased
-- Add support for v25.0 API.
+- Expose Graph media upload sessions through the configured client @oitedi [199](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/199)
+- Support BSUID recipients and preserve user IDs in message responses @oitedi [198](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/198)
+- Add voice message support to audio sends @oitedi [197](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/197)
+- Guard `GenericErrorResponse.build_from_response` against non-Hash input @afonso-aguas [195](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/195)
+- Fix false-positive `HttpResponseError` on bodies containing "error" substring @afonso-aguas [194](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/194)
 
 # v 1.1.0
 - Add support for pagination in template_analytics with 'after' cursor @osvaldo-santos [190](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/190) 

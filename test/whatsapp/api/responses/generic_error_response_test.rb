@@ -21,11 +21,11 @@ module WhatsappSdk
 
         def test_response_error_returns_false_for_string_input
           body = '{"data":[{"text":"si tu cupón te da algún error, avísanos"}]}'
-          assert_equal(false, GenericErrorResponse.response_error?(response: body))
+          refute(GenericErrorResponse.response_error?(response: body))
         end
 
         def test_response_error_returns_false_for_nil_input
-          assert_equal(false, GenericErrorResponse.response_error?(response: nil))
+          refute(GenericErrorResponse.response_error?(response: nil))
         end
 
         def test_build_from_response_returns_instance_for_hash_with_error_key
