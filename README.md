@@ -567,6 +567,22 @@ The upload reads the entire file into memory and starts at offset zero; automati
 resuming interrupted uploads are not included.
 See [Meta's upload guide](https://developers.facebook.com/docs/graph-api/guides/upload).
 
+### Business-scoped user IDs (BSUIDs)
+
+All message sends accept `recipient:` as an alternative to `recipient_number:`.
+Use the complete BSUID (or parent BSUID), including its country prefix:
+
+```ruby
+response = client.messages.send_text(sender_id: sender_id, recipient: "US.123abc", message: "Hello")
+response.contacts.first.user_id # => "US.123abc"
+response.contacts.first.wa_id   # => nil when Meta omits the phone number
+```
+
+Phone numbers take precedence when both destinations are supplied. Missing or blank
+selected destinations raise `WhatsappSdk::Resource::Errors::MissingArgumentError` before sending.
+Authentication templates require a phone number; the SDK does not infer template category from its name or buttons.
+See [Meta's BSUID documentation](https://developers.facebook.com/documentation/business-messaging/whatsapp/business-scoped-user-ids/).
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests.
