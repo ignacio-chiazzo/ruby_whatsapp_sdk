@@ -140,8 +140,10 @@ module WhatsappSdk
 
         headers = { 'Content-Type' => 'application/octet-stream', 'file_offset' => '0' }
         headers['Authorization'] = "Bearer #{access_token}" if access_token
-        # ponytail: buffers the whole file; stream bytes if large uploads become a requirement.
-        send_request(endpoint: "./#{session_id}", params: File.binread(file_path), headers: headers)
+        File.open(file_path, 'rb') do |file|
+          headers['Content-Length'] = file.size.to_s
+          send_request(endpoint: "./#{session_id}", params: file, headers: headers)
+        end
       end
 
       private
