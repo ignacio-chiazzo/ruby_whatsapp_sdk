@@ -549,6 +549,24 @@ client.messages.send_audio(sender_id: sender_id, recipient_number: recipient_num
 
 See [Meta's audio message documentation](https://developers.facebook.com/documentation/business-messaging/whatsapp/messages/audio-messages/).
 
+### Upload handles for templates and profile photos
+
+Use Graph upload sessions when an endpoint requires a media handle instead of a WhatsApp media ID:
+
+```ruby
+session = client.media.create_upload_session(app_id: app_id, file_path: "header.png", type: "image/png")
+upload = client.media.upload_file_to_session(session_id: session.fetch("id"), file_path: "header.png")
+handle = upload.fetch("h")
+```
+
+Both methods use the client's configured API version and token. An optional `access_token:`
+overrides the token for that request only. They return the Graph response hashes and raise
+`WhatsappSdk::Api::Responses::HttpResponseError` on Graph errors, like the other APIs.
+Missing files or directories raise `WhatsappSdk::Api::Medias::FileNotFoundError`.
+The upload reads the entire file into memory and starts at offset zero; automatic retries and
+resuming interrupted uploads are not included.
+See [Meta's upload guide](https://developers.facebook.com/docs/graph-api/guides/upload).
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests.
