@@ -51,6 +51,10 @@ module WhatsappSdk
           POSITIONAL
         ].freeze
 
+        # Check whether a template parameter format is supported.
+        #
+        # @param format [Object] Value to check against the supported string formats.
+        # @return [Boolean] Whether format is exactly "named" or "positional".
         def self.valid?(format)
           FORMATS.include?(format)
         end
