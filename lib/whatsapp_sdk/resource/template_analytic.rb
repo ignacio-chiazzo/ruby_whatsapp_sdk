@@ -2,6 +2,8 @@
 
 module WhatsappSdk
   module Resource
+    # Template analytics for one aggregation interval and product type.
+    # Metric data points are retained as raw Graph hashes without conversion.
     class TemplateAnalytic
       module Granularity
         DAILY = "DAILY"
@@ -34,14 +36,30 @@ module WhatsappSdk
         end
       end
 
+      # @!attribute [rw] granularity
+      #   @return [String, nil] Aggregation interval, such as DAILY.
+      # @!attribute [rw] product_type
+      #   @return [String, nil] Messaging product, such as cloud_api.
+      # @!attribute [rw] data_points
+      #   @return [Array<Hash>, nil] Raw per-template metrics and time ranges.
       attr_accessor :granularity, :product_type, :data_points
 
+      # Construct an analytics record without validating or converting its fields.
+      #
+      # @param granularity [String, nil] Aggregation interval returned by Graph.
+      # @param product_type [String, nil] Messaging product returned by Graph.
+      # @param data_points [Array<Hash>, nil] Raw per-template metrics and time ranges.
+      # @return [TemplateAnalytic] Analytics record containing the supplied values.
       def initialize(granularity:, product_type:, data_points:)
         @granularity = granularity
         @product_type = product_type
         @data_points = data_points
       end
 
+      # Build an analytics record from a Graph response.
+      #
+      # @param hash [Hash{String => Object}] Analytics fields keyed by their Graph names.
+      # @return [TemplateAnalytic] Analytics record with nil for any missing fields.
       def self.from_hash(hash)
         new(
           granularity: hash["granularity"],

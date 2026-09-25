@@ -182,7 +182,12 @@ module WhatsappSdk
       # @param start_timestamp [Integer] The start of the time range to retrieve analytics data, in Unix timestamp.
       # @param end_timestamp [Integer] The end of the time range to retrieve analytics data, in Unix timestamp.
       # @param template_ids [Array<String>] An array of template IDs for which to retrieve analytics data.
-      # @param metric_types [Array<String>] An array of metric types to retrieve.
+      # @param metric_types [Array<String>] Metric types to retrieve; defaults to an empty array.
+      # @param granularity [String] Aggregation interval; defaults to DAILY, the only supported value.
+      # @param after [String, nil] Cursor for the next page; nil requests the first page.
+      # @return [Api::Responses::PaginationRecords] Page of Resource::TemplateAnalytic records with pagination cursors.
+      # @raise [ArgumentError] If a metric type or granularity is unsupported.
+      # @raise [Api::Responses::HttpResponseError] If Graph returns an API error or a server error.
       def template_analytics(
         business_id:, start_timestamp:, end_timestamp:, template_ids:, metric_types: [],
         granularity: WhatsappSdk::Resource::TemplateAnalytic::Granularity::DAILY,
