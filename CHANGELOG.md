@@ -1,4 +1,6 @@
 # Unreleased
+
+# v 1.2.0
 - Expose Graph media upload sessions through the configured client @oitedi [199](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/199)
 - Support BSUID recipients and preserve user IDs in message responses @oitedi [198](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/198)
 - Add voice message support to audio sends @oitedi [197](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/197)
