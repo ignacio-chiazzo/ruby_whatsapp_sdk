@@ -101,6 +101,44 @@ module WhatsappSdk
         assert_nil(error.error_info)
       end
 
+      def test_send_request_returns_raw_response_for_success
+        stub_raw_request(status: 200, body: '{"messages":[{"id":"wamid"}]}')
+
+        response = @client.send_request(endpoint: 'test', raw_response: true)
+
+        assert_instance_of(Faraday::Response, response)
+        assert_equal(200, response.status)
+        assert_equal('{"messages":[{"id":"wamid"}]}', response.body)
+      end
+
+      def test_send_request_returns_raw_response_for_empty_429_with_headers
+        stub_raw_request(status: 429, body: '', headers: { 'Retry-After' => '30' })
+
+        response = @client.send_request(endpoint: 'test', raw_response: true)
+
+        assert_equal(429, response.status)
+        assert_equal('', response.body)
+        assert_equal('30', response.headers['Retry-After'])
+      end
+
+      def test_send_request_returns_raw_response_for_error_without_graph_error_key
+        stub_raw_request(status: 403, body: '{}')
+
+        response = @client.send_request(endpoint: 'test', raw_response: true)
+
+        assert_equal(403, response.status)
+        assert_equal('{}', response.body)
+      end
+
+      def test_send_request_returns_raw_response_for_non_json_5xx
+        stub_raw_request(status: 502, body: '<html>Bad gateway</html>')
+
+        response = @client.send_request(endpoint: 'test', raw_response: true)
+
+        assert_equal(502, response.status)
+        assert_equal('<html>Bad gateway</html>', response.body)
+      end
+
       def test_set_api_version_in_config
         WhatsappSdk.configure do |config|
           config.api_version = 'v16.0'
@@ -215,6 +253,12 @@ module WhatsappSdk
                                        'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
                                        'Authorization' => 'Bearer test_token' }.merge(headers))
           .to_return(status: response_status, body: response_body.to_json, headers: {})
+      end
+
+      def stub_raw_request(status:, body:, headers: {})
+        stub_request(:post, "#{ApiConfiguration::API_URL}/#{ApiConfiguration::DEFAULT_API_VERSION}/test")
+          .with(headers: { 'Authorization' => 'Bearer test_token' })
+          .to_return(status: status, body: body, headers: headers)
       end
 
       def faraday_middlewares(client)

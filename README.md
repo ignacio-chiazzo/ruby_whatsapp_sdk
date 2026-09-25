@@ -583,6 +583,20 @@ selected destinations raise `WhatsappSdk::Resource::Errors::MissingArgumentError
 Authentication templates require a phone number; the SDK does not infer template category from its name or buttons.
 See [Meta's BSUID documentation](https://developers.facebook.com/documentation/business-messaging/whatsapp/business-scoped-user-ids/).
 
+### Inspect the complete HTTP response
+
+```ruby
+response = client.send_request(endpoint: "#{SENDER_ID}/messages", params: message_payload,
+                               headers: { "Content-Type" => "application/json" }, raw_response: true)
+response.status
+response.headers
+response.body
+```
+
+`raw_response: true` returns the Faraday response unchanged, including empty or non-JSON
+error bodies. The caller must check the HTTP status and parse the body. The default mode
+continues to return parsed JSON and raise Graph API errors. Transport exceptions still propagate.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests.
