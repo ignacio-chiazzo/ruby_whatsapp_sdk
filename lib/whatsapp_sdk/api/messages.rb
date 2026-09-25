@@ -112,8 +112,9 @@ module WhatsappSdk
       # @param audio_id [String] Audio ID.
       # @param link [String] Audio link.
       # @param message_id [String] The id of the message to reply to.
+      # @param voice [Boolean] Send an Ogg/Opus voice message instead of basic audio. Defaults to false.
       # @return [MessageDataResponse] Response object.
-      def send_audio(sender_id:, recipient_number:, audio_id: nil, link: nil, message_id: nil)
+      def send_audio(sender_id:, recipient_number:, audio_id: nil, link: nil, message_id: nil, voice: false)
         raise Resource::Errors::MissingArgumentError, "audio_id or link is required" if !audio_id && !link
 
         params = {
@@ -122,7 +123,7 @@ module WhatsappSdk
           recipient_type: "individual",
           type: "audio"
         }
-        params[:audio] = link ? { link: link } : { id: audio_id }
+        params[:audio] = link ? { link: link, voice: voice } : { id: audio_id, voice: voice }
         params[:context] = { message_id: message_id } if message_id
 
         response = send_request(

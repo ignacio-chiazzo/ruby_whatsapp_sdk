@@ -535,6 +535,20 @@ If the API response is still `success`, but the message is not delivered:
 
 Note: Sometimes the messages are delayed; see [Meta documentation](https://developers.facebook.com/docs/whatsapp/on-premises/guides/send-message-performance#delays).
 
+
+### Voice messages
+
+Pass `voice: true` to `send_audio` with an uploaded `audio_id` or hosted `link`.
+Voice messages require an Ogg file encoded with Opus; the SDK does not transcode media.
+Omitting `voice` (or passing `false`) sends basic audio.
+
+```ruby
+client.messages.send_audio(sender_id: sender_id, recipient_number: recipient_number,
+                           audio_id: media_id, voice: true)
+```
+
+See [Meta's audio message documentation](https://developers.facebook.com/documentation/business-messaging/whatsapp/messages/audio-messages/).
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests.
