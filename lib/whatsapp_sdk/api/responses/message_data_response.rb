@@ -27,7 +27,9 @@ module WhatsappSdk
           end
 
           def parse_contact(contact_json)
-            Resource::ContactResponse.new(input: contact_json["input"], wa_id: contact_json["wa_id"])
+            Resource::ContactResponse.new(
+              input: contact_json["input"], wa_id: contact_json["wa_id"], user_id: contact_json["user_id"]
+            )
           end
         end
       end
