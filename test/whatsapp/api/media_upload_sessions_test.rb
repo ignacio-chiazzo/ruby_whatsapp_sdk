@@ -59,6 +59,34 @@ module WhatsappSdk
         assert_requested(configured, times: 1)
       end
 
+      def test_upload_streams_an_open_binary_file_and_closes_it_after_success
+        uploaded_file = nil
+        response = { 'h' => '4::media-handle' }
+        @media.expects(:send_request).with do |request|
+          uploaded_file = request[:params]
+          uploaded_file.is_a?(File) && !uploaded_file.closed? && uploaded_file.binmode? &&
+            request[:headers]['Content-Length'] == uploaded_file.size.to_s
+        end.returns(response)
+
+        result = @media.upload_file_to_session(session_id: @session_id, file_path: @file_path)
+
+        assert_equal(response, result)
+        assert_predicate(uploaded_file, :closed?)
+      end
+
+      def test_upload_closes_the_file_when_the_request_raises
+        uploaded_file = nil
+        @media.expects(:send_request).with do |request|
+          uploaded_file = request[:params]
+          uploaded_file.is_a?(File) && !uploaded_file.closed?
+        end.raises(Faraday::ConnectionFailed, 'connection lost')
+
+        assert_raises(Faraday::ConnectionFailed) do
+          @media.upload_file_to_session(session_id: @session_id, file_path: @file_path)
+        end
+        assert_predicate(uploaded_file, :closed?)
+      end
+
       def test_upload_accepts_explicit_token_and_another_api_version
         request = stub_request(:post, 'https://graph.facebook.com/v24.0/upload:session-id?sig=signature').with(
           headers: { 'Authorization' => 'Bearer override-token' }
