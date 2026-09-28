@@ -120,6 +120,15 @@ module WhatsappSdk
       # Create a Graph upload session for template media or a business profile photo.
       # Returns the raw response containing the upload session "id".
       # Uses the client's API version and token unless access_token is supplied.
+      #
+      # @param app_id [String, Integer] Meta app ID that owns the upload session.
+      # @param file_path [String] Path to the local file whose name and size are sent.
+      # @param type [String] File MIME type, such as image/jpeg.
+      # @param access_token [String, nil] Token override; nil uses the client's token.
+      # @return [Hash] Raw Graph response containing the upload session "id".
+      # @raise [FileNotFoundError] If file_path does not identify a regular file.
+      # @raise [Api::Responses::HttpResponseError] If Graph returns an API error or a server error.
+      # @raise [SystemCallError] If the file metadata cannot be read.
       def create_upload_session(app_id:, file_path:, type:, access_token: nil)
         raise FileNotFoundError.new(file_path: file_path) unless File.file?(file_path)
 
@@ -135,6 +144,14 @@ module WhatsappSdk
       # Upload the complete file to a Graph upload session, starting at offset zero.
       # Returns the raw response containing the reusable media handle "h".
       # This does not resume partial uploads or retry failed requests.
+      #
+      # @param session_id [String] Upload session ID returned by create_upload_session, including any signature.
+      # @param file_path [String] Path to the local file to upload in full.
+      # @param access_token [String, nil] Token override; nil uses the client's token.
+      # @return [Hash] Raw Graph response containing the reusable media handle "h".
+      # @raise [FileNotFoundError] If file_path does not identify a regular file.
+      # @raise [Api::Responses::HttpResponseError] If Graph returns an API error or a server error.
+      # @raise [SystemCallError] If the file cannot be read.
       def upload_file_to_session(session_id:, file_path:, access_token: nil)
         raise FileNotFoundError.new(file_path: file_path) unless File.file?(file_path)
 

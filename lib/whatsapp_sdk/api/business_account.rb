@@ -5,6 +5,9 @@ require_relative "../resource/business_account"
 
 module WhatsappSdk
   module Api
+    # Reads and updates WhatsApp Business Accounts through the configured client.
+    # @see Client#business_accounts
+    # @see Resource::BusinessAccount
     class BusinessAccount < Request
       DEFAULT_FIELDS = %w[id name timezone_id message_template_namespace account_review_status
                           business_verification_status country ownership_type primary_business_location]

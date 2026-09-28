@@ -43,6 +43,9 @@ module WhatsappSdk
         @business_profiles ||= WhatsappSdk::Api::BusinessProfile.new(self)
       end
 
+      # Access business account operations using this client's configuration.
+      #
+      # @return [Api::BusinessAccount] Cached business account API accessor.
       def business_accounts
         @business_accounts ||= WhatsappSdk::Api::BusinessAccount.new(self)
       end
