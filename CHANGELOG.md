@@ -1,4 +1,5 @@
 # Unreleased
+- Allow callers to inspect the complete HTTP response with `raw_response: true` @oitedi [203](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/203)
 
 # v 1.2.0
 - Expose Graph media upload sessions through the configured client @oitedi [199](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/199)
