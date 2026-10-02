@@ -54,12 +54,18 @@ module WhatsappSdk
         @templates ||= WhatsappSdk::Api::Templates.new(self)
       end
 
-      def send_request(endpoint: "", full_url: nil, http_method: "post", params: {}, headers: {}, multipart: false)
+      # @param raw_response [Boolean] Return the Faraday response without JSON parsing or HTTP error raising.
+      # @return [Hash, Array, nil, Faraday::Response] Parsed JSON, or the unmodified HTTP response when requested.
+      # @raise [Api::Responses::HttpResponseError] For Graph errors in the default parsed mode.
+      def send_request(endpoint: "", full_url: nil, http_method: "post", params: {}, headers: {}, multipart: false,
+                       raw_response: false)
         url = full_url || "#{ApiConfiguration::API_URL}/#{@api_version}/"
 
         faraday_request = faraday(url: url, multipart: multipart)
 
         response = faraday_request.public_send(http_method, endpoint, request_params(params, headers), headers)
+
+        return response if raw_response
 
         parsed_body = parse_response_body(response.body)
 
