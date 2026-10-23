@@ -646,6 +646,30 @@ response.body
 error bodies. The caller must check the HTTP status and parse the body. The default mode
 continues to return parsed JSON and raise Graph API errors. Transport exceptions still propagate.
 
+### Manage WhatsApp Flows
+
+```ruby
+page = client.flows.list(business_id: WABA_ID, limit: 20, fields: %w[id name status])
+page.records # Raw Flow hashes; use page.after as the after: cursor for the next page.
+flow = client.flows.create(business_id: WABA_ID, name: "Customer survey", categories: ["SURVEY"])
+validation = client.flows.upload_json(flow_id: flow["id"], file_path: "flow.json")
+details = client.flows.get(flow_id: flow["id"], fields: %w[id status validation_errors])
+# Inspect validation errors and review the draft before publishing explicitly.
+client.flows.publish(flow_id: flow["id"])
+```
+
+Creation leaves the Flow in draft status. Upload returns Graph's raw response, including
+`validation_errors` even when `success` is true. Individual calls do not retry or publish
+implicitly. Business templates, draft recovery, and data exchange endpoint encryption
+remain in the application. See the [Flows API reference](https://developers.facebook.com/docs/whatsapp/flows/reference/flowsapi).
+
+List the assets uploaded to a Flow:
+
+```ruby
+assets = client.flows.assets(flow_id: flow["id"], limit: 20)
+assets.records # Raw asset hashes with name, asset_type, and download_url; no automatic download.
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests.
