@@ -262,7 +262,7 @@ module WhatsappSdk
       end
 
       def faraday_middlewares(client)
-        faraday = client.send(:faraday, url: '')
+        faraday = client.send(:build_faraday, 'https://graph.facebook.com', false)
         faraday.builder.handlers
       end
 
