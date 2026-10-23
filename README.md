@@ -595,7 +595,7 @@ response.body
 
 `raw_response: true` returns the Faraday response unchanged, including empty or non-JSON
 error bodies. The caller must check the HTTP status and parse the body. The default mode
-continues to return parsed JSON and raise Graph API errors. Transport exceptions still propagate.
+returns parsed JSON and raises `HttpResponseError` for Graph API errors and for any HTTP status of 400 or above. Transport exceptions still propagate.
 
 ## Development
 
