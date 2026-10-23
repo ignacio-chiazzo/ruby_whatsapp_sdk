@@ -23,7 +23,7 @@ module WhatsappSdk
           private
 
           def parse_message(message_json)
-            Resource::Message.new(id: message_json["id"])
+            Resource::Message.new(id: message_json["id"], message_status: message_json["message_status"])
           end
 
           def parse_contact(contact_json)
