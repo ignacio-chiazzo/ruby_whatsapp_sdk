@@ -50,6 +50,11 @@ module WhatsappSdk
         @business_accounts ||= WhatsappSdk::Api::BusinessAccount.new(self)
       end
 
+      # @return [Api::Flows] Flow management using this client's configuration.
+      def flows
+        @flows ||= WhatsappSdk::Api::Flows.new(self)
+      end
+
       def templates
         @templates ||= WhatsappSdk::Api::Templates.new(self)
       end
