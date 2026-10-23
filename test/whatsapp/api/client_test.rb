@@ -101,6 +101,21 @@ module WhatsappSdk
         assert_nil(error.error_info)
       end
 
+      def test_send_request_raises_for_4xx_responses_without_graph_error
+        [[403, '{}', {}], [429, '', nil]].each do |status, body, parsed|
+          stub_request(:get, "#{ApiConfiguration::API_URL}/#{ApiConfiguration::DEFAULT_API_VERSION}/test")
+            .to_return(status: status, body: body, headers: {})
+
+          error = assert_raises(Api::Responses::HttpResponseError) do
+            @client.send_request(endpoint: 'test', http_method: 'get')
+          end
+
+          assert_equal(status, error.http_status)
+          parsed.nil? ? assert_nil(error.body) : assert_equal(parsed, error.body)
+          WebMock.reset!
+        end
+      end
+
       def test_send_request_returns_raw_response_for_success
         stub_raw_request(status: 200, body: '{"messages":[{"id":"wamid"}]}')
 
