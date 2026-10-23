@@ -1,4 +1,9 @@
 # Unreleased
+- **Breaking:** Raise `HttpResponseError` for every HTTP response with status >= 400 in the default parsed mode (previously only >= 500 or bodies with a Graph `error` key). Use `raw_response: true` to inspect 4xx bodies yourself. @oitedi [209](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/209)
+- Add explicit WhatsApp phone onboarding operations: `phone_numbers.add`, `request_code`, `verify_code`, `set_public_key`/`get_public_key`, and `business_accounts.subscribe_app` @oitedi [208](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/208)
+- Send marketing templates through the Marketing Messages API via `messages.send_marketing_template`, and expose `message_status` on message responses. `send_template` now raises on a blank `language` and when both `components` and `components_json` are given @oitedi [207](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/207)
+- Add explicit WhatsApp Flow management operations through `client.flows` (`list`, `get`, `create`, `upload_json`, `publish`, `assets`) @oitedi [206](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/206)
+- Configure and reuse the HTTP transport per client: connection reuse per origin, configurable `adapter`, `request_options`, `multipart_request_options`, and `middleware`, plus `Client#close` @oitedi [205](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/205)
 - Allow callers to inspect the complete HTTP response with `raw_response: true` @oitedi [203](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/203)
 
 # v 1.2.0
