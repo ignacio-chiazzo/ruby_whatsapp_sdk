@@ -266,6 +266,39 @@ client.phone_numbers.deregister_number(SENDER_ID)
 
 </details>
 
+### Onboard a phone number
+
+```ruby
+phone = client.phone_numbers.add(
+  business_id: WABA_ID, country_code: "55", phone_number: "11999999999", verified_name: "Example Store"
+)
+client.phone_numbers.request_code(phone_number_id: phone.id, code_method: "SMS", language: "pt_BR")
+client.phone_numbers.verify_code(phone_number_id: phone.id, code: "001234")
+client.phone_numbers.register_number(phone.id, "123456")
+client.business_accounts.subscribe_app(business_id: WABA_ID)
+```
+
+Each call is explicit. Adding a number does not request a code, verify it, or register it.
+Code delivery accepts `SMS` or `VOICE` and is not retried automatically. Account permissions,
+onboarding state, and storage of identifiers remain the application's responsibility.
+See [Meta onboarding](https://developers.facebook.com/documentation/business-messaging/whatsapp/embedded-signup/onboarding-customers-as-a-tech-provider/).
+
+Configure the public key used by a phone number's Flow data exchange endpoint:
+
+```ruby
+client.phone_numbers.set_public_key(phone_number_id: PHONE_NUMBER_ID,
+                                   business_public_key: File.read("public.pem"))
+key = client.phone_numbers.get_public_key(phone_number_id: PHONE_NUMBER_ID)
+key.dig("data", 0, "business_public_key_signature_status") # VALID or MISMATCH
+```
+
+Pass the PEM text of a 2048-bit RSA public key. Private key storage and request decryption
+remain in your application. See [Meta's encryption setup](https://developers.facebook.com/documentation/business-messaging/whatsapp/flows/guides/whatsapp-business-encryption).
+
+The onboarding operations (`phone_numbers.add`, `request_code`, `verify_code`, `register_number`,
+`business_accounts.subscribe_app`) and `phone_numbers.set_public_key` also accept `raw_response: true`,
+which returns the unmodified `Faraday::Response`. Their default return values stay the same.
+
 ### Media API
 
 <details>

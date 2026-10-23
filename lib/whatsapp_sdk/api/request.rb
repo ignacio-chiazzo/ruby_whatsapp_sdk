@@ -14,14 +14,16 @@ module WhatsappSdk
         @client.download_file(url: url, content_type_header: content_type_header, file_path: file_path)
       end
 
-      def send_request(endpoint: nil, full_url: nil, http_method: "post", params: {}, headers: {}, multipart: false)
+      def send_request(endpoint: nil, full_url: nil, http_method: "post", params: {}, headers: {}, multipart: false,
+                       raw_response: false)
         @client.send_request(
           http_method: http_method,
           full_url: full_url,
           endpoint: endpoint,
           params: params,
           headers: headers,
-          multipart: multipart
+          multipart: multipart,
+          **(raw_response ? { raw_response: true } : {})
         )
       end
     end
