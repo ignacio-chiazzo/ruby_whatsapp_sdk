@@ -5,8 +5,12 @@ module WhatsappSdk
     class Message
       attr_reader :id
 
-      def initialize(id:)
+      # @return [String, nil] Message acceptance/pacing status, only when returned by Meta.
+      attr_reader :message_status
+
+      def initialize(id:, message_status: nil)
         @id = id
+        @message_status = message_status
       end
     end
   end

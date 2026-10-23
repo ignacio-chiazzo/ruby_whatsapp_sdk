@@ -373,37 +373,48 @@ module WhatsappSdk
       # @param recipient [String] Recipient' Business-Scoped User ID (BSUID). Optional alternative to recipient_number.
       #    Not allowed for authentication templates.
       # @return [MessageDataResponse] Response object.
+      # @raise [Resource::Errors::MissingArgumentError] If language, components or a destination are missing.
+      # @raise [ArgumentError] If both components and components_json are given.
       def send_template(
         sender_id:, name:, language:, recipient_number: nil, components: nil, components_json: nil, recipient: nil
       )
-        if !components && !components_json
-          raise Resource::Errors::MissingArgumentError,
-                "components or components_json is required"
-        end
-
-        params = {
-          messaging_product: "whatsapp",
-          recipient_type: "individual",
-          to: recipient_number,
-          type: "template",
-          template: {
-            name: name
-          }
-        }
-
-        params[:template][:language] = { code: language } if language
-        params[:template][:components] = if components.nil?
-                                           components_json
-                                         else
-                                           components.map(&:to_json)
-                                         end
-        apply_recipient!(params, recipient_number, recipient)
+        params = template_params(name: name, language: language, recipient_number: recipient_number,
+                                 components: components, components_json: components_json, recipient: recipient)
 
         response = send_request(
           endpoint: endpoint(sender_id),
           params: params,
           headers: DEFAULT_HEADERS
         )
+
+        Api::Responses::MessageDataResponse.build_from_response(response: response)
+      end
+
+      # Send an approved marketing template via Marketing Messages API.
+      # @param sender_id [String, Integer] Business phone number ID.
+      # @param name [String] Approved marketing template name.
+      # @param language [String] Template language code.
+      # @param recipient_number [String, Integer, nil] Phone number; takes precedence over recipient.
+      # @param components [Array<Resource::Component>, nil] Template component objects.
+      # @param components_json [Array<Hash>, nil] Raw components; use [] for a template without parameters.
+      # @param recipient [String, nil] BSUID or parent BSUID, used when the phone number is omitted.
+      # @param product_policy [String, Symbol, nil] STRICT or CLOUD_API_FALLBACK (any case); nil leaves it to Meta.
+      # @param message_activity_sharing [Boolean, nil] Turns message activity sharing on or off; nil leaves it to Meta.
+      # @return [Api::Responses::MessageDataResponse] IDs, contacts, and any message_status returned by Meta.
+      # @raise [Resource::Errors::MissingArgumentError] If language, components or a destination are missing.
+      # @raise [ArgumentError] If both components and components_json are given.
+      # @raise [Api::Responses::HttpResponseError] If Meta rejects the message.
+      def send_marketing_template(
+        sender_id:, name:, language:, recipient_number: nil, components: nil, components_json: nil, recipient: nil,
+        product_policy: nil, message_activity_sharing: nil, raw_response: false
+      )
+        params = template_params(name: name, language: language, recipient_number: recipient_number,
+                                 components: components, components_json: components_json, recipient: recipient)
+        params[:product_policy] = product_policy.to_s.upcase unless product_policy.nil?
+        params[:message_activity_sharing] = message_activity_sharing unless message_activity_sharing.nil?
+        response = send_request(endpoint: marketing_endpoint(sender_id), params: params, headers: DEFAULT_HEADERS,
+                                **(raw_response ? { raw_response: true } : {}))
+        return response if raw_response
 
         Api::Responses::MessageDataResponse.build_from_response(response: response)
       end
@@ -465,8 +476,43 @@ module WhatsappSdk
 
       private
 
+      def template_params(name:, language:, recipient_number:, components:, components_json:, recipient:)
+        validate_template_args!(language, components, components_json)
+
+        params = {
+          messaging_product: "whatsapp",
+          recipient_type: "individual",
+          to: recipient_number,
+          type: "template",
+          template: {
+            name: name
+          }
+        }
+
+        params[:template][:language] = { code: language }
+        params[:template][:components] = if components.nil?
+                                           components_json
+                                         else
+                                           components.map(&:to_json)
+                                         end
+        apply_recipient!(params, recipient_number, recipient)
+      end
+
+      def validate_template_args!(language, components, components_json)
+        if !components && !components_json
+          raise Resource::Errors::MissingArgumentError,
+                "components or components_json is required"
+        end
+        raise ArgumentError, "pass components or components_json, not both" if components && components_json
+        raise Resource::Errors::MissingArgumentError, "language is required" if language.to_s.strip.empty?
+      end
+
       def endpoint(sender_id)
         "#{sender_id}/messages"
+      end
+
+      def marketing_endpoint(sender_id)
+        "#{sender_id}/marketing_messages"
       end
 
       # Applies the destination to the payload.
