@@ -148,6 +148,23 @@ module WhatsappSdk
         end
       end
 
+      def test_list_templates_requests_the_page_after_the_cursor
+        record = { 'id' => '1', 'name' => 'hello_world', 'language' => 'en_US', 'status' => 'APPROVED',
+                   'category' => 'MARKETING', 'components' => [] }
+        request = stub_request(:get, "https://graph.facebook.com/#{ApiConfiguration::DEFAULT_API_VERSION}/123/message_templates")
+                  .with(query: { limit: '200', after: 'cursor+/=' })
+                  .to_return(body: { data: [record], paging: { cursors: { before: 'prev', after: 'next' } } }.to_json)
+
+        VCR.turned_off do
+          templates = @templates_api.list(business_id: 123, limit: 200, after: 'cursor+/=')
+
+          assert_equal(['hello_world'], templates.records.map(&:name))
+          assert_equal('prev', templates.before)
+          assert_equal('next', templates.after)
+        end
+        assert_requested(request, times: 1)
+      end
+
       def test_get_templates_when_empty_response_is_returned
         VCR.use_cassette('templates/get_templates_when_empty_response_is_returned') do
           templates = @templates_api.list(business_id: 114_503_234_599_312)

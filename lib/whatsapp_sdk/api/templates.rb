@@ -83,10 +83,12 @@ module WhatsappSdk
       #
       # @param business_id [Integer] The business ID.
       # @param limit [Integer] Optional. Number of templates to return in a single page.
+      # @param after [String, nil] Optional. Cursor from the previous page; nil requests the first page.
       # @return [Template] Pagination Record containing an array of Template objects.
-      def list(business_id:, limit: 100)
+      def list(business_id:, limit: 100, after: nil)
         params = {}
         params["limit"] = limit if limit
+        params["after"] = after if after
 
         response = send_request(
           endpoint: "#{business_id}/message_templates",
