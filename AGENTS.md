@@ -48,8 +48,6 @@ The code is hand-written (no code generation), with Faraday for HTTP and Zeitwer
 
 ## Constraints
 
-- **Ruby 2.7 compatibility** (`required_ruby_version >= 2.7`; CI tests 2.7 and 3.0). Don't use syntax or APIs added after 2.7: hash shorthand (`{ name: }`), anonymous argument forwarding (`def m(*, **, &)`), endless methods (`def x = 1`), `Hash#except` (3.0+), `Data.define`, and so on.
-- **Don't simplify `Client#initialize`.** Its positional and keyword handling exists for Ruby 2.x and backwards compatibility.
 - **Backwards compatibility matters.** Don't rename or remove public methods, keywords, or return types without a deprecation path. Breaking changes need a `**Breaking:**` CHANGELOG entry and the maintainer's approval.
 - **Leave validation to the API.** Send what the caller passed and let Meta return the error, instead of adding client-side checks that go stale. The existing enum checks (`Languages`, template categories, parameter formats) are established precedent, not a pattern to extend.
 - **Check claims about the API** against the [official Cloud API docs](https://developers.facebook.com/docs/whatsapp/cloud-api) before writing them into code, YARD or the README. Don't guess endpoint paths, field names or limits.
