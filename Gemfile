@@ -15,6 +15,7 @@ group(:test) do
 end
 
 group(:development) do
+  gem('ostruct') # pry 0.14 needs it; no longer a default gem in Ruby 4
   gem('pry')
   gem('pry-nav')
 end
