@@ -82,8 +82,8 @@ end
 ```
 
 Notes:
-- Optionally, you can specify the desired API version to use (defaults to the latest version if omitted).
-Available API version can be found [here](https://developers.facebook.com/docs/graph-api/changelog/versions).
+- Optionally, you can specify the desired API version to use. If omitted, it defaults to `WhatsappSdk::Api::ApiConfiguration::DEFAULT_API_VERSION` (currently `v19.0`), which is not the latest version, so we recommend setting it explicitly.
+The versions the SDK accepts are listed in `WhatsappSdk::Api::Client::API_VERSIONS`; any other value raises an `ArgumentError`. Meta's available versions can be found [here](https://developers.facebook.com/docs/graph-api/changelog/versions).
 - You can attach a logger. More Details on Faraday Logger Options are [here](https://lostisland.github.io/faraday/#/middleware/included/logging?id=logging).
 
 
@@ -738,7 +738,10 @@ Run `bundle exec rake install` to install this gem onto your local machine. To r
 - **Unit tests:** Run `rake test`
 - **Linters:** `bundle exec rubocop`
 
-To update the Cloud API version update the version in `lib/whatsapp_sdk/api/api_configuration.rb`. Check the [Cloud API changelog for API updates](https://developers.facebook.com/docs/whatsapp/business-platform/changelog#api-error-response-behavior).
+### Supporting a new Cloud API version
+
+To support a new Graph API version, add it to the front of `API_VERSIONS` in `lib/whatsapp_sdk/api/client.rb` and add a test in `test/whatsapp/api/client_test.rb` (see [#213](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/213)).
+`DEFAULT_API_VERSION` in `lib/whatsapp_sdk/api/api_configuration.rb` is the version used when callers don't set one; changing it affects every caller that relies on the default, so treat it as a breaking change. Check the [Cloud API changelog for API updates](https://developers.facebook.com/docs/whatsapp/business-platform/changelog#api-error-response-behavior).
 
 ## Contributing
 
