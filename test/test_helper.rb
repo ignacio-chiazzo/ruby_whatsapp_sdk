@@ -1,4 +1,3 @@
-# typed: true
 # frozen_string_literal: true
 
 $LOAD_PATH.unshift File.expand_path('../lib/whatsapp_sdk', __dir__)
