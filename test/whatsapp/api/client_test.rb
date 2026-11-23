@@ -171,6 +171,14 @@ module WhatsappSdk
         end
       end
 
+      def test_latest_api_versions
+        %w[v26.0 v27.0].each do |api_version|
+          assert_silent do
+            setup(api_version: api_version)
+          end
+        end
+      end
+
       def test_invalid_api_version
         invalid_api_version = 'invalid_version'
         assert_raises ArgumentError do
