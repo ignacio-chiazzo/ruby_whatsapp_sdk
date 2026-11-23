@@ -43,7 +43,7 @@ GEM
       pry (>= 0.9.10, < 0.15)
     public_suffix (5.1.1)
     rainbow (3.1.1)
-    rake (12.3.3)
+    rake (13.4.2)
     regexp_parser (2.5.0)
     rexml (3.4.2)
     rubocop (1.30.1)
@@ -89,7 +89,7 @@ DEPENDENCIES
   mocha
   pry
   pry-nav
-  rake (~> 12.3)
+  rake (~> 13.0)
   rubocop
   rubocop-minitest
   rubocop-performance
