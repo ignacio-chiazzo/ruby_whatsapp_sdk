@@ -3,7 +3,8 @@
 module WhatsappSdk
   module Api
     module Responses
-      # HTTP response returned by `send_request(raw_response: true)`, independent of the HTTP library.
+      # HTTP response returned by `send_request(raw_response: true)` when the client is built with
+      # `sdk_raw_response: true`, independent of the HTTP library.
       class RawResponse
         # Response headers. Keys are stored in lowercase and lookups ignore case.
         class Headers < Hash
@@ -40,32 +41,15 @@ module WhatsappSdk
         # @param status [Integer] HTTP status code.
         # @param headers [Hash] Response headers.
         # @param body [String, nil] Unparsed response body.
-        # @param transport_response [Object, nil] @api private The HTTP library's response, kept only so the
-        #   deprecated methods below keep working.
-        def initialize(status:, headers: {}, body: nil, transport_response: nil)
+        def initialize(status:, headers: {}, body: nil)
           @status = status
           @headers = Headers.new(headers || {})
           @body = body
-          @transport_response = transport_response
         end
 
         # @return [Boolean] Whether the status is 2xx.
         def success?
           status >= 200 && status < 300
-        end
-
-        # Raw responses used to be Faraday::Response objects. Other Faraday::Response methods still work for now,
-        # but warn and will be removed in a future major version.
-        def method_missing(name, *args, &block)
-          return super unless @transport_response.respond_to?(name)
-
-          warn("[DEPRECATION] WhatsappSdk raw responses are no longer Faraday::Response objects; " \
-               "`#{name}` will be removed. Use status, headers, body or success? instead.", uplevel: 1)
-          @transport_response.public_send(name, *args, &block)
-        end
-
-        def respond_to_missing?(name, include_private = false)
-          @transport_response.respond_to?(name) || super
         end
       end
     end

@@ -33,7 +33,7 @@ module WhatsappSdk
           refute_predicate(RawResponse.new(status: 500), :success?)
         end
 
-        def test_without_transport_response_unknown_methods_raise
+        def test_does_not_expose_http_library_methods
           response = RawResponse.new(status: 200)
 
           refute_respond_to(response, :env)

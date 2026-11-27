@@ -346,8 +346,8 @@ remain in your application. See [Meta's encryption setup](https://developers.fac
 
 The onboarding operations (`phone_numbers.add`, `request_code`, `verify_code`, `register_number`,
 `business_accounts.subscribe_app`) and `phone_numbers.set_public_key` also accept `raw_response: true`,
-which returns the HTTP response as `WhatsappSdk::Api::Responses::RawResponse` (see below). Their default return
-values stay the same.
+which returns the HTTP response (see [Inspect the complete HTTP response](#inspect-the-complete-http-response)).
+Their default return values stay the same.
 
 ### Media API
 
@@ -700,11 +700,21 @@ response.headers
 response.body
 ```
 
-`raw_response: true` returns a `WhatsappSdk::Api::Responses::RawResponse` with `status`, `headers`
-(case-insensitive lookup) and the unparsed `body`, including empty or non-JSON error bodies, plus `success?`
-for 2xx statuses. The caller must check the HTTP status and parse the body. It no longer is a `Faraday::Response`:
-other Faraday methods still work but print a deprecation warning and will be removed. The default mode
+`raw_response: true` returns the response without parsing it or raising for errors, including empty or non-JSON
+error bodies. The caller must check the HTTP status and parse the body. The default mode
 returns parsed JSON and raises `HttpResponseError` for Graph API errors and for any HTTP status of 400 or above. Transport exceptions still propagate.
+
+By default the raw response is the unmodified `Faraday::Response`. This is deprecated: opt in to the SDK-owned
+`WhatsappSdk::Api::Responses::RawResponse`, which becomes the only behaviour in the next major release:
+
+```ruby
+client = WhatsappSdk::Api::Client.new("<ACCESS TOKEN>", "v25.0", sdk_raw_response: true)
+# or, for the global configuration and clients built without the keyword:
+WhatsappSdk.configure { |config| config.sdk_raw_response = true }
+```
+
+`RawResponse` exposes `status`, `headers` (lookups ignore case), the unparsed `body`, and `success?` for 2xx
+statuses. It does not forward other `Faraday::Response` methods.
 
 ### Manage WhatsApp Flows
 

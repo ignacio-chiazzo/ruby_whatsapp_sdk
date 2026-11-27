@@ -34,7 +34,7 @@ module WhatsappSdk
             request = stub_request(:post, "https://graph.facebook.com/v24.0/#{endpoint}")
                       .to_return(status: status, body: body, headers: { 'Retry-After' => '30' })
             response = operation.call
-            assert_instance_of(Api::Responses::RawResponse, response)
+            assert_instance_of(Faraday::Response, response)
             assert_equal(status, response.status)
             assert_equal(body, response.body)
             assert_equal('30', response.headers['retry-after'])
@@ -46,6 +46,19 @@ module WhatsappSdk
 
       def setup
         @client = Client.new('store-token', 'v24.0')
+      end
+
+      def test_raw_onboarding_returns_raw_response_when_the_client_opts_in
+        client = Client.new('store-token', 'v24.0', sdk_raw_response: true)
+        stub_request(:post, 'https://graph.facebook.com/v24.0/phone/register')
+          .to_return(status: 502, body: '<html>Bad gateway</html>', headers: { 'Retry-After' => '30' })
+
+        response = client.phone_numbers.register_number('phone', '001234', raw_response: true)
+
+        assert_instance_of(Api::Responses::RawResponse, response)
+        assert_equal(502, response.status)
+        assert_equal('<html>Bad gateway</html>', response.body)
+        assert_equal('30', response.headers['Retry-After'])
       end
 
       def test_adds_a_phone_number_without_implicitly_requesting_a_code_or_registering

@@ -10,7 +10,7 @@ module WhatsappSdk
   # The gem have access to the client through WhatsappSdk.configuration.client
   class Configuration
     SETTINGS = %i[access_token api_version logger logger_options adapter request_options
-                  multipart_request_options middleware].freeze
+                  multipart_request_options middleware sdk_raw_response].freeze
     # Stored frozen, so editing them in place raises instead of being ignored by the cached client.
     HASH_SETTINGS = %i[logger_options request_options multipart_request_options].freeze
     REQUEST_OPTION_SETTINGS = %i[request_options multipart_request_options].freeze
@@ -45,6 +45,7 @@ module WhatsappSdk
       @request_options = {}.freeze
       @multipart_request_options = {}.freeze
       @middleware = nil
+      @sdk_raw_response = false
       @mutex = Mutex.new
     end
 
@@ -55,7 +56,7 @@ module WhatsappSdk
         @client ||= Api::Client.new(
           access_token, api_version, logger, logger_options,
           adapter: adapter, request_options: request_options, multipart_request_options: multipart_request_options,
-          middleware: middleware
+          middleware: middleware, sdk_raw_response: sdk_raw_response
         )
       end
     end
