@@ -34,7 +34,7 @@ module WhatsappSdk
             request = stub_request(:post, "https://graph.facebook.com/v24.0/#{endpoint}")
                       .to_return(status: status, body: body, headers: { 'Retry-After' => '30' })
             response = operation.call
-            assert_instance_of(Faraday::Response, response)
+            assert_instance_of(Api::Responses::RawResponse, response)
             assert_equal(status, response.status)
             assert_equal(body, response.body)
             assert_equal('30', response.headers['retry-after'])

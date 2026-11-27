@@ -120,7 +120,7 @@ module WhatsappSdk
 
         response = @client.send_request(endpoint: 'test', raw_response: true)
 
-        assert_instance_of(Faraday::Response, response)
+        assert_instance_of(Api::Responses::RawResponse, response)
         assert_equal(200, response.status)
         assert_equal('{"messages":[{"id":"wamid"}]}', response.body)
       end
@@ -151,6 +151,32 @@ module WhatsappSdk
 
         assert_equal(502, response.status)
         assert_equal('<html>Bad gateway</html>', response.body)
+      end
+
+      def test_send_request_raw_response_exposes_status_headers_and_body_without_faraday
+        stub_raw_request(status: 429, body: '{"error":{}}',
+                         headers: { 'Retry-After' => '30', 'Content-Type' => 'application/json' })
+
+        response = @client.send_request(endpoint: 'test', raw_response: true)
+
+        refute_kind_of(Faraday::Response, response)
+        refute_predicate(response, :success?)
+        assert_equal(429, response.status)
+        assert_equal('{"error":{}}', response.body)
+        assert_instance_of(Api::Responses::RawResponse::Headers, response.headers)
+        assert_equal('30', response.headers.fetch('retry-after'))
+        assert_equal('application/json', response.headers['CONTENT-TYPE'])
+      end
+
+      def test_send_request_raw_response_keeps_deprecated_faraday_methods_working
+        stub_raw_request(status: 200, body: '{}')
+
+        response = @client.send_request(endpoint: 'test', raw_response: true)
+
+        assert_respond_to(response, :reason_phrase)
+        _, err = capture_io { assert_equal(200, response.to_hash[:status]) }
+        assert_match(/DEPRECATION.*to_hash/, err)
+        assert_raises(NoMethodError) { response.not_a_response_method }
       end
 
       def test_set_api_version_in_config
