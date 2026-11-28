@@ -153,6 +153,54 @@ module WhatsappSdk
         assert_equal('<html>Bad gateway</html>', response.body)
       end
 
+      def test_send_request_raw_response_with_sdk_raw_response_returns_raw_response
+        stub_raw_request(status: 429, body: '<html>Rate limited</html>',
+                         headers: { 'Retry-After' => '30', 'Content-Type' => 'text/html' })
+        client = Client.new(@access_token, @api_version, sdk_raw_response: true)
+
+        response = client.send_request(endpoint: 'test', raw_response: true)
+
+        assert_instance_of(Api::Responses::RawResponse, response)
+        refute_respond_to(response, :env)
+        refute_predicate(response, :success?)
+        assert_equal(429, response.status)
+        assert_equal('<html>Rate limited</html>', response.body)
+        assert_equal('30', response.headers['retry-after'])
+        assert_equal('text/html', response.headers.fetch('CONTENT-TYPE'))
+      end
+
+      def test_send_request_with_sdk_raw_response_keeps_the_parsed_default_mode
+        stub_raw_request(status: 200, body: '{"success":true}')
+        client = Client.new(@access_token, @api_version, sdk_raw_response: true)
+
+        assert_equal({ 'success' => true }, client.send_request(endpoint: 'test'))
+      end
+
+      def test_sdk_raw_response_defaults_to_the_global_configuration
+        stub_raw_request(status: 200, body: '{}')
+        WhatsappSdk.configure { |config| config.sdk_raw_response = true }
+
+        response = Client.new(@access_token, @api_version).send_request(endpoint: 'test', raw_response: true)
+
+        assert_instance_of(Api::Responses::RawResponse, response)
+      ensure
+        WhatsappSdk.configure { |config| config.sdk_raw_response = false }
+      end
+
+      def test_configuration_client_uses_its_own_sdk_raw_response_setting
+        stub_raw_request(status: 200, body: '{}')
+        config = WhatsappSdk::Configuration.new(@access_token, @api_version)
+        legacy_client = config.client
+
+        assert_instance_of(Faraday::Response, legacy_client.send_request(endpoint: 'test', raw_response: true))
+
+        config.sdk_raw_response = true
+        client = config.client
+
+        refute_same(legacy_client, client)
+        assert_instance_of(Api::Responses::RawResponse, client.send_request(endpoint: 'test', raw_response: true))
+      end
+
       def test_set_api_version_in_config
         WhatsappSdk.configure do |config|
           config.api_version = 'v16.0'

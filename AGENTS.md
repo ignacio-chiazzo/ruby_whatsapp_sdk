@@ -18,7 +18,7 @@ The code is hand-written (no code generation), with Faraday for HTTP and Zeitwer
 
 - `lib/whatsapp_sdk/api/client.rb`: `Api::Client` holds the token and API version, caches Faraday connections per origin, and exposes the API objects (`client.messages`, `client.media`, `client.templates`, `client.phone_numbers`, `client.business_profiles`, `client.business_accounts`, `client.flows`). `send_request` parses JSON and raises `Api::Responses::HttpResponseError` for any status >= 400 or a Graph `error` body, unless the caller passes `raw_response: true`.
 - `lib/whatsapp_sdk/api/*.rb`: one class per API area, each inheriting from `Api::Request`, which forwards to the client. Public methods take keyword arguments, call `send_request(endpoint:, http_method:, params:, headers:)`, and return a resource or response object.
-- `lib/whatsapp_sdk/api/responses/`: response wrappers (`MessageDataResponse`, `SuccessResponse`, `IdResponse`, `PaginationRecords`, `HttpResponseError`, `GenericErrorResponse`).
+- `lib/whatsapp_sdk/api/responses/`: response wrappers (`MessageDataResponse`, `SuccessResponse`, `IdResponse`, `PaginationRecords`, `HttpResponseError`, `GenericErrorResponse`, `RawResponse`).
 - `lib/whatsapp_sdk/resource/`: value objects and enums (`Template`, `Message`, `Interactive*`, `Languages`, ...). Objects built from API data use `self.from_hash`; objects sent to the API implement `to_json` (or `to_h`).
 - `lib/whatsapp_sdk/configuration.rb`: the global `WhatsappSdk.configure` singleton. `Client.new` defaults to its values.
 - `example.rb`: a manual script that calls the real API with a real token. It is not run in CI and rubocop excludes it.

@@ -48,6 +48,19 @@ module WhatsappSdk
         @client = Client.new('store-token', 'v24.0')
       end
 
+      def test_raw_onboarding_returns_raw_response_when_the_client_opts_in
+        client = Client.new('store-token', 'v24.0', sdk_raw_response: true)
+        stub_request(:post, 'https://graph.facebook.com/v24.0/phone/register')
+          .to_return(status: 502, body: '<html>Bad gateway</html>', headers: { 'Retry-After' => '30' })
+
+        response = client.phone_numbers.register_number('phone', '001234', raw_response: true)
+
+        assert_instance_of(Api::Responses::RawResponse, response)
+        assert_equal(502, response.status)
+        assert_equal('<html>Bad gateway</html>', response.body)
+        assert_equal('30', response.headers['Retry-After'])
+      end
+
       def test_adds_a_phone_number_without_implicitly_requesting_a_code_or_registering
         request = stub_request(:post, 'https://graph.facebook.com/v24.0/waba/phone_numbers')
                   .with(headers: { 'Authorization' => 'Bearer store-token', 'Content-Type' => 'application/json' },

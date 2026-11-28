@@ -24,6 +24,9 @@ module WhatsappSdk
       # @param request_options [Hash] Faraday request options, such as open_timeout and timeout in seconds.
       # @param multipart_request_options [Hash] Overrides applied only to multipart requests.
       # @param middleware [Proc, nil] Called with each new Faraday builder to add middleware, such as faraday-retry.
+      # @param sdk_raw_response [Boolean] Opt in to returning {Api::Responses::RawResponse} from
+      #   `raw_response: true` instead of the deprecated Faraday::Response. It becomes the default in the next major
+      #   release, and this keyword stays accepted there (`true` is then a no-op).
       # @param legacy_logger_options [Hash] Logger options supplied as keywords. With a logger, every key is passed to
       #   Faraday's logger, so custom formatter options keep working. Without one, only logger keys are accepted.
       # @raise [ArgumentError] If a keyword, request option, or API version is unsupported.
@@ -36,6 +39,7 @@ module WhatsappSdk
         request_options: WhatsappSdk.configuration.request_options,
         multipart_request_options: WhatsappSdk.configuration.multipart_request_options,
         middleware: WhatsappSdk.configuration.middleware,
+        sdk_raw_response: WhatsappSdk.configuration.sdk_raw_response,
         **legacy_logger_options
       )
         # Ruby 2.x turns a positional logger_options hash into keywords, so with a logger every key is a logger option.
@@ -52,6 +56,7 @@ module WhatsappSdk
         @request_options = request_options.dup.freeze
         @multipart_request_options = multipart_request_options.dup.freeze
         @middleware = middleware
+        @sdk_raw_response = sdk_raw_response
         @connections = {}
         @connections_mutex = Mutex.new
 
@@ -98,8 +103,10 @@ module WhatsappSdk
         @templates ||= WhatsappSdk::Api::Templates.new(self)
       end
 
-      # @param raw_response [Boolean] Return the Faraday response without JSON parsing or HTTP error raising.
-      # @return [Hash, Array, nil, Faraday::Response] Parsed JSON, or the unmodified HTTP response when requested.
+      # @param raw_response [Boolean] Return the HTTP response without JSON parsing or HTTP error raising.
+      # @return [Hash, Array, nil, Api::Responses::RawResponse, Faraday::Response] Parsed JSON; with raw_response, a
+      #   RawResponse when the client was built with sdk_raw_response: true, otherwise the deprecated
+      #   Faraday::Response.
       # @raise [Api::Responses::HttpResponseError] For HTTP or Graph errors in the default parsed mode.
       def send_request(endpoint: "", full_url: nil, http_method: "post", params: {}, headers: {}, multipart: false,
                        raw_response: false)
@@ -108,7 +115,7 @@ module WhatsappSdk
         response = connection_for(url, multipart).public_send(http_method, url.to_s, request_params(params, headers),
                                                               headers)
 
-        return response if raw_response
+        return raw_response_for(response) if raw_response
 
         parsed_body = parse_response_body(response.body)
 
@@ -153,6 +160,12 @@ module WhatsappSdk
       end
 
       private
+
+      def raw_response_for(response)
+        return response unless @sdk_raw_response
+
+        Api::Responses::RawResponse.new(status: response.status, headers: response.headers, body: response.body)
+      end
 
       def parse_response_body(body)
         return nil if body.nil? || body.empty?
