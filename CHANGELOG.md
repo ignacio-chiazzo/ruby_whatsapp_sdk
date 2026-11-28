@@ -1,5 +1,5 @@
 # Unreleased
-- Add the `sdk_raw_response` client and configuration option: `raw_response: true` then returns an SDK-owned `Responses::RawResponse` (`status`, `headers`, `body`, `success?`) instead of `Faraday::Response`. Returning `Faraday::Response` from `raw_response: true` is deprecated; the SDK-owned response becomes the default in the next major release. @KainanP [219](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/219)
+- Add the `sdk_raw_response` client and configuration option: `raw_response: true` then returns an SDK-owned `Responses::RawResponse` (`status`, `headers`, `body`, `success?`) instead of `Faraday::Response`. Returning `Faraday::Response` from `raw_response: true` is deprecated; the SDK-owned response becomes the default in the next major release, where `sdk_raw_response` stays accepted (`true` becomes a no-op). @KainanP [219](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/219)
 
 # v 2.0.0
 - Add support for v26.0 and v27.0 API. @dominikklein [213](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/213)

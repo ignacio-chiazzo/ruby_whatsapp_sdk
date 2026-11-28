@@ -25,8 +25,8 @@ module WhatsappSdk
       # @param multipart_request_options [Hash] Overrides applied only to multipart requests.
       # @param middleware [Proc, nil] Called with each new Faraday builder to add middleware, such as faraday-retry.
       # @param sdk_raw_response [Boolean] Opt in to returning {Api::Responses::RawResponse} from
-      #   `raw_response: true` instead of the deprecated Faraday::Response. It becomes the only behaviour in the next
-      #   major release.
+      #   `raw_response: true` instead of the deprecated Faraday::Response. It becomes the default in the next major
+      #   release, and this keyword stays accepted there (`true` is then a no-op).
       # @param legacy_logger_options [Hash] Logger options supplied as keywords. With a logger, every key is passed to
       #   Faraday's logger, so custom formatter options keep working. Without one, only logger keys are accepted.
       # @raise [ArgumentError] If a keyword, request option, or API version is unsupported.

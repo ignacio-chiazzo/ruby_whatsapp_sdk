@@ -28,9 +28,38 @@ module WhatsappSdk
           assert_predicate(headers, :frozen?)
         end
 
+        def test_headers_is_a_read_only_wrapper_not_a_hash
+          headers = RawResponse.new(status: 200, headers: { 'Retry-After' => '30' }).headers
+
+          refute_kind_of(Hash, headers)
+          refute_respond_to(headers, :dig)
+          refute_respond_to(headers, :merge)
+          refute_respond_to(headers, :[]=)
+          assert_equal([%w[retry-after 30]], headers.to_a)
+          assert_equal([%w[retry-after 30]], headers.each.to_a)
+          copy = headers.to_h
+          copy['x-new'] = '1'
+          refute(headers.key?('x-new'))
+        end
+
+        def test_headers_from_faraday_utils_headers
+          faraday_headers = Faraday::Utils::Headers.new('Retry-After' => '30', 'content-type' => 'text/html')
+          headers = RawResponse.new(status: 429, headers: faraday_headers).headers
+
+          assert_equal('30', headers['retry-after'])
+          assert_equal('30', headers['Retry-After'])
+          assert_equal('text/html', headers.fetch('Content-Type'))
+          assert_equal({ 'retry-after' => '30', 'content-type' => 'text/html' }, headers.to_h)
+        end
+
         def test_success_is_false_outside_2xx
           refute_predicate(RawResponse.new(status: 302), :success?)
           refute_predicate(RawResponse.new(status: 500), :success?)
+        end
+
+        def test_success_is_false_without_an_integer_status
+          refute_predicate(RawResponse.new(status: nil), :success?)
+          refute_predicate(RawResponse.new(status: '200'), :success?)
         end
 
         def test_does_not_expose_http_library_methods

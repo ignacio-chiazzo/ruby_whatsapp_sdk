@@ -187,6 +187,20 @@ module WhatsappSdk
         WhatsappSdk.configure { |config| config.sdk_raw_response = false }
       end
 
+      def test_configuration_client_uses_its_own_sdk_raw_response_setting
+        stub_raw_request(status: 200, body: '{}')
+        config = WhatsappSdk::Configuration.new(@access_token, @api_version)
+        legacy_client = config.client
+
+        assert_instance_of(Faraday::Response, legacy_client.send_request(endpoint: 'test', raw_response: true))
+
+        config.sdk_raw_response = true
+        client = config.client
+
+        refute_same(legacy_client, client)
+        assert_instance_of(Api::Responses::RawResponse, client.send_request(endpoint: 'test', raw_response: true))
+      end
+
       def test_set_api_version_in_config
         WhatsappSdk.configure do |config|
           config.api_version = 'v16.0'

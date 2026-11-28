@@ -705,7 +705,8 @@ error bodies. The caller must check the HTTP status and parse the body. The defa
 returns parsed JSON and raises `HttpResponseError` for Graph API errors and for any HTTP status of 400 or above. Transport exceptions still propagate.
 
 By default the raw response is the unmodified `Faraday::Response`. This is deprecated: opt in to the SDK-owned
-`WhatsappSdk::Api::Responses::RawResponse`, which becomes the only behaviour in the next major release:
+`WhatsappSdk::Api::Responses::RawResponse`, which becomes the default in the next major release. The
+`sdk_raw_response` option stays accepted there (`true` becomes a no-op), so opting in now won't break on upgrade:
 
 ```ruby
 client = WhatsappSdk::Api::Client.new("<ACCESS TOKEN>", "v25.0", sdk_raw_response: true)
@@ -713,8 +714,9 @@ client = WhatsappSdk::Api::Client.new("<ACCESS TOKEN>", "v25.0", sdk_raw_respons
 WhatsappSdk.configure { |config| config.sdk_raw_response = true }
 ```
 
-`RawResponse` exposes `status`, `headers` (lookups ignore case), the unparsed `body`, and `success?` for 2xx
-statuses. It does not forward other `Faraday::Response` methods.
+`RawResponse` exposes `status`, `headers`, the unparsed `body`, and `success?` for 2xx statuses. It does not forward
+other `Faraday::Response` methods. `headers` is read-only and not a Hash: `[]`, `fetch` and `key?` ignore case,
+while `each` and `to_h` yield lowercase names.
 
 ### Manage WhatsApp Flows
 
