@@ -1,4 +1,5 @@
 # Unreleased
+- Add `client.oauth.exchange_token_code` to exchange an Embedded Signup token code for a business token. @KainanP [221](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/221)
 
 # v 2.0.0
 - Add support for v26.0 and v27.0 API. @dominikklein [213](https://github.com/ignacio-chiazzo/ruby_whatsapp_sdk/pull/213)
