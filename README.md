@@ -315,6 +315,23 @@ client.phone_numbers.deregister_number(SENDER_ID)
 
 </details>
 
+### Exchange an Embedded Signup token code
+
+Exchange the token code returned by Embedded Signup for a business token (a business integration system user
+access token):
+
+```ruby
+token = client.oauth.exchange_token_code(app_id: APP_ID, app_secret: APP_SECRET, code: CODE)
+token.access_token # the business token
+token.expires_in   # seconds until it expires, or nil when Graph does not return it
+
+business_client = WhatsappSdk::Api::Client.new(token.access_token)
+```
+
+This sends `GET /oauth/access_token` with `client_id`, `client_secret` and `code`. Keep the app secret on your
+server, and store the business token securely. See
+[Meta's Embedded Signup onboarding guide](https://developers.facebook.com/docs/whatsapp/embedded-signup/onboarding-customers-as-a-solution-partner).
+
 ### Onboard a phone number
 
 ```ruby

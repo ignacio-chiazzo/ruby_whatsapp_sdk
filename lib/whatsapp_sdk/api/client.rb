@@ -98,6 +98,11 @@ module WhatsappSdk
         @templates ||= WhatsappSdk::Api::Templates.new(self)
       end
 
+      # @return [Api::Oauth] OAuth operations, such as exchanging an Embedded Signup token code.
+      def oauth
+        @oauth ||= WhatsappSdk::Api::Oauth.new(self)
+      end
+
       # @param raw_response [Boolean] Return the Faraday response without JSON parsing or HTTP error raising.
       # @return [Hash, Array, nil, Faraday::Response] Parsed JSON, or the unmodified HTTP response when requested.
       # @raise [Api::Responses::HttpResponseError] For HTTP or Graph errors in the default parsed mode.
